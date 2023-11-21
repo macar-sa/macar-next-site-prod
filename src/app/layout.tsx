@@ -1,8 +1,21 @@
+import localFont from "next/font/local";
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 import './globals.css'
+import { Providers } from "./providers";
+import { NavBar } from "./_components/navbar";
+import { Footer } from "./_components/footer";
 
-const inter = Inter({ subsets: ['latin'] })
+const open_sans = Open_Sans({ subsets: ['latin'] })
+const raptor = localFont({
+  src: [
+    {
+      path: "../../public/fonts/raptor/Semibold.otf",
+      weight: "600"
+    }
+  ],
+  variable: "--font-raptor"
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +29,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+      <body className={`${open_sans.className} text-text bg-background antialiased`}>
+        <Providers>
+          <NavBar />
+          {children}
+          <Footer />
+        </Providers></body>
+    </html >
   )
 }
