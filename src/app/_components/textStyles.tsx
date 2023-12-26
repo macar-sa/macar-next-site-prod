@@ -19,7 +19,7 @@ export const MainHeading = ({
 }) => {
     return (
         <div
-            className={`${raptor.className} text-4xl lg:text-6xl 2xl:text-7xl max-w-[20ch] text-headings ${customClasses}`}
+            className={`${raptor.className} leading-loose text-4xl lg:text-6xl 2xl:text-7xl max-w-[20ch] text-headings ${customClasses}`}
         >
             {children}
         </div>

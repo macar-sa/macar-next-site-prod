@@ -1,6 +1,17 @@
+import localFont from "next/font/local";
 import { useRef, useState } from "react";
 import { P } from "./textStyles";
 import { motion } from "framer-motion";
+
+const raptor = localFont({
+    src: [
+        {
+            path: "../../../public/fonts/raptor/Semibold.otf",
+            weight: "600"
+        }
+    ],
+    variable: "--font-raptor"
+})
 
 export const Card = ({
     children,
@@ -39,19 +50,18 @@ export const Card = ({
             onMouseLeave={() => {
                 setOpacity(0);
             }}
-            className={`z-20 relative overflow-clip px-5 py-6 border border-card-border bg-cardbackground backdrop-blur-lg transition-all duration-300 hover:border-font-gray ${customClasses}`}
+            className={`rounded z-20 relative overflow-clip px-12 py-10 border border-neutral-100 bg-cardbackground backdrop-blur-lg transition-all duration-300 hover:border-blue-500 ${customClasses}`}
         >
             {children && (
                 <div className="relative z-10 w-12 h-12  md:w-12 md:h-12 flex flex-col items-start justify-center">
                     {children}
                 </div>
             )}
-            <h4
-                style={{ fontFamily: 'var(--font-raptor)', fontWeight: 600 }}
-                className={`text-sm lg:text-base 2xl:text-lg relative z-10 ${children ? "mt-8" : ""}`}
+            <h3
+                className={`${raptor.className} text-base lg:text-lg 2xl:text-xl relative z-10 ${children ? "mt-8" : ""}`}
             >
                 {title}
-            </h4>
+            </h3>
             <P
                 content={description}
                 customClasses="text-font-gray mt-3 relative z-10"
@@ -59,7 +69,7 @@ export const Card = ({
             <motion.div
                 style={{ x: x, y: y }}
                 transition={{ duration: 10, type: "inertia", stiffness: 500 }}
-                className={`h-96 w-96 bg-neutral-50/5 absolute top-0 left-0 rounded-full blur-2xl opacity-${opacity} transition-opacity duration-300 ease-in-out`}
+                className={`h-96 w-96 bg-blue-100 absolute top-0 left-0 rounded-full blur-2xl opacity-${opacity} transition-opacity duration-300 ease-in-out`}
             />
         </div>
     );

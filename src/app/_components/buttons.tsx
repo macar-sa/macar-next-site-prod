@@ -38,7 +38,7 @@ export const PrimaryButton = ({
     onClick?: any;
 }) => {
     return (
-        <Link className="" onClick={onClick} href={href}>
+        <Link className="display: inline-block" onClick={onClick} href={href}>
             <div
                 className={`group rounded-full relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-accent1 text-background font-regular ${customClasses}`}
             >
