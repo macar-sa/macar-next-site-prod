@@ -12,6 +12,7 @@ import {
     NavbarMenuItem,
 } from "@nextui-org/react";
 import Link from "next/link";
+import { contact_form } from "@/components/contact_form";
 
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,7 +63,7 @@ export const NavBar = () => {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <PrimaryButton content="Contactez-nous" href="#" />
+                    <PrimaryButton content="Contactez-nous" href="/#contact-form" />
                 </NavbarItem>
             </NavbarContent>
             <NavbarMenu>
