@@ -11,7 +11,7 @@ import { SecondHeading } from "@/app/_components/textStyles"
 
 export function contact_form() {
   return (
-    <Card className="mx-auto max-w-md p-6 bg-white rounded-xl shadow-md space-y-6">
+    <Card className="mx-auto max-w-md px-1 sm:px-4 py-4 bg-white rounded-xl shadow-md space-y-6">
       <CardContent>
         <div className="space-y-8">
           <div className="space-y-2">

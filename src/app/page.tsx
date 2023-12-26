@@ -17,7 +17,7 @@ export default function Home() {
               Votre Partenaire pour Toute Rénovation
             </h1>
           </MainHeading>
-          <P customClasses='col-span-2' content="Chez Macar, nous combinons expertise et passion pour transformer vos espaces. Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture. Nous offrons des solutions personnalisées, alliant qualité et fonctionnalité, pour répondre à tous vos besoins" />
+          <P customClasses='col-span-2' content="Chez Macar, nous combinons expertise et passion pour transformer vos espaces. Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture. Nous offrons des solutions personnalisées, alliant qualité et fonctionnalité, pour répondre à tous vos besoins." />
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
@@ -35,8 +35,13 @@ export default function Home() {
             <SecondHeading>
               <h2>Services</h2>
             </SecondHeading>
-            <P customClasses="mt-4" content="Chez Macar, notre engagement envers nos clients est clair : nous croyons en la confiance,
-                la transparence et la qualité à chaque étape de notre travail." />
+            <P customClasses="mt-4">
+              Chez Macar, notre engagement envers nos clients est clair : nous croyons en la
+              <span className="text-accent1"> confiance</span>,
+              <span className="text-accent1"> transparence</span>, et la
+              <span className="text-accent1"> qualité </span>
+              à chaque étape de notre travail.
+            </P>
             <div className="mt-10">
               <PrimaryButton
                 content="Contactez nous"
