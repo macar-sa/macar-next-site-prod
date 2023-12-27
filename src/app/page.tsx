@@ -11,13 +11,13 @@ export default function Home() {
     <main className="flex min-h-screen flex-col">
 
       <Screen name="landing page">
-        <div className="lg:mt-20 grid lg:grid-cols-5 gap-8">
+        <div className="lg:mt-16 grid lg:grid-cols-5 gap-8">
           <MainHeading customClasses='col-span-3'>
             <h1 className="leading-tight">
               Votre Partenaire pour Toute Rénovation
             </h1>
           </MainHeading>
-          <P customClasses='col-span-2' content="Chez Macar, nous combinons expertise et passion pour transformer vos espaces. Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture. Nous offrons des solutions personnalisées, alliant qualité et fonctionnalité, pour répondre à tous vos besoins." />
+          <P customClasses='col-span-2' content="Chez Macar, nous combinons expertise et passion pour transformer vos espaces. Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture. Nous offrons des solutions personnalisées, alliant qualité et professionalisme, pour répondre à tous vos besoins." />
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
@@ -29,7 +29,7 @@ export default function Home() {
         </div>
       </Screen>
 
-      <Screen name="Services">
+      <Screen name="Services" id="services">
         <div className="md:flex md:items-start justify-between">
           <div className="md:flex-shrink-0 md:w-1/3">
             <SecondHeading>
@@ -65,7 +65,7 @@ export default function Home() {
                   width={100}
                   height={100} />
               </Card>
-              <Card title="Installation électrique" description="La sécurité électrique est essentielle. Faites confiance à notre équipe qualifiée pour des installations électriques fiables et conformes à toutes les normes."
+              <Card title="Installation Electrique" description="La sécurité électrique est essentielle. Faites confiance à notre équipe qualifiée pour des tions électriques fiables et conformes à toutes les normes."
               >
                 <Image
                   src="/sevices/Installation Electrique.png"
@@ -93,7 +93,6 @@ export default function Home() {
           {contact_form()}
         </div>
       </Screen>
-
     </main >
   )
 }

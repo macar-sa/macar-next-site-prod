@@ -19,11 +19,12 @@ export const NavBar = () => {
 
     const menuKey = isMenuOpen ? "open" : "closed";
     const menuItems = [
-        { name: "Acceuil", href: "/#services", type: "item" },
+        { name: "Acceuil", href: "/#", type: "item" },
         { name: "A propos de nous", href: "/#apropos", type: "item" },
+        { name: "Services", href: "/#services", type: "item" },
         {
-            name: "Services",
-            href: "/#services",
+            name: "Jobs",
+            href: "/job",
             type: "item",
         },
     ];

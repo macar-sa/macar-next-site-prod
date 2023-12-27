@@ -8,7 +8,8 @@ export const Footer = () => {
     const menuItems = [
         { name: "Acceuil", href: "#" },
         { name: "A propos de nous", href: "#" },
-        { name: "Services", href: "#" },
+        { name: "Services", href: "/#services" },
+        { name: "Jobs", href: "/job" },
     ];
     return (
         <div className="pt-28 pb-14">
