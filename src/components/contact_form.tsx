@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
-import { SecondHeading } from "@/app/_components/textStyles"
+import { P, SecondHeading } from "@/app/_components/textStyles"
 import React, { useState } from "react";
 import { z } from "zod";
 import axios from "axios";
@@ -34,75 +34,96 @@ export function contact_form() {
     message: "",
   });
   const [validationErrors, setValidationErrors] = useState<ValidationErrorsType>({});
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+  const [backendError, setBackendError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setValidationErrors({}); // Reset errors
+    setValidationErrors({});
+
     try {
-      contactFormSchema.parse(formData);
-      // Form data is valid, send it to the "getform.io" endpoint
-      await axios.post("https://getform.io/f/d787b902-07f9-42e2-b752-e32452d4fcff", formData);
-      // Optionally, you can reset the form here
-      setFormData({
-        name: "",
-        email: "",
-        telephone: "",
-        message: "",
-      });
+      contactFormSchema.parse(formData); // Check if the schema of the input on the client is properly parsed.
+      axios
+        .post(
+          "https://getform.io/f/d787b902-07f9-42e2-b752-e32452d4fcff",
+          formData,
+          { headers: { Accept: "application/json" } }
+        )
+        .then(function (response) {
+          setFormData({
+            name: "",
+            email: "",
+            telephone: "",
+            message: "",
+          });
+          setSubmissionSuccess(true);
+        })
+        .catch(function (error) {
+          setBackendError(true)
+        });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // Log the validation errors to the console for debugging
-        console.error("Validation errors", error.flatten());
+        //console.error("Validation errors", error.flatten());
         setValidationErrors(error.flatten().fieldErrors);
       } else {
-        // Log any other errors to the console
-        console.error("Unexpected error", error);
+        setBackendError(true)
       }
     }
   };
 
 
   return (
-    <Card className="mx-auto max-w-md px-1 sm:px-4 py-4 bg-white rounded-xl shadow-md space-y-6">
+    <Card className="mx-auto px-1 sm:px-4 py-10 bg-white rounded-xl shadow-md space-y-6">
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-8">
-            <div className="space-y-2">
-              <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
-              <p className="text-gray-500">Nous sommes à l'écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture</p>
-            </div>
-            <div className="space-y-3">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nom et Prénom</Label>
-                <Input id="name" name="name" placeholder="Entrez votre nom et prénom" value={formData.name} onChange={handleChange} />
-                {validationErrors.name && <p className="text-red-500">{validationErrors.name}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" placeholder="Entrez votre email" value={formData.email} onChange={handleChange} />
-                {validationErrors.email && <p className="text-red-500">{validationErrors.email}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="telephone">Téléphone</Label>
-                <Input id="telephone" name="telephone" placeholder="04XXXXXXXX" value={formData.telephone} onChange={handleChange} />
-                {validationErrors.telephone && <p className="text-red-500">{validationErrors.telephone}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea className="min-h-[100px]" id="message" name="message" placeholder="Bonjour, je serai intéressé par des services de ..." value={formData.message} onChange={handleChange} />
-                {validationErrors.message && <p className="text-red-500">{validationErrors.message}</p>}
-              </div>
-              <Button type="submit" className="w-full" variant="accent1">Envoyer</Button>
-            </div>
+        {submissionSuccess ? (
+          <div className="">
+            <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Merci pour votre confiance !</SecondHeading>
+            <P content="Merci pour votre demande! Nous allons la traiter dans les plus brefs délais." />
           </div>
-        </form>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-8">
+              <div className="space-y-2">
+                <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
+                <p className="text-gray-500">Nous sommes à l'écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture</p>
+              </div>
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nom et Prénom</Label>
+                  <Input id="name" name="name" placeholder="Entrez votre nom et prénom" value={formData.name} onChange={handleChange} />
+                  {validationErrors.name && <p className="text-red-500">{validationErrors.name}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" name="email" placeholder="Entrez votre email" value={formData.email} onChange={handleChange} />
+                  {validationErrors.email && <p className="text-red-500">{validationErrors.email}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telephone">Téléphone</Label>
+                  <Input id="telephone" name="telephone" placeholder="04XXXXXXXX" value={formData.telephone} onChange={handleChange} />
+                  {validationErrors.telephone && <p className="text-red-500">{validationErrors.telephone}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea className="min-h-[100px]" id="message" name="message" placeholder="Bonjour, je serais intéressé par des services de ..." value={formData.message} onChange={handleChange} />
+                  {validationErrors.message && <p className="text-red-500">{validationErrors.message}</p>}
+                </div>
+                <Button type="submit" className="w-full" variant="accent1">Envoyer</Button>
+                <p className="text-sm text-gray-500 italic">Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.</p>
+                {backendError && <div className="text-red-700">
+                  Oups quelque chose s'est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
+                </div>
+                }
+              </div>
+            </div>
+          </form>
+        )}
       </CardContent>
-    </Card>
+    </Card >
   )
 }

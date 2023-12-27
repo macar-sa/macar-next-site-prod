@@ -10,7 +10,7 @@ import { CardContent, Card } from "@/components/ui/card"
 
 export function contact_form() {
   return (
-    <Card className="mx-auto max-w-md p-6 bg-white rounded-xl shadow-md space-y-6">
+    <Card className="p-6 bg-white rounded-xl shadow-md space-y-6">
       <CardContent>
         <div className="space-y-8">
           <div className="space-y-2">

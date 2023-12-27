@@ -21,7 +21,7 @@ export default function Screen({
 }) {
     return (
         <section
-            className={`relative ${noPadding ? "" : "pt-12 pb-16"
+            className={`relative ${noPadding ? "" : "pt-12 pb-4 md:pb-12"
                 } overflow-x-clip overflow-y-visible ${customClassesOuter}`}
             id={id}
         >

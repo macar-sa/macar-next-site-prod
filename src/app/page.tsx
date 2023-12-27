@@ -5,6 +5,8 @@ import { MainHeading, P, SecondHeading } from './_components/textStyles'
 import { Card } from './_components/cards';
 import { PrimaryButton } from './_components/buttons';
 import { contact_form } from '@/components/contact_form';
+import Link from "next/link";
+import { CheckMark } from './_components/checkMark';
 
 export default function Home() {
   return (
@@ -36,11 +38,11 @@ export default function Home() {
               <h2>Services</h2>
             </SecondHeading>
             <P customClasses="mt-4">
-              Chez Macar, notre engagement envers nos clients est clair : nous croyons en la
-              <span className="text-accent1"> confiance</span>,
-              <span className="text-accent1"> transparence</span>, et la
-              <span className="text-accent1"> qualité </span>
-              à chaque étape de notre travail.
+              <p className="leading-loose">Chez Macar, notre engagement envers nos clients est clair : nous croyons en la
+                <span className="text-accent1"> confiance</span>,
+                <span className="text-accent1"> transparence</span>, et la
+                <span className="text-accent1"> qualité </span>
+                à chaque étape de notre travail.</p>
             </P>
             <div className="mt-10">
               <PrimaryButton
@@ -89,9 +91,51 @@ export default function Home() {
       </Screen>
 
       <Screen name="Contact">
-        <div id="contact-form">
-          {contact_form()}
+        <div className='grid md:grid-cols-5 gap-8'>
+          <div className='col-span-2'>
+            <SecondHeading>
+              <h2>Osez vos rénovations !</h2>
+            </SecondHeading>
+            <P customClasses="mt-10">
+              <p className="leading-loose">Chez Macar, notre engagement envers nos clients est clair : nous croyons en la
+                <span className="text-accent1"> confiance</span>,
+                <span className="text-accent1"> transparence</span>, et la
+                <span className="text-accent1"> qualité </span>
+                à chaque étape de notre travail.</p>
+            </P>
+            <div className="flex flex-col items-start md:flex-row md:justify-start flex-wrap gap-6 mt-12">
+              <CheckMark content="Seamless Support" />
+              <CheckMark content="Personalized Proposals" />
+              <CheckMark content="Engage Experts" />
+              <CheckMark content="Unleash Opportunites" />
+              <CheckMark content="Get AI Insight" />
+            </div>
+            <div className="flex flex-col md:flex-col items-start gap-6 mt-12">
+              <div>
+                <P customClasses="font-medium">Téléphone</P>
+                <Link href="tel:+32478235008">
+                  <P customClasses="text-font-gray hover:text-font-lighter-gray">
+                    {" "}
+                    +32 478 23 50 08
+                  </P>
+                </Link>
+              </div>
+              <div>
+                <P customClasses="font-medium">Address</P>
+                <P customClasses="text-font-gray">
+                  {" "}
+                  Avenue Prudent Bols, 43 <br />
+                  B-1020 Bruxelles/Brussel
+                </P>
+              </div>
+            </div>
+          </div>
+
+          <div id="contact-form" className='col-span-3'>
+            {contact_form()}
+          </div>
         </div>
+
       </Screen>
     </main >
   )
