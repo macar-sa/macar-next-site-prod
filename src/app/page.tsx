@@ -23,7 +23,7 @@ export default function Home() {
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
-            src="/landpage_pics/Construction Tool.jpg"
+            src="/landpage_pics/Construction Tool.webp"
             alt="Home Banner"
             layout="fill"
             objectFit="cover"
@@ -52,14 +52,14 @@ export default function Home() {
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card title="Rénovation" description="Salle de bain carrelée, isolation intérieure et extérieure, parquet flottant, murs porteurs abattus.">
+              <Card title="Rénovation intérieure et extérieure" description="Salle de bain carrelée, isolation intérieure et extérieure, isolation de façade avec crépis, parquet flottant, murs porteurs abattus.">
                 <Image
                   src="/sevices/Renovation.png"
                   alt="Renovation."
                   width={100}
                   height={100} />
               </Card>
-              <Card title="Plomberie" description="Installation de robinetterie, remplacement de chauffe-eau, débouchage de canalisations, réparation de fuites."
+              <Card title="Plomberie" description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
               >
                 <Image
                   src="/sevices/Plomberie.png"
@@ -77,7 +77,7 @@ export default function Home() {
               </Card>
               <Card
                 title="Toiture"
-                description="Remplacement de tuiles, étanchéité de toit-terrasse, isolation sous toiture, pose de velux, nettoyage de gouttières."
+                description="Remplacement de tuiles, construction de nouvelle toiture et charpente, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
               >
                 <Image
                   src="/sevices/Toiture.png"

@@ -12,7 +12,6 @@ import {
     NavbarMenuItem,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { contact_form } from "@/components/contact_form";
 
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,7 +19,7 @@ export const NavBar = () => {
     const menuKey = isMenuOpen ? "open" : "closed";
     const menuItems = [
         { name: "Acceuil", href: "/#", type: "item" },
-        { name: "A propos de nous", href: "/#apropos", type: "item" },
+        { name: "A propos de nous", href: "/about", type: "item" },
         { name: "Services", href: "/#services", type: "item" },
         {
             name: "Jobs",
