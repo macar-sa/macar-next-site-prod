@@ -6,6 +6,7 @@ import { PrimaryButton } from "@/app/_components/buttons"
 import { MainHeading, P, SecondHeading } from "@/app/_components/textStyles"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import localFont from "next/font/local";
 
 
 export function Jobs() {
@@ -26,19 +27,14 @@ export function Jobs() {
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="md:col-span-1 space-y-4">
           <section className="space-y-4">
-            <SecondHeading customClasses="text-l lg:text-xl 2xl:text-2xl">Carrières chez Nous</SecondHeading>
-            <P customClasses="mt-4" content="Si vous êtes passionné par la rénovation et la construction, nous aimerions vous rencontrer. Nous
-recherchons des personnes talentueuses pour rejoindre notre équipe."/>
-            <PrimaryButton customClasses="mt-4" content="Postuler maintenant" href="/#contact-form" />
-          </section>
-          <section className="space-y-4">
-            <SecondHeading customClasses="mt-8 text-l lg:text-xl 2xl:text-2xl">Pourquoi travailler avec nous?</SecondHeading>
+            <SecondHeading customClasses="mt-6 text-base md:text-lg lg:text-xl 2xl:text-2xl">Pourquoi travailler avec nous?</SecondHeading>
             <P customClasses="mt-4" content="Nous offrons une opportunité unique de travailler dans une entreprise avec une longue histoire de succès et de satisfaction des clients. Vous travaillerez sur divers projets, améliorant constamment vos compétences et vos connaissances." />
+            <PrimaryButton customClasses="mt-4" content="Postuler maintenant" href="/#contact-form" />
           </section>
         </div>
         <div className="md:col-span-1 space-y-4">
           <section className="space-y-4">
-            <SecondHeading customClasses="text-l lg:text-xl 2xl:text-2xl">Ouvrier polyvalent (Indépendant) H/F/X</SecondHeading>
+            <SecondHeading customClasses="mt-6 text-base md:text-lg lg:text-xl 2xl:text-2xl">Ouvrier polyvalent (Indépendant) H/F/X</SecondHeading>
             <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Responsabilités</SecondHeading>
             <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
               <li>

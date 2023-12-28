@@ -94,21 +94,17 @@ export default function Home() {
         <div className='grid md:grid-cols-5 gap-8'>
           <div className='col-span-2'>
             <SecondHeading>
-              <h2>Osez vos rénovations !</h2>
+              <h2>Votre projet, notre mission!</h2>
             </SecondHeading>
             <P customClasses="mt-10">
-              <p className="leading-loose">Chez Macar, notre engagement envers nos clients est clair : nous croyons en la
-                <span className="text-accent1"> confiance</span>,
-                <span className="text-accent1"> transparence</span>, et la
-                <span className="text-accent1"> qualité </span>
-                à chaque étape de notre travail.</p>
+              <p className="leading-loose">Macar est prêt à écouter et à mettre en action vos projets de rénovation. Remplissez ce formulaire et découvrez comment nous pouvons donner vie à vos idées avec efficacité et savoir-faire.</p>
             </P>
             <div className="flex flex-col items-start md:flex-row md:justify-start flex-wrap gap-6 mt-12">
-              <CheckMark content="Seamless Support" />
-              <CheckMark content="Personalized Proposals" />
-              <CheckMark content="Engage Experts" />
-              <CheckMark content="Unleash Opportunites" />
-              <CheckMark content="Get AI Insight" />
+              <CheckMark content="Réponse rapide" />
+              <CheckMark content="Devis personnalisé" />
+              <CheckMark content="Experts Engagés" />
+              <CheckMark content="Transparence" />
+              <CheckMark content="Qualité" />
             </div>
             <div className="flex flex-col md:flex-col items-start gap-6 mt-12">
               <div>
