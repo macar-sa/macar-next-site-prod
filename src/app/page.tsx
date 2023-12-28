@@ -52,14 +52,14 @@ export default function Home() {
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card title="Rénovation" description="Que ce soit une rénovation complète de votre maison ou une mise à jour partielle de votre espace, nous sommes prêts à donner vie à votre projet, du début à la fin.">
+              <Card title="Rénovation" description="Salle de bain carrelée, isolation intérieure et extérieure, parquet flottant, murs porteurs abattus.">
                 <Image
                   src="/sevices/Renovation.png"
                   alt="Renovation."
                   width={100}
                   height={100} />
               </Card>
-              <Card title="Plomberie" description="Nos professionnels de la plomberie sont là pour résoudre tous vos problèmes de plomberie, qu'il s'agisse de réparations, d'installations ou de rénovations."
+              <Card title="Plomberie" description="Installation de robinetterie, remplacement de chauffe-eau, débouchage de canalisations, réparation de fuites."
               >
                 <Image
                   src="/sevices/Plomberie.png"
@@ -67,7 +67,7 @@ export default function Home() {
                   width={100}
                   height={100} />
               </Card>
-              <Card title="Installation Electrique" description="La sécurité électrique est essentielle. Faites confiance à notre équipe qualifiée pour des tions électriques fiables et conformes à toutes les normes."
+              <Card title="Installation Electrique" description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, éclairage LED, câblage réseau."
               >
                 <Image
                   src="/sevices/Installation Electrique.png"
@@ -77,7 +77,7 @@ export default function Home() {
               </Card>
               <Card
                 title="Toiture"
-                description="Protégez votre maison avec des services de toiture de qualité. Nous offrons des solutions de toiture, de réparation et d'entretien pour garantir la durabilité de votre toit."
+                description="Remplacement de tuiles, étanchéité de toit-terrasse, isolation sous toiture, pose de velux, nettoyage de gouttières."
               >
                 <Image
                   src="/sevices/Toiture.png"

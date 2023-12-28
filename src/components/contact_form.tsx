@@ -90,7 +90,7 @@ export function contact_form() {
             <div className="space-y-8">
               <div className="space-y-2">
                 <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
-                <p className="text-gray-500">Nous sommes à l'écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture</p>
+                <p className="text-gray-500">Nous sommes à l'écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
               </div>
               <div className="space-y-3">
                 <div className="space-y-2">
