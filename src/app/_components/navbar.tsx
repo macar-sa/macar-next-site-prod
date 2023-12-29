@@ -12,6 +12,7 @@ import {
     NavbarMenuItem,
 } from "@nextui-org/react";
 import Link from "next/link";
+import { Logo_specific } from "./icons/logo copy";
 
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);

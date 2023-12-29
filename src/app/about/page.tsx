@@ -8,6 +8,7 @@ import { Jobs } from '@/components/jobs';
 import aboutbanner from '/src/app/about/about_banner.webp';
 import { Heading } from 'lucide-react';
 import { Trusted } from '@/components/trusted';
+import { Logo_specific } from '../_components/icons/logo copy';
 
 export default function about() {
     return (
@@ -49,20 +50,21 @@ export default function about() {
             </Screen>
 
             <Screen name="valeurs">
-                <SecondHeading customClasses="mb-6"> <h2>Nos Valeurs</h2></SecondHeading>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <SecondHeading customClasses="mb-8"> <h2>Nos Valeurs</h2></SecondHeading>
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Confiance</SecondHeading>
-                        <P customClasses="mb-6" content="Nos engagements sont bien plus qu'un contrat signé. Nous bâtissons des relations durables en tenant nos promesses et en dépassant vos attentes." />
-
-                        <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Professionnalisme</SecondHeading>
-                        <P customClasses="mb-6" content="Notre équipe fait preuve d'une rigueur et d'une attention au détail, garantissant que chaque projet est réalisé avec une précision exemplaire et dans les temps." />
+                        <Card title='Confiance'
+                            description="Nos engagements sont bien plus qu'un contrat signé. Nous bâtissons des relations durables en tenant nos promesses et en dépassant vos attentes."></Card>
+                        <Card title='Professionnalisme'
+                            description="Notre équipe fait preuve d'une rigueur et d'une attention au détail, garantissant que chaque projet est réalisé avec une précision exemplaire et dans les temps."
+                            customClasses='mt-6'></Card>
                     </div>
                     <div>
-                        <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Transparence</SecondHeading>
-                        <P customClasses="mb-6" content="Nous communiquons clairement les coûts, les délais et les méthodologies. Vous serez informés à chaque étape, sans coûts cachés ni surprises." />
-                        <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Adaptabilité</SecondHeading>
-                        <P customClasses="mb-6" content="Nous sommes flexibles et réactifs face aux besoins changeants de nos clients et du marché, garantissant des solutions sur mesure pour chaque projet." />
+                        <Card title='Transparence'
+                            description="Nous communiquons clairement les coûts, les délais et les méthodologies. Vous serez informés à chaque étape, sans coûts cachés ni surprises."></Card>
+                        <Card title='Adaptabilité'
+                            description="Nous sommes flexibles et réactifs face aux besoins changeants de nos clients et du marché, garantissant des solutions sur mesure pour chaque projet."
+                            customClasses='mt-6'></Card>
                     </div>
                 </div>
             </Screen>

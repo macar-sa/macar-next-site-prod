@@ -8,6 +8,7 @@ import { contact_form } from '@/components/contact_form';
 import Link from "next/link";
 import { CheckMark } from './_components/checkMark';
 import { Trusted } from '@/components/trusted';
+import { Logo_specific } from './_components/icons/logo copy';
 
 export default function Home() {
   return (
@@ -148,7 +149,6 @@ export default function Home() {
             {contact_form()}
           </div>
         </div>
-
       </Screen>
     </main >
   )
