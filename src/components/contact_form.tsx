@@ -11,6 +11,7 @@ import { P, SecondHeading } from "@/app/_components/textStyles"
 import React, { useState } from "react";
 import { z } from "zod";
 import axios from "axios";
+import { SecondaryButton } from "@/app/_components/buttons"
 
 const contactFormSchema = z.object({
   name: z.string().optional(),
@@ -96,26 +97,26 @@ export function contact_form() {
                 <div className="space-y-2">
                   <Label htmlFor="name">Nom et Prénom</Label>
                   <Input id="name" name="name" placeholder="Entrez votre nom et prénom" value={formData.name} onChange={handleChange} />
-                  {validationErrors.name && <p className="text-red-500">{validationErrors.name}</p>}
+                  {validationErrors.name && <p className="flex h-10 text-sm text-red-500">{validationErrors.name}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input id="email" name="email" placeholder="Entrez votre email" value={formData.email} onChange={handleChange} />
-                  {validationErrors.email && <p className="text-red-500">{validationErrors.email}</p>}
+                  {validationErrors.email && <p className="flex h-10 text-sm text-red-500">{validationErrors.email}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="telephone">Téléphone</Label>
                   <Input id="telephone" name="telephone" placeholder="04XXXXXXXX" value={formData.telephone} onChange={handleChange} />
-                  {validationErrors.telephone && <p className="text-red-500">{validationErrors.telephone}</p>}
+                  {validationErrors.telephone && <p className="flex h-10 text-sm text-red-500">{validationErrors.telephone}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
                   <Textarea className="min-h-[100px]" id="message" name="message" placeholder="Bonjour, je serais intéressé par des services de ..." value={formData.message} onChange={handleChange} />
-                  {validationErrors.message && <p className="text-red-500">{validationErrors.message}</p>}
+                  {validationErrors.message && <p className="flex h-10 text-sm text-red-500">{validationErrors.message}</p>}
                 </div>
-                <Button type="submit" className="w-full" variant="accent1">Envoyer</Button>
+                <Button type="submit" className="group rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-white text-accent1 border border-accent1 font-regular hover:bg-accent1 hover:text-background w-full" variant="accent1">Envoyer</Button>
                 <p className="text-sm text-gray-500 italic">Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.</p>
-                {backendError && <div className="text-red-700">
+                {backendError && <div className="flex h-10 text-sm text-red-700">
                   Oups quelque chose s'est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
                 </div>
                 }

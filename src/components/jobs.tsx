@@ -5,35 +5,49 @@
 import { PrimaryButton } from "@/app/_components/buttons"
 import { MainHeading, P, SecondHeading, ThirdHeading } from "@/app/_components/textStyles"
 import Image from "next/image"
+import Screen from "@/app/_components/screen"
 
 
 
 export function Jobs() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="lg:mt-16">
-        <MainHeading>Nous recrutons!</MainHeading>
-        <P customClasses="mt-4 text-xl" content="Rejoignez notre équipe et aidez-nous à construire le futur de nos clients !" />
-      </header>
-      <div className="relative w-full mt-10 h-40 md:h-[400px]">
-        <Image
-          src="/landpage_pics/White ladder worker.webp"
-          alt="Job Banner"
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+    <main className="flex min-h-screen flex-col">
+      <Screen name="landing page">
+        <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
+          <div className="col-span-3">
+            <MainHeading>
+              <h1 className="leading-tight">
+                Nous recrutons!
+              </h1>
+            </MainHeading>
+            <P customClasses="mt-4 text-xl" content="Rejoignez notre équipe et aidez-nous à construire le futur de nos clients !" />
+          </div>
+          <div className="col-span-2">
+            <P customClasses='mt-6 mb-6' content="Nous offrons une opportunité unique de travailler dans une entreprise avec une longue histoire de succès et de satisfaction des clients. Vous travaillerez sur divers projets, améliorant constamment vos compétences et vos connaissances." />
+          </div>
+        </div>
+        <div className="relative w-full mt-10 h-40 md:h-[400px]">
+          <Image
+            src="/landpage_pics/White ladder worker.webp"
+            alt="Job Banner"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      </Screen >
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="md:col-span-1 space-y-4">
           <section className="space-y-4">
-            <ThirdHeading>Pourquoi travailler avec nous?</ThirdHeading>
-            <P customClasses="mt-4" content="Nous offrons une opportunité unique de travailler dans une entreprise avec une longue histoire de succès et de satisfaction des clients. Vous travaillerez sur divers projets, améliorant constamment vos compétences et vos connaissances." />
-            <PrimaryButton customClasses="mt-4" content="Postuler maintenant" href="/#contact-form" />
-          </section>
-        </div>
-        <div className="md:col-span-1 space-y-4">
-          <section className="space-y-4">
-            <ThirdHeading>Ouvrier polyvalent (Indépendant)</ThirdHeading>
+            <SecondHeading><h2>Ouvrier polyvalent (Indépendant)</h2></SecondHeading>
+            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Qui est Macar?</SecondHeading>
+            <p>Fondée en 2002, Macar est une entreprise dans le secteur du bâtiment. Nous sommes spécialisés dans les travaux de rénovation de A à Z, la plomberie, les installations électriques et la toiture. Avec près de deux décennies d'expérience, nous avons établi une empreinte en fournissant des services de qualité à nos clients, qu'ils soient privés ou professionnels. Notre philosophie repose sur le professionnalisme, l'engagement envers l'excellence et la satisfaction du client.</p>
+            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Localisation</SecondHeading>
+            <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
+              <li>
+                Siège de l'entreprise à Bruxelles
+              </li>
+              <li>Déplacements fréquents vers les clients (en grande majorité sur Bruxelles).</li>
+            </ul>
             <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Responsabilités</SecondHeading>
             <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
               <li>
@@ -63,7 +77,11 @@ export function Jobs() {
                 Autres : Permis de conduire valide et disponibilité pour se déplacer sur différents chantiers.
               </li>
             </ul>
-            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Processus de candidature</SecondHeading>
+          </section>
+        </div>
+        <div className="md:col-span-1 space-y-4">
+          <section className="space-y-4">
+            <SecondHeading><h2>Processus de candidature</h2></SecondHeading>
             <p>
               Si vous êtes intéressé par cette opportunité et pensez que vous êtes le candidat idéal pour le poste, nous vous invitons à soumettre votre candidature de l'une des manières suivantes :
             </p>
@@ -78,6 +96,6 @@ export function Jobs() {
           </section>
         </div>
       </div>
-    </div >
+    </main >
   )
 }

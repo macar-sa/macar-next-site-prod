@@ -1,25 +1,42 @@
 "use client";
 import Image from 'next/image'
 import Screen from './_components/screen'
-import { MainHeading, P, SecondHeading } from './_components/textStyles'
+import { MainHeading, P, SecondHeading, ThirdHeading } from './_components/textStyles'
 import { Card } from './_components/cards';
-import { PrimaryButton } from './_components/buttons';
+import { PrimaryButton, SecondaryButton } from './_components/buttons';
 import { contact_form } from '@/components/contact_form';
 import Link from "next/link";
 import { CheckMark } from './_components/checkMark';
+import { Trusted } from '@/components/trusted';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
-
       <Screen name="landing page">
-        <div className="lg:mt-16 grid lg:grid-cols-5 gap-8">
-          <MainHeading customClasses='col-span-3'>
-            <h1 className="leading-tight">
-              Votre Partenaire pour Toute Rénovation
-            </h1>
-          </MainHeading>
-          <P customClasses='col-span-2' content="Chez Macar, nous combinons expertise et passion pour transformer vos espaces. Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture. Nous offrons des solutions personnalisées, alliant qualité et professionalisme, pour répondre à tous vos besoins." />
+        <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
+          <div className="col-span-3">
+            <MainHeading>
+              <h1 className="leading-tight">
+                Votre Partenaire pour Toute Rénovation
+              </h1>
+            </MainHeading>
+            <div className="mt-4">
+              <Trusted
+                titleAlignment="text-left"
+                imageAlignment="justify-start mt-1"
+                headingSize="text-sm lg:text-base 2xl:text-lg max-w-prose"
+                imageSize={{ height: "60", width: "120" }}
+                imageClass="mx-1"
+              />
+            </div>
+          </div>
+          <div className="col-span-2">
+            <P customClasses='mt-6 mb-6' content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture." />
+            <div className="flex space-x-4"> {/* Adjust the space-x-* value as needed */}
+              <PrimaryButton href="/#contact-form" content="Commencez votre projet" />
+              <SecondaryButton href="/#services" content="Services" />
+            </div>
+          </div>
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
@@ -46,7 +63,7 @@ export default function Home() {
             </P>
             <div className="mt-10">
               <PrimaryButton
-                content="Contactez nous"
+                content="Commencez votre projet"
                 href="/#contact-form" />
             </div>
           </div>

@@ -7,27 +7,35 @@ import { MainHeading, P, SecondHeading, ThirdHeading } from "@/app/_components/t
 import Image from 'next/image'
 import logo_homeras from "/src/app/about/companies/homeras.png";
 import logo_ethias from "/src/app/about/companies/ethias.png";
+import logo_ag from "/src/app/about/companies/ag.png";
 
-export function Trusted() {
+export function Trusted({ titleAlignment, imageAlignment, headingSize, imageSize, imageClass }) {
   return (
     <section className="w-full">
-      <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-8">
-        <ThirdHeading> Ils nous ont fait confiance </ThirdHeading>
-        <div className="grid w-full grid-cols-2 lg:grid-cols-5 items-center justify-center gap-8 lg:gap-12">
-          <div className="col-span-2 lg:col-span-5 flex justify-center">
+      <div className={`${titleAlignment}>`}> {/*Basically "justify-center" for Title alignement*/}
+        <ThirdHeading customClasses={headingSize}> Ils nous ont fait confiance </ThirdHeading>
+        <div className={`grid w-full grid-cols-2 lg:grid-cols-5 ${imageAlignment} gap-8 lg:gap-12"`}> {/* Basically "items-center justify-center" for Image alignement */}
+          <div className={`col-span-2 lg:col-span-5 flex ${imageAlignment} ${imageClass}`}>
             <Image
               alt="Homeras"
-              className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-              height="80"
-              width="160"
+              className={`aspect-[2/1] overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
+              height={imageSize.height}
+              width={imageSize.width}
               src={logo_homeras}
             />
             <Image
               alt="Ethias"
-              className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-              height="80"
-              width="160"
+              className={`aspect-[2/1] overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
+              height={imageSize.height}
+              width={imageSize.width}
               src={logo_ethias}
+            />
+            <Image
+              alt="AG Assurance"
+              className={`aspect-[2/1] overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
+              height={imageSize.height}
+              width={imageSize.width}
+              src={logo_ag}
             />
           </div>
         </div>

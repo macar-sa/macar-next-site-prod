@@ -19,10 +19,10 @@ export const NavBar = () => {
     const menuKey = isMenuOpen ? "open" : "closed";
     const menuItems = [
         { name: "Acceuil", href: "/#", type: "item" },
-        { name: "A propos de nous", href: "/about", type: "item" },
+        { name: "Découvrez Macar", href: "/about", type: "item" },
         { name: "Services", href: "/#services", type: "item" },
         {
-            name: "Jobs",
+            name: "Nous recrutons",
             href: "/job",
             type: "item",
         },
@@ -63,7 +63,7 @@ export const NavBar = () => {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <PrimaryButton content="Contactez-nous" href="/#contact-form" />
+                    <PrimaryButton content="Commencez votre projet" href="/#contact-form" />
                 </NavbarItem>
             </NavbarContent>
             <NavbarMenu>

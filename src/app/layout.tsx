@@ -5,6 +5,7 @@ import './globals.css'
 import { Providers } from "./providers";
 import { NavBar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
+import CookieConsent from "./_components/CookieConsent";
 
 const open_sans = Open_Sans({ subsets: ['latin'] })
 const raptor = localFont({
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Providers>
           <NavBar />
           {children}
+          <CookieConsent />
           <Footer />
         </Providers></body>
     </html >

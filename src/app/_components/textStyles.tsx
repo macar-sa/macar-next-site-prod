@@ -51,7 +51,7 @@ export const ThirdHeading = ({
 }) => {
     return (
         <div
-            className={`${raptor.className} text-2xl max-w-[20ch] lg:text-3xl 2xl:text-4xl lg:max-w-[30ch] text-headings ${customClasses}`}
+            className={`${raptor.className} text-xl max-w-[20ch] lg:text-3xl 2xl:text-4xl lg:max-w-[30ch] text-headings ${customClasses}`}
         >
             {children}
         </div>

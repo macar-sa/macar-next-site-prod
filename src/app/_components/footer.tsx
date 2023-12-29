@@ -7,9 +7,9 @@ import { P } from "./textStyles";
 export const Footer = () => {
     const menuItems = [
         { name: "Acceuil", href: "#" },
-        { name: "A propos de nous", href: "#" },
+        { name: "Découvrez Macar", href: "#" },
         { name: "Services", href: "/#services" },
-        { name: "Jobs", href: "/job" },
+        { name: "Nous recrutons", href: "/job" },
     ];
     return (
         <div className="pt-28 pb-14">
