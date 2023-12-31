@@ -81,7 +81,7 @@ export default function Home() {
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card title="Rénovation intérieure et extérieure" description="Salle de bain carrelée, isolation intérieure et extérieure, isolation de façade avec crépis, parquet flottant, murs porteurs abattus.">
+              <Card title="Rénovation intérieure et extérieure" description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépis, parquet flottant, abattement de murs porteurs.">
                 <Image
                   src="/sevices/Renovation.png"
                   alt="Renovation."
