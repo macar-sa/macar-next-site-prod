@@ -20,6 +20,7 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.302.0",
     "next": "14.0.3",
+    "next-reveal": "^1.0.6",
     "react": "^18",
     "react-dom": "^18",
     "react-responsive-carousel": "^3.2.23",
@@ -27,6 +28,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
