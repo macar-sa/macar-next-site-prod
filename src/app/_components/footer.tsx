@@ -60,6 +60,14 @@ export const Footer = () => {
                                 </Link>
                             </div>
                             <div>
+                                <Link href="fixe:+3224665304">
+                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
+                                        {" "}
+                                        +32 246 653 04
+                                    </P>
+                                </Link>
+                            </div>
+                            <div>
                                 <P customClasses="text-font-gray text-sm">
                                     {" "}
                                     Avenue Prudent Bols, 43<br />

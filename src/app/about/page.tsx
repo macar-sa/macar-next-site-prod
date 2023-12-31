@@ -27,7 +27,7 @@ export default function about() {
                         </MainHeading>
                     </div>
                     <div className="col-span-2">
-                        <P customClasses='mt-6 mb-6' content="Situés au cœur de Bruxelles, nous sommes une entreprise qui a grandi grâce à la confiance de nos clients et à notre engagement envers l'excellence." />
+                        <P customClasses='mt-6 mb-6' content="Situé au cœur de Bruxelles, nous sommes une entreprise qui a grandi grâce à la confiance de nos clients et à notre engagement envers l'excellence." />
                     </div>
                 </div>
                 <div className="relative w-full mt-10 h-40 md:h-[400px]">

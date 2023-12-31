@@ -81,7 +81,7 @@ export default function Home() {
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card title="Rénovation intérieure et extérieure" description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépis, parquet flottant, abattement de murs porteurs.">
+              <Card title="Rénovation intérieure et extérieure" description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs.">
                 <Image
                   src="/sevices/Renovation.png"
                   alt="Renovation."
@@ -96,7 +96,7 @@ export default function Home() {
                   width={100}
                   height={100} />
               </Card>
-              <Card title="Installation Electrique" description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, éclairage LED, câblage réseau."
+              <Card title="Installation Electrique" description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
               >
                 <Image
                   src="/sevices/Installation Electrique.png"
@@ -106,7 +106,7 @@ export default function Home() {
               </Card>
               <Card
                 title="Toiture"
-                description="Remplacement de tuiles, construction de nouvelle toiture et charpente, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
+                description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
               >
                 <Image
                   src="/sevices/Toiture.png"
@@ -146,7 +146,7 @@ export default function Home() {
                 </Link>
               </div>
               <div>
-                <P customClasses="font-medium">Address</P>
+                <P customClasses="font-medium">Adresse</P>
                 <P customClasses="text-font-gray">
                   {" "}
                   Avenue Prudent Bols, 43 <br />
