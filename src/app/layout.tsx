@@ -19,7 +19,7 @@ const raptor = localFont({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://b3sr0nts-3000.euw.devtunnels.ms/"),
+  metadataBase: new URL("https://www.macar.be/"),
   title: "Macar - Construction, Assistance et Rénovation",
   description:
     "Votre partenaire de confiance pour vos projets de rénovations et constructions",
