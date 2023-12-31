@@ -51,7 +51,7 @@ export function contact_form() {
       contactFormSchema.parse(formData); // Check if the schema of the input on the client is properly parsed.
       axios
         .post(
-          "https://getform.io/f/d787b902-07f9-42e2-b752-e32452d4fcff",
+          "https://getform.io/f/d2d6a750-36bc-4c1e-b021-2217dfd91aaf",
           formData,
           { headers: { Accept: "application/json" } }
         )
