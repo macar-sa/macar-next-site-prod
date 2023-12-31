@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description:
     "Votre partenaire de confiance pour vos projets de rénovations et constructions",
   openGraph: {
-    title: "Macar - Construction, Assistance et Rénovation",
+    title: "Macar - Construction, Assistance, Rénovation",
     description:
       "Votre partenaire de confiance pour vos projets de rénovations et constructions",
     url: "",
