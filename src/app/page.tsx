@@ -9,6 +9,11 @@ import Link from "next/link";
 import { CheckMark } from './_components/checkMark';
 import { Trusted } from '@/components/trusted';
 import { Logo_specific } from './_components/icons/logo copy';
+import Statistics from '@/components/Statistics';
+import { Button } from '@/components/ui/button';
+import { Raptor } from './_components/textStyles';
+import { Carousel } from 'react-responsive-carousel';
+import { LogoCarousel } from './_components/logocarousel';
 
 export default function Home() {
   return (
@@ -22,19 +27,21 @@ export default function Home() {
               </h1>
             </MainHeading>
             <div className="mt-4">
-              <Trusted
+              <Raptor><h5 className="mb-4 text-sm lg:text-base 2xl:text-lg">&nbsp;&nbsp;Ils nous ont fait confiance</h5></Raptor>
+              <LogoCarousel></LogoCarousel>
+              {/*<Trusted
                 titleAlignment="text-left"
                 imageAlignment="justify-start mt-1"
                 headingSize="text-sm lg:text-base 2xl:text-lg max-w-prose"
-                imageSize={{ height: "60", width: "120" }}
+                imageSize={{ height: 60, width: 120 }}
                 imageClass="mx-1"
-              />
+  />*/}
             </div>
           </div>
           <div className="col-span-2">
             <P customClasses='mt-6 mb-6' content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture." />
             <div className="flex space-x-4"> {/* Adjust the space-x-* value as needed */}
-              <PrimaryButton href="/#contact-form" content="Commencez votre projet" />
+              <PrimaryButton href="/#contact" content="Commencez votre projet !" />
               <SecondaryButton href="/#services" content="Services" />
             </div>
           </div>
@@ -49,23 +56,27 @@ export default function Home() {
         </div>
       </Screen>
 
-      <Screen name="Services" id="services">
+      <Screen name="Stats">
+        <Statistics />
+      </Screen>
+
+      <Screen name="Nos Services" id="services">
         <div className="md:flex md:items-start justify-between">
           <div className="md:flex-shrink-0 md:w-1/3">
             <SecondHeading>
-              <h2>Services</h2>
+              <h2>Nos Services</h2>
             </SecondHeading>
             <P customClasses="mt-4">
               <p className="leading-loose">Chez Macar, notre engagement envers nos clients est clair : nous croyons en la
-                <span className="text-accent1"> confiance</span>,
+                <span className="text-accent1"> confiance</span>, la
                 <span className="text-accent1"> transparence</span>, et la
                 <span className="text-accent1"> qualité </span>
                 à chaque étape de notre travail.</p>
             </P>
             <div className="mt-10">
               <PrimaryButton
-                content="Commencez votre projet"
-                href="/#contact-form" />
+                content="Commencez votre projet !"
+                href="/#contact" />
             </div>
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
@@ -108,7 +119,7 @@ export default function Home() {
         </div>
       </Screen>
 
-      <Screen name="Contact">
+      <Screen name="Contact" id="contact">
         <div className='grid md:grid-cols-5 gap-8'>
           <div className='col-span-2'>
             <SecondHeading>
@@ -145,7 +156,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div id="contact-form" className='col-span-3'>
+          <div className='col-span-3'>
             {contact_form()}
           </div>
         </div>

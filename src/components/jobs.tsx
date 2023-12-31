@@ -3,7 +3,7 @@
  * @see https://v0.dev/t/NBYYs817uBa
  */
 import { PrimaryButton } from "@/app/_components/buttons"
-import { MainHeading, P, SecondHeading, ThirdHeading } from "@/app/_components/textStyles"
+import { MainHeading, P, Raptor, SecondHeading, ThirdHeading } from "@/app/_components/textStyles"
 import Image from "next/image"
 import Screen from "@/app/_components/screen"
 
@@ -13,14 +13,14 @@ export function Jobs() {
   return (
     <main className="flex min-h-screen flex-col">
       <Screen name="landing page">
-        <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
+        <div className="grid lg:grid-cols-5 gap-8 text-left">
           <div className="col-span-3">
             <MainHeading>
               <h1 className="leading-tight">
                 Nous recrutons!
               </h1>
             </MainHeading>
-            <P customClasses="mt-4 text-xl" content="Rejoignez notre équipe et aidez-nous à construire le futur de nos clients !" />
+            <P customClasses="mt-4" content="&nbsp;Rejoignez notre équipe et aidez-nous à construire le futur de nos clients !" />
           </div>
           <div className="col-span-2">
             <P customClasses='mt-6 mb-6' content="Nous offrons une opportunité unique de travailler dans une entreprise avec une longue histoire de succès et de satisfaction des clients. Vous travaillerez sur divers projets, améliorant constamment vos compétences et vos connaissances." />
@@ -35,67 +35,113 @@ export function Jobs() {
           />
         </div>
       </Screen >
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="md:col-span-1 space-y-4">
-          <section className="space-y-4">
-            <SecondHeading><h2>Ouvrier polyvalent (Indépendant)</h2></SecondHeading>
-            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Qui est Macar?</SecondHeading>
-            <p>Fondée en 2002, Macar est une entreprise dans le secteur du bâtiment. Nous sommes spécialisés dans les travaux de rénovation de A à Z, la plomberie, les installations électriques et la toiture. Avec près de deux décennies d'expérience, nous avons établi une empreinte en fournissant des services de qualité à nos clients, qu'ils soient privés ou professionnels. Notre philosophie repose sur le professionnalisme, l'engagement envers l'excellence et la satisfaction du client.</p>
-            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Localisation</SecondHeading>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
-              <li>
-                Siège de l'entreprise à Bruxelles
-              </li>
-              <li>Déplacements fréquents vers les clients (en grande majorité sur Bruxelles).</li>
-            </ul>
-            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Responsabilités</SecondHeading>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
-              <li>
-                Assurer la réalisation des travaux de rénovation complète, de plomberie, d'installations électriques ou de
-                toiture conformément aux standards de qualité de l'entreprise.
-              </li>
-              <li>Gérer efficacement les ressources et les matériaux sur le lieu de travail.</li>
-              <li>Respecter les règles de sécurité sur le lieu de travail.</li>
-              <li>Fournir un excellent service client, en tenant compte des besoins et des attentes des clients.</li>
-              <li>Collaborer avec l'équipe pour garantir la réalisation efficace des projets.</li>
-            </ul>
-            <SecondHeading customClasses="text-base lg:text-base 2xl:text-lg">Critères de sélection</SecondHeading>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
-              <li>
-                Expérience professionnelle : Minimum 2 ans d'expérience dans le secteur du bâtiment, en particulier dans
-                les travaux de rénovation, la plomberie, l'électricité et la toiture.
-              </li>
-              <li>
-                Compétences : Habileté manuelle, bonne compréhension des plans de construction et des schémas électriques,
-                compétences en résolution de problèmes, aptitude à travailler en équipe.
-              </li>
-              <li>
-                Formation : L'expérience est privilégié mais tout diplôme en construction ou dans un domaine connexe préféré
-                seront considérées comme un atout.
-              </li>
-              <li>
-                Autres : Permis de conduire valide et disponibilité pour se déplacer sur différents chantiers.
-              </li>
-            </ul>
-          </section>
+      <Screen name="Offer">
+        <SecondHeading><h2>{jobDesc.title}</h2></SecondHeading>
+        <div className=" mt-4 md:mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="md:col-span-1 space-y-4">
+            <section className="space-y-4">
+              <Raptor>
+                <h3 className="text-base lg:text-base 2xl:text-lg">Qui est Macar?</h3>
+              </Raptor>
+              <P content={`${jobDesc.presentation}`} />
+              <Raptor>
+                <h3 className="text-base lg:text-base 2xl:text-lg mt-10">Localisation</h3>
+              </Raptor>
+              <P>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
+                  {jobDesc.localisation.map((bulletPoint, index) => {
+                    return (
+                      <li key={index} className="leading-relaxed">
+                        {bulletPoint}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </P>
+              <Raptor>
+                <h3 className="text-base lg:text-base 2xl:text-lg mt-10">Responsabilités</h3>
+              </Raptor>
+              <P>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
+                  {jobDesc.responsabilites.map((bulletPoint, index) => {
+                    return (
+                      <li key={index} className="leading-relaxed">
+                        {bulletPoint}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </P>
+              <Raptor>
+                <h3 className="text-base lg:text-base 2xl:text-lg mt-10">Critères de sélection</h3>
+              </Raptor>
+              <P>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
+                  {jobDesc.selection.map((bulletPoint, index) => {
+                    return (
+                      <li key={index} className="leading-relaxed">
+                        {bulletPoint}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </P>
+            </section>
+          </div>
+          <div className="md:col-span-1 space-y-4 relative">
+            <section className="space-y-4 sticky top-1/4">
+              <Raptor>
+                <h3 className="text-base lg:text-base 2xl:text-lg">Processus de candidature</h3>
+              </Raptor>
+              <P>
+                <p className="leading-relaxed">Si vous êtes intéressé par cette opportunité et pensez que vous êtes le candidat idéal pour le poste, nous vous invitons à soumettre votre candidature de l'une des manières suivantes :</p>
+              </P>
+              <P>
+                <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
+                  <li className="leading-relaxed">
+                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <a href="tel:+32499523079" className="underline underline-offset-4 text-accent1 transition-all duration-300">0499.523.079</a> pour discuter de votre candidature.
+                  </li>
+                  <li className="leading-relaxed">
+                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <a href="mailto:info@macar.be" className="underline underline-offset-4 text-accent1 transition-all duration-300">info@macar.be</a>. N'oubliez pas d'inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
+                  </li>
+                </ul>
+              </P>
+            </section>
+          </div>
         </div>
-        <div className="md:col-span-1 space-y-4">
-          <section className="space-y-4">
-            <SecondHeading><h2>Processus de candidature</h2></SecondHeading>
-            <p>
-              Si vous êtes intéressé par cette opportunité et pensez que vous êtes le candidat idéal pour le poste, nous vous invitons à soumettre votre candidature de l'une des manières suivantes :
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 pl-5">
-              <li>
-                Par téléphone : Appelez-nous directement au 0499.523.079 pour discuter de votre candidature.
-              </li>
-              <li>
-                Par e-mail : Envoyez-nous votre CV et toutes les informations pertinentes à info@macar.be. N'oubliez pas d'inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
-              </li>
-            </ul>
-          </section>
-        </div>
-      </div>
+      </Screen>
     </main >
   )
+}
+
+interface jobDesc {
+  title: string,
+  presentation: string,
+  localisation: string[],
+  responsabilites: string[],
+  selection: string[]
+}
+
+const jobDesc: jobDesc = {
+  title: "Ouvrier polyvalent (Indépendant)",
+  presentation: "Fondée en 2002, Macar est une entreprise dans le secteur du bâtiment. Nous sommes spécialisés dans les travaux de rénovation de A à Z, la plomberie, les installations électriques et la toiture. Avec près de deux décennies d'expérience, nous avons établi une empreinte en fournissant des services de qualité à nos clients, qu'ils soient privés ou professionnels. Notre philosophie repose sur le professionnalisme, l'engagement envers l'excellence et la satisfaction du client.",
+  localisation: [
+    "Siège de l'entreprise à Bruxelles",
+    "Déplacements fréquents vers les clients (en grande majorité sur Bruxelles)."
+  ],
+  responsabilites: [
+    "Assurer la réalisation des travaux de rénovation complète, de plomberie, d'installations électriques ou de toiture conformément aux standards de qualité de l'entreprise.",
+    "Gérer efficacement les ressources et les matériaux sur le lieu de travail.",
+    "Respecter les règles de sécurité sur le lieu de travail.",
+    "Fournir un excellent service client, en tenant compte des besoins et des attentes des clients.",
+    "Collaborer avec l'équipe pour garantir la réalisation efficace des projets."
+  ],
+  selection: [
+    "Expérience professionnelle : Minimum 2 ans d'expérience dans le secteur du bâtiment, en particulier dans les travaux de rénovation, la plomberie, l'électricité et la toiture.",
+    "Compétences : Habileté manuelle, bonne compréhension des plans de construction et des schémas électriques, compétences en résolution de problèmes, aptitude à travailler en équipe.",
+    "Formation : L'expérience est privilégié mais tout diplôme en construction ou dans un domaine connexe préféré seront considérées comme un atout.",
+    "Fournir un excellent service client, en tenant compte des besoins et des attentes des clients.",
+    "Autres : Permis de conduire valide et disponibilité pour se déplacer sur différents chantiers."
+  ]
+
 }

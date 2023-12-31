@@ -10,6 +10,18 @@ const raptor = localFont({
     variable: "--font-raptor"
 })
 
+export const Raptor = ({
+    children,
+}: {
+    children: React.ReactNode;
+}) => {
+    return <div
+        className={`${raptor.className} text-headings`}
+    >
+        {children}
+    </div>
+}
+
 export const MainHeading = ({
     children,
     customClasses,
@@ -51,7 +63,7 @@ export const ThirdHeading = ({
 }) => {
     return (
         <div
-            className={`${raptor.className} text-xl max-w-[20ch] lg:text-3xl 2xl:text-4xl lg:max-w-[30ch] text-headings ${customClasses}`}
+            className={`${raptor.className} text-base max-w-[20ch] lg:text-3xl 2xl:text-4xl lg:max-w-[30ch] text-headings ${customClasses}`}
         >
             {children}
         </div>

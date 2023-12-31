@@ -3,6 +3,9 @@ import Link from "next/link";
 import { PrimaryButton } from "./buttons";
 import { Logo } from "./icons/logo";
 import { P } from "./textStyles";
+import { Logo_specific } from "./icons/logo copy";
+
+
 
 export const Footer = () => {
     const menuItems = [
@@ -15,7 +18,12 @@ export const Footer = () => {
         <div className="pt-28 pb-14">
             <div className="mx-auto max-w-[1600px] px-4 md:px-16 2xl:px-4">
                 <div className="flex flex-col gap-8 md:gap-0 md:flex-row md:items-center md:justify-between">
-                    <Logo iconOnly={false} width={200} />
+                    {/*<Logo iconOnly={false} width={300} />*/}
+                    <Logo_specific logoType="Logo_border_blue"
+                        complexity="svg_simple"
+                        width='100'
+                        customClasses="hidden lg:inline">
+                    </Logo_specific>
                     <div className="flex flex-row items-center">
                         <p className="mr-10 text-sm md:text-base">
                             Pour des informations supplémentaires

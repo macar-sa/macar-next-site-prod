@@ -44,6 +44,11 @@ export const NavBar = () => {
                 />
                 <NavbarBrand className="">
                     <Link href="/">
+                        {/*<Logo_specific logoType="Logo_border_blue"
+                            complexity="navbar_footer"
+                            width='auto'
+                            customClasses="hidden lg:inline">
+        </Logo_specific>*/}
                         <Logo iconOnly={false} customClasses="hidden lg:inline" />
                         <Logo
                             iconOnly={false}
@@ -64,7 +69,7 @@ export const NavBar = () => {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <PrimaryButton content="Commencez votre projet" href="/#contact-form" />
+                    <PrimaryButton content="Contactez-nous !" href="/#contact" />
                 </NavbarItem>
             </NavbarContent>
             <NavbarMenu>

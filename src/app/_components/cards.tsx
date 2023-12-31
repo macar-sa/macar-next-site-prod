@@ -1,17 +1,9 @@
+"use client";
 import localFont from "next/font/local";
 import { useRef, useState } from "react";
 import { P } from "./textStyles";
 import { motion } from "framer-motion";
-
-const raptor = localFont({
-    src: [
-        {
-            path: "../../../public/fonts/raptor/Semibold.otf",
-            weight: "600"
-        }
-    ],
-    variable: "--font-raptor"
-})
+import { Raptor } from "./textStyles";
 
 export const Card = ({
     children,
@@ -57,11 +49,13 @@ export const Card = ({
                     {children}
                 </div>
             )}
-            <h3
-                className={`${raptor.className} text-base lg:text-lg 2xl:text-xl relative z-10 ${children ? "mt-8" : ""}`}
-            >
-                {title}
-            </h3>
+            <Raptor>
+                <h3
+                    className={`text-base lg:text-lg 2xl:text-xl relative z-10 ${children ? "mt-8" : ""}`}
+                >
+                    {title}
+                </h3>
+            </Raptor>
             <P
                 content={description}
                 customClasses="text-font-gray mt-3 relative z-10"

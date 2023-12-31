@@ -5,11 +5,18 @@
 
 import { MainHeading, P, SecondHeading, ThirdHeading } from "@/app/_components/textStyles"
 import Image from 'next/image'
-import logo_homeras from "/src/app/about/companies/homeras.png";
-import logo_ethias from "/src/app/about/companies/ethias.png";
-import logo_ag from "/src/app/about/companies/ag.png";
+import logo_homeras from "/public/companies/homeras.png";
+import logo_ethias from "/public/companies/ethias.png";
+import logo_ag from "/public/companies/ag.png";
 
-export function Trusted({ titleAlignment, imageAlignment, headingSize, imageSize, imageClass }) {
+export function Trusted({ titleAlignment, imageAlignment, headingSize, imageSize, imageClass }
+  : {
+    titleAlignment: string,
+    imageAlignment: string,
+    headingSize: string,
+    imageSize: { height: number, width: number },
+    imageClass: string
+  }) {
   return (
     <section className="w-full">
       <div className={`${titleAlignment}>`}> {/*Basically "justify-center" for Title alignement*/}

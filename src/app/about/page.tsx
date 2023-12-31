@@ -1,4 +1,3 @@
-"use client";
 import Image from 'next/image'
 import Screen from '../_components/screen'
 import { MainHeading, P, SecondHeading, ThirdHeading } from '../_components/textStyles'
@@ -9,6 +8,13 @@ import aboutbanner from '/src/app/about/about_banner.webp';
 import { Heading } from 'lucide-react';
 import { Trusted } from '@/components/trusted';
 import { Logo_specific } from '../_components/icons/logo copy';
+import { LogoCarousel } from '../_components/logocarousel';
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Découvrez Macar',
+    description: 'Notre histoire prend ses racines dans la volonté de rendre tangible vos projets',
+}
 
 export default function about() {
     return (
@@ -17,9 +23,7 @@ export default function about() {
                 <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
                     <div className="col-span-3">
                         <MainHeading>
-                            <h1 className="leading-tight">
-                                Découvrez Macar
-                            </h1>
+                            <h1 className="leading-tight">Découvrez Macar</h1>
                         </MainHeading>
                     </div>
                     <div className="col-span-2">
@@ -33,6 +37,14 @@ export default function about() {
                         layout="fill"
                         objectFit="cover"
                     />
+                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                        <Logo_specific
+                            logoType="Logo_border_white"
+                            complexity="svg_complete"
+                            width="auto"
+                            customClasses="hidden lg:inline"
+                        />
+                    </div>
                 </div>
             </Screen>
 
@@ -67,16 +79,6 @@ export default function about() {
                             customClasses='mt-6'></Card>
                     </div>
                 </div>
-            </Screen>
-
-            <Screen name="Trusted">
-                <Trusted
-                    titleAlignment="w-full flex flex-col items-center justify-center"
-                    imageAlignment="justify-center mt-2"
-                    headingSize="text-xl md:text-2xl"
-                    imageSize={{ height: "80", width: "160" }}
-                    imageClass="mx-2" // For example, margin between images
-                />
             </Screen>
         </main >
     )

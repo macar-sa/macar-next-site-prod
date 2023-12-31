@@ -36,8 +36,8 @@ const Icon = ({ width = 18 }: { width?: number }) => {
           y2="13.2671"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#575968" />
-          <stop offset="1" stopColor="#1E2037" />
+          <stop stopColor="#124FAA" />
+          <stop offset="1" stopColor="#124FAA" />
         </linearGradient>
       </defs>
     </svg>
