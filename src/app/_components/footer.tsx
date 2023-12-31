@@ -9,7 +9,7 @@ import { Logo_specific } from "./icons/logo copy";
 
 export const Footer = () => {
     const menuItems = [
-        { name: "Acceuil", href: "#" },
+        { name: "Accueil", href: "#" },
         { name: "Découvrez Macar", href: "#" },
         { name: "Services", href: "/#services" },
         { name: "Nous recrutons", href: "/job" },

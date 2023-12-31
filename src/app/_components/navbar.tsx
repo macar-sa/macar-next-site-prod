@@ -19,7 +19,7 @@ export const NavBar = () => {
 
     const menuKey = isMenuOpen ? "open" : "closed";
     const menuItems = [
-        { name: "Acceuil", href: "/#", type: "item" },
+        { name: "Accueil", href: "/#", type: "item" },
         { name: "Découvrez Macar", href: "/about", type: "item" },
         { name: "Services", href: "/#services", type: "item" },
         {
