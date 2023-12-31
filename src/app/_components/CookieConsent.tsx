@@ -131,15 +131,15 @@ const CookieConsent = () => {
           </div>
         )}
         <div className="grid grid-cols-3 divide-x divide-font-gray">
-          <CookieButton content="Refuse All" onClick={onClick} />
+          <CookieButton content="Refuser Tout" onClick={onClick} />
           <CookieButton
-            content="Preferences"
+            content="Préférences"
             onClick={() => {
               setprefIsTrue(!prefIsTrue);
             }}
           />
           <CookieButton
-            content={!prefIsTrue ? "Accept All" : "Accept Selection"}
+            content={!prefIsTrue ? "Accepter Tout" : "Accepter la Sélection"}
             onClick={onClick}
           />
         </div>
