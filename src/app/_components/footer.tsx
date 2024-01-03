@@ -55,7 +55,7 @@ export const Footer = () => {
                                 <Link href="tel:+32470428569">
                                     <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
                                         {" "}
-                                        +32 478 23 50 08
+                                        tel: +32 478 23 50 08
                                     </P>
                                 </Link>
                             </div>
@@ -63,7 +63,7 @@ export const Footer = () => {
                                 <Link href="fixe:+3224665304">
                                     <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
                                         {" "}
-                                        +32 246 653 04
+                                        fixe: +32 246 653 04
                                     </P>
                                 </Link>
                             </div>
