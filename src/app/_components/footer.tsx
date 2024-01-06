@@ -74,6 +74,12 @@ export const Footer = () => {
                                     B-1020 Bruxelles/Brussel
                                 </P>
                             </div>
+                            <div>
+                                <P customClasses="text-font-gray text-sm">
+                                    {" "}
+                                    TVA:BE0477.45.10.24
+                                </P>
+                            </div>
                         </div>
                     </div>
                     <div className="flex flex-col items-end">
