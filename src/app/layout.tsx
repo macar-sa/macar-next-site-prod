@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 import { NavBar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
 import CookieConsent from "./_components/CookieConsent";
+import Script from "next/script";
 
 const open_sans = Open_Sans({ subsets: ['latin'] })
 const raptor = localFont({
@@ -77,8 +78,27 @@ export default function RootLayout({
           href="/favicon/safari-pinned-tab.svg"
           color="#02041b"
         />
-        <meta name="msapplication-TileColor" content="#00aba9" />
-        <meta name="theme-color" content="#ffffff" />
+
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          async
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+          if (window.location.hostname !== 'localhost') {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});
+          }
+        `,
+          }}
+        />
+
       </head>
       <body className={`${open_sans.className} text-text bg-background antialiased`}>
         <Providers>
