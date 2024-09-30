@@ -146,6 +146,15 @@ export default function Home() {
                 </Link>
               </div>
               <div>
+                <P customClasses="font-medium">Email</P>
+                <Link href="mailto:info@macar.be">
+                  <P customClasses="text-font-gray hover:text-font-lighter-gray">
+                    {" "}
+                    info@macar.be
+                  </P>
+                </Link>
+              </div>
+              <div>
                 <P customClasses="font-medium">Adresse</P>
                 <P customClasses="text-font-gray">
                   {" "}
