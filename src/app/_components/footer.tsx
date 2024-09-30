@@ -60,6 +60,14 @@ export const Footer = () => {
                                 </Link>
                             </div>
                             <div>
+                                <Link href="email: info@macar.be">
+                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
+                                        {" "}
+                                        email: info@macar.be
+                                    </P>
+                                </Link>
+                            </div>
+                            <div>
                                 <Link href="fixe:+3224665304">
                                     <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
                                         {" "}
@@ -77,7 +85,7 @@ export const Footer = () => {
                             <div>
                                 <P customClasses="text-font-gray text-sm">
                                     {" "}
-                                    TVA:BE0477.45.10.24
+                                    TVA: BE0477.45.10.24
                                 </P>
                             </div>
                         </div>
