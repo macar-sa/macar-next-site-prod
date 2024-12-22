@@ -48,12 +48,16 @@ export function contact_form() {
     setValidationErrors({});
 
     try {
-      contactFormSchema.parse(formData); // Check if the schema of the input on the client is properly parsed.
+      contactFormSchema.parse(formData);
       axios
         .post(
-          "https://getform.io/f/d2d6a750-36bc-4c1e-b021-2217dfd91aaf",
+          "https://formspree.io/f/movvazay",
           formData,
-          { headers: { Accept: "application/json" } }
+          { headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          }
         )
         .then(function (response) {
           setFormData({
