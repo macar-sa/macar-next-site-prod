@@ -52,7 +52,7 @@ export const Footer = () => {
                         <p className="font-medium text-sm md:text-base mt-12">Contact</p>
                         <div className="flex flex-col justify-start gap-1 mt-4">
                             <div>
-                                <Link href="tel:+32470428569">
+                                <Link href="tel:+32478235008">
                                     <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
                                         {" "}
                                         tel: +32 478 23 50 08
