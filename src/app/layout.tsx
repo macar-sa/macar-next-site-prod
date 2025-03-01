@@ -7,6 +7,7 @@ import { NavBar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
 import CookieConsent from "./_components/CookieConsent";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react"
 
 const open_sans = Open_Sans({ subsets: ['latin'] })
 const raptor = localFont({
@@ -106,6 +107,7 @@ export default function RootLayout({
           {children}
           <CookieConsent />
           <Footer />
+          <Analytics />
         </Providers></body>
     </html >
   )
