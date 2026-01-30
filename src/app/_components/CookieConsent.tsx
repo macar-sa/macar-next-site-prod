@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { Switch } from "@nextui-org/react";
+import { Switch } from "@heroui/react";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import { RevealWrapper, RevealList } from "next-reveal";
 import { motion } from "framer-motion";

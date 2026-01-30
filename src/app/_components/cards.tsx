@@ -61,9 +61,13 @@ export const Card = ({
                 customClasses="text-font-gray mt-3 relative z-10"
             />
             <motion.div
-                style={{ x: x, y: y }}
+                style={{
+                    x,
+                    y,
+                    opacity: opacity / 100,
+                }}
                 transition={{ duration: 10, type: "inertia", stiffness: 500 }}
-                className={`h-96 w-96 bg-blue-100 absolute top-0 left-0 rounded-full blur-2xl opacity-${opacity} transition-opacity duration-300 ease-in-out`}
+                className="h-96 w-96 bg-blue-100 absolute top-0 left-0 rounded-full blur-2xl transition-opacity duration-300 ease-in-out pointer-events-none"
             />
         </div>
     );
