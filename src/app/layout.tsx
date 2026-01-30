@@ -48,6 +48,8 @@ export const metadata: Metadata = {
   },
 };
 
+const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim();
+
 export default function RootLayout({
   children,
 }: {
@@ -80,25 +82,29 @@ export default function RootLayout({
           color="#02041b"
         />
 
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-K4K446DK8E`}
-          async
-          strategy="afterInteractive"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              async
+              strategy="afterInteractive"
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
           if (window.location.hostname !== 'localhost') {
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-K4K446DK8E');
+            gtag('config', '${gaId}');
           }
         `,
-          }}
-        />
+              }}
+            />
+          </>
+        )}
 
       </head>
       <body className={`${open_sans.className} text-text bg-background antialiased`}>
