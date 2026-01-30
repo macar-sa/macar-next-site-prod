@@ -49,11 +49,17 @@ export function contact_form() {
 
     try {
       contactFormSchema.parse(formData);
+      const formEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT?.trim();
+      if (!formEndpoint) {
+        setBackendError(true);
+        return;
+      }
       axios
         .post(
-          "https://formspree.io/f/movvazay",
+          formEndpoint,
           formData,
-          { headers: {
+          {
+            headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             }
