@@ -50,8 +50,8 @@ export default function Home() {
           <Image
             src="/landpage_pics/Construction Tool.webp"
             alt="Home Banner"
-            layout="fill"
-            objectFit="cover"
+            fill
+            className="object-cover"
           />
         </div>
       </Screen>

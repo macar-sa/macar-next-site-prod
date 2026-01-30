@@ -30,8 +30,8 @@ export function Jobs() {
           <Image
             src="/landpage_pics/White ladder worker.webp"
             alt="Job Banner"
-            layout="fill"
-            objectFit="cover"
+            fill
+            className="object-cover"
           />
         </div>
       </Screen >
