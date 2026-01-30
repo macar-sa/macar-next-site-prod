@@ -10,7 +10,7 @@ import {
     NavbarMenuToggle,
     NavbarMenu,
     NavbarMenuItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Link from "next/link";
 import { Logo_specific } from "./icons/logo copy";
 
@@ -30,9 +30,10 @@ export const NavBar = () => {
     ];
     return (
         <Navbar
+            height="6rem"
             classNames={{
-                wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4",
-                base: "",
+                wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
+                base: "z-50 !min-h-0 !bg-background/50",
             }}
             onMenuOpenChange={setIsMenuOpen}
             isMenuOpen={isMenuOpen}
