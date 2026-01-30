@@ -34,8 +34,8 @@ export default function about() {
                     <Image
                         src={aboutbanner}
                         alt="About Banner"
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        className="object-cover"
                     />
                     <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                         <Logo_specific
