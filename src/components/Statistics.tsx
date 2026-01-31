@@ -4,7 +4,7 @@ import { ThirdHeading, P, SecondHeading, Raptor } from "@/app/_components/textSt
 const Statistics = () => {
     const stats = [
         { number: '+6000', text: 'Projets de Rénovation' },
-        { number: '+20 ans', text: 'd   \'Expérience' },
+        { number: '24 ans', text: 'd   \'Expérience' },
         { number: '+95%', text: 'Taux de Réussite des Projets' },
     ];
 

@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Raptor } from './_components/textStyles';
 import { Carousel } from 'react-responsive-carousel';
 import { LogoCarousel } from './_components/logocarousel';
+import GoogleReviews from '@/components/GoogleReviews';
 
 export default function Home() {
   return (
@@ -58,6 +59,10 @@ export default function Home() {
 
       <Screen name="Stats">
         <Statistics />
+      </Screen>
+
+      <Screen name="Avis Google" id="reviews">
+        <GoogleReviews />
       </Screen>
 
       <Screen name="Nos Services" id="services">
