@@ -7,42 +7,69 @@ import {
     NavbarBrand,
     NavbarContent,
     NavbarItem,
-    NavbarMenuToggle,
     NavbarMenu,
     NavbarMenuItem,
 } from "@heroui/react";
 import Link from "next/link";
-import { Logo_specific } from "./icons/logo copy";
+
+const MenuIcon = ({ open }: { open: boolean }) => (
+    <svg
+        aria-hidden
+        className="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+    >
+        {open ? (
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+            />
+        ) : (
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+            />
+        )}
+    </svg>
+);
+
+const menuItems = [
+    { name: "Accueil", href: "/#", type: "item" },
+    { name: "Découvrez Macar", href: "/about", type: "item" },
+    { name: "Services", href: "/#services", type: "item" },
+    { name: "Nous recrutons", href: "/job", type: "item" },
+];
 
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const menuKey = isMenuOpen ? "open" : "closed";
-    const menuItems = [
-        { name: "Accueil", href: "/#", type: "item" },
-        { name: "Découvrez Macar", href: "/about", type: "item" },
-        { name: "Services", href: "/#services", type: "item" },
-        {
-            name: "Nous recrutons",
-            href: "/job",
-            type: "item",
-        },
-    ];
     return (
         <Navbar
             height="6rem"
+            maxWidth="full"
             classNames={{
                 wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
-                base: "z-50 !min-h-0 !bg-background/70",
+                base: "sticky top-0 z-50 !min-h-0 !bg-background/70",
+                menu: "!bg-background border-b border-bordercard !w-full !max-w-full !left-0 !right-0",
             }}
-            onMenuOpenChange={setIsMenuOpen}
             isMenuOpen={isMenuOpen}
+            onMenuOpenChange={setIsMenuOpen}
         >
             <NavbarContent justify="start" className="items-center gap-6">
-                <NavbarMenuToggle
-                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    className="md:hidden"
-                />
+                <button
+                    type="button"
+                    className="md:hidden w-10 h-10 min-w-10 min-h-10 p-0 flex items-center justify-center rounded-lg hover:opacity-80 transition-opacity text-foreground"
+                    onClick={() => setIsMenuOpen((v) => !v)}
+                    aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                    aria-expanded={isMenuOpen}
+                >
+                    <MenuIcon open={isMenuOpen} />
+                </button>
                 <NavbarBrand className="">
                     <Link href="/">
                         <Logo iconOnly={false} customClasses="hidden lg:inline" />
@@ -64,17 +91,16 @@ export const NavBar = () => {
                     <PrimaryButton content="Contactez-nous !" href="/#contact" />
                 </NavbarItem>
             </NavbarContent>
-            <NavbarMenu>
+            <NavbarMenu className="!bg-background border-b border-bordercard !w-full !max-w-full">
                 {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item}-${index}`}>
-                        <NavLink
-                            href={`${item.href}`}
-                            content={item.name}
-                            customClasses="my-4 text-regular"
-                            onClick={() => {
-                                setIsMenuOpen(false);
-                            }}
-                        />
+                    <NavbarMenuItem key={`${item.name}-${index}`}>
+                        <Link
+                            className="w-full text-sm font-regular text-foreground hover:text-accent1 transition-all ease-in-out-quad py-3"
+                            href={item.href}
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            {item.name}
+                        </Link>
                     </NavbarMenuItem>
                 ))}
             </NavbarMenu>
