@@ -75,7 +75,6 @@ export const NavBar = () => {
                     wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
                     base: "sticky top-0 z-[100] !min-h-0 !bg-background/70",
                     menu: "z-[100] !bg-background !bg-opacity-100 border-b border-bordercard !w-[100vw] !max-w-[100vw] !min-w-full !left-0 !right-0",
-                    menuBackdrop: "z-[99] bg-black/50",
                 }}
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
