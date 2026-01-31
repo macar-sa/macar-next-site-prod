@@ -66,23 +66,7 @@ export const NavBar = () => {
 
     return (
         <>
-            <style dangerouslySetInnerHTML={{
-                __html: `
-.macar-navbar-menu {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  min-width: 100vw !important;
-  left: 0 !important;
-  right: 0 !important;
-  background: #F6F8FF !important;
-  background-color: #F6F8FF !important;
-}
-body > div:has(> .macar-navbar-menu) {
-  background: #F6F8FF !important;
-  background-color: #F6F8FF !important;
-  min-height: 100vh !important;
-}
-            ` }} />
+            <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100vw!important;max-width:100vw!important;min-width:100vw!important;left:0!important;right:0!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:100vh!important}` }} />
             {menuOverlay}
             <Navbar
                 height="6rem"
