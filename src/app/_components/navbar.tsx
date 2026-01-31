@@ -12,8 +12,6 @@ import {
 } from "@heroui/react";
 import Link from "next/link";
 
-const MENU_OVERLAY_BG = "#F6F8FF";
-
 const MenuIcon = ({ open }: { open: boolean }) => (
     <svg
         aria-hidden
@@ -50,24 +48,9 @@ const menuItems = [
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const menuOverlay =
-        isMenuOpen && (
-            <div
-                className="fixed inset-0 w-full h-full md:hidden"
-                style={{
-                    zIndex: 98,
-                    backgroundColor: MENU_OVERLAY_BG,
-                }}
-                onClick={() => setIsMenuOpen(false)}
-                onKeyDown={(e) => e.key === "Escape" && setIsMenuOpen(false)}
-                aria-hidden
-            />
-        );
-
     return (
         <>
             <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100%!important;max-width:100%!important;min-width:100%!important;left:0!important;right:0!important;box-sizing:border-box!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){width:100%!important;max-width:100%!important;left:0!important;right:0!important;background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:100vh!important}` }} />
-            {menuOverlay}
             <Navbar
                 height="6rem"
                 maxWidth="full"
