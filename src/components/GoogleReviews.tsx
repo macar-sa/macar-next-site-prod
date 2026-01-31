@@ -177,6 +177,9 @@ export default function GoogleReviews() {
     return () => clearInterval(id);
   }, [isPaused]);
 
+  const pauseCarousel = useCallback(() => setIsPaused(true), []);
+  const resumeCarousel = useCallback(() => setIsPaused(false), []);
+
   return (
     <div className="w-full">
       <SecondHeading>
@@ -189,10 +192,12 @@ export default function GoogleReviews() {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory py-2 px-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            style={{ scrollBehavior: "smooth" }}
+            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory py-2 px-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+            onMouseEnter={pauseCarousel}
+            onMouseLeave={resumeCarousel}
+            onTouchStart={pauseCarousel}
+            onTouchEnd={resumeCarousel}
+            style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
           >
             {reviews.map((review, i) => (
               <ReviewCard

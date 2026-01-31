@@ -12,6 +12,8 @@ import {
 } from "@heroui/react";
 import Link from "next/link";
 
+const MENU_OVERLAY_BG = "#F6F8FF";
+
 const MenuIcon = ({ open }: { open: boolean }) => (
     <svg
         aria-hidden
@@ -48,62 +50,97 @@ const menuItems = [
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const menuOverlay =
+        isMenuOpen && (
+            <div
+                className="fixed inset-0 w-full h-full md:hidden"
+                style={{
+                    zIndex: 98,
+                    backgroundColor: MENU_OVERLAY_BG,
+                }}
+                onClick={() => setIsMenuOpen(false)}
+                onKeyDown={(e) => e.key === "Escape" && setIsMenuOpen(false)}
+                aria-hidden
+            />
+        );
+
     return (
-        <Navbar
-            height="6rem"
-            maxWidth="full"
-            classNames={{
-                wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
-                base: "sticky top-0 z-50 !min-h-0 !bg-background/70",
-                menu: "!bg-background border-b border-bordercard !w-full !max-w-full !left-0 !right-0",
-            }}
-            isMenuOpen={isMenuOpen}
-            onMenuOpenChange={setIsMenuOpen}
-        >
-            <NavbarContent justify="start" className="items-center gap-6">
-                <button
-                    type="button"
-                    className="md:hidden w-10 h-10 min-w-10 min-h-10 p-0 flex items-center justify-center rounded-lg hover:opacity-80 transition-opacity text-foreground"
-                    onClick={() => setIsMenuOpen((v) => !v)}
-                    aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                    aria-expanded={isMenuOpen}
-                >
-                    <MenuIcon open={isMenuOpen} />
-                </button>
-                <NavbarBrand className="">
-                    <Link href="/">
-                        <Logo iconOnly={false} customClasses="hidden lg:inline" />
-                        <Logo
-                            iconOnly={false}
-                            width={120}
-                            customClasses="inline lg:hidden"
-                        />
-                    </Link>
-                </NavbarBrand>
-                {menuItems.map((item, index) => (
-                    <NavbarItem key={index} className="hidden md:flex items-center">
-                        <NavLink href={`${item.href}`} content={item.name} />
-                    </NavbarItem>
-                ))}
-            </NavbarContent>
-            <NavbarContent justify="end" className="items-center">
-                <NavbarItem>
-                    <PrimaryButton content="Contactez-nous !" href="/#contact" />
-                </NavbarItem>
-            </NavbarContent>
-            <NavbarMenu className="!bg-background border-b border-bordercard !w-full !max-w-full">
-                {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item.name}-${index}`}>
-                        <Link
-                            className="w-full text-sm font-regular text-foreground hover:text-accent1 transition-all ease-in-out-quad py-3"
-                            href={item.href}
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            {item.name}
+        <>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+.macar-navbar-menu {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 100vw !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: #F6F8FF !important;
+  background-color: #F6F8FF !important;
+}
+body > div:has(> .macar-navbar-menu) {
+  background: #F6F8FF !important;
+  background-color: #F6F8FF !important;
+  min-height: 100vh !important;
+}
+            ` }} />
+            {menuOverlay}
+            <Navbar
+                height="6rem"
+                maxWidth="full"
+                classNames={{
+                    wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
+                    base: "sticky top-0 z-[100] !min-h-0 !bg-background/70",
+                    menu: "z-[100] !bg-background !bg-opacity-100 border-b border-bordercard !w-[100vw] !max-w-[100vw] !min-w-full !left-0 !right-0",
+                    menuBackdrop: "z-[99] bg-black/50",
+                }}
+                isMenuOpen={isMenuOpen}
+                onMenuOpenChange={setIsMenuOpen}
+            >
+                <NavbarContent justify="start" className="items-center gap-6">
+                    <button
+                        type="button"
+                        className="md:hidden w-10 h-10 min-w-10 min-h-10 p-0 flex items-center justify-center rounded-lg hover:opacity-80 transition-opacity text-foreground"
+                        onClick={() => setIsMenuOpen((v) => !v)}
+                        aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                        aria-expanded={isMenuOpen}
+                    >
+                        <MenuIcon open={isMenuOpen} />
+                    </button>
+                    <NavbarBrand className="">
+                        <Link href="/">
+                            <Logo iconOnly={false} customClasses="hidden lg:inline" />
+                            <Logo
+                                iconOnly={false}
+                                width={120}
+                                customClasses="inline lg:hidden"
+                            />
                         </Link>
-                    </NavbarMenuItem>
-                ))}
-            </NavbarMenu>
-        </Navbar>
+                    </NavbarBrand>
+                    {menuItems.map((item, index) => (
+                        <NavbarItem key={index} className="hidden md:flex items-center">
+                            <NavLink href={`${item.href}`} content={item.name} />
+                        </NavbarItem>
+                    ))}
+                </NavbarContent>
+                <NavbarContent justify="end" className="items-center">
+                    <NavbarItem>
+                        <PrimaryButton content="Contactez-nous !" href="/#contact" />
+                    </NavbarItem>
+                </NavbarContent>
+                <NavbarMenu className="macar-navbar-menu !bg-background !bg-opacity-100 border-b border-bordercard !w-[100vw] !max-w-[100vw] !min-w-full">
+                    {menuItems.map((item, index) => (
+                        <NavbarMenuItem key={`${item.name}-${index}`}>
+                            <Link
+                                className="w-full text-sm font-regular text-foreground hover:text-accent1 transition-all ease-in-out-quad py-3"
+                                href={item.href}
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {item.name}
+                            </Link>
+                        </NavbarMenuItem>
+                    ))}
+                </NavbarMenu>
+            </Navbar>
+        </>
     );
 };
