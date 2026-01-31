@@ -50,7 +50,7 @@ export const NavBar = () => {
 
     return (
         <>
-            <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100%!important;max-width:100%!important;min-width:100%!important;left:0!important;right:0!important;box-sizing:border-box!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){width:100%!important;max-width:100%!important;left:0!important;right:0!important;background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:100vh!important}` }} />
+            <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100%!important;max-width:100%!important;min-width:100%!important;left:0!important;right:0!important;box-sizing:border-box!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){position:fixed!important;top:4rem!important;left:0!important;right:0!important;width:100%!important;max-width:100%!important;background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:calc(100vh - 4rem)!important;height:calc(100vh - 4rem)!important}` }} />
             <Navbar
                 height="6rem"
                 maxWidth="full"
