@@ -66,15 +66,15 @@ export const NavBar = () => {
 
     return (
         <>
-            <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100vw!important;max-width:100vw!important;min-width:100vw!important;left:0!important;right:0!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:100vh!important}` }} />
+            <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100%!important;max-width:100%!important;min-width:100%!important;left:0!important;right:0!important;box-sizing:border-box!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){width:100%!important;max-width:100%!important;left:0!important;right:0!important;background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:100vh!important}` }} />
             {menuOverlay}
             <Navbar
                 height="6rem"
                 maxWidth="full"
                 classNames={{
-                    wrapper: "max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
+                    wrapper: "w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
                     base: "sticky top-0 z-[100] !min-h-0 !bg-background/70",
-                    menu: "z-[100] !bg-background !bg-opacity-100 border-b border-bordercard !w-[100vw] !max-w-[100vw] !min-w-full !left-0 !right-0",
+                    menu: "z-[100] !bg-background !bg-opacity-100 border-b border-bordercard !w-full !max-w-full !min-w-full !left-0 !right-0",
                 }}
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
@@ -110,7 +110,7 @@ export const NavBar = () => {
                         <PrimaryButton content="Contactez-nous !" href="/#contact" />
                     </NavbarItem>
                 </NavbarContent>
-                <NavbarMenu className="macar-navbar-menu !bg-background !bg-opacity-100 border-b border-bordercard !w-[100vw] !max-w-[100vw] !min-w-full">
+                <NavbarMenu className="macar-navbar-menu !bg-background !bg-opacity-100 border-b border-bordercard !w-full !max-w-full !min-w-full">
                     {menuItems.map((item, index) => (
                         <NavbarMenuItem key={`${item.name}-${index}`}>
                             <Link
