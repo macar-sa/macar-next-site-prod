@@ -98,7 +98,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
               >
                 <Image
-                  src="/sevices/Renovation.png"
+                  src="/services/Renovation.png"
                   alt="Rénovation intérieure et extérieure — Macar"
                   width={100}
                   height={100}
@@ -109,7 +109,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
               >
                 <Image
-                  src="/sevices/Plomberie.png"
+                  src="/services/Plomberie.png"
                   alt="Plomberie — Macar"
                   width={100}
                   height={100}
@@ -120,7 +120,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
               >
                 <Image
-                  src="/sevices/Installation Electrique.png"
+                  src="/services/Installation Electrique.png"
                   alt="Installation électrique — Macar"
                   width={100}
                   height={100}
@@ -131,7 +131,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
               >
                 <Image
-                  src="/sevices/Toiture.png"
+                  src="/services/Toiture.png"
                   alt="Toiture — Macar"
                   width={100}
                   height={100}

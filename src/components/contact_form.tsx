@@ -92,12 +92,17 @@ export function contact_form() {
     <Card className="mx-auto px-1 sm:px-4 py-10 bg-white rounded-xl shadow-md space-y-6">
       <CardContent>
         {submissionSuccess ? (
-          <div className="">
+          <div className="" role="status" aria-live="polite" aria-atomic="true">
             <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Merci pour votre confiance !</SecondHeading>
             <P content="Merci pour votre demande! Nous allons la traiter dans les plus brefs délais." />
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+            {Object.keys(validationErrors).length > 0 && (
+              <p className="text-sm text-red-600" role="alert" aria-live="polite" aria-atomic="true">
+                Le formulaire contient des erreurs. Veuillez corriger les champs indiqués.
+              </p>
+            )}
             <div className="space-y-8">
               <div className="space-y-2">
                 <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
@@ -126,10 +131,11 @@ export function contact_form() {
                 </div>
                 <Button type="submit" className="group rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-white text-accent1 border border-accent1 font-regular hover:bg-accent1 hover:text-background w-full" variant="accent1">Envoyer</Button>
                 <p className="text-sm text-gray-500 italic">Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.</p>
-                {backendError && <div className="flex h-10 text-sm text-red-700">
-                  Oups quelque chose s'est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
-                </div>
-                }
+                {backendError && (
+                  <div className="flex h-10 text-sm text-red-700" role="alert" aria-live="assertive" aria-atomic="true">
+                    Oups quelque chose s'est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
+                  </div>
+                )}
               </div>
             </div>
           </form>
