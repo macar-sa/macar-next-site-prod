@@ -84,10 +84,26 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 à chaque étape de notre travail.
               </p>
             </P>
-            <div className="mt-10">
+            <p className="mt-4 text-sm text-default-600">
+              Retrouvez le détail des prestations par domaine sur notre{" "}
+              <Link
+                href="/services"
+                className="font-medium text-accent1 hover:underline"
+              >
+                page Services
+              </Link>
+              .
+            </p>
+            <div className="mt-10 flex flex-col gap-3 w-fit">
               <PrimaryButton
                 content="Commencez votre projet !"
                 href="/#contact"
+                customClasses="w-full"
+              />
+              <SecondaryButton
+                href="/services"
+                content="Voir le détail des services"
+                customClasses="w-full"
               />
             </div>
           </div>

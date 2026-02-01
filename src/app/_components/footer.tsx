@@ -11,7 +11,7 @@ export const Footer = () => {
     const menuItems = [
         { name: "Accueil", href: "/" },
         { name: "Découvrez Macar", href: "/about" },
-        { name: "Services", href: "/#services" },
+        { name: "Services", href: "/services" },
         { name: "FAQ", href: "/#faq" },
         { name: "Nous recrutons", href: "/job" },
     ];

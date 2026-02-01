@@ -9,12 +9,12 @@ export const NavLink = ({
     content: string;
     href?: string;
     customClasses?: string;
-    onClick?: any;
+    onClick?: () => void;
 }) => {
     return (
         <Link
             href={href}
-            onClick={onClick}
+            {...(onClick != null ? { onClick } : {})}
             className="group h-full flex items-center justify-center"
         >
             <div
@@ -30,15 +30,15 @@ export const PrimaryButton = ({
     content = "Default Button",
     href = "",
     customClasses,
-    onClick = () => { },
+    onClick,
 }: {
     content: string;
     href?: string;
     customClasses?: string;
-    onClick?: any;
+    onClick?: () => void;
 }) => {
     return (
-        <Link className="" onClick={onClick} href={href}>
+        <Link className="" href={href} {...(onClick != null ? { onClick } : {})}>
             <div
                 className={`group inline-block rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-accent1 text-background font-regular ${customClasses}`}
             >
@@ -53,15 +53,15 @@ export const SecondaryButton = ({
     content = "Default Button",
     href = "",
     customClasses,
-    onClick = () => { },
+    onClick,
 }: {
     content: string;
     href?: string;
     customClasses?: string;
-    onClick?: any;
+    onClick?: () => void;
 }) => {
     return (
-        <Link className="inline-block" onClick={onClick} href={href}>
+        <Link className="inline-block" href={href} {...(onClick != null ? { onClick } : {})}>
             <div
                 className={`group rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-white text-accent1 border border-accent1 font-regular hover:bg-accent1/90  hover:text-background w-full" ${customClasses}`}
                 style={{

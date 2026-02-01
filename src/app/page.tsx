@@ -56,17 +56,17 @@ const services = [
   {
     name: "Plomberie",
     description:
-      "Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites.",
+      "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, détection de fuites et étanchéité.",
   },
   {
-    name: "Installation Electrique",
+    name: "Installation électrique",
     description:
-      "Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau.",
+      "Tableau électrique et mise en conformité, saignées et câblage, prises et interrupteurs, spots et éclairage, cuisine et salle de bain, fibre optique et prise TV.",
   },
   {
     name: "Toiture",
     description:
-      "Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières.",
+      "Couverture tuiles et ardoises, toit plat et étanchéité Derbigum/EPDM, corniches et gouttières zinc, velux et lucarnes, noues et arêtiers, cheminée et solins, descentes d'eau pluviale, coupoles.",
   },
 ];
 
