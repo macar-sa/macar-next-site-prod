@@ -20,15 +20,36 @@ const raptor = localFont({
   variable: "--font-raptor"
 })
 
+const defaultTitle = "Macar — Rénovation & construction à Bruxelles";
+const defaultDescription = "Macar est une entreprise de rénovation, plomberie, électricité et toiture basée à Bruxelles (Belgique), active depuis 2002. Devis et accompagnement pour vos projets.";
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  "@id": "https://www.macar.be/#localbusiness",
+  name: "Macar",
+  description: "Macar est une entreprise de rénovation, plomberie, installations électriques et toiture basée à Bruxelles (Belgique), active depuis 2002.",
+  url: "https://www.macar.be",
+  telephone: "+32478235008",
+  email: "info@macar.be",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Avenue Prudent Bols, 43",
+    addressLocality: "Bruxelles",
+    postalCode: "B-1020",
+    addressCountry: "BE",
+  },
+  foundingDate: "2002",
+  areaServed: "Bruxelles, Belgique",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.macar.be/"),
-  title: "Macar - Construction, Assistance, Rénovation",
-  description:
-    "Votre partenaire de confiance pour vos projets de rénovations et constructions",
+  title: defaultTitle,
+  description: defaultDescription,
   openGraph: {
-    title: "Macar - Construction, Assistance, Rénovation",
-    description:
-      "Votre partenaire de confiance pour vos projets de rénovations et constructions",
+    title: defaultTitle,
+    description: defaultDescription,
     url: "",
     siteName: "Macar",
     images: [
@@ -80,6 +101,10 @@ export default function RootLayout({
           rel="mask-icon"
           href="/favicon/safari-pinned-tab.svg"
           color="#02041b"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
 
         {gaId && (

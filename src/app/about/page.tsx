@@ -12,8 +12,8 @@ import { LogoCarousel } from '../_components/logocarousel';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Découvrez Macar',
-    description: 'Notre histoire prend ses racines dans la volonté de rendre tangible vos projets',
+    title: 'À propos de Macar — Notre histoire à Bruxelles',
+    description: 'Macar, entreprise de rénovation et construction à Bruxelles depuis 2002. Notre histoire, notre équipe et nos valeurs : confiance, professionnalisme, transparence et adaptabilité.',
 }
 
 export default function about() {
@@ -33,7 +33,7 @@ export default function about() {
                 <div className="relative w-full mt-10 h-40 md:h-[400px]">
                     <Image
                         src={aboutbanner}
-                        alt="About Banner"
+                        alt="Bannière — Macar, entreprise de rénovation à Bruxelles"
                         fill
                         className="object-cover"
                     />
