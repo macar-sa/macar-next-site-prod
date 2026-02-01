@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, PrimaryButton } from "./buttons";
 import { Logo } from "./icons/logo";
 import {
@@ -8,35 +8,11 @@ import {
     NavbarContent,
     NavbarItem,
     NavbarMenu,
+    NavbarMenuToggle,
     NavbarMenuItem,
 } from "@heroui/react";
 import Link from "next/link";
-
-const MenuIcon = ({ open }: { open: boolean }) => (
-    <svg
-        aria-hidden
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-    >
-        {open ? (
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-            />
-        ) : (
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-            />
-        )}
-    </svg>
-);
+import { Menu, X } from "lucide-react";
 
 const menuItems = [
     { name: "Accueil", href: "/#", type: "item" },
@@ -45,34 +21,82 @@ const menuItems = [
     { name: "Nous recrutons", href: "/job", type: "item" },
 ];
 
+const MENU_PORTAL_Z_INDEX = 9999;
+const NAVBAR_HEIGHT = "4rem";
+const PAGE_BG = "#F6F8FF";
+
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [menuPortalEl, setMenuPortalEl] = useState<HTMLDivElement | null>(null);
+    const portalCreated = useRef(false);
+
+    useEffect(() => {
+        if (portalCreated.current || typeof document === "undefined") return;
+        const div = document.createElement("div");
+        div.id = "navbar-menu-portal";
+        div.style.cssText = `position:fixed;top:${NAVBAR_HEIGHT};left:0;right:0;bottom:0;z-index:${MENU_PORTAL_Z_INDEX};pointer-events:none;transition:background-color 0.25s ease,pointer-events 0s;`;
+        document.body.appendChild(div);
+        setMenuPortalEl(div);
+        portalCreated.current = true;
+        return () => {
+            if (div.parentNode) div.parentNode.removeChild(div);
+            portalCreated.current = false;
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!menuPortalEl) return;
+        menuPortalEl.style.pointerEvents = isMenuOpen ? "auto" : "none";
+        menuPortalEl.style.backgroundColor = isMenuOpen ? PAGE_BG : "transparent";
+    }, [isMenuOpen, menuPortalEl]);
 
     return (
         <>
-            <style dangerouslySetInnerHTML={{ __html: `.macar-navbar-menu{width:100%!important;max-width:100%!important;min-width:100%!important;left:0!important;right:0!important;box-sizing:border-box!important;background:#F6F8FF!important;background-color:#F6F8FF!important}body>div:has(>.macar-navbar-menu){position:fixed!important;top:4rem!important;left:0!important;right:0!important;width:100%!important;max-width:100%!important;background:#F6F8FF!important;background-color:#F6F8FF!important;min-height:calc(100vh - 4rem)!important;height:calc(100vh - 4rem)!important}` }} />
+            <style
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        @keyframes navbar-menu-enter {
+                            from { opacity: 0; transform: translateY(-10px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                        #navbar-menu-portal > * {
+                            animation: navbar-menu-enter 0.28s ease-out forwards;
+                        }
+                    `,
+                }}
+            />
             <Navbar
-                height="6rem"
+                height="4rem"
                 maxWidth="full"
                 classNames={{
-                    wrapper: "w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 !h-16 min-h-16",
-                    base: "sticky top-0 z-[100] !min-h-0 !bg-background/70",
-                    menu: "z-[100] !bg-background !bg-opacity-100 border-b border-bordercard !w-full !max-w-full !min-w-full !left-0 !right-0",
+                    base: "sticky top-0 z-[100] min-h-0 bg-background border-b border-default-200/50",
+                    wrapper: "w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 h-16 min-h-16",
+                    toggle: "[&_span]:!hidden",
+                    menu: "!fixed !top-16 !left-0 !right-0 !w-full min-h-[calc(100dvh-4rem)] !z-[9999] pt-4 pb-6 px-4 bg-background border-b border-default-200/50 shadow-lg pointer-events-auto transition-all duration-300 ease-out",
+                    menuItem: "min-h-[44px] py-0 data-[active=true]:bg-default-100 rounded-lg",
                 }}
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
+                isBlurred={false}
             >
-                <NavbarContent justify="start" className="items-center gap-6">
-                    <button
-                        type="button"
-                        className="md:hidden w-10 h-10 min-w-10 min-h-10 p-0 flex items-center justify-center rounded-lg hover:opacity-80 transition-opacity text-foreground"
-                        onClick={() => setIsMenuOpen((v) => !v)}
+                <NavbarContent className="md:hidden" justify="start">
+                    <NavbarMenuToggle
                         aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                        aria-expanded={isMenuOpen}
-                    >
-                        <MenuIcon open={isMenuOpen} />
-                    </button>
-                    <NavbarBrand className="">
+                        srOnlyText={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                        icon={(isOpen) => (isOpen ? <X size={24} /> : <Menu size={24} />)}
+                    />
+                </NavbarContent>
+
+                <NavbarContent className="md:hidden" justify="center">
+                    <NavbarBrand>
+                        <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                            <Logo iconOnly={false} width={120} />
+                        </Link>
+                    </NavbarBrand>
+                </NavbarContent>
+
+                <NavbarContent className="hidden md:flex items-center gap-6" justify="start">
+                    <NavbarBrand>
                         <Link href="/">
                             <Logo iconOnly={false} customClasses="hidden lg:inline" />
                             <Logo
@@ -83,21 +107,29 @@ export const NavBar = () => {
                         </Link>
                     </NavbarBrand>
                     {menuItems.map((item, index) => (
-                        <NavbarItem key={index} className="hidden md:flex items-center">
-                            <NavLink href={`${item.href}`} content={item.name} />
+                        <NavbarItem key={index} className="items-center">
+                            <NavLink href={item.href} content={item.name} />
                         </NavbarItem>
                     ))}
                 </NavbarContent>
-                <NavbarContent justify="end" className="items-center">
-                    <NavbarItem>
-                        <PrimaryButton content="Contactez-nous !" href="/#contact" />
-                    </NavbarItem>
+
+                <NavbarContent justify="end" className="hidden md:flex items-center">
                 </NavbarContent>
-                <NavbarMenu className="macar-navbar-menu !bg-background !bg-opacity-100 border-b border-bordercard !w-full !max-w-full !min-w-full">
+
+                <NavbarMenu
+                    className="gap-1"
+                    portalContainer={menuPortalEl ?? undefined}
+                    motionProps={{
+                        initial: { opacity: 0, y: -10 },
+                        animate: { opacity: 1, y: 0 },
+                        exit: { opacity: 0, y: -10 },
+                        transition: { duration: 0.28, ease: "easeOut" },
+                    }}
+                >
                     {menuItems.map((item, index) => (
                         <NavbarMenuItem key={`${item.name}-${index}`}>
                             <Link
-                                className="w-full text-sm font-regular text-foreground hover:text-accent1 transition-all ease-in-out-quad py-3"
+                                className="flex items-center w-full min-h-[44px] px-4 text-base font-regular text-foreground hover:text-accent1 active:bg-default-100 rounded-lg transition-colors"
                                 href={item.href}
                                 onClick={() => setIsMenuOpen(false)}
                             >
@@ -105,6 +137,15 @@ export const NavBar = () => {
                             </Link>
                         </NavbarMenuItem>
                     ))}
+                    <NavbarMenuItem className="pt-2 mt-2 border-t border-default-200">
+                        <Link
+                            className="flex items-center justify-center w-full min-h-[44px] px-4 rounded-lg bg-accent1 text-background font-medium text-base active:opacity-90"
+                            href="/#contact"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Contactez-nous !
+                        </Link>
+                    </NavbarMenuItem>
                 </NavbarMenu>
             </Navbar>
         </>
