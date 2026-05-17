@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PrimaryButton } from "./buttons";
 import { Logo } from "./icons/logo";
 import { P } from "./textStyles";
-import { Logo_specific } from "./icons/logo copy";
+import { Logo_specific } from "./icons/logo_specific";
 
 
 
@@ -106,18 +106,23 @@ export const Footer = () => {
                     <p className="text-font-gray text-sm md:text-base">
                         Copyright © {new Date().getFullYear()} Macar
                     </p>
-                    {/* <div className="flex flex-row items-center">
-                        <Link href={"/termsandconditions"} className="inline-block mr-8">
+                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+                        <Link href="/mentions-legales" className="inline-block">
                             <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
-                                General Terms & Conditions
+                                Mentions légales
                             </p>
                         </Link>
-                        <Link href={"/privacypolicy"} className="inline-block">
+                        <Link href="/politique-confidentialite" className="inline-block">
                             <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
-                                Privacy Policy
+                                Politique de confidentialité
                             </p>
                         </Link>
-                    </div> */}
+                        <Link href="/politique-cookies" className="inline-block">
+                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
+                                Politique cookies
+                            </p>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

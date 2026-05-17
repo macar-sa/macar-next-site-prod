@@ -389,7 +389,7 @@ const services: ServiceItem[] = [
   {
     id: "renovation",
     title: "Rénovation intérieure et extérieure",
-    image: "/services/Renovation.png",
+    image: "/services/renovation.png",
     summary:
       "Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs.",
     detail: "",
@@ -409,7 +409,7 @@ const services: ServiceItem[] = [
   {
     id: "plomberie",
     title: "Plomberie",
-    image: "/services/Plomberie.png",
+    image: "/services/plomberie.png",
     summary:
       "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, détection de fuites et étanchéité.",
     detail: "",
@@ -428,7 +428,7 @@ const services: ServiceItem[] = [
   {
     id: "electricite",
     title: "Installation électrique",
-    image: "/services/Installation Electrique.png",
+    image: "/services/installation-electrique.png",
     summary:
       "Tableau électrique et mise en conformité, saignées et câblage, prises et interrupteurs, spots et éclairage, cuisine et salle de bain, fibre optique et prise TV.",
     detail: "",
@@ -447,7 +447,7 @@ const services: ServiceItem[] = [
   {
     id: "toiture",
     title: "Toiture",
-    image: "/services/Toiture.png",
+    image: "/services/toiture.png",
     summary:
       "Couverture tuiles et ardoises, toit plat et étanchéité Derbigum/EPDM, corniches et gouttières zinc, velux et lucarnes, noues et arêtiers, cheminée et solins, descentes d'eau pluviale, coupoles.",
     detail: "",

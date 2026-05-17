@@ -7,7 +7,7 @@ import { Jobs } from '@/components/jobs';
 import aboutbanner from '/src/app/about/about_banner.webp';
 import { Heading } from 'lucide-react';
 import { Trusted } from '@/components/trusted';
-import { Logo_specific } from '../_components/icons/logo copy';
+import { Logo_specific } from '../_components/icons/logo_specific';
 import { LogoCarousel } from '../_components/logocarousel';
 import type { Metadata } from 'next'
 
@@ -35,6 +35,8 @@ export default function about() {
                         src={aboutbanner}
                         alt="Bannière — Macar, entreprise de rénovation à Bruxelles"
                         fill
+                        priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1280px"
                         className="object-cover"
                     />
                     <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">

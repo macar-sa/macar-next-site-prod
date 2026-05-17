@@ -16,6 +16,14 @@ export type GoogleReview = {
 
 const reviews: GoogleReview[] = [
   {
+    authorName: "Nathalie Claus",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a/ACg8ocJ2n_6DtDwxGp6UuJTkt8_6pcHfq12n8Plw4ShUjPRnTsikGA=w72-h72-p-rp-mo-br100",
+    rating: 5,
+    relativeTime: "Il y a un jour",
+    text: "Nous travaillons avec la société depuis 11 ans suite à des dégâts de cheminée dû à la foudre. L'assurance avait fait appel à MACAR. Le travail bien fait, le respect des horaires, la propreté, les conseils, la disponibilité et la sympathie de la direction et des ouvriers font que nous faisons systématiquement confiance à cette entreprise. Nous avons déjà pû profiter de plusieurs de leurs expertises.\nMacar est devenu Notre Entrepreneur.",
+  },
+  {
     authorName: "Riny Nijenhof",
     authorPhotoUrl:
       "https://lh3.googleusercontent.com/a-/ALV-UjU3OsvtkeU5ASUB8ItLwLQWk_TYs3TY0O5BqE_IU114IwPrIGc=w72-h72-p-rp-mo-br100",

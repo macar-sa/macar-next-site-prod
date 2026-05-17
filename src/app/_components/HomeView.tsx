@@ -52,9 +52,11 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
-            src="/landpage_pics/Construction Tool.webp"
+            src="/landpage_pics/construction-tool.webp"
             alt="Chantier de rénovation — Macar, Bruxelles"
             fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1280px"
             className="object-cover"
           />
         </div>
@@ -114,7 +116,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
               >
                 <Image
-                  src="/services/Renovation.png"
+                  src="/services/renovation.png"
                   alt="Rénovation intérieure et extérieure — Macar"
                   width={100}
                   height={100}
@@ -125,7 +127,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
               >
                 <Image
-                  src="/services/Plomberie.png"
+                  src="/services/plomberie.png"
                   alt="Plomberie — Macar"
                   width={100}
                   height={100}
@@ -136,7 +138,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
               >
                 <Image
-                  src="/services/Installation Electrique.png"
+                  src="/services/installation-electrique.png"
                   alt="Installation électrique — Macar"
                   width={100}
                   height={100}
@@ -147,7 +149,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
               >
                 <Image
-                  src="/services/Toiture.png"
+                  src="/services/toiture.png"
                   alt="Toiture — Macar"
                   width={100}
                   height={100}

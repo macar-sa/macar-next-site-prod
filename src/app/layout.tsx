@@ -47,10 +47,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.macar.be/"),
   title: defaultTitle,
   description: defaultDescription,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: defaultTitle,
     description: defaultDescription,
-    url: "",
+    url: "https://www.macar.be/",
     siteName: "Macar",
     images: [
       {
@@ -66,6 +69,17 @@ export const metadata: Metadata = {
     ],
     locale: "fr_BE",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: ["/opengraph/OpengraphLarge.png"],
+  },
+  // TODO: set NEXT_PUBLIC_GSC_TOKEN and NEXT_PUBLIC_BING_TOKEN in Vercel env, then submit /sitemap.xml in GSC + Bing Webmaster.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_TOKEN,
+    other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_TOKEN ?? "" },
   },
 };
 
