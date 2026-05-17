@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomeView from "./_components/HomeView";
+import { reviewsJsonLd } from "@/data/reviews";
 
 export const metadata: Metadata = {
   title: "Macar — Rénovation, plomberie, électricité, toiture à Bruxelles",
@@ -100,7 +101,14 @@ export default function Home() {
       />
       {servicesJsonLd.map((json, i) => (
         <script
-          key={i}
+          key={`service-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+        />
+      ))}
+      {reviewsJsonLd.map((json, i) => (
+        <script
+          key={`review-${i}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
         />

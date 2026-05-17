@@ -8,6 +8,7 @@ import { Footer } from "./_components/footer";
 import CookieConsent from "./_components/CookieConsent";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
+import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
 
 const open_sans = Open_Sans({ subsets: ['latin'] })
 const raptor = localFont({
@@ -22,26 +23,6 @@ const raptor = localFont({
 
 const defaultTitle = "Macar — Rénovation & construction à Bruxelles";
 const defaultDescription = "Macar est une entreprise de rénovation, plomberie, électricité et toiture basée à Bruxelles (Belgique), active depuis 2002. Devis et accompagnement pour vos projets.";
-
-const localBusinessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": ["Organization", "LocalBusiness"],
-  "@id": "https://www.macar.be/#localbusiness",
-  name: "Macar",
-  description: "Macar est une entreprise de rénovation, plomberie, installations électriques et toiture basée à Bruxelles (Belgique), active depuis 2002.",
-  url: "https://www.macar.be",
-  telephone: "+32478235008",
-  email: "info@macar.be",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Avenue Prudent Bols, 43",
-    addressLocality: "Bruxelles",
-    postalCode: "B-1020",
-    addressCountry: "BE",
-  },
-  foundingDate: "2002",
-  areaServed: "Bruxelles, Belgique",
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.macar.be/"),

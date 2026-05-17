@@ -10,6 +10,8 @@ import { CheckMark } from "./checkMark";
 import { LogoCarousel } from "./logocarousel";
 import Statistics from "@/components/Statistics";
 import GoogleReviews from "@/components/GoogleReviews";
+import { Star, ExternalLink } from "lucide-react";
+import { RATING } from "@/lib/seo/localBusiness";
 import { Accordion, AccordionItem } from "@heroui/react";
 
 export type FaqItem = { question: string; answer: string };
@@ -30,6 +32,24 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               électriques et toiture basée à Bruxelles (Belgique), active depuis
               2002.
             </p>
+            <Link
+              href="/#reviews"
+              className="mt-4 inline-flex items-center gap-2 text-sm text-font-gray hover:text-headings transition-colors"
+              aria-label={`Note ${RATING.value.replace(".", ",")} sur 5 — ${RATING.count} avis Google`}
+            >
+              <span className="flex items-center gap-0.5" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                  />
+                ))}
+              </span>
+              <span className="font-medium text-headings">
+                {RATING.value.replace(".", ",")}
+              </span>
+              <span>— {RATING.count} avis Google</span>
+            </Link>
             <div className="mt-4">
               <Raptor>
                 <h5 className="mb-4 text-sm lg:text-base 2xl:text-lg">
@@ -205,6 +225,22 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                   {" "}
                   Avenue Prudent Bols, 43 <br />
                   B-1020 Bruxelles/Brussel
+                </P>
+                <a
+                  href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1 text-sm text-accent1 hover:underline"
+                >
+                  Voir sur Google Maps
+                  <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+                </a>
+              </div>
+              <div>
+                <P customClasses="font-medium">Horaires</P>
+                <P customClasses="text-font-gray">
+                  Lun – Ven · 08:00 – 17:00 <br />
+                  Sam – Dim · Fermé
                 </P>
               </div>
             </div>
