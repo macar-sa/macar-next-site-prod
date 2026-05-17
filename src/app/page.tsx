@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Macar — Rénovation, plomberie, électricité, toiture à Bruxelles",
   description:
     "Macar est une entreprise de rénovation, plomberie, installations électriques et toiture basée à Bruxelles (Belgique), active depuis 2002. Devis et accompagnement pour vos projets.",
+  alternates: { canonical: "/" },
 };
 
 const baseUrl = "https://www.macar.be";
@@ -50,21 +51,25 @@ const faq: { question: string; answer: string }[] = [
 
 const services = [
   {
+    slug: "renovation",
     name: "Rénovation intérieure et extérieure",
     description:
       "Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs.",
   },
   {
+    slug: "plomberie",
     name: "Plomberie",
     description:
       "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, détection de fuites et étanchéité.",
   },
   {
+    slug: "electricite",
     name: "Installation électrique",
     description:
       "Tableau électrique et mise en conformité, saignées et câblage, prises et interrupteurs, spots et éclairage, cuisine et salle de bain, fibre optique et prise TV.",
   },
   {
+    slug: "toiture",
     name: "Toiture",
     description:
       "Couverture tuiles et ardoises, toit plat et étanchéité Derbigum/EPDM, corniches et gouttières zinc, velux et lucarnes, noues et arêtiers, cheminée et solins, descentes d'eau pluviale, coupoles.",
@@ -89,6 +94,7 @@ const servicesJsonLd = services.map((s) => ({
   "@type": "Service",
   name: s.name,
   description: s.description,
+  url: `${baseUrl}/services/${s.slug}`,
   provider: { "@id": localBusinessId },
 }));
 

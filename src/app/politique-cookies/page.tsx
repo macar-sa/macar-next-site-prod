@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
+import { Breadcrumbs } from "../_components/jsonld";
 
 export const metadata: Metadata = {
     title: "Politique cookies — Macar",
@@ -23,6 +24,12 @@ const sectionBody = "md:col-span-2 !max-w-none";
 export default function PolitiqueCookiesPage() {
     return (
         <main className="flex min-h-screen flex-col">
+            <Breadcrumbs
+                items={[
+                    { name: "Accueil", url: "https://www.macar.be/" },
+                    { name: "Politique cookies", url: "https://www.macar.be/politique-cookies" },
+                ]}
+            />
             <Screen name="politique-cookies">
                 <SecondHeading>
                     <h1 className="leading-tight">Politique cookies</h1>

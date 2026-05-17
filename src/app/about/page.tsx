@@ -9,16 +9,24 @@ import { Heading } from 'lucide-react';
 import { Trusted } from '@/components/trusted';
 import { Logo_specific } from '../_components/icons/logo_specific';
 import { LogoCarousel } from '../_components/logocarousel';
+import { Breadcrumbs } from '../_components/jsonld';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: 'À propos de Macar — Notre histoire à Bruxelles',
     description: 'Macar, entreprise de rénovation et construction à Bruxelles depuis 2002. Notre histoire, notre équipe et nos valeurs : confiance, professionnalisme, transparence et adaptabilité.',
+    alternates: { canonical: '/about' },
 }
 
 export default function about() {
     return (
         <main className="flex min-h-screen flex-col">
+            <Breadcrumbs
+                items={[
+                    { name: 'Accueil', url: 'https://www.macar.be/' },
+                    { name: 'À propos', url: 'https://www.macar.be/about' },
+                ]}
+            />
             <Screen name="about">
                 <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
                     <div className="col-span-3">

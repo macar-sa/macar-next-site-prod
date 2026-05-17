@@ -1,3 +1,5 @@
+import { communes } from "./communes";
+
 export const LOCAL_BUSINESS_ID = "https://www.macar.be/#localbusiness";
 
 // Single source of truth for the aggregate rating shown in the JSON-LD,
@@ -61,15 +63,7 @@ export const localBusinessJsonLd = {
   ],
   areaServed: [
     { "@type": "City", name: "Bruxelles" },
-    { "@type": "City", name: "Uccle" },
-    { "@type": "City", name: "Schaerbeek" },
-    { "@type": "City", name: "Ixelles" },
-    { "@type": "City", name: "Etterbeek" },
-    { "@type": "City", name: "Saint-Gilles" },
-    { "@type": "City", name: "Forest" },
-    { "@type": "City", name: "Woluwe-Saint-Lambert" },
-    { "@type": "City", name: "Anderlecht" },
-    { "@type": "City", name: "Jette" },
+    ...communes.map((c) => ({ "@type": "City" as const, name: c.name })),
     { "@type": "AdministrativeArea", name: "Région de Bruxelles-Capitale" },
   ],
   knowsAbout: [

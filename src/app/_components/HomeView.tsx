@@ -24,7 +24,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
           <div className="col-span-3">
             <MainHeading>
               <h1 className="leading-tight">
-                Votre Partenaire pour Toute Rénovation
+                Rénovation, plomberie, électricité et toiture à Bruxelles
               </h1>
             </MainHeading>
             <p className="mt-3 text-base text-font-gray max-w-prose">
@@ -130,51 +130,63 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             </div>
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card
-                title="Rénovation intérieure et extérieure"
-                description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
-              >
-                <Image
-                  src="/services/renovation.png"
-                  alt="Rénovation intérieure et extérieure — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
-              <Card
-                title="Plomberie"
-                description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
-              >
-                <Image
-                  src="/services/plomberie.png"
-                  alt="Plomberie — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
-              <Card
-                title="Installation Electrique"
-                description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
-              >
-                <Image
-                  src="/services/installation-electrique.png"
-                  alt="Installation électrique — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
-              <Card
-                title="Toiture"
-                description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
-              >
-                <Image
-                  src="/services/toiture.png"
-                  alt="Toiture — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4">
+              <Link href="/services/renovation" className="block group h-full">
+                <Card
+                  title="Rénovation intérieure et extérieure"
+                  description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/renovation.png"
+                    alt="Rénovation intérieure et extérieure — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
+              <Link href="/services/plomberie" className="block group h-full">
+                <Card
+                  title="Plomberie"
+                  description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/plomberie.png"
+                    alt="Plomberie — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
+              <Link href="/services/electricite" className="block group h-full">
+                <Card
+                  title="Installation Electrique"
+                  description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/installation-electrique.png"
+                    alt="Installation électrique — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
+              <Link href="/services/toiture" className="block group h-full">
+                <Card
+                  title="Toiture"
+                  description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/toiture.png"
+                    alt="Toiture — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
             </div>
           </div>
         </div>
