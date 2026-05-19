@@ -1,10 +1,13 @@
 import { MetadataRoute } from "next";
 import { communes } from "@/lib/seo/communes";
+import { getAllPosts } from "@/lib/blog";
 
 const baseUrl = "https://www.macar.be";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const posts = getAllPosts();
+
   return [
     { url: `${baseUrl}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
     { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
@@ -20,7 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    // Phase 3: /blog, /realisations, /certifications — add when shipped.
+    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    ...posts.map((p) => ({
+      url: `${baseUrl}/blog/${p.slug}`,
+      lastModified: new Date(p.dateModified),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     { url: `${baseUrl}/mentions-legales`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: `${baseUrl}/politique-confidentialite`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: `${baseUrl}/politique-cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },

@@ -22,7 +22,11 @@ export const localBusinessJsonLd = {
   // TODO confirm legal form (SRL / SPRL / SA) before shipping to prod.
   legalName: "Macar",
   description:
-    "Macar est une entreprise belge de rénovation, plomberie, installations électriques et toiture, basée à Bruxelles et active depuis 2002.",
+    "Macar est une entreprise belge de rénovation, plomberie, installations électriques et toiture, basée à Bruxelles, active depuis 2002 et sous la direction actuelle depuis 2010.",
+  disambiguatingDescription:
+    "Entreprise fondée en 2002 ; reprise et redirigée par l'équipe actuelle en 2010. Plus de 6 000 projets de rénovation réalisés dans la Région de Bruxelles-Capitale.",
+  keywords:
+    "rénovation Bruxelles, plombier Bruxelles, électricien Bruxelles, couvreur Bruxelles, isolation façade Bruxelles, primes Renolution, mise en conformité RGIE, toit plat Derbigum, EPDM, sinistre toiture Bruxelles, dégâts des eaux",
   url: "https://www.macar.be",
   logo: "https://www.macar.be/opengraph/OpengraphSmall.png",
   image: [
@@ -70,15 +74,24 @@ export const localBusinessJsonLd = {
     "Rénovation intérieure",
     "Rénovation extérieure",
     "Isolation de façade",
+    "Isolation par l'extérieur (ITE)",
+    "Insufflation mur creux",
+    "Aides à la rénovation Bruxelles-Capitale",
+    "Primes Renolution",
     "Plomberie sanitaire",
     "Chauffage central",
     "Chaudière à condensation",
+    "Détection de fuites",
     "Installation électrique résidentielle",
     "Mise en conformité RGIE",
+    "Tableau électrique",
     "Toiture en tuiles",
+    "Toiture en ardoises",
     "Toiture plate Derbigum / EPDM",
     "Velux et lucarnes",
     "Corniches et gouttières zinc",
+    "Sinistres toiture et dégâts des eaux",
+    "Travaux suite à rapport d'expert d'assurance",
   ],
   sameAs: [
     "https://www.facebook.com/profile.php?id=61552507283765",

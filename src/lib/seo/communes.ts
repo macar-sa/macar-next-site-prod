@@ -12,8 +12,10 @@ export const communes: Commune[] = [
   { slug: "saint-gilles", name: "Saint-Gilles", postal: "1060" },
   { slug: "forest", name: "Forest", postal: "1190" },
   { slug: "woluwe-saint-lambert", name: "Woluwe-Saint-Lambert", postal: "1200" },
+  { slug: "woluwe-saint-pierre", name: "Woluwe-Saint-Pierre", postal: "1150" },
   { slug: "anderlecht", name: "Anderlecht", postal: "1070" },
   { slug: "jette", name: "Jette", postal: "1090" },
+  { slug: "evere", name: "Evere", postal: "1140" },
   { slug: "molenbeek-saint-jean", name: "Molenbeek-Saint-Jean", postal: "1080" },
 ];
 
