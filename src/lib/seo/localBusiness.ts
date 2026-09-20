@@ -75,7 +75,6 @@ export const localBusinessJsonLd = {
     "Rénovation extérieure",
     "Isolation de façade",
     "Isolation par l'extérieur (ITE)",
-    "Insufflation mur creux",
     "Aides à la rénovation Bruxelles-Capitale",
     "Primes Renolution",
     "Plomberie sanitaire",
