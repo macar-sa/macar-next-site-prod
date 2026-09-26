@@ -28,7 +28,7 @@ export function Jobs() {
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
-            src="/landpage_pics/White ladder worker.webp"
+            src="/landpage_pics/white-ladder-worker.webp"
             alt="Job Banner"
             fill
             className="object-cover"

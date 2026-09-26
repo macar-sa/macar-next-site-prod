@@ -18,6 +18,7 @@ const menuItems = [
     { name: "Accueil", href: "/", type: "item" },
     { name: "Découvrez Macar", href: "/about", type: "item" },
     { name: "Services", href: "/services", type: "item" },
+    { name: "Blog", href: "/blog", type: "item" },
     { name: "FAQ", href: "/#faq", type: "item" },
     { name: "Nous recrutons", href: "/job", type: "item" },
 ];

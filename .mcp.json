@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "dolibarr": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/Users/ardonisshalaj/Documents/dolibarr_mcp",
+        "run",
+        "main.py"
+      ]
+    }
+  }
+}

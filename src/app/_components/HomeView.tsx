@@ -10,6 +10,8 @@ import { CheckMark } from "./checkMark";
 import { LogoCarousel } from "./logocarousel";
 import Statistics from "@/components/Statistics";
 import GoogleReviews from "@/components/GoogleReviews";
+import { Star, ExternalLink } from "lucide-react";
+import { RATING } from "@/lib/seo/localBusiness";
 import { Accordion, AccordionItem } from "@heroui/react";
 
 export type FaqItem = { question: string; answer: string };
@@ -22,7 +24,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
           <div className="col-span-3">
             <MainHeading>
               <h1 className="leading-tight">
-                Votre Partenaire pour Toute Rénovation
+                Rénovation, plomberie, électricité et toiture à Bruxelles
               </h1>
             </MainHeading>
             <p className="mt-3 text-base text-font-gray max-w-prose">
@@ -30,6 +32,24 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               électriques et toiture basée à Bruxelles (Belgique), active depuis
               2002.
             </p>
+            <Link
+              href="/#reviews"
+              className="mt-4 inline-flex items-center gap-2 text-sm text-font-gray hover:text-headings transition-colors"
+              aria-label={`Note ${RATING.value.replace(".", ",")} sur 5 — ${RATING.count} avis Google`}
+            >
+              <span className="flex items-center gap-0.5" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                  />
+                ))}
+              </span>
+              <span className="font-medium text-headings">
+                {RATING.value.replace(".", ",")}
+              </span>
+              <span>— {RATING.count} avis Google</span>
+            </Link>
             <div className="mt-4">
               <Raptor>
                 <h5 className="mb-4 text-sm lg:text-base 2xl:text-lg">
@@ -52,9 +72,11 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
         </div>
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
-            src="/landpage_pics/Construction Tool.webp"
+            src="/landpage_pics/construction-tool.webp"
             alt="Chantier de rénovation — Macar, Bruxelles"
             fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1280px"
             className="object-cover"
           />
         </div>
@@ -108,51 +130,63 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             </div>
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card
-                title="Rénovation intérieure et extérieure"
-                description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
-              >
-                <Image
-                  src="/services/Renovation.png"
-                  alt="Rénovation intérieure et extérieure — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
-              <Card
-                title="Plomberie"
-                description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
-              >
-                <Image
-                  src="/services/Plomberie.png"
-                  alt="Plomberie — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
-              <Card
-                title="Installation Electrique"
-                description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
-              >
-                <Image
-                  src="/services/Installation Electrique.png"
-                  alt="Installation électrique — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
-              <Card
-                title="Toiture"
-                description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
-              >
-                <Image
-                  src="/services/Toiture.png"
-                  alt="Toiture — Macar"
-                  width={100}
-                  height={100}
-                />
-              </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4">
+              <Link href="/services/renovation" className="block group h-full">
+                <Card
+                  title="Rénovation intérieure et extérieure"
+                  description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/renovation.png"
+                    alt="Rénovation intérieure et extérieure — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
+              <Link href="/services/plomberie" className="block group h-full">
+                <Card
+                  title="Plomberie"
+                  description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/plomberie.png"
+                    alt="Plomberie — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
+              <Link href="/services/electricite" className="block group h-full">
+                <Card
+                  title="Installation Electrique"
+                  description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/installation-electrique.png"
+                    alt="Installation électrique — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
+              <Link href="/services/toiture" className="block group h-full">
+                <Card
+                  title="Toiture"
+                  description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
+                  customClasses="h-full"
+                >
+                  <Image
+                    src="/services/toiture.png"
+                    alt="Toiture — Macar"
+                    width={100}
+                    height={100}
+                  />
+                </Card>
+              </Link>
             </div>
           </div>
         </div>
@@ -203,6 +237,22 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                   {" "}
                   Avenue Prudent Bols, 43 <br />
                   B-1020 Bruxelles/Brussel
+                </P>
+                <a
+                  href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1 text-sm text-accent1 hover:underline"
+                >
+                  Voir sur Google Maps
+                  <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+                </a>
+              </div>
+              <div>
+                <P customClasses="font-medium">Horaires</P>
+                <P customClasses="text-font-gray">
+                  Lun – Ven · 08:00 – 17:00 <br />
+                  Sam – Dim · Fermé
                 </P>
               </div>
             </div>
