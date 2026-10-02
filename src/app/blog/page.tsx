@@ -6,7 +6,7 @@ import { MainHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
 import { getAllPosts, formatPostDateFR } from "@/lib/blog";
 
-const TITLE = "Blog Macar — Conseils rénovation, plomberie, électricité, toiture à Bruxelles";
+const TITLE = "Blog Macar : conseils rénovation, plomberie, électricité, toiture à Bruxelles";
 const DESCRIPTION =
   "Conseils pratiques, prix indicatifs et démarches pour vos travaux de rénovation, plomberie, électricité et toiture à Bruxelles. Par Macar, entreprise belge depuis 2002.";
 

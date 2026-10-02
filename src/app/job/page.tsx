@@ -4,7 +4,7 @@ import { Breadcrumbs } from '../_components/jsonld';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Carrières & recrutement — Macar recrute à Bruxelles',
+    title: 'Carrières & recrutement : Macar recrute à Bruxelles',
     description: 'Macar recrute. Découvrez nos offres en rénovation, plomberie, électricité et toiture à Bruxelles.',
     alternates: { canonical: '/job' },
 }

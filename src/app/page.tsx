@@ -3,7 +3,7 @@ import HomeView from "./_components/HomeView";
 import { reviewsJsonLd } from "@/data/reviews";
 
 export const metadata: Metadata = {
-  title: "Macar — Rénovation, plomberie, électricité, toiture à Bruxelles",
+  title: "Macar : rénovation, plomberie, électricité, toiture à Bruxelles",
   description:
     "Macar est une entreprise de rénovation, plomberie, installations électriques et toiture basée à Bruxelles (Belgique), active depuis 2002. Devis et accompagnement pour vos projets.",
   alternates: { canonical: "/" },

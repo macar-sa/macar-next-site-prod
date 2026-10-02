@@ -13,7 +13,7 @@ import { Breadcrumbs } from '../_components/jsonld';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'À propos de Macar — Notre histoire à Bruxelles',
+    title: 'À propos de Macar : notre histoire à Bruxelles',
     description: 'Macar, entreprise de rénovation et construction à Bruxelles depuis 2002. Notre histoire, notre équipe et nos valeurs : confiance, professionnalisme, transparence et adaptabilité.',
     alternates: { canonical: '/about' },
 }
@@ -41,7 +41,7 @@ export default function about() {
                 <div className="relative w-full mt-10 h-40 md:h-[400px]">
                     <Image
                         src={aboutbanner}
-                        alt="Bannière — Macar, entreprise de rénovation à Bruxelles"
+                        alt="Bannière Macar, entreprise de rénovation à Bruxelles"
                         fill
                         priority
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1280px"

@@ -35,7 +35,7 @@ export async function generateMetadata({
   const url = `${SITE_URL}/blog/${post.slug}`;
 
   return {
-    title: `${post.title} — Macar`,
+    title: `${post.title} | Macar`,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {

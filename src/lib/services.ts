@@ -106,7 +106,7 @@ const plomberieDetailCategories: DetailCategory[] = [
       "Réparation et remplacement des tuyaux de canalisation en grès par PVC orange (diam. 125 ou 160 mm), création ou remplacement de chambres de visite en PVC",
       "Remplacement de sterfput, pose tuyaux et coudes PVC orange, étanchéité autour des tuyaux et finitions",
       "Descente d'eau pluviale : enlèvement ancienne descente, pose nouvelle descente (zinc carré ou PVC gris), avaloir, raccordement dans l'avaloir",
-      "Tuyau de décharge cuisine ou salle de bain : ouverture du mur, remplacement tuyau défectueux (cuivre/grès par PVC diam. 40–50 ou 70–80 mm), fermeture mur (blocs ytong, goldband ou panneaux bois marin)",
+      "Tuyau de décharge cuisine ou salle de bain : ouverture du mur, remplacement tuyau défectueux (cuivre/grès par PVC diam. 40 à 50 ou 70 à 80 mm), fermeture mur (blocs ytong, goldband ou panneaux bois marin)",
       "Raccordement décharge toilette et eaux usées vers égout, gaine technique, passage plafond, raccordement eau chaude et froide",
       "Remplacement tuyaux entre chambres de visite : ouverture sol béton, enlèvement tuyaux grès, pose PVC orange, remplacement chambres de visite, stabilisé et béton coulé",
       "Découpe et remplacement tuyau décharge toilette (diam. 90), manchon en T PVC, raccordement lave-linge et décharges",
@@ -134,7 +134,7 @@ const plomberieDetailCategories: DetailCategory[] = [
     ],
   },
   {
-    title: "Sanitaire – Toilettes et lavabos",
+    title: "Sanitaire : toilettes et lavabos",
     items: [
       "Pose et raccordement toilette (cuvette au sol ou suspendue, réservoir Geberit, abattant softclose, sortie horizontale ou verticale), fixation, arrivée d'eau",
       "Fourniture et pose lave-mains (vasque, céramique), siphon (bouteille, surverse, bonde, rosace), mitigeur lavabo (Grohe Eurosmart, etc.), robinet flotteur universel",
@@ -143,7 +143,7 @@ const plomberieDetailCategories: DetailCategory[] = [
     ],
   },
   {
-    title: "Sanitaire – Douche",
+    title: "Sanitaire : douche",
     items: [
       "Recherche de fuite d'eau, démontage mitigeur de douche, pose d'un nouveau mitigeur",
       "Renforcement du receveur douche par dessous (planche, gîtes bois), pose silicone autour du receveur",
@@ -154,7 +154,7 @@ const plomberieDetailCategories: DetailCategory[] = [
   {
     title: "Cuisine",
     items: [
-      "Remplacement tuyau de décharge évier encastré : ouverture mur (burin, marteau-piqueur), remplacement tuyau Ø 40–50 (PVC), fermeture mur, remise meubles, kit joint-colle plan de travail",
+      "Remplacement tuyau de décharge évier encastré : ouverture mur (burin, marteau-piqueur), remplacement tuyau Ø 40 à 50 (PVC), fermeture mur, remise meubles, kit joint-colle plan de travail",
       "Remplacement évier (inox, bac, plan de travail), découpe plan de travail, démontage mitigeur existant et pose sur nouvel évier",
       "Joint silicone plan de travail côté mur, finitions",
     ],

@@ -35,7 +35,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             <Link
               href="/#reviews"
               className="mt-4 inline-flex items-center gap-2 text-sm text-font-gray hover:text-headings transition-colors"
-              aria-label={`Note ${RATING.value.replace(".", ",")} sur 5 — ${RATING.count} avis Google`}
+              aria-label={`Note ${RATING.value.replace(".", ",")} sur 5, ${RATING.count} avis Google`}
             >
               <span className="flex items-center gap-0.5" aria-hidden>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -48,7 +48,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               <span className="font-medium text-headings">
                 {RATING.value.replace(".", ",")}
               </span>
-              <span>— {RATING.count} avis Google</span>
+              <span>· {RATING.count} avis Google</span>
             </Link>
             <div className="mt-4">
               <Raptor>
@@ -73,7 +73,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
         <div className="relative w-full mt-10 h-40 md:h-[400px]">
           <Image
             src="/landpage_pics/construction-tool.webp"
-            alt="Chantier de rénovation — Macar, Bruxelles"
+            alt="Chantier de rénovation Macar à Bruxelles"
             fill
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1280px"
@@ -139,7 +139,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 >
                   <Image
                     src="/services/renovation.png"
-                    alt="Rénovation intérieure et extérieure — Macar"
+                    alt="Rénovation intérieure et extérieure par Macar"
                     width={100}
                     height={100}
                   />
@@ -153,7 +153,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 >
                   <Image
                     src="/services/plomberie.png"
-                    alt="Plomberie — Macar"
+                    alt="Plomberie par Macar"
                     width={100}
                     height={100}
                   />
@@ -167,7 +167,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 >
                   <Image
                     src="/services/installation-electrique.png"
-                    alt="Installation électrique — Macar"
+                    alt="Installation électrique par Macar"
                     width={100}
                     height={100}
                   />
@@ -181,7 +181,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 >
                   <Image
                     src="/services/toiture.png"
-                    alt="Toiture — Macar"
+                    alt="Toiture par Macar"
                     width={100}
                     height={100}
                   />
@@ -251,8 +251,8 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               <div>
                 <P customClasses="font-medium">Horaires</P>
                 <P customClasses="text-font-gray">
-                  Lun – Ven · 08:00 – 17:00 <br />
-                  Sam – Dim · Fermé
+                  Lun-Ven · 08:00-17:00 <br />
+                  Sam-Dim · Fermé
                 </P>
               </div>
             </div>

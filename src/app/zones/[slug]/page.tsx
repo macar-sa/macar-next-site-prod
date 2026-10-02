@@ -26,11 +26,11 @@ export async function generateMetadata({
   const commune = getCommune(slug);
   if (!commune) return {};
   return {
-    title: `Rénovation, plomberie, électricité et toiture à ${commune.name} — Macar`,
+    title: `Rénovation, plomberie, électricité et toiture à ${commune.name} | Macar`,
     description: `Macar intervient à ${commune.name} (${commune.postal}) pour la rénovation, la plomberie, l'électricité et la toiture. Devis gratuit, équipe basée à Bruxelles depuis 2002.`,
     alternates: { canonical: `/zones/${commune.slug}` },
     openGraph: {
-      title: `Rénovation à ${commune.name} — Macar`,
+      title: `Rénovation à ${commune.name} | Macar`,
       description: `Rénovation, plomberie, électricité et toiture à ${commune.name}. Devis gratuit.`,
       url: `${baseUrl}/zones/${commune.slug}`,
       type: "website",
@@ -56,7 +56,7 @@ export default async function ZonePage({
     "@context": "https://schema.org",
     "@type": "Service",
     name: `Rénovation, plomberie, électricité et toiture à ${commune.name}`,
-    description: `Macar — entreprise de rénovation, plomberie, électricité et toiture intervenant à ${commune.name} et dans toute la Région de Bruxelles-Capitale.`,
+    description: `Macar, entreprise de rénovation, plomberie, électricité et toiture intervenant à ${commune.name} et dans toute la Région de Bruxelles-Capitale.`,
     provider: { "@id": LOCAL_BUSINESS_ID },
     areaServed: { "@type": "City", name: commune.name },
     url: pageUrl,

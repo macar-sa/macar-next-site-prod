@@ -4,12 +4,12 @@ import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
 
 export const metadata: Metadata = {
-    title: "Politique cookies — Macar",
+    title: "Politique cookies | Macar",
     description:
         "Politique cookies du site macar.be : cookies utilisés, finalités, durée et gestion de votre consentement.",
     alternates: { canonical: "/politique-cookies" },
     openGraph: {
-        title: "Politique cookies — Macar",
+        title: "Politique cookies | Macar",
         description:
             "Cookies utilisés par macar.be et comment gérer votre consentement.",
         url: "https://www.macar.be/politique-cookies",
@@ -105,7 +105,7 @@ export default function PolitiqueCookiesPage() {
                                 <ul className="list-disc pl-6 leading-loose">
                                     <li>
                                         En supprimant le cookie « macar_cookie_consent_is_true »
-                                        dans les paramètres de votre navigateur — la bannière vous
+                                        dans les paramètres de votre navigateur, la bannière vous
                                         sera proposée à nouveau.
                                     </li>
                                     <li>

@@ -9,12 +9,12 @@ import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nos services — Rénovation, plomberie, électricité, toiture | Macar",
+  title: "Nos services : rénovation, plomberie, électricité, toiture | Macar",
   description:
     "Macar à Bruxelles : rénovation intérieure et extérieure, plomberie, installations électriques et toiture. Devis gratuit sur mesure.",
   alternates: { canonical: "/services" },
   openGraph: {
-    title: "Nos services — Macar",
+    title: "Nos services | Macar",
     description:
       "Rénovation, plomberie, électricité et toiture à Bruxelles. Quatre domaines, une seule équipe locale.",
     url: "https://www.macar.be/services",

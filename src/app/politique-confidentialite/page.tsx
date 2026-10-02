@@ -4,12 +4,12 @@ import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
 
 export const metadata: Metadata = {
-    title: "Politique de confidentialité — Macar",
+    title: "Politique de confidentialité | Macar",
     description:
         "Politique de confidentialité de Macar : données collectées, finalités, durée de conservation, vos droits (RGPD).",
     alternates: { canonical: "/politique-confidentialite" },
     openGraph: {
-        title: "Politique de confidentialité — Macar",
+        title: "Politique de confidentialité | Macar",
         description:
             "Comment Macar traite vos données personnelles, conformément au RGPD.",
         url: "https://www.macar.be/politique-confidentialite",
@@ -45,7 +45,7 @@ export default function PolitiqueConfidentialitePage() {
                         <P customClasses={sectionBody}>
                             <p className="leading-loose">
                                 Macar SRL<br />
-                                Avenue Prudent Bols, 43 — B-1020 Bruxelles<br />
+                                Avenue Prudent Bols, 43, B-1020 Bruxelles<br />
                                 TVA : BE0477.45.10.24<br />
                                 Email : info@macar.be
                             </p>
@@ -82,16 +82,16 @@ export default function PolitiqueConfidentialitePage() {
                         <P customClasses={sectionBody}>
                             <ul className="list-disc pl-6 leading-loose">
                                 <li>
-                                    Répondre à vos demandes de devis ou questions — base légale :
+                                    Répondre à vos demandes de devis ou questions. Base légale :
                                     mesures précontractuelles à votre demande (art. 6.1.b RGPD).
                                 </li>
                                 <li>
-                                    Mesurer l'audience et améliorer le site — base légale : votre
+                                    Mesurer l'audience et améliorer le site. Base légale : votre
                                     consentement recueilli via la bannière cookies (art. 6.1.a
                                     RGPD).
                                 </li>
                                 <li>
-                                    Sécurité et bon fonctionnement du site — base légale : intérêt
+                                    Sécurité et bon fonctionnement du site. Base légale : intérêt
                                     légitime (art. 6.1.f RGPD).
                                 </li>
                             </ul>
@@ -106,9 +106,9 @@ export default function PolitiqueConfidentialitePage() {
                             <P customClasses="!max-w-none" content="Vos données sont traitées par Macar et par les sous-traitants suivants, dans la stricte mesure nécessaire à la finalité poursuivie :" />
                             <P customClasses="mt-2 !max-w-none">
                                 <ul className="list-disc pl-6 leading-loose">
-                                    <li>Formspree (États-Unis) — hébergement du formulaire de contact.</li>
-                                    <li>Vercel Inc. (États-Unis) — hébergement du site et analytics.</li>
-                                    <li>Google Ireland Limited — Google Analytics 4.</li>
+                                    <li>Formspree (États-Unis) : hébergement du formulaire de contact.</li>
+                                    <li>Vercel Inc. (États-Unis) : hébergement du site et analytics.</li>
+                                    <li>Google Ireland Limited : Google Analytics 4.</li>
                                 </ul>
                             </P>
                             <P customClasses="mt-2 !max-w-none" content="Lorsque des données sont transférées hors de l'Espace économique européen, ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne." />
@@ -148,7 +148,7 @@ export default function PolitiqueConfidentialitePage() {
                         </ThirdHeading>
                         <div className="md:col-span-2">
                             <P customClasses="!max-w-none" content="Conformément au RGPD, vous disposez à tout moment des droits suivants : droit d'accès, de rectification, d'effacement, de limitation du traitement, d'opposition et de portabilité de vos données, ainsi que du droit de retirer votre consentement. Vous pouvez exercer ces droits en nous écrivant à info@macar.be, en joignant une preuve d'identité." />
-                            <P customClasses="mt-2 !max-w-none" content="Vous avez également le droit d'introduire une réclamation auprès de l'Autorité de protection des données (APD) : Rue de la Presse 35, 1000 Bruxelles — contact@apd-gba.be — www.autoriteprotectiondonnees.be." />
+                            <P customClasses="mt-2 !max-w-none" content="Vous avez également le droit d'introduire une réclamation auprès de l'Autorité de protection des données (APD) : Rue de la Presse 35, 1000 Bruxelles, contact@apd-gba.be, www.autoriteprotectiondonnees.be." />
                         </div>
                     </section>
 

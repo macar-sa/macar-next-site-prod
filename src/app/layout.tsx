@@ -21,7 +21,7 @@ const raptor = localFont({
   variable: "--font-raptor"
 })
 
-const defaultTitle = "Macar — Rénovation & construction à Bruxelles";
+const defaultTitle = "Macar : rénovation & construction à Bruxelles";
 const defaultDescription = "Macar est une entreprise de rénovation, plomberie, électricité et toiture basée à Bruxelles (Belgique), active depuis 2002. Devis et accompagnement pour vos projets.";
 
 export const metadata: Metadata = {

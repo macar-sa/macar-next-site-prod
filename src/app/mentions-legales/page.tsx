@@ -4,12 +4,12 @@ import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
 
 export const metadata: Metadata = {
-    title: "Mentions légales — Macar",
+    title: "Mentions légales | Macar",
     description:
         "Mentions légales de Macar : éditeur, hébergeur, propriété intellectuelle, conditions d'utilisation du site macar.be.",
     alternates: { canonical: "/mentions-legales" },
     openGraph: {
-        title: "Mentions légales — Macar",
+        title: "Mentions légales | Macar",
         description:
             "Mentions légales de Macar, entreprise de rénovation à Bruxelles.",
         url: "https://www.macar.be/mentions-legales",
@@ -45,7 +45,7 @@ export default function MentionsLegalesPage() {
                                 Macar SRL<br />
                                 Avenue Prudent Bols, 43<br />
                                 B-1020 Bruxelles, Belgique<br />
-                                Téléphone : +32 478 23 50 08 — Fixe : +32 2 466 53 04<br />
+                                Téléphone : +32 478 23 50 08 · Fixe : +32 2 466 53 04<br />
                                 Email : info@macar.be<br />
                                 TVA / BCE : BE0477.45.10.24
                             </p>
