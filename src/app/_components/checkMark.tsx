@@ -1,7 +1,7 @@
 export const CheckMark = ({ content }: { content: string }) => {
   return (
     <div className="inline-block">
-      <div className="md:text-sm flex flex-row items-center border-b border-card-border gap-3 px-2 py-1 ">
+      <div className="md:text-sm flex flex-row items-center border-b gap-3 px-2 py-1 ">
         <Icon />
         <p className="">{content}</p>
       </div>

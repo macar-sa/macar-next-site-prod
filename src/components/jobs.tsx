@@ -5,6 +5,7 @@
 import { MainHeading, P, Raptor, SecondHeading } from "@/app/_components/textStyles"
 import Image from "next/image"
 import Screen from "@/app/_components/screen"
+import { TextLink } from "@/app/_components/links"
 
 
 
@@ -37,8 +38,8 @@ export function Jobs() {
       <Screen name="Offer">
         <SecondHeading><h2>{jobDesc.title}</h2></SecondHeading>
         <div className=" mt-4 md:mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="md:col-span-1 sibling:mt-4 sibling:mb-0">
-            <section className="sibling:mt-4 sibling:mb-0">
+          <div className="md:col-span-1 space-y-4">
+            <section className="space-y-4">
               <Raptor>
                 <h3 className="text-base lg:text-base 2xl:text-lg">Qui est Macar?</h3>
               </Raptor>
@@ -47,7 +48,7 @@ export function Jobs() {
                 <h3 className="text-base lg:text-base 2xl:text-lg mt-10">Localisation</h3>
               </Raptor>
               <P>
-                <ul className="list-disc list-inside sibling:mt-2 sibling:mb-0 text-gray-600 pl-5">
+                <ul className="list-disc list-inside space-y-2 text-muted pl-5">
                   {jobDesc.localisation.map((bulletPoint, index) => {
                     return (
                       <li key={index} className="leading-relaxed">
@@ -61,7 +62,7 @@ export function Jobs() {
                 <h3 className="text-base lg:text-base 2xl:text-lg mt-10">Responsabilités</h3>
               </Raptor>
               <P>
-                <ul className="list-disc list-inside sibling:mt-2 sibling:mb-0 text-gray-600 pl-5">
+                <ul className="list-disc list-inside space-y-2 text-muted pl-5">
                   {jobDesc.responsabilites.map((bulletPoint, index) => {
                     return (
                       <li key={index} className="leading-relaxed">
@@ -75,7 +76,7 @@ export function Jobs() {
                 <h3 className="text-base lg:text-base 2xl:text-lg mt-10">Critères de sélection</h3>
               </Raptor>
               <P>
-                <ul className="list-disc list-inside sibling:mt-2 sibling:mb-0 text-gray-600 pl-5">
+                <ul className="list-disc list-inside space-y-2 text-muted pl-5">
                   {jobDesc.selection.map((bulletPoint, index) => {
                     return (
                       <li key={index} className="leading-relaxed">
@@ -87,8 +88,8 @@ export function Jobs() {
               </P>
             </section>
           </div>
-          <div className="md:col-span-1 sibling:mt-4 sibling:mb-0 relative">
-            <section className="sibling:mt-4 sibling:mb-0 sticky top-1/4">
+          <div className="md:col-span-1 space-y-4 relative">
+            <section className="space-y-4 sticky top-1/4">
               <Raptor>
                 <h3 className="text-base lg:text-base 2xl:text-lg">Processus de candidature</h3>
               </Raptor>
@@ -96,12 +97,12 @@ export function Jobs() {
                 <p className="leading-relaxed">Si vous êtes intéressé par cette opportunité et pensez que vous êtes le candidat idéal pour le poste, nous vous invitons à soumettre votre candidature de l&apos;une des manières suivantes :</p>
               </P>
               <P>
-                <ul className="list-disc list-inside sibling:mt-2 sibling:mb-0 text-gray-600 pl-5">
+                <ul className="list-disc list-inside space-y-2 text-muted pl-5">
                   <li className="leading-relaxed">
-                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <a href="tel:+32499523079" className="underline underline-offset-4 text-accent1 transition-all duration-300">0499.523.079</a> pour discuter de votre candidature.
+                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <TextLink underline href="tel:+32499523079">0499.523.079</TextLink> pour discuter de votre candidature.
                   </li>
                   <li className="leading-relaxed">
-                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <a href="mailto:info@macar.be" className="underline underline-offset-4 text-accent1 transition-all duration-300">info@macar.be</a>. N&apos;oubliez pas d&apos;inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
+                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <TextLink underline href="mailto:info@macar.be">info@macar.be</TextLink>. N&apos;oubliez pas d&apos;inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
                   </li>
                 </ul>
               </P>

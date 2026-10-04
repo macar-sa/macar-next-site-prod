@@ -2,10 +2,9 @@
 import Image from "next/image";
 import Screen from "./screen";
 import { MainHeading, P, Raptor, SecondHeading } from "./textStyles";
-import { Card } from "./cards";
-import { PrimaryButton, SecondaryButton } from "./buttons";
+import { ServiceCard } from "./ServiceCard";
+import { ButtonLink, TextLink } from "./links";
 import { ContactForm } from "@/components/contact_form";
-import Link from "next/link";
 import { CheckMark } from "./checkMark";
 import { LogoCarousel } from "./logocarousel";
 import Statistics from "@/components/Statistics";
@@ -13,44 +12,27 @@ import GoogleReviews from "@/components/GoogleReviews";
 import { Star, ExternalLink } from "lucide-react";
 import { RATING } from "@/lib/seo/localBusiness";
 import { Accordion } from "@heroui/react";
-import { Fragment } from "react";
 import { onFaqTriggerKeyDown } from "./faqKeyboard";
 
 export type FaqItem = { question: string; answer: string };
 
-// One FAQ column. The HeroUI v3 default styles are overridden by the classes below (utilities
-// layer) to keep the HeroUI v2 rendering: h2 titles, <hr> separators between questions, same
-// chevron, native focus outline, v2 opening and closing timings (faq-panel-transition).
+// One FAQ column: the HeroUI v3 Accordion with its own styles. The data-faq-* markers drive
+// the arrow, Home and End keys of faqKeyboard.ts.
 function FaqAccordion({ items }: { items: FaqItem[] }) {
   return (
-    <Accordion data-faq-column hideSeparator className="px-2 w-full max-w-full">
+    <Accordion data-faq-column>
       {items.map((item, i) => (
-        <Fragment key={i}>
-          {i > 0 && <hr />}
-          <Accordion.Item className="static border-solid">
-            <Accordion.Heading level={2} className="block">
-              <Accordion.Trigger
-                data-faq-trigger
-                onKeyDown={onFaqTriggerKeyDown}
-                className="flex flex-initial justify-normal items-center gap-3 w-full px-0 py-4 text-center [font-size:inherit] [line-height:inherit] [font-weight:inherit] bg-transparent transition-opacity [box-shadow:none] [outline:revert] [-webkit-tap-highlight-color:inherit]"
-              >
-                <div className="flex-1 flex flex-col">
-                  <span className="text-foreground text-sm sm:text-base text-left">{item.question}</span>
-                </div>
-                <span aria-hidden="true" className="transition-transform">
-                  <Accordion.Indicator className="ms-0 size-[1em] shrink text-inherit [transition:rotate_150ms_cubic-bezier(0.4,0,0.2,1)] data-[expanded=true]:-rotate-90">
-                    <svg aria-hidden="true" fill="none" focusable="false" height="1em" role="presentation" viewBox="0 0 24 24" width="1em">
-                      <path d="M15.5 19l-7-7 7-7" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                    </svg>
-                  </Accordion.Indicator>
-                </span>
-              </Accordion.Trigger>
-            </Accordion.Heading>
-            <Accordion.Panel role="region" className="faq-panel-transition overflow-x-visible">
-              <Accordion.Body className="px-0 pt-2 pb-4 text-sm text-left text-inherit">{item.answer}</Accordion.Body>
-            </Accordion.Panel>
-          </Accordion.Item>
-        </Fragment>
+        <Accordion.Item key={i}>
+          <Accordion.Heading level={2}>
+            <Accordion.Trigger data-faq-trigger onKeyDown={onFaqTriggerKeyDown}>
+              {item.question}
+              <Accordion.Indicator />
+            </Accordion.Trigger>
+          </Accordion.Heading>
+          <Accordion.Panel>
+            <Accordion.Body>{item.answer}</Accordion.Body>
+          </Accordion.Panel>
+        </Accordion.Item>
       ))}
     </Accordion>
   );
@@ -67,29 +49,29 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 Rénovation, plomberie, électricité et toiture à Bruxelles
               </h1>
             </MainHeading>
-            <p className="mt-3 text-base text-font-gray max-w-prose">
+            <p className="mt-3 text-base text-muted max-w-prose">
               Macar est une entreprise de rénovation, plomberie, installations
               électriques et toiture basée à Bruxelles (Belgique), active depuis
               2002.
             </p>
-            <Link
-              href="/#reviews"
-              className="mt-4 inline-flex items-center gap-2 text-sm text-font-gray hover:text-headings transition-colors"
-              aria-label={`Note ${RATING.value.replace(".", ",")} sur 5, ${RATING.count} avis Google`}
-            >
-              <span className="flex items-center gap-0.5" aria-hidden>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
-                  />
-                ))}
-              </span>
-              <span className="font-medium text-headings">
-                {RATING.value.replace(".", ",")}
-              </span>
-              <span>· {RATING.count} avis Google</span>
-            </Link>
+            <p className="mt-4 text-sm">
+              <TextLink
+                href="/#reviews"
+                className="gap-2"
+                aria-label={`Note ${RATING.value.replace(".", ",")} sur 5, ${RATING.count} avis Google`}
+              >
+                <span className="flex items-center gap-0.5" aria-hidden>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </span>
+                <span>{RATING.value.replace(".", ",")}</span>
+                <span>· {RATING.count} avis Google</span>
+              </TextLink>
+            </p>
             <div className="mt-4">
               <Raptor>
                 <h5 className="mb-4 text-sm lg:text-base 2xl:text-lg">
@@ -104,9 +86,9 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               customClasses="mt-6 mb-6"
               content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture."
             />
-            <div className="flex sibling:ml-4 sibling:mr-0">
-              <PrimaryButton href="/#contact" content="Commencez votre projet !" />
-              <SecondaryButton href="/#services" content="Services" />
+            <div className="flex flex-wrap gap-4">
+              <ButtonLink href="/#contact">Commencez votre projet !</ButtonLink>
+              <ButtonLink href="/#services" variant="tertiary">Services</ButtonLink>
             </div>
           </div>
         </div>
@@ -132,7 +114,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
 
       <Screen name="Nos Services" id="services">
         <div className="md:flex md:items-start justify-between">
-          <div className="md:shrink-0 md:w-third">
+          <div className="md:shrink-0 md:w-1/3">
             <SecondHeading>
               <h2>Nos Services</h2>
             </SecondHeading>
@@ -140,93 +122,55 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               <p className="leading-loose">
                 Chez Macar, notre engagement envers nos clients est clair :
                 nous croyons en la
-                <span className="text-accent1"> confiance</span>, la
-                <span className="text-accent1"> transparence</span>, et la
-                <span className="text-accent1"> qualité </span>
+                <span className="text-accent"> confiance</span>, la
+                <span className="text-accent"> transparence</span>, et la
+                <span className="text-accent"> qualité </span>
                 à chaque étape de notre travail.
               </p>
             </P>
-            <p className="mt-4 text-sm text-default-600">
+            <p className="mt-4 text-sm text-muted">
               Retrouvez le détail des prestations par domaine sur notre{" "}
-              <Link
-                href="/services"
-                className="font-medium text-accent1 hover:underline"
-              >
-                page Services
-              </Link>
-              .
+              <TextLink underline href="/services">page Services</TextLink>.
             </p>
             <div className="mt-10 flex flex-col gap-3 w-fit">
-              <PrimaryButton
-                content="Commencez votre projet !"
-                href="/#contact"
-                customClasses="w-full"
-              />
-              <SecondaryButton
-                href="/services"
-                content="Voir le détail des services"
-                customClasses="w-full"
-              />
+              <ButtonLink href="/#contact" fullWidth>
+                Commencez votre projet !
+              </ButtonLink>
+              <ButtonLink href="/services" variant="tertiary" fullWidth>
+                Voir le détail des services
+              </ButtonLink>
             </div>
           </div>
-          <div className="md:w-two-thirds md:pl-10 mt-10 md:mt-0">
+          <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4">
-              <Link href="/services/renovation" className="block group h-full">
-                <Card
-                  title="Rénovation intérieure et extérieure"
-                  description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/renovation.png"
-                    alt="Rénovation intérieure et extérieure par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
-              <Link href="/services/plomberie" className="block group h-full">
-                <Card
-                  title="Plomberie"
-                  description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/plomberie.png"
-                    alt="Plomberie par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
-              <Link href="/services/electricite" className="block group h-full">
-                <Card
-                  title="Installation Electrique"
-                  description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/installation-electrique.png"
-                    alt="Installation électrique par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
-              <Link href="/services/toiture" className="block group h-full">
-                <Card
-                  title="Toiture"
-                  description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/toiture.png"
-                    alt="Toiture par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
+              <ServiceCard
+                href="/services/renovation"
+                image="/services/renovation.png"
+                imageAlt="Rénovation intérieure et extérieure par Macar"
+                title="Rénovation intérieure et extérieure"
+                description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
+              />
+              <ServiceCard
+                href="/services/plomberie"
+                image="/services/plomberie.png"
+                imageAlt="Plomberie par Macar"
+                title="Plomberie"
+                description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
+              />
+              <ServiceCard
+                href="/services/electricite"
+                image="/services/installation-electrique.png"
+                imageAlt="Installation électrique par Macar"
+                title="Installation Electrique"
+                description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
+              />
+              <ServiceCard
+                href="/services/toiture"
+                image="/services/toiture.png"
+                imageAlt="Toiture par Macar"
+                title="Toiture"
+                description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
+              />
             </div>
           </div>
         </div>
@@ -255,42 +199,38 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             <div className="flex flex-col md:flex-col items-start gap-6 mt-12">
               <div>
                 <P customClasses="font-medium">Téléphone</P>
-                <Link href="tel:+32478235008">
-                  <P customClasses="text-font-gray hover:text-font-lighter-gray">
-                    {" "}
-                    +32 478 23 50 08
-                  </P>
-                </Link>
+                <P>
+                  <TextLink href="tel:+32478235008">+32 478 23 50 08</TextLink>
+                </P>
               </div>
               <div>
                 <P customClasses="font-medium">Email</P>
-                <Link href="mailto:info@macar.be">
-                  <P customClasses="text-font-gray hover:text-font-lighter-gray">
-                    {" "}
-                    info@macar.be
-                  </P>
-                </Link>
+                <P>
+                  <TextLink href="mailto:info@macar.be">info@macar.be</TextLink>
+                </P>
               </div>
               <div>
                 <P customClasses="font-medium">Adresse</P>
-                <P customClasses="text-font-gray">
+                <P customClasses="text-muted">
                   {" "}
                   Avenue Prudent Bols, 43 <br />
                   B-1020 Bruxelles/Brussel
                 </P>
-                <a
-                  href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-sm text-accent1 hover:underline"
-                >
-                  Voir sur Google Maps
-                  <ExternalLink className="w-3.5 h-3.5" aria-hidden />
-                </a>
+                <p className="mt-2 text-sm">
+                  <TextLink
+                    href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1"
+                  >
+                    Voir sur Google Maps
+                    <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+                  </TextLink>
+                </p>
               </div>
               <div>
                 <P customClasses="font-medium">Horaires</P>
-                <P customClasses="text-font-gray">
+                <P customClasses="text-muted">
                   Lun-Ven · 08:00-17:00 <br />
                   Sam-Dim · Fermé
                 </P>

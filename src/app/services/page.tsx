@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import Screen from "../_components/screen";
-import { MainHeading, P } from "../_components/textStyles";
-import { PrimaryButton } from "../_components/buttons";
+import { MainHeading } from "../_components/textStyles";
+import { ButtonLink } from "../_components/links";
+import { ServiceCard } from "../_components/ServiceCard";
 import { Breadcrumbs } from "../_components/jsonld";
 import { services } from "@/lib/services";
 import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
@@ -83,54 +83,37 @@ export default function ServicesIndexPage() {
                 Bruxelles
               </h1>
             </MainHeading>
-            <p className="mt-4 text-base lg:text-lg text-default-600">
+            <p className="mt-4 text-base lg:text-lg text-muted">
               Quatre domaines, une seule équipe locale. Chaque service est
               détaillé sur sa propre page : prestations, exemples concrets et
               demande de devis.
             </p>
             <div className="mt-8">
-              <PrimaryButton
-                href="/#contact"
-                content="Demander un devis gratuit"
-              />
+              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>
 
         <Screen name="services-grid" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8 pb-4">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
-              <p>Nos domaines</p>
-            </P>
+          <div className="w-full max-w-full pb-4">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Nos domaines</h2>
             <nav
               className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
               aria-label="Liste des services"
             >
               {services.map((s) => (
-                <Link
+                <ServiceCard
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] p-5 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)]"
-                >
-                  <Image
-                    src={s.image}
-                    alt=""
-                    width={48}
-                    height={48}
-                    className="shrink-0 object-contain"
-                    aria-hidden
-                  />
-                  <h2 className="text-base font-semibold text-headings group-hover:text-accent1">
-                    {s.title}
-                  </h2>
-                  <p className="text-sm text-default-600">{s.summary}</p>
-                  <span className="mt-auto text-sm font-medium text-accent1">
-                    Voir le détail →
-                  </span>
-                </Link>
+                  image={s.image}
+                  title={s.title}
+                  description={s.summary}
+                  footer="Voir le détail →"
+                />
               ))}
             </nav>
-            <p className="mt-6 text-sm text-default-500">
+            <p className="mt-6 text-sm text-muted">
               Les prestations listées sur chaque page sont non exhaustives ;
               chaque projet fait l&apos;objet d&apos;un devis sur mesure.
             </p>

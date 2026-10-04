@@ -69,7 +69,7 @@ function PostCard({ post }: { post: ReturnType<typeof getAllPosts>[number] }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex flex-col rounded-lg overflow-hidden border border-bordercard bg-cardbackground transition-all duration-300 hover:border-accent1 hover:shadow-lg"
+      className="group flex flex-col rounded-lg overflow-hidden border border-border bg-surface transition-all duration-300 hover:border-accent hover:shadow-lg"
     >
       <div className="relative w-full aspect-video overflow-hidden">
         <Image
@@ -81,18 +81,18 @@ function PostCard({ post }: { post: ReturnType<typeof getAllPosts>[number] }) {
         />
       </div>
       <div className="flex flex-col gap-3 p-6">
-        <div className="flex flex-row items-center gap-3 text-xs text-[rgb(71_75_100/0.7)]">
-          <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 font-medium">
+        <div className="flex flex-row items-center gap-3 text-xs text-muted">
+          <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 font-medium">
             {post.category}
           </span>
           <span>{formatPostDateFR(post.datePublished)}</span>
           <span aria-hidden="true">·</span>
           <span>{post.readingMinutes} min de lecture</span>
         </div>
-        <h3 className="text-lg lg:text-xl text-headings font-medium leading-snug lg:leading-7 group-hover:text-accent1 transition-colors">
+        <h3 className="text-lg lg:text-xl text-foreground font-medium leading-snug lg:leading-7 group-hover:text-accent transition-colors">
           {post.title}
         </h3>
-        <p className="text-sm text-text leading-relaxed line-clamp-3">
+        <p className="text-sm text-muted leading-relaxed line-clamp-3">
           {post.description}
         </p>
       </div>

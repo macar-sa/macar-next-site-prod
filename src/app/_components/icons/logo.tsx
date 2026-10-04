@@ -3,8 +3,6 @@ export const Logo = ({
     customClasses,
 }: {
     width?: number;
-    iconOnly?: boolean;
-    color?: string;
     customClasses?: string;
 }) => {
     return (

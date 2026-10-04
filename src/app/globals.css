@@ -1,252 +1,40 @@
 @import "tailwindcss" source(none);
 @import "@heroui/styles";
 
-/* Same files as the Tailwind 3 `content` globs (no node_modules, no content/ articles). */
+/* Tailwind sources, declared explicitly: content/ (MDX articles) is not scanned. */
 @source "../app/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../components/**/*.{js,ts,jsx,tsx,mdx}";
 
-/* Tailwind 3 behaviour: hover also applies on touch devices. */
-@custom-variant hover (&:hover);
-
-/* Tailwind 3 selector of space-* and divide-*: every following visible sibling. */
-@custom-variant sibling (& > :not([hidden]) ~ :not([hidden]));
-
-/* Site theme (step 1). Declared after @heroui/styles, so it replaces the HeroUI keys of the same name. */
+/* Fonts loaded by next/font in layout.tsx: Open Sans for the text, Raptor for the headings (font-heading). */
 @theme inline {
-  --color-background: #F6F8FF;
-  --color-headings: #0E1435;
-  --color-text: #474B64;
-  --color-accent1: #124FAA;
-  --color-cardbackground: #FFFFFF;
-  --color-bordercard: #D8DBE9;
-
-  --font-sans: var(--font-raptor);
-
-  /* Tailwind 3 default palette, only the shades used by the site. */
-  --color-amber-400: #fbbf24;
-  --color-blue-100: #dbeafe;
-  --color-blue-500: #3b82f6;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-500: #737373;
-  --color-neutral-700: #404040;
-  --color-red-500: #ef4444;
-  --color-red-600: #dc2626;
-  --color-red-700: #b91c1c;
-
-  /* Tailwind 3 values that differ in Tailwind 4. */
-  --radius-full: 9999px;
-}
-
-@theme {
-  --default-ring-width: 3px;
-  --default-ring-color: rgb(59 130 246 / 0.5);
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-raptor), var(--font-open-sans), sans-serif;
 }
 
 /*
- * HeroUI v2 compatibility: the v2 colours still used by the site, with the values of the
- * v2 plugin variables in the reference build. As with the v2 plugin, the HSL channels are
- * used through var(), so the browser computes the same colours as before. Opacity variants
- * are written as arbitrary values, e.g. bg-[hsl(var(--v2-primary)/0.1)], because
- * bg-primary/10 would go through color-mix(in oklab) and change the pixels.
+ * Macar colours on the HeroUI v3 theme variables. Outside any layer, so they win over the
+ * default theme (declared in a layer). Radius, shadows, spacing and durations stay HeroUI's.
  */
-@theme inline static {
-  --v2-background: 0 0% 100%;
-  --v2-foreground: 201.82 24.44% 8.82%;
-  --v2-default-50: 0 0% 98.04%;
-  --v2-default-100: 240 4.76% 95.88%;
-  --v2-default-200: 240 5.88% 90%;
-  --v2-default-300: 240 4.88% 83.92%;
-  --v2-default-400: 240 5.03% 64.9%;
-  --v2-default-500: 240 3.83% 46.08%;
-  --v2-default-600: 240 5.2% 33.92%;
-  --v2-default-700: 240 5.26% 26.08%;
-  --v2-primary: 212.02 100% 46.67%;
-  --v2-primary-foreground: 0 0% 100%;
-  --v2-secondary: 270 66.67% 47.06%;
-  --v2-secondary-foreground: 0 0% 100%;
-
-  --color-foreground: hsl(var(--v2-foreground));
-  --color-default-50: hsl(var(--v2-default-50));
-  --color-default-100: hsl(var(--v2-default-100));
-  --color-default-200: hsl(var(--v2-default-200));
-  --color-default-300: hsl(var(--v2-default-300));
-  --color-default-400: hsl(var(--v2-default-400));
-  --color-default-500: hsl(var(--v2-default-500));
-  --color-default-600: hsl(var(--v2-default-600));
-  --color-default-700: hsl(var(--v2-default-700));
-  --color-primary: hsl(var(--v2-primary));
-  --color-primary-foreground: hsl(var(--v2-primary-foreground));
-  --color-secondary: hsl(var(--v2-secondary));
-  --color-secondary-foreground: hsl(var(--v2-secondary-foreground));
-}
-
-/* Tailwind 3 transition lists (Tailwind 4 adds outline-color, gradients, translate, scale, rotate). */
-@utility transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-}
-
-@utility transition-colors {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-}
-
-/* Keeps the Tailwind 3 behaviour: only `transform` is transitioned. Tailwind 4 utilities that set
-   the separate `scale`, `rotate` or `translate` properties (scale-*, rotate-*, translate-*) will
-   therefore not animate with transition-transform; use `transform-[...]` or an explicit transition. */
-@utility transition-transform {
-  transition-property: transform;
-}
-
-/* Tailwind 3 box-shadow stack: ring offset, ring, shadow (Tailwind 4 adds two inset layers). */
-@utility shadow-xs {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-@utility shadow-md {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-@utility shadow-lg {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-@utility ring-2 {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow, 0 0 #0000);
-}
-
-/* Former side effect of tailwindcss-animate (removed): these classes also set the animation timing. */
-@utility duration-300 {
-  animation-duration: 300ms;
-}
-
-@utility duration-500 {
-  animation-duration: 500ms;
-}
-
-@utility ease-in-out {
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Exact values that lightningcss would round (33.3333%, 270deg): the var() keeps them as written. */
-@utility w-third {
-  width: calc(100% / var(--thirds, 3));
-}
-
-@utility w-two-thirds {
-  width: calc(200% / var(--thirds, 3));
-}
-
-@utility w-review-card {
-  width: calc((100% - 2rem) / var(--thirds, 3));
-}
-
-@utility bg-fade-left {
-  background-image: linear-gradient(var(--fade-direction, to left), #F6F8FF, transparent);
-}
-
-/*
- * FAQ answers (HeroUI v3 Accordion.Panel): the HeroUI v2 (framer-motion) timings measured on the
- * reference. Opening: height 300 ms (spring without bounce, approximated by this cubic-bezier)
- * and opacity 400 ms, starting 30 ms and 16 ms later, as v2 did. Closing: height and opacity
- * 300 ms. cubic-bezier(0, 0, 0.58, 1) is the "easeOut" curve of framer-motion.
- */
-@utility faq-panel-transition {
-  transition: height 300ms cubic-bezier(0, 0, 0.58, 1), opacity 300ms cubic-bezier(0, 0, 0.58, 1);
-
-  &[data-expanded="true"] {
-    transition: height 300ms cubic-bezier(0.29, 0.48, 0.03, 1) 30ms, opacity 400ms cubic-bezier(0, 0, 0.58, 1) 16ms;
-  }
-}
-
-/* Tailwind 3 preflight values that Tailwind 4 changed. Declared after @heroui/styles, so they also win over its base layer. */
-@layer base {
-  html {
-    font-family: var(--font-raptor);
-    -webkit-tap-highlight-color: initial;
-  }
-
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: #e5e7eb;
-  }
-
-  td,
-  th {
-    padding: 1px;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: #9ca3af;
-  }
-
-  button,
-  [role="button"] {
-    cursor: pointer;
-  }
-
-  :disabled {
-    cursor: default;
-  }
+:root {
+  --accent: #124FAA;
+  --accent-foreground: #FFFFFF;
+  --background: #F6F8FF;
+  --foreground: #0E1435;
+  --muted: #474B64;
+  --surface: #FFFFFF;
+  --border: #D8DBE9;
+  --focus: var(--accent);
+  --link: var(--accent);
 }
 
 /*
  * react-responsive-carousel (logo strip) names its track "slider", like the HeroUI v3 Slider.
- * Only the .slider declarations that the carousel stylesheet does not set itself are reset
- * (to their initial values); the carousel keeps its own display and width.
+ * Only the .slider declarations that the carousel stylesheet does not set itself are reset.
  */
 @layer components {
   .carousel .slider {
     gap: normal;
-    grid-template-columns: none;
     grid-template-areas: none;
+    grid-template-columns: none;
   }
-}
-
-/*
- * Mobile menu of the navbar, same opening as the v2 menu: the list fades in and slides down,
- * the page colour fades in behind it (formerly a transition on the hand-made portal).
- */
-@theme {
-  --animate-navbar-menu-in: navbar-menu-in 0.25s ease-out;
-  --animate-navbar-backdrop-in: navbar-backdrop-in 0.25s ease;
-
-  @keyframes navbar-menu-in {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes navbar-backdrop-in {
-    from {
-      background-color: transparent;
-    }
-  }
-}
-
-/*
- * Outside any layer, so it wins over the HeroUI v3 variables (declared in a sub-layer of theme).
- * Brings the v3 variables back to the current colours and repeats the root rule of the v2 plugin
- * (white canvas, v2 foreground as the inherited text colour).
- */
-:root {
-  --background: #F6F8FF;
-  --border: #e5e7eb;
-  --accent: #124FAA;
-  background-color: hsl(var(--v2-background));
-  color: hsl(var(--v2-foreground));
 }
