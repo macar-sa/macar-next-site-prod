@@ -1,5 +1,4 @@
 export const Logo = ({
-    iconOnly,
     width = 224,
     customClasses,
 }: {

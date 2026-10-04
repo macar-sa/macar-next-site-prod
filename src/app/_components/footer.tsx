@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { PrimaryButton } from "./buttons";
-import { Logo } from "./icons/logo";
 import { P } from "./textStyles";
 import { Logo_specific } from "./icons/logo_specific";
 

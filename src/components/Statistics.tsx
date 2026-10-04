@@ -1,4 +1,4 @@
-import { ThirdHeading, P, SecondHeading, Raptor } from "@/app/_components/textStyles";
+import { P, Raptor } from "@/app/_components/textStyles";
 
 
 const Statistics = () => {

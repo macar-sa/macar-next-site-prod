@@ -5,7 +5,6 @@ export const Logo_specific = ({
     logoType,
     complexity,
     width,
-    customClasses,
 }: {
     logoType: LogoType;
     complexity: Complexity;

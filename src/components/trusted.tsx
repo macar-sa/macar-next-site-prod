@@ -3,7 +3,7 @@
  * @see https://v0.dev/t/A8NsaV18lkV
  */
 
-import { MainHeading, P, SecondHeading, ThirdHeading } from "@/app/_components/textStyles"
+import { ThirdHeading } from "@/app/_components/textStyles"
 import Image from 'next/image'
 import logo_homeras from "/public/companies/homeras.png";
 import logo_ethias from "/public/companies/ethias.png";

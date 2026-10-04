@@ -1,5 +1,4 @@
 "use client";
-import localFont from "next/font/local";
 import { useRef, useState } from "react";
 import { P } from "./textStyles";
 import { motion } from "framer-motion";

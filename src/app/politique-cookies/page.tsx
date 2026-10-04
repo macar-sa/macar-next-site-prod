@@ -57,7 +57,7 @@ export default function PolitiqueCookiesPage() {
                                         <td className="py-3 pr-4">_ga</td>
                                         <td className="py-3 pr-4">Google Analytics 4</td>
                                         <td className="py-3 pr-4">
-                                            Distinguer les utilisateurs (mesure d'audience)
+                                            Distinguer les utilisateurs (mesure d&apos;audience)
                                         </td>
                                         <td className="py-3 pr-4">13 mois</td>
                                     </tr>
@@ -65,7 +65,7 @@ export default function PolitiqueCookiesPage() {
                                         <td className="py-3 pr-4">_ga_*</td>
                                         <td className="py-3 pr-4">Google Analytics 4</td>
                                         <td className="py-3 pr-4">
-                                            Conserver l'état de la session
+                                            Conserver l&apos;état de la session
                                         </td>
                                         <td className="py-3 pr-4">13 mois</td>
                                     </tr>
@@ -73,7 +73,7 @@ export default function PolitiqueCookiesPage() {
                                         <td className="py-3 pr-4">Vercel Analytics</td>
                                         <td className="py-3 pr-4">Vercel</td>
                                         <td className="py-3 pr-4">
-                                            Mesure d'audience anonyme côté serveur (sans cookie
+                                            Mesure d&apos;audience anonyme côté serveur (sans cookie
                                             persistant)
                                         </td>
                                         <td className="py-3 pr-4">Session</td>
@@ -90,7 +90,7 @@ export default function PolitiqueCookiesPage() {
                             </table>
                         </div>
                         <p className="mt-4 text-font-gray text-xs">
-                            Aucun cookie publicitaire ni cookie de réseau social tiers n'est
+                            Aucun cookie publicitaire ni cookie de réseau social tiers n&apos;est
                             déposé par macar.be.
                         </p>
                     </section>
@@ -110,7 +110,7 @@ export default function PolitiqueCookiesPage() {
                                     </li>
                                     <li>
                                         En configurant votre navigateur pour bloquer ou supprimer
-                                        les cookies tiers (voir l'aide de Chrome, Firefox, Safari,
+                                        les cookies tiers (voir l&apos;aide de Chrome, Firefox, Safari,
                                         Edge).
                                     </li>
                                 </ul>
@@ -120,7 +120,7 @@ export default function PolitiqueCookiesPage() {
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
-                            <h2>Plus d'informations</h2>
+                            <h2>Plus d&apos;informations</h2>
                         </ThirdHeading>
                         <P customClasses={sectionBody}>
                             <p className="leading-loose">

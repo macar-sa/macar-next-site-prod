@@ -66,7 +66,7 @@ export default function PolitiqueConfidentialitePage() {
                                     </li>
                                     <li>
                                         Données techniques collectées automatiquement via Google
-                                        Analytics 4 et Vercel Analytics : type d'appareil, navigateur,
+                                        Analytics 4 et Vercel Analytics : type d&apos;appareil, navigateur,
                                         pages visitées, durée de visite, source de trafic, adresse IP
                                         anonymisée.
                                     </li>
@@ -86,7 +86,7 @@ export default function PolitiqueConfidentialitePage() {
                                     mesures précontractuelles à votre demande (art. 6.1.b RGPD).
                                 </li>
                                 <li>
-                                    Mesurer l'audience et améliorer le site. Base légale : votre
+                                    Mesurer l&apos;audience et améliorer le site. Base légale : votre
                                     consentement recueilli via la bannière cookies (art. 6.1.a
                                     RGPD).
                                 </li>
@@ -126,7 +126,7 @@ export default function PolitiqueConfidentialitePage() {
                                     contact.
                                 </li>
                                 <li>
-                                    Données d'audience (Google Analytics 4) : 14 mois.
+                                    Données d&apos;audience (Google Analytics 4) : 14 mois.
                                 </li>
                                 <li>
                                     Cookies : voir la{" "}

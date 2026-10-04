@@ -1,14 +1,9 @@
 import Image from 'next/image'
 import Screen from '../_components/screen'
-import { MainHeading, P, SecondHeading, ThirdHeading } from '../_components/textStyles'
+import { MainHeading, P, SecondHeading } from '../_components/textStyles'
 import { Card } from '../_components/cards';
-import { PrimaryButton } from '../_components/buttons';
-import { Jobs } from '@/components/jobs';
 import aboutbanner from '/src/app/about/about_banner.webp';
-import { Heading } from 'lucide-react';
-import { Trusted } from '@/components/trusted';
 import { Logo_specific } from '../_components/icons/logo_specific';
-import { LogoCarousel } from '../_components/logocarousel';
 import { Breadcrumbs } from '../_components/jsonld';
 import type { Metadata } from 'next'
 
