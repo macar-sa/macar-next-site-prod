@@ -111,13 +111,25 @@ export default function GoogleReviews() {
   useEffect(() => {
     if (isPaused || !scrollRef.current) return;
     const el = scrollRef.current;
+    // Scroll-snap would catch each 1 px step and bring it back to the snap point, so snapping
+    // and smooth scrolling are off while the carousel runs and restored on pause and unmount.
+    el.style.scrollSnapType = "none";
+    el.style.scrollBehavior = "auto";
     const id = setInterval(() => {
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (maxScroll <= 0) return;
-      if (el.scrollLeft >= maxScroll) return;
+      // At the end of the list, loop back to the start.
+      if (el.scrollLeft >= maxScroll - 1) {
+        el.scrollLeft = 0;
+        return;
+      }
       el.scrollLeft += CAROUSEL_SCROLL_STEP;
     }, CAROUSEL_INTERVAL_MS);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      el.style.scrollSnapType = "";
+      el.style.scrollBehavior = "smooth";
+    };
   }, [isPaused]);
 
   const pauseCarousel = useCallback(() => setIsPaused(true), []);
