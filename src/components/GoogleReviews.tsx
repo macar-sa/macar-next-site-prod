@@ -34,7 +34,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
           src={review.authorPhotoUrl}
           name={review.authorName}
           size="sm"
-          className="flex-shrink-0 w-8 h-8 min-w-8 min-h-8"
+          className="flex-shrink-0 w-8 h-8"
           imgProps={{ referrerPolicy: "no-referrer" }}
         />
         <div className="flex flex-col flex-1 min-w-0">
