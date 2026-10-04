@@ -52,17 +52,17 @@ const CookieConsent = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 sibling:border-t sibling:border-b-0 divide-font-gray fixed bottom-0 right-0 z-50 cardbackground border border-gray-300 cardbackground bg-white max-w-lg overflow-auto max-h-full"
+        className="grid grid-cols-1 divide-y fixed bottom-0 right-0 z-50 border border-border bg-white max-w-lg overflow-auto max-h-full"
 
       >
         {prefIsTrue && (
           <>
             <div className="px-6 py-6">
-              <p className="text-xl font-medium text-font-lightergray mb-4">
+              <p className="text-xl font-medium text-foreground mb-4">
                 {" "}
                 Préférences
               </p>
-              <p className="text-sm font-ligt text-font-gray mb-4 max-w-prose leading-loose">
+              <p className="text-sm text-muted mb-4 max-w-prose leading-loose">
                 Grâce à cette interface, vous avez la possibilité d&apos;autoriser ou de refuser certains cookies.
                 Notez que les cookies essentiels ne peuvent pas être refusés.
                 Ils sont nécessaires au bon fonctionnement du site.
@@ -73,7 +73,7 @@ const CookieConsent = () => {
             </div>
             <div className="px-6 py-6">
               <div className="flex flex-row justify-between">
-                <p className="text-sm font-medium text-font-lighter-gray mb-4">
+                <p className="text-sm font-medium text-foreground mb-4">
                   {" "}
                   Essentiels{" "}
                 </p>
@@ -85,14 +85,14 @@ const CookieConsent = () => {
                   isDisabled
                 />
               </div>
-              <p className="text-sm font-light text-font-gray">
+              <p className="text-sm font-light text-muted">
                 {" "}
                 Éléments essentiels pour le bon fonctionnement des fonctionnalités du site.
               </p>
             </div>
             <div className="px-6 py-6">
               <div className="flex flex-row justify-between">
-                <p className="text-sm font-medium text-font-lighter-gray mb-4">
+                <p className="text-sm font-medium text-foreground mb-4">
                   {" "}
                   Analytique{" "}
                 </p>
@@ -102,14 +102,14 @@ const CookieConsent = () => {
                   size="sm"
                 />
               </div>
-              <p className="text-sm font-light text-font-gray">
+              <p className="text-sm font-light text-muted">
                 {" "}
                 Permettre d&apos;obtenir des statistiques anonymes afin d&apos;optimiser notre site et, par conséquent, votre expérience.
               </p>
             </div>
             <div className="px-6 py-6">
               <div className="flex flex-row justify-between">
-                <p className="text-sm font-medium text-font-lighter-gray mb-4">
+                <p className="text-sm font-medium text-foreground mb-4">
                   {" "}
                   Les fonctionnalités{" "}
                 </p>
@@ -119,7 +119,7 @@ const CookieConsent = () => {
                   size="sm"
                 />
               </div>
-              <p className="text-sm font-light text-font-gray">
+              <p className="text-sm font-light text-muted">
                 {" "}
                 Nécessaires pour le bon fonctionnement de certaines fonctionnalités.
               </p>
@@ -128,17 +128,17 @@ const CookieConsent = () => {
         )}
         {!prefIsTrue && (
           <div className="px-6 py-6">
-            <p className="text-xl font-medium text-font-lightergray mb-4">
+            <p className="text-xl font-medium text-foreground mb-4">
               {" "}
               Cookies
             </p>
-            <p className="text-sm font-ligt text-font-gray mb-4 max-w-prose leading-loose">
+            <p className="text-sm text-muted mb-4 max-w-prose leading-loose">
               Macar utilise des cookies pour améliorer votre expérience de navigation.
               Pour certains d&apos;entre eux, votre consentement est nécessaire. Vous pouvez définir vos préférences via le bouton ci-dessous.
             </p>
           </div>
         )}
-        <div className="grid grid-cols-3 sibling:border-l sibling:border-r-0 divide-font-gray">
+        <div className="grid grid-cols-3 divide-x">
           <CookieButton content="Refuser Tout" onClick={onClick} />
           <CookieButton
             content="Préférences"
@@ -167,11 +167,11 @@ const CookieButton = ({
     <div className="flex justify-center relative group cursor-pointer">
       <button
         onClick={onClick}
-        className="relative text-sm z-10 px-2 py-4 w-full h-full text-font-gray group-hover:text-font-lighter-gray hover:bg-gray-100 transition-all duration-300 ease-in-out "
+        className="relative text-sm z-10 px-2 py-4 w-full h-full text-muted group-hover:text-foreground hover:bg-default transition-all duration-300 ease-in-out "
       >
         {content}
       </button>
-      <div className="absolute bottom-0 h-0 -z-10 w-full bg-light-background/10 transition-all duration-500 ease-in-out group-hover:h-full"></div>
+      <div className="absolute bottom-0 h-0 -z-10 w-full transition-all duration-500 ease-in-out group-hover:h-full"></div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          className={`w-3.5 h-3.5 ${i < rating ? "fill-amber-400 text-amber-400" : "text-neutral-200"}`}
+          className={`w-3.5 h-3.5 ${i < rating ? "fill-amber-400 text-amber-400" : "text-separator"}`}
           aria-hidden
         />
       ))}
@@ -44,7 +44,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
   return (
     <Card
       tabIndex={-1}
-      className="p-0 gap-[normal] rounded-none [box-shadow:none] overflow-hidden text-foreground border border-neutral-100 bg-[rgb(255_255_255/0.8)] backdrop-blur-xs shrink-0 w-review-card min-w-[260px] max-w-[400px] snap-start flex flex-col"
+      className="p-0 gap-[normal] rounded-none [box-shadow:none] overflow-hidden text-foreground border border-border bg-surface backdrop-blur-xs shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start flex flex-col"
     >
       <Card.Header className="flex flex-row items-center justify-start gap-2 px-4 pt-4 pb-1 shrink-0 z-10 w-full">
         <Avatar size="sm" className="shrink-0 w-8 h-8 rounded-full bg-transparent">
@@ -57,7 +57,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
           <Avatar.Fallback>{getInitials(review.authorName)}</Avatar.Fallback>
         </Avatar>
         <div className="flex flex-col flex-1 min-w-0">
-          <p className="font-semibold text-headings text-sm truncate">{review.authorName}</p>
+          <p className="font-semibold text-foreground text-sm truncate">{review.authorName}</p>
           <div className="flex items-center gap-1.5 mt-0.5">
             <StarRating rating={review.rating} />
           </div>
@@ -69,11 +69,11 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
           style={{ minHeight: CARD_BODY_HEIGHT, maxHeight: CARD_BODY_HEIGHT }}
         >
           {expanded ? (
-            <div className="flex-1 min-h-0 overflow-y-auto pr-1 text-font-gray text-sm leading-relaxed whitespace-pre-line">
+            <div className="flex-1 min-h-0 overflow-y-auto pr-1 text-muted text-sm leading-relaxed whitespace-pre-line">
               {review.text}
             </div>
           ) : (
-            <p className="text-font-gray text-sm leading-relaxed whitespace-pre-line line-clamp-3">
+            <p className="text-muted text-sm leading-relaxed whitespace-pre-line line-clamp-3">
               {review.text}
             </p>
           )}
@@ -81,7 +81,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
             <button
               type="button"
               onClick={onToggle}
-              className="mt-2 flex items-center gap-1 text-xs font-medium text-accent1 hover:underline shrink-0"
+              className="mt-2 flex items-center gap-1 text-xs font-medium text-accent hover:underline shrink-0"
             >
               {expanded ? (
                 <>
@@ -166,13 +166,13 @@ export default function GoogleReviews() {
           </div>
           {/* Dégradé uniquement sur le carousel, pas sur le texte en dessous */}
           <div
-            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-fade-left z-10"
+            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-linear-to-l from-background to-transparent z-10"
             aria-hidden
           />
         </div>
-        <p className="mt-2 text-right text-sm text-font-gray flex items-center justify-end gap-1">
+        <p className="mt-2 text-right text-sm text-muted flex items-center justify-end gap-1">
           <span>Plus d&apos;avis</span>
-          <ChevronRight className="w-4 h-4 text-accent1" aria-hidden />
+          <ChevronRight className="w-4 h-4 text-accent" aria-hidden />
         </p>
       </div>
     </div>

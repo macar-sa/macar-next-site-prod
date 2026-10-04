@@ -35,7 +35,7 @@ export const Footer = () => {
                         />
                     </div>
                 </div>
-                <div className="h-px w-full bg-neutral-500 mt-14" />
+                <div className="h-px w-full bg-separator mt-14" />
                 <div className="mt-14 flex flex-row items-start justify-between">
                     <div className="flex flex-col items-start">
                         <p className="font-medium text-sm md:text-base">Entreprise</p>
@@ -54,7 +54,7 @@ export const Footer = () => {
                         <div className="flex flex-col justify-start gap-1 mt-4">
                             <div>
                                 <Link href="tel:+32478235008">
-                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
+                                    <P customClasses="text-muted hover:text-foreground text-sm">
                                         {" "}
                                         tel: +32 478 23 50 08
                                     </P>
@@ -62,7 +62,7 @@ export const Footer = () => {
                             </div>
                             <div>
                                 <Link href="mailto:info@macar.be">
-                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
+                                    <P customClasses="text-muted hover:text-foreground text-sm">
                                         {" "}
                                         email: info@macar.be
                                     </P>
@@ -70,21 +70,21 @@ export const Footer = () => {
                             </div>
                             <div>
                                 <Link href="tel:+3224665304">
-                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
+                                    <P customClasses="text-muted hover:text-foreground text-sm">
                                         {" "}
                                         fixe: +32 246 653 04
                                     </P>
                                 </Link>
                             </div>
                             <div>
-                                <P customClasses="text-font-gray text-sm">
+                                <P customClasses="text-muted text-sm">
                                     {" "}
                                     Avenue Prudent Bols, 43<br />
                                     B-1020 Bruxelles/Brussel
                                 </P>
                             </div>
                             <div>
-                                <P customClasses="text-font-gray text-sm">
+                                <P customClasses="text-muted text-sm">
                                     {" "}
                                     TVA: BE0477.45.10.24
                                 </P>
@@ -101,24 +101,24 @@ export const Footer = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="h-px w-full bg-neutral-500 mt-14" />
+                <div className="h-px w-full bg-separator mt-14" />
                 <div className="mt-14 flex flex-col md:flex-row items-start gap-8 justify-between">
-                    <p className="text-font-gray text-sm md:text-base">
+                    <p className="text-muted text-sm md:text-base">
                         Copyright © {new Date().getFullYear()} Macar
                     </p>
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
                         <Link href="/mentions-legales" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all">
+                            <p className="text-muted text-sm md:text-base hover:text-foreground transition-all">
                                 Mentions légales
                             </p>
                         </Link>
                         <Link href="/politique-confidentialite" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all">
+                            <p className="text-muted text-sm md:text-base hover:text-foreground transition-all">
                                 Politique de confidentialité
                             </p>
                         </Link>
                         <Link href="/politique-cookies" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all">
+                            <p className="text-muted text-sm md:text-base hover:text-foreground transition-all">
                                 Politique cookies
                             </p>
                         </Link>
@@ -132,7 +132,7 @@ export const Footer = () => {
 const FooterLink = ({ href, content }: { href: string; content: string }) => {
     return (
         <Link href={href} className="inline-block">
-            <p className="text-sm md:text-base hover:text-accent1 transition-all">
+            <p className="text-sm md:text-base hover:text-accent transition-all">
                 {content}
             </p>
         </Link>

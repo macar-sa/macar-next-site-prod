@@ -115,13 +115,13 @@ export default async function BlogPostPage({
         <article className="mx-auto max-w-3xl">
           <Link
             href="/blog"
-            className="inline-block text-sm text-accent1 hover:opacity-80 mb-6"
+            className="inline-block text-sm text-accent hover:opacity-80 mb-6"
           >
             ← Tous les articles
           </Link>
 
-          <div className="flex flex-row items-center gap-3 text-xs text-[rgb(71_75_100/0.7)] mb-4">
-            <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 font-medium">
+          <div className="flex flex-row items-center gap-3 text-xs text-muted mb-4">
+            <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 font-medium">
               {post.category}
             </span>
             <span>{formatPostDateFR(post.datePublished)}</span>
@@ -129,11 +129,11 @@ export default async function BlogPostPage({
             <span>{post.readingMinutes} min de lecture</span>
           </div>
 
-          <h1 className="text-3xl lg:text-5xl text-headings font-(--font-raptor) leading-tight lg:leading-none mb-6">
+          <h1 className="text-3xl lg:text-5xl text-foreground font-heading leading-tight lg:leading-none mb-6">
             {post.title}
           </h1>
 
-          <p className="text-base lg:text-lg text-text leading-relaxed lg:leading-7 mb-10">
+          <p className="text-base lg:text-lg text-muted leading-relaxed lg:leading-7 mb-10">
             {post.description}
           </p>
 
@@ -163,18 +163,18 @@ export default async function BlogPostPage({
             />
           </div>
 
-          <div className="mt-16 rounded-lg border border-bordercard bg-cardbackground p-8">
-            <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-3">
+          <div className="mt-16 rounded-lg border border-border bg-surface p-8">
+            <h2 className="font-heading text-2xl lg:text-3xl text-foreground mb-3">
               Un projet en tête ?
             </h2>
-            <p className="text-sm lg:text-base text-text leading-relaxed lg:leading-6 mb-6 max-w-prose">
+            <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6 mb-6 max-w-prose">
               Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
             </p>
             <div className="flex flex-row flex-wrap gap-3">
               <PrimaryButton href="/#contact" content="Demander un devis" />
               <Link
                 href="/services"
-                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded-sm hover:bg-[rgb(18_79_170/0.05)] transition-colors"
+                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent border border-accent rounded-sm hover:bg-accent-soft transition-colors"
               >
                 Voir nos services
               </Link>
@@ -186,7 +186,7 @@ export default async function BlogPostPage({
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block rounded-full border border-bordercard text-[rgb(71_75_100/0.8)] px-3 py-1 text-xs"
+                  className="inline-block rounded-full border border-border text-muted px-3 py-1 text-xs"
                 >
                   #{tag}
                 </span>
@@ -199,7 +199,7 @@ export default async function BlogPostPage({
       {others.length > 0 && (
         <Screen name="related">
           <div className="mx-auto max-w-3xl">
-            <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-6">
+            <h2 className="font-heading text-2xl lg:text-3xl text-foreground mb-6">
               À lire ensuite
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -207,12 +207,12 @@ export default async function BlogPostPage({
                 <Link
                   key={p.slug}
                   href={`/blog/${p.slug}`}
-                  className="group rounded-lg border border-bordercard bg-cardbackground p-6 transition-all duration-300 hover:border-accent1"
+                  className="group rounded-lg border border-border bg-surface p-6 transition-all duration-300 hover:border-accent"
                 >
-                  <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 text-xs font-medium mb-3">
+                  <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 text-xs font-medium mb-3">
                     {p.category}
                   </span>
-                  <h3 className="text-base lg:text-lg text-headings font-medium leading-snug lg:leading-7 group-hover:text-accent1 transition-colors">
+                  <h3 className="text-base lg:text-lg text-foreground font-medium leading-snug lg:leading-7 group-hover:text-accent transition-colors">
                     {p.title}
                   </h3>
                 </Link>

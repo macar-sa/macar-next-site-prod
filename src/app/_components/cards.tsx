@@ -41,7 +41,7 @@ export const Card = ({
             onMouseLeave={() => {
                 setOpacity(0);
             }}
-            className={`rounded-sm z-20 relative overflow-clip px-12 py-10 border border-neutral-100 bg-cardbackground backdrop-blur-lg transition-all duration-300 hover:border-blue-500 ${customClasses}`}
+            className={`rounded-sm z-20 relative overflow-clip px-12 py-10 border border-border bg-surface backdrop-blur-lg transition-all duration-300 hover:border-accent ${customClasses}`}
         >
             {children && (
                 <div className="relative z-10 w-12 h-12  md:w-12 md:h-12 flex flex-col items-start justify-center">
@@ -57,7 +57,7 @@ export const Card = ({
             </Raptor>
             <P
                 content={description}
-                customClasses="text-font-gray mt-3 relative z-10"
+                customClasses="text-muted mt-3 relative z-10"
             />
             <motion.div
                 style={{
@@ -66,7 +66,7 @@ export const Card = ({
                     opacity: opacity / 100,
                 }}
                 transition={{ duration: 10, type: "inertia", stiffness: 500 }}
-                className="h-96 w-96 bg-blue-100 absolute top-0 left-0 rounded-full blur-2xl transition-opacity duration-300 ease-in-out pointer-events-none"
+                className="h-96 w-96 bg-accent-soft absolute top-0 left-0 rounded-full blur-2xl transition-opacity duration-300 ease-in-out pointer-events-none"
             />
         </div>
     );

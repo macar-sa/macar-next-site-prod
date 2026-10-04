@@ -83,7 +83,7 @@ export default function ServicesIndexPage() {
                 Bruxelles
               </h1>
             </MainHeading>
-            <p className="mt-4 text-base lg:text-lg text-default-600">
+            <p className="mt-4 text-base lg:text-lg text-muted">
               Quatre domaines, une seule équipe locale. Chaque service est
               détaillé sur sa propre page : prestations, exemples concrets et
               demande de devis.
@@ -98,8 +98,8 @@ export default function ServicesIndexPage() {
         </Screen>
 
         <Screen name="services-grid" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8 pb-4">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
+          <div className="w-full max-w-full border-t border-border pt-8 pb-4">
+            <P customClasses="text-sm font-medium text-muted mb-4">
               <p>Nos domaines</p>
             </P>
             <nav
@@ -110,7 +110,7 @@ export default function ServicesIndexPage() {
                 <Link
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] p-5 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)]"
+                  className="group flex flex-col gap-3 rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent hover:bg-accent-soft"
                 >
                   <Image
                     src={s.image}
@@ -120,17 +120,17 @@ export default function ServicesIndexPage() {
                     className="shrink-0 object-contain"
                     aria-hidden
                   />
-                  <h2 className="text-base font-semibold text-headings group-hover:text-accent1">
+                  <h2 className="text-base font-semibold text-foreground group-hover:text-accent">
                     {s.title}
                   </h2>
-                  <p className="text-sm text-default-600">{s.summary}</p>
-                  <span className="mt-auto text-sm font-medium text-accent1">
+                  <p className="text-sm text-muted">{s.summary}</p>
+                  <span className="mt-auto text-sm font-medium text-accent">
                     Voir le détail →
                   </span>
                 </Link>
               ))}
             </nav>
-            <p className="mt-6 text-sm text-default-500">
+            <p className="mt-6 text-sm text-muted">
               Les prestations listées sur chaque page sont non exhaustives ;
               chaque projet fait l&apos;objet d&apos;un devis sur mesure.
             </p>

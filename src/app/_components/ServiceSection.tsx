@@ -33,37 +33,37 @@ export default function ServiceSection({
               <h2>{title}</h2>
             </SecondHeading>
           </div>
-          <p className="text-sm text-default-600 mb-4">{summary}</p>
+          <p className="text-sm text-muted mb-4">{summary}</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {chips.map((label) => (
               <Chip
                 key={label}
-                className="relative inline-flex items-center justify-between whitespace-nowrap shrink w-auto gap-[normal] px-1 py-0 rounded-full bg-[hsl(var(--v2-primary)/0.1)] text-inherit [font-size:inherit] [line-height:inherit] [font-weight:inherit]"
+                className="relative inline-flex items-center justify-between whitespace-nowrap shrink w-auto gap-[normal] px-1 py-0 rounded-full bg-accent-soft text-inherit [font-size:inherit] [line-height:inherit] [font-weight:inherit]"
               >
-                <Chip.Label className="flex-1 px-1 text-primary font-medium">{label}</Chip.Label>
+                <Chip.Label className="flex-1 px-1 text-accent font-medium">{label}</Chip.Label>
               </Chip>
             ))}
           </div>
           <Link
             href="/#contact"
-            className="text-sm font-medium text-accent1 hover:underline"
+            className="text-sm font-medium text-accent hover:underline"
           >
             Demander un devis pour ce service →
           </Link>
         </div>
         <div className="mt-6 lg:mt-0">
           {hasDetailCategories ? (
-            <div className="sibling:mt-6 sibling:mb-0">
-              <p className="text-sm lg:text-base text-default-700 leading-relaxed lg:leading-6">
+            <div className="space-y-6">
+              <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6">
                 {detailIntro}
               </p>
-              <div className="sibling:mt-5 sibling:mb-0">
+              <div className="space-y-5">
                 {detailCategories!.map((cat) => (
                   <div key={cat.title}>
-                    <h3 className="text-sm font-semibold text-headings mb-2">
+                    <h3 className="text-sm font-semibold text-foreground mb-2">
                       {cat.title}
                     </h3>
-                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-[hsl(var(--v2-primary)/0.7)]">
+                    <ul className="text-sm text-muted leading-relaxed space-y-1 list-disc list-inside marker:text-accent">
                       {cat.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
@@ -73,7 +73,7 @@ export default function ServiceSection({
               </div>
             </div>
           ) : (
-            <p className="text-sm lg:text-base text-default-700 leading-relaxed lg:leading-6">
+            <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6">
               {detail}
             </p>
           )}

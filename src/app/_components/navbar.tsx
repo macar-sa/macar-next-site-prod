@@ -72,7 +72,7 @@ export const NavBar = () => {
     return (
         <nav
             ref={navRef}
-            className="sticky top-0 z-100 flex w-full min-h-0 items-center justify-center bg-background border-b border-[hsl(var(--v2-default-200)/0.5)]"
+            className="sticky top-0 z-100 flex w-full min-h-0 items-center justify-center bg-background border-b border-separator"
         >
             <header className="relative flex flex-row flex-nowrap items-center justify-between gap-4 w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 h-16">
                 <ul className="flex flex-row items-center gap-4 h-full md:hidden">
@@ -120,11 +120,11 @@ export const NavBar = () => {
                 createPortal(
                     <div className="fixed top-16 right-0 bottom-0 left-0 z-9999 bg-background animate-navbar-backdrop-in">
                         <FocusScope restoreFocus>
-                            <ul className="fixed top-16 right-0 bottom-0 left-0 z-9999 flex flex-col gap-1 w-full max-w-full h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] overflow-y-auto pt-4 pb-6 px-4 bg-background border-b border-[hsl(var(--v2-default-200)/0.5)] shadow-lg animate-navbar-menu-in">
+                            <ul className="fixed top-16 right-0 bottom-0 left-0 z-9999 flex flex-col gap-1 w-full max-w-full h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] overflow-y-auto pt-4 pb-6 px-4 bg-background border-b border-separator shadow-lg animate-navbar-menu-in">
                                 {menuItems.map((item) => (
                                     <li key={item.href} className="min-h-[44px] py-0 rounded-lg">
                                         <Link
-                                            className="flex items-center w-full min-h-[44px] px-4 text-base text-foreground hover:text-accent1 active:bg-default-100 rounded-lg transition-colors"
+                                            className="flex items-center w-full min-h-[44px] px-4 text-base text-foreground hover:text-accent active:bg-default rounded-lg transition-colors"
                                             href={item.href}
                                             onClick={closeMenu}
                                         >
@@ -132,9 +132,9 @@ export const NavBar = () => {
                                         </Link>
                                     </li>
                                 ))}
-                                <li className="min-h-[44px] py-0 rounded-lg pt-2 mt-2 border-t border-default-200">
+                                <li className="min-h-[44px] py-0 rounded-lg pt-2 mt-2 border-t border-border">
                                     <Link
-                                        className="flex items-center justify-center w-full min-h-[44px] px-4 rounded-lg bg-accent1 text-background font-medium text-base active:opacity-90"
+                                        className="flex items-center justify-center w-full min-h-[44px] px-4 rounded-lg bg-accent text-background font-medium text-base active:opacity-90"
                                         href="/#contact"
                                         onClick={closeMenu}
                                     >

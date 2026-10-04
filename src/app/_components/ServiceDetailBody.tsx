@@ -59,7 +59,7 @@ export default function ServiceDetailBody({
             <MainHeading>
               <h1 className="leading-tight">{h1}</h1>
             </MainHeading>
-            <p className="mt-4 text-base lg:text-lg text-default-600">
+            <p className="mt-4 text-base lg:text-lg text-muted">
               {intro}
             </p>
             <div className="mt-8">
@@ -78,8 +78,8 @@ export default function ServiceDetailBody({
         </Screen>
 
         <Screen name="other-services" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
+          <div className="w-full max-w-full border-t border-border pt-8">
+            <P customClasses="text-sm font-medium text-muted mb-4">
               <p>Nos autres services</p>
             </P>
             <nav
@@ -90,7 +90,7 @@ export default function ServiceDetailBody({
                 <Link
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="inline-flex items-center gap-2 rounded-lg border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] px-4 py-3 text-sm font-medium text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)] hover:text-accent1"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-3 text-sm font-medium text-muted transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
                 >
                   <Image
                     src={s.image}
@@ -108,8 +108,8 @@ export default function ServiceDetailBody({
         </Screen>
 
         <Screen name="zones-cross-links" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8 pb-8">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
+          <div className="w-full max-w-full border-t border-border pt-8 pb-8">
+            <P customClasses="text-sm font-medium text-muted mb-4">
               <p>Intervention à Bruxelles</p>
             </P>
             <div className="flex flex-wrap gap-2">
@@ -117,7 +117,7 @@ export default function ServiceDetailBody({
                 <Link
                   key={c.slug}
                   href={`/zones/${c.slug}`}
-                  className="inline-flex items-center rounded-full border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)] hover:text-accent1"
+                  className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
                 >
                   {c.name}
                 </Link>

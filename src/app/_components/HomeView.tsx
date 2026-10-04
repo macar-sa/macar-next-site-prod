@@ -67,14 +67,14 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 Rénovation, plomberie, électricité et toiture à Bruxelles
               </h1>
             </MainHeading>
-            <p className="mt-3 text-base text-font-gray max-w-prose">
+            <p className="mt-3 text-base text-muted max-w-prose">
               Macar est une entreprise de rénovation, plomberie, installations
               électriques et toiture basée à Bruxelles (Belgique), active depuis
               2002.
             </p>
             <Link
               href="/#reviews"
-              className="mt-4 inline-flex items-center gap-2 text-sm text-font-gray hover:text-headings transition-colors"
+              className="mt-4 inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
               aria-label={`Note ${RATING.value.replace(".", ",")} sur 5, ${RATING.count} avis Google`}
             >
               <span className="flex items-center gap-0.5" aria-hidden>
@@ -85,7 +85,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                   />
                 ))}
               </span>
-              <span className="font-medium text-headings">
+              <span className="font-medium text-foreground">
                 {RATING.value.replace(".", ",")}
               </span>
               <span>· {RATING.count} avis Google</span>
@@ -104,7 +104,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               customClasses="mt-6 mb-6"
               content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture."
             />
-            <div className="flex sibling:ml-4 sibling:mr-0">
+            <div className="flex space-x-4">
               <PrimaryButton href="/#contact" content="Commencez votre projet !" />
               <SecondaryButton href="/#services" content="Services" />
             </div>
@@ -132,7 +132,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
 
       <Screen name="Nos Services" id="services">
         <div className="md:flex md:items-start justify-between">
-          <div className="md:shrink-0 md:w-third">
+          <div className="md:shrink-0 md:w-1/3">
             <SecondHeading>
               <h2>Nos Services</h2>
             </SecondHeading>
@@ -140,17 +140,17 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               <p className="leading-loose">
                 Chez Macar, notre engagement envers nos clients est clair :
                 nous croyons en la
-                <span className="text-accent1"> confiance</span>, la
-                <span className="text-accent1"> transparence</span>, et la
-                <span className="text-accent1"> qualité </span>
+                <span className="text-accent"> confiance</span>, la
+                <span className="text-accent"> transparence</span>, et la
+                <span className="text-accent"> qualité </span>
                 à chaque étape de notre travail.
               </p>
             </P>
-            <p className="mt-4 text-sm text-default-600">
+            <p className="mt-4 text-sm text-muted">
               Retrouvez le détail des prestations par domaine sur notre{" "}
               <Link
                 href="/services"
-                className="font-medium text-accent1 hover:underline"
+                className="font-medium text-accent hover:underline"
               >
                 page Services
               </Link>
@@ -169,7 +169,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               />
             </div>
           </div>
-          <div className="md:w-two-thirds md:pl-10 mt-10 md:mt-0">
+          <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4">
               <Link href="/services/renovation" className="block group h-full">
                 <Card
@@ -256,7 +256,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               <div>
                 <P customClasses="font-medium">Téléphone</P>
                 <Link href="tel:+32478235008">
-                  <P customClasses="text-font-gray hover:text-font-lighter-gray">
+                  <P customClasses="text-muted hover:text-foreground">
                     {" "}
                     +32 478 23 50 08
                   </P>
@@ -265,7 +265,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               <div>
                 <P customClasses="font-medium">Email</P>
                 <Link href="mailto:info@macar.be">
-                  <P customClasses="text-font-gray hover:text-font-lighter-gray">
+                  <P customClasses="text-muted hover:text-foreground">
                     {" "}
                     info@macar.be
                   </P>
@@ -273,7 +273,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               </div>
               <div>
                 <P customClasses="font-medium">Adresse</P>
-                <P customClasses="text-font-gray">
+                <P customClasses="text-muted">
                   {" "}
                   Avenue Prudent Bols, 43 <br />
                   B-1020 Bruxelles/Brussel
@@ -282,7 +282,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                   href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-sm text-accent1 hover:underline"
+                  className="mt-2 inline-flex items-center gap-1 text-sm text-accent hover:underline"
                 >
                   Voir sur Google Maps
                   <ExternalLink className="w-3.5 h-3.5" aria-hidden />
@@ -290,7 +290,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               </div>
               <div>
                 <P customClasses="font-medium">Horaires</P>
-                <P customClasses="text-font-gray">
+                <P customClasses="text-muted">
                   Lun-Ven · 08:00-17:00 <br />
                   Sam-Dim · Fermé
                 </P>

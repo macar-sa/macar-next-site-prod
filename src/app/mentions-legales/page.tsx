@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     },
 };
 
-const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-[rgb(115_115_115/0.3)]";
+const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-separator";
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";
 
@@ -100,7 +100,7 @@ export default function MentionsLegalesPage() {
                         <P customClasses={sectionBody} content="Pour toute question relative aux présentes mentions légales, vous pouvez nous contacter à l'adresse info@macar.be." />
                     </section>
 
-                    <p className="text-font-gray text-xs mt-10">
+                    <p className="text-muted text-xs mt-10">
                         Dernière mise à jour : 17 mai 2026.
                     </p>
                 </div>

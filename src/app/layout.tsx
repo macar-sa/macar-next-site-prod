@@ -10,7 +10,7 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
 import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
 
-const open_sans = Open_Sans({ subsets: ['latin'] })
+const open_sans = Open_Sans({ subsets: ['latin'], variable: '--font-open-sans' })
 const raptor = localFont({
   src: [
     {
@@ -72,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={`${open_sans.variable} ${raptor.variable}`}>
       <head>
         <link
           rel="apple-touch-icon"
@@ -127,7 +127,7 @@ export default function RootLayout({
         )}
 
       </head>
-      <body className={`${open_sans.className} text-text bg-background antialiased`}>
+      <body className="bg-background text-muted antialiased">
         <Providers>
           <NavBar />
           {children}

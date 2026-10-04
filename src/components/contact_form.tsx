@@ -88,7 +88,7 @@ export function ContactForm() {
 
 
   return (
-    <Card className="mx-auto px-1 sm:px-4 py-10 bg-white rounded-xl shadow-md sibling:mt-6 sibling:mb-0">
+    <Card className="mx-auto px-1 sm:px-4 py-10 bg-white rounded-xl shadow-md space-y-6">
       <CardContent>
         {submissionSuccess ? (
           <div className="" role="status" aria-live="polite" aria-atomic="true">
@@ -96,42 +96,42 @@ export function ContactForm() {
             <P content="Merci pour votre demande! Nous allons la traiter dans les plus brefs délais." />
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="sibling:mt-6 sibling:mb-0" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             {Object.keys(validationErrors).length > 0 && (
-              <p className="text-sm text-red-600" role="alert" aria-live="polite" aria-atomic="true">
+              <p className="text-sm text-danger" role="alert" aria-live="polite" aria-atomic="true">
                 Le formulaire contient des erreurs. Veuillez corriger les champs indiqués.
               </p>
             )}
-            <div className="sibling:mt-8 sibling:mb-0">
-              <div className="sibling:mt-2 sibling:mb-0">
+            <div className="space-y-8">
+              <div className="space-y-2">
                 <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
-                <p className="text-gray-500">Nous sommes à l&apos;écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
+                <p className="text-muted">Nous sommes à l&apos;écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
               </div>
-              <div className="sibling:mt-3 sibling:mb-0">
-                <div className="sibling:mt-2 sibling:mb-0">
+              <div className="space-y-3">
+                <div className="space-y-2">
                   <Label htmlFor="name">Nom et Prénom</Label>
                   <Input id="name" name="name" placeholder="Entrez votre nom et prénom" value={formData.name} onChange={handleChange} />
-                  {validationErrors.name && <p className="flex h-10 text-sm text-red-500">{validationErrors.name}</p>}
+                  {validationErrors.name && <p className="flex h-10 text-sm text-danger">{validationErrors.name}</p>}
                 </div>
-                <div className="sibling:mt-2 sibling:mb-0">
+                <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input id="email" name="email" placeholder="Entrez votre email" value={formData.email} onChange={handleChange} />
-                  {validationErrors.email && <p className="flex h-10 text-sm text-red-500">{validationErrors.email}</p>}
+                  {validationErrors.email && <p className="flex h-10 text-sm text-danger">{validationErrors.email}</p>}
                 </div>
-                <div className="sibling:mt-2 sibling:mb-0">
+                <div className="space-y-2">
                   <Label htmlFor="telephone">Téléphone</Label>
                   <Input id="telephone" name="telephone" placeholder="04XXXXXXXX" value={formData.telephone} onChange={handleChange} />
-                  {validationErrors.telephone && <p className="flex h-10 text-sm text-red-500">{validationErrors.telephone}</p>}
+                  {validationErrors.telephone && <p className="flex h-10 text-sm text-danger">{validationErrors.telephone}</p>}
                 </div>
-                <div className="sibling:mt-2 sibling:mb-0">
+                <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
                   <Textarea className="min-h-[100px]" id="message" name="message" placeholder="Bonjour, je serais intéressé par des services de ..." value={formData.message} onChange={handleChange} />
-                  {validationErrors.message && <p className="flex h-10 text-sm text-red-500">{validationErrors.message}</p>}
+                  {validationErrors.message && <p className="flex h-10 text-sm text-danger">{validationErrors.message}</p>}
                 </div>
-                <Button type="submit" className="group rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-white text-accent1 border border-accent1 font-regular hover:bg-accent1 hover:text-background w-full" variant="accent1">Envoyer</Button>
-                <p className="text-sm text-gray-500 italic">Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.</p>
+                <Button type="submit" className="group rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-white text-accent border border-accent hover:bg-accent hover:text-background w-full" variant="accent1">Envoyer</Button>
+                <p className="text-sm text-muted italic">Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.</p>
                 {backendError && (
-                  <div className="flex h-10 text-sm text-red-700" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div className="flex h-10 text-sm text-danger" role="alert" aria-live="assertive" aria-atomic="true">
                     Oups quelque chose s&apos;est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
                   </div>
                 )}

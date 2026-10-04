@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     },
 };
 
-const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-[rgb(115_115_115/0.3)]";
+const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-separator";
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";
 
@@ -38,22 +38,22 @@ export default function PolitiqueCookiesPage() {
                 <P customClasses="mt-6 max-w-3xl!" content="Un cookie est un petit fichier texte déposé sur votre appareil lors de votre visite sur un site web. Il permet notamment d'enregistrer des informations relatives à votre navigation. La présente politique vous explique quels cookies sont utilisés sur macar.be, à quelles fins, et comment vous pouvez gérer votre consentement." />
 
                 <div className="mt-10">
-                    <section className="py-10 border-b border-[rgb(115_115_115/0.3)]">
+                    <section className="py-10 border-b border-separator">
                         <ThirdHeading customClasses="mb-6">
                             <h2>Cookies utilisés</h2>
                         </ThirdHeading>
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm lg:text-base">
                                 <thead>
-                                    <tr className="border-b border-neutral-500 text-left">
+                                    <tr className="border-b border-separator text-left">
                                         <th className="py-2 pr-4 font-medium">Cookie</th>
                                         <th className="py-2 pr-4 font-medium">Émetteur</th>
                                         <th className="py-2 pr-4 font-medium">Finalité</th>
                                         <th className="py-2 pr-4 font-medium">Durée</th>
                                     </tr>
                                 </thead>
-                                <tbody className="text-font-gray">
-                                    <tr className="border-b border-[rgb(64_64_64/0.3)]">
+                                <tbody className="text-muted">
+                                    <tr className="border-b border-separator">
                                         <td className="py-3 pr-4">_ga</td>
                                         <td className="py-3 pr-4">Google Analytics 4</td>
                                         <td className="py-3 pr-4">
@@ -61,7 +61,7 @@ export default function PolitiqueCookiesPage() {
                                         </td>
                                         <td className="py-3 pr-4">13 mois</td>
                                     </tr>
-                                    <tr className="border-b border-[rgb(64_64_64/0.3)]">
+                                    <tr className="border-b border-separator">
                                         <td className="py-3 pr-4">_ga_*</td>
                                         <td className="py-3 pr-4">Google Analytics 4</td>
                                         <td className="py-3 pr-4">
@@ -69,7 +69,7 @@ export default function PolitiqueCookiesPage() {
                                         </td>
                                         <td className="py-3 pr-4">13 mois</td>
                                     </tr>
-                                    <tr className="border-b border-[rgb(64_64_64/0.3)]">
+                                    <tr className="border-b border-separator">
                                         <td className="py-3 pr-4">Vercel Analytics</td>
                                         <td className="py-3 pr-4">Vercel</td>
                                         <td className="py-3 pr-4">
@@ -89,7 +89,7 @@ export default function PolitiqueCookiesPage() {
                                 </tbody>
                             </table>
                         </div>
-                        <p className="mt-4 text-font-gray text-xs">
+                        <p className="mt-4 text-muted text-xs">
                             Aucun cookie publicitaire ni cookie de réseau social tiers n&apos;est
                             déposé par macar.be.
                         </p>
@@ -128,7 +128,7 @@ export default function PolitiqueCookiesPage() {
                                 notre{" "}
                                 <a
                                     href="/politique-confidentialite"
-                                    className="text-accent1 hover:underline"
+                                    className="text-accent hover:underline"
                                 >
                                     politique de confidentialité
                                 </a>
@@ -137,7 +137,7 @@ export default function PolitiqueCookiesPage() {
                         </P>
                     </section>
 
-                    <p className="text-font-gray text-xs mt-10">
+                    <p className="text-muted text-xs mt-10">
                         Dernière mise à jour : 17 mai 2026.
                     </p>
                 </div>
