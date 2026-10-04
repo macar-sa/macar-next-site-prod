@@ -81,8 +81,8 @@ function PostCard({ post }: { post: ReturnType<typeof getAllPosts>[number] }) {
         />
       </div>
       <div className="flex flex-col gap-3 p-6">
-        <div className="flex flex-row items-center gap-3 text-xs text-text/70">
-          <span className="inline-block rounded-full bg-accent1/10 text-accent1 px-3 py-1 font-medium">
+        <div className="flex flex-row items-center gap-3 text-xs text-[rgb(71_75_100/0.7)]">
+          <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 font-medium">
             {post.category}
           </span>
           <span>{formatPostDateFR(post.datePublished)}</span>

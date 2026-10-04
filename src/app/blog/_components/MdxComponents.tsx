@@ -73,7 +73,7 @@ const components = {
   blockquote: (props: ComponentPropsWithoutRef<"blockquote">) => (
     <blockquote
       {...props}
-      className="border-l-4 border-accent1 pl-5 my-8 italic text-text/90 max-w-prose"
+      className="border-l-4 border-accent1 pl-5 my-8 italic text-[rgb(71_75_100/0.9)] max-w-prose"
     />
   ),
   code: (props: ComponentPropsWithoutRef<"code">) => (

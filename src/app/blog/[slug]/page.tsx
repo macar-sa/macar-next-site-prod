@@ -120,8 +120,8 @@ export default async function BlogPostPage({
             ← Tous les articles
           </Link>
 
-          <div className="flex flex-row items-center gap-3 text-xs text-text/70 mb-4">
-            <span className="inline-block rounded-full bg-accent1/10 text-accent1 px-3 py-1 font-medium">
+          <div className="flex flex-row items-center gap-3 text-xs text-[rgb(71_75_100/0.7)] mb-4">
+            <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 font-medium">
               {post.category}
             </span>
             <span>{formatPostDateFR(post.datePublished)}</span>
@@ -174,7 +174,7 @@ export default async function BlogPostPage({
               <PrimaryButton href="/#contact" content="Demander un devis" />
               <Link
                 href="/services"
-                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded-sm hover:bg-accent1/5 transition-colors"
+                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded-sm hover:bg-[rgb(18_79_170/0.05)] transition-colors"
               >
                 Voir nos services
               </Link>
@@ -186,7 +186,7 @@ export default async function BlogPostPage({
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block rounded-full border border-bordercard text-text/80 px-3 py-1 text-xs"
+                  className="inline-block rounded-full border border-bordercard text-[rgb(71_75_100/0.8)] px-3 py-1 text-xs"
                 >
                   #{tag}
                 </span>
@@ -209,7 +209,7 @@ export default async function BlogPostPage({
                   href={`/blog/${p.slug}`}
                   className="group rounded-lg border border-bordercard bg-cardbackground p-6 transition-all duration-300 hover:border-accent1"
                 >
-                  <span className="inline-block rounded-full bg-accent1/10 text-accent1 px-3 py-1 text-xs font-medium mb-3">
+                  <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 text-xs font-medium mb-3">
                     {p.category}
                   </span>
                   <h3 className="text-base lg:text-lg text-headings font-medium leading-snug lg:leading-7 group-hover:text-accent1 transition-colors">

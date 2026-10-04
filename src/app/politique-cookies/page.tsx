@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     },
 };
 
-const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-neutral-500/30";
+const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-[rgb(115_115_115/0.3)]";
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";
 
@@ -38,7 +38,7 @@ export default function PolitiqueCookiesPage() {
                 <P customClasses="mt-6 max-w-3xl!" content="Un cookie est un petit fichier texte déposé sur votre appareil lors de votre visite sur un site web. Il permet notamment d'enregistrer des informations relatives à votre navigation. La présente politique vous explique quels cookies sont utilisés sur macar.be, à quelles fins, et comment vous pouvez gérer votre consentement." />
 
                 <div className="mt-10">
-                    <section className="py-10 border-b border-neutral-500/30">
+                    <section className="py-10 border-b border-[rgb(115_115_115/0.3)]">
                         <ThirdHeading customClasses="mb-6">
                             <h2>Cookies utilisés</h2>
                         </ThirdHeading>
@@ -53,7 +53,7 @@ export default function PolitiqueCookiesPage() {
                                     </tr>
                                 </thead>
                                 <tbody className="text-font-gray">
-                                    <tr className="border-b border-neutral-700/30">
+                                    <tr className="border-b border-[rgb(64_64_64/0.3)]">
                                         <td className="py-3 pr-4">_ga</td>
                                         <td className="py-3 pr-4">Google Analytics 4</td>
                                         <td className="py-3 pr-4">
@@ -61,7 +61,7 @@ export default function PolitiqueCookiesPage() {
                                         </td>
                                         <td className="py-3 pr-4">13 mois</td>
                                     </tr>
-                                    <tr className="border-b border-neutral-700/30">
+                                    <tr className="border-b border-[rgb(64_64_64/0.3)]">
                                         <td className="py-3 pr-4">_ga_*</td>
                                         <td className="py-3 pr-4">Google Analytics 4</td>
                                         <td className="py-3 pr-4">
@@ -69,7 +69,7 @@ export default function PolitiqueCookiesPage() {
                                         </td>
                                         <td className="py-3 pr-4">13 mois</td>
                                     </tr>
-                                    <tr className="border-b border-neutral-700/30">
+                                    <tr className="border-b border-[rgb(64_64_64/0.3)]">
                                         <td className="py-3 pr-4">Vercel Analytics</td>
                                         <td className="py-3 pr-4">Vercel</td>
                                         <td className="py-3 pr-4">

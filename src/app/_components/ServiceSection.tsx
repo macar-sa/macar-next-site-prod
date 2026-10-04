@@ -42,7 +42,7 @@ export default function ServiceSection({
                 color="primary"
                 size="sm"
                 classNames={{
-                  base: "bg-primary/10",
+                  base: "bg-[hsl(var(--heroui-primary)/0.1)]",
                   content: "text-primary font-medium",
                 }}
               >
@@ -69,7 +69,7 @@ export default function ServiceSection({
                     <h3 className="text-sm font-semibold text-headings mb-2">
                       {cat.title}
                     </h3>
-                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-primary/70">
+                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-[hsl(var(--heroui-primary)/0.7)]">
                       {cat.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
