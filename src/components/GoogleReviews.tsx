@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Avatar } from "@heroui/react";
+import { Avatar, Button, Card } from "@heroui/react";
 import { SecondHeading, P } from "@/app/_components/textStyles";
 import { Star, ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
 import { useRef, useState, useEffect, useCallback } from "react";
@@ -36,38 +36,26 @@ function getInitials(name: string) {
     .join("");
 }
 
-// HeroUI v3 Card and Avatar. Their v3 default styles are overridden by the classes below to
-// keep the HeroUI v2 rendering: square cards with no elevation, the padding of the application
-// and a 32 px round avatar.
+// HeroUI v3 Card and Avatar with their own styles; the classes only size and place the card
+// in the scrolling row.
 function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expanded: boolean; onToggle: () => void }) {
   const needsExpand = review.text.length > 180;
   return (
-    <Card
-      tabIndex={-1}
-      className="p-0 gap-[normal] rounded-none [box-shadow:none] overflow-hidden text-foreground border border-border bg-surface backdrop-blur-xs shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start flex flex-col"
-    >
-      <Card.Header className="flex flex-row items-center justify-start gap-2 px-4 pt-4 pb-1 shrink-0 z-10 w-full">
-        <Avatar size="sm" className="shrink-0 w-8 h-8 rounded-full bg-transparent">
-          <Avatar.Image
-            src={review.authorPhotoUrl}
-            alt={review.authorName}
-            referrerPolicy="no-referrer"
-            className="static flex object-cover w-full h-full aspect-auto inset-auto duration-150"
-          />
-          <Avatar.Fallback>{getInitials(review.authorName)}</Avatar.Fallback>
-        </Avatar>
-        <div className="flex flex-col flex-1 min-w-0">
-          <p className="font-semibold text-foreground text-sm truncate">{review.authorName}</p>
-          <div className="flex items-center gap-1.5 mt-0.5">
+    <Card className="shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start">
+      <Card.Header>
+        <div className="flex items-center gap-2">
+          <Avatar size="sm">
+            <Avatar.Image src={review.authorPhotoUrl} alt={review.authorName} referrerPolicy="no-referrer" />
+            <Avatar.Fallback>{getInitials(review.authorName)}</Avatar.Fallback>
+          </Avatar>
+          <div className="flex flex-col min-w-0">
+            <p className="font-semibold text-foreground text-sm truncate">{review.authorName}</p>
             <StarRating rating={review.rating} />
           </div>
         </div>
       </Card.Header>
-      <Card.Content className="relative w-full text-left gap-[normal] pt-0 pb-2 pr-4 pl-4! flex-1 min-h-0 flex flex-col">
-        <div
-          className="flex flex-col shrink-0"
-          style={{ minHeight: CARD_BODY_HEIGHT, maxHeight: CARD_BODY_HEIGHT }}
-        >
+      <Card.Content>
+        <div className="flex flex-col" style={{ minHeight: CARD_BODY_HEIGHT, maxHeight: CARD_BODY_HEIGHT }}>
           {expanded ? (
             <div className="flex-1 min-h-0 overflow-y-auto pr-1 text-muted text-sm leading-relaxed whitespace-pre-line">
               {review.text}
@@ -78,21 +66,17 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
             </p>
           )}
           {needsExpand && (
-            <button
-              type="button"
-              onClick={onToggle}
-              className="mt-2 flex items-center gap-1 text-xs font-medium text-accent hover:underline shrink-0"
-            >
+            <Button variant="ghost" size="sm" onPress={onToggle} className="mt-2 self-start shrink-0">
               {expanded ? (
                 <>
-                  <ChevronUp className="w-3.5 h-3.5" /> Voir moins
+                  <ChevronUp aria-hidden /> Voir moins
                 </>
               ) : (
                 <>
-                  <ChevronDown className="w-3.5 h-3.5" /> Voir plus
+                  <ChevronDown aria-hidden /> Voir plus
                 </>
               )}
-            </button>
+            </Button>
           )}
         </div>
       </Card.Content>
@@ -148,7 +132,7 @@ export default function GoogleReviews() {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x overscroll-x-contain overscroll-y-none"
+            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] scrollbar-none touch-pan-x overscroll-x-contain overscroll-y-none"
             onMouseEnter={pauseCarousel}
             onMouseLeave={resumeCarousel}
             onTouchStart={pauseCarousel}

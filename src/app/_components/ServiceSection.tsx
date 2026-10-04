@@ -36,11 +36,8 @@ export default function ServiceSection({
           <p className="text-sm text-muted mb-4">{summary}</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {chips.map((label) => (
-              <Chip
-                key={label}
-                className="relative inline-flex items-center justify-between whitespace-nowrap shrink w-auto gap-[normal] px-1 py-0 rounded-full bg-accent-soft text-inherit [font-size:inherit] [line-height:inherit] [font-weight:inherit]"
-              >
-                <Chip.Label className="flex-1 px-1 text-accent font-medium">{label}</Chip.Label>
+              <Chip key={label} color="accent" variant="soft">
+                {label}
               </Chip>
             ))}
           </div>

@@ -13,44 +13,27 @@ import GoogleReviews from "@/components/GoogleReviews";
 import { Star, ExternalLink } from "lucide-react";
 import { RATING } from "@/lib/seo/localBusiness";
 import { Accordion } from "@heroui/react";
-import { Fragment } from "react";
 import { onFaqTriggerKeyDown } from "./faqKeyboard";
 
 export type FaqItem = { question: string; answer: string };
 
-// One FAQ column. The HeroUI v3 default styles are overridden by the classes below (utilities
-// layer) to keep the HeroUI v2 rendering: h2 titles, <hr> separators between questions, same
-// chevron, native focus outline, v2 opening and closing timings (faq-panel-transition).
+// One FAQ column: the HeroUI v3 Accordion with its own styles. The data-faq-* markers drive
+// the arrow, Home and End keys of faqKeyboard.ts.
 function FaqAccordion({ items }: { items: FaqItem[] }) {
   return (
-    <Accordion data-faq-column hideSeparator className="px-2 w-full max-w-full">
+    <Accordion data-faq-column>
       {items.map((item, i) => (
-        <Fragment key={i}>
-          {i > 0 && <hr />}
-          <Accordion.Item className="static border-solid">
-            <Accordion.Heading level={2} className="block">
-              <Accordion.Trigger
-                data-faq-trigger
-                onKeyDown={onFaqTriggerKeyDown}
-                className="flex flex-initial justify-normal items-center gap-3 w-full px-0 py-4 text-center [font-size:inherit] [line-height:inherit] [font-weight:inherit] bg-transparent transition-opacity [box-shadow:none] [outline:revert] [-webkit-tap-highlight-color:inherit]"
-              >
-                <div className="flex-1 flex flex-col">
-                  <span className="text-foreground text-sm sm:text-base text-left">{item.question}</span>
-                </div>
-                <span aria-hidden="true" className="transition-transform">
-                  <Accordion.Indicator className="ms-0 size-[1em] shrink text-inherit [transition:rotate_150ms_cubic-bezier(0.4,0,0.2,1)] data-[expanded=true]:-rotate-90">
-                    <svg aria-hidden="true" fill="none" focusable="false" height="1em" role="presentation" viewBox="0 0 24 24" width="1em">
-                      <path d="M15.5 19l-7-7 7-7" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-                    </svg>
-                  </Accordion.Indicator>
-                </span>
-              </Accordion.Trigger>
-            </Accordion.Heading>
-            <Accordion.Panel role="region" className="faq-panel-transition overflow-x-visible">
-              <Accordion.Body className="px-0 pt-2 pb-4 text-sm text-left text-inherit">{item.answer}</Accordion.Body>
-            </Accordion.Panel>
-          </Accordion.Item>
-        </Fragment>
+        <Accordion.Item key={i}>
+          <Accordion.Heading level={2}>
+            <Accordion.Trigger data-faq-trigger onKeyDown={onFaqTriggerKeyDown}>
+              {item.question}
+              <Accordion.Indicator />
+            </Accordion.Trigger>
+          </Accordion.Heading>
+          <Accordion.Panel>
+            <Accordion.Body>{item.answer}</Accordion.Body>
+          </Accordion.Panel>
+        </Accordion.Item>
       ))}
     </Accordion>
   );
