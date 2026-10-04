@@ -4,7 +4,6 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { Switch } from "@heroui/react";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
-import { RevealWrapper, RevealList } from "next-reveal";
 import { motion } from "framer-motion";
 
 const USER_CONSENT_COOKIE_KEY = "macar_cookie_consent_is_true";
