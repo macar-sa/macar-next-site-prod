@@ -64,7 +64,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               customClasses="mt-6 mb-6"
               content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture."
             />
-            <div className="flex space-x-4">
+            <div className="flex sibling:ml-4 sibling:mr-0">
               <PrimaryButton href="/#contact" content="Commencez votre projet !" />
               <SecondaryButton href="/#services" content="Services" />
             </div>

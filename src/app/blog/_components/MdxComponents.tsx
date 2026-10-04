@@ -35,13 +35,13 @@ const components = {
   ul: (props: ComponentPropsWithoutRef<"ul">) => (
     <ul
       {...props}
-      className="list-disc pl-6 my-5 space-y-2 text-sm lg:text-base 2xl:text-lg leading-loose text-text max-w-prose"
+      className="list-disc pl-6 my-5 sibling:mt-2 sibling:mb-0 text-sm lg:text-base 2xl:text-lg leading-loose text-text max-w-prose"
     />
   ),
   ol: (props: ComponentPropsWithoutRef<"ol">) => (
     <ol
       {...props}
-      className="list-decimal pl-6 my-5 space-y-2 text-sm lg:text-base 2xl:text-lg leading-loose text-text max-w-prose"
+      className="list-decimal pl-6 my-5 sibling:mt-2 sibling:mb-0 text-sm lg:text-base 2xl:text-lg leading-loose text-text max-w-prose"
     />
   ),
   li: (props: ComponentPropsWithoutRef<"li">) => (

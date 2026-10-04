@@ -59,17 +59,17 @@ export default function ServiceSection({
         </div>
         <div className="mt-6 lg:mt-0">
           {hasDetailCategories ? (
-            <div className="space-y-6">
+            <div className="sibling:mt-6 sibling:mb-0">
               <p className="text-sm lg:text-base text-default-700 leading-relaxed">
                 {detailIntro}
               </p>
-              <div className="space-y-5">
+              <div className="sibling:mt-5 sibling:mb-0">
                 {detailCategories!.map((cat) => (
                   <div key={cat.title}>
                     <h3 className="text-sm font-semibold text-headings mb-2">
                       {cat.title}
                     </h3>
-                    <ul className="text-sm text-default-700 leading-relaxed space-y-1 list-disc list-inside marker:text-primary/70">
+                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-primary/70">
                       {cat.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
