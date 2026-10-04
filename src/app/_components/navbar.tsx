@@ -72,10 +72,10 @@ export const NavBar = () => {
                 height="4rem"
                 maxWidth="full"
                 classNames={{
-                    base: "sticky top-0 z-[100] min-h-0 bg-background border-b border-default-200/50",
-                    wrapper: "w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 h-16 min-h-16",
-                    toggle: "[&_span]:!hidden",
-                    menu: "!fixed !top-16 !left-0 !right-0 !w-full min-h-[calc(100dvh-4rem)] !z-[9999] pt-4 pb-6 px-4 bg-background border-b border-default-200/50 shadow-lg pointer-events-auto",
+                    base: "sticky top-0 z-100 min-h-0 bg-background border-b border-[hsl(var(--heroui-default-200)/0.5)]",
+                    wrapper: "w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 h-16",
+                    toggle: "[&_span]:hidden!",
+                    menu: "fixed! top-16! left-0! right-0! w-full! min-h-[calc(100dvh-4rem)] z-9999! pt-4 pb-6 px-4 bg-background border-b border-[hsl(var(--heroui-default-200)/0.5)] shadow-lg pointer-events-auto",
                     menuItem: "min-h-[44px] py-0 data-[active=true]:bg-default-100 rounded-lg",
                 }}
                 isMenuOpen={isMenuOpen}

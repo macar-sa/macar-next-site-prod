@@ -1,3 +1,146 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source(none);
+
+/* Same files as the Tailwind 3 `content` globs (no node_modules, no @heroui/theme). */
+@source "../app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../components/**/*.{js,ts,jsx,tsx,mdx}";
+
+/* HeroUI v2 plugin, temporary until step 2. */
+@plugin "../../hero.ts";
+
+/* Tailwind 3 behaviour: hover also applies on touch devices. */
+@custom-variant hover (&:hover);
+
+/* Tailwind 3 selector of space-* and divide-*: every following visible sibling. */
+@custom-variant sibling (& > :not([hidden]) ~ :not([hidden]));
+
+@theme inline {
+  --color-background: #F6F8FF;
+  --color-headings: #0E1435;
+  --color-text: #474B64;
+  --color-accent1: #124FAA;
+  --color-cardbackground: #FFFFFF;
+  --color-bordercard: #D8DBE9;
+
+  --font-sans: var(--font-raptor);
+
+  /* Tailwind 3 default palette, only the shades used by the site. */
+  --color-amber-400: #fbbf24;
+  --color-blue-100: #dbeafe;
+  --color-blue-500: #3b82f6;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-500: #737373;
+  --color-neutral-700: #404040;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+
+  /* Tailwind 3 values that differ in Tailwind 4. */
+  --radius-full: 9999px;
+}
+
+@theme {
+  --default-ring-width: 3px;
+  --default-ring-color: rgb(59 130 246 / 0.5);
+}
+
+/* Tailwind 3 transition lists (Tailwind 4 adds outline-color, gradients, translate, scale, rotate). */
+@utility transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+}
+
+@utility transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+@utility transition-transform {
+  transition-property: transform;
+}
+
+/* Tailwind 3 box-shadow stack: ring offset, ring, shadow (Tailwind 4 adds two inset layers). */
+@utility shadow-xs {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@utility shadow-md {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@utility shadow-lg {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+@utility ring-2 {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow, 0 0 #0000);
+}
+
+/* Former side effect of tailwindcss-animate (removed): these classes also set the animation timing. */
+@utility duration-300 {
+  animation-duration: 300ms;
+}
+
+@utility duration-500 {
+  animation-duration: 500ms;
+}
+
+@utility ease-in-out {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Exact values that lightningcss would round (33.3333%, 270deg): the var() keeps them as written. */
+@utility w-third {
+  width: calc(100% / var(--thirds, 3));
+}
+
+@utility w-two-thirds {
+  width: calc(200% / var(--thirds, 3));
+}
+
+@utility w-review-card {
+  width: calc((100% - 2rem) / var(--thirds, 3));
+}
+
+@utility bg-fade-left {
+  background-image: linear-gradient(var(--fade-direction, to left), #F6F8FF, transparent);
+}
+
+/* Tailwind 3 preflight values that Tailwind 4 changed. */
+@layer base {
+  html {
+    font-family: var(--font-raptor);
+    -webkit-tap-highlight-color: initial;
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: #e5e7eb;
+  }
+
+  td,
+  th {
+    padding: 1px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  :disabled {
+    cursor: default;
+  }
+}

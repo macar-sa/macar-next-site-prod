@@ -36,7 +36,7 @@ export const Footer = () => {
                         />
                     </div>
                 </div>
-                <div className="h-[1px] w-full bg-neutral-500 mt-14" />
+                <div className="h-px w-full bg-neutral-500 mt-14" />
                 <div className="mt-14 flex flex-row items-start justify-between">
                     <div className="flex flex-col items-start">
                         <p className="font-medium text-sm md:text-base">Entreprise</p>
@@ -102,7 +102,7 @@ export const Footer = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="h-[1px] w-full bg-neutral-500 mt-14" />
+                <div className="h-px w-full bg-neutral-500 mt-14" />
                 <div className="mt-14 flex flex-col md:flex-row items-start gap-8 justify-between">
                     <p className="text-font-gray text-sm md:text-base">
                         Copyright © {new Date().getFullYear()} Macar

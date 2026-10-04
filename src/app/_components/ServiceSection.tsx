@@ -42,7 +42,7 @@ export default function ServiceSection({
                 color="primary"
                 size="sm"
                 classNames={{
-                  base: "bg-primary/10",
+                  base: "bg-[hsl(var(--heroui-primary)/0.1)]",
                   content: "text-primary font-medium",
                 }}
               >
@@ -59,17 +59,17 @@ export default function ServiceSection({
         </div>
         <div className="mt-6 lg:mt-0">
           {hasDetailCategories ? (
-            <div className="space-y-6">
-              <p className="text-sm lg:text-base text-default-700 leading-relaxed">
+            <div className="sibling:mt-6 sibling:mb-0">
+              <p className="text-sm lg:text-base text-default-700 leading-relaxed lg:leading-6">
                 {detailIntro}
               </p>
-              <div className="space-y-5">
+              <div className="sibling:mt-5 sibling:mb-0">
                 {detailCategories!.map((cat) => (
                   <div key={cat.title}>
                     <h3 className="text-sm font-semibold text-headings mb-2">
                       {cat.title}
                     </h3>
-                    <ul className="text-sm text-default-700 leading-relaxed space-y-1 list-disc list-inside marker:text-primary/70">
+                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-[hsl(var(--heroui-primary)/0.7)]">
                       {cat.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
@@ -79,7 +79,7 @@ export default function ServiceSection({
               </div>
             </div>
           ) : (
-            <p className="text-sm lg:text-base text-default-700 leading-relaxed">
+            <p className="text-sm lg:text-base text-default-700 leading-relaxed lg:leading-6">
               {detail}
             </p>
           )}

@@ -25,21 +25,21 @@ export function Trusted({ titleAlignment, imageAlignment, headingSize, imageSize
           <div className={`col-span-2 lg:col-span-5 flex ${imageAlignment} ${imageClass}`}>
             <Image
               alt="Homeras"
-              className={`aspect-[2/1] overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
+              className={`aspect-2/1 overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
               height={imageSize.height}
               width={imageSize.width}
               src={logo_homeras}
             />
             <Image
               alt="Ethias"
-              className={`aspect-[2/1] overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
+              className={`aspect-2/1 overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
               height={imageSize.height}
               width={imageSize.width}
               src={logo_ethias}
             />
             <Image
               alt="AG Assurance"
-              className={`aspect-[2/1] overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
+              className={`aspect-2/1 overflow-hidden rounded-lg object-contain ${imageAlignment} ${imageClass}`}
               height={imageSize.height}
               width={imageSize.width}
               src={logo_ag}

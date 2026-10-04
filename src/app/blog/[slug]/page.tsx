@@ -120,8 +120,8 @@ export default async function BlogPostPage({
             ← Tous les articles
           </Link>
 
-          <div className="flex flex-row items-center gap-3 text-xs text-text/70 mb-4">
-            <span className="inline-block rounded-full bg-accent1/10 text-accent1 px-3 py-1 font-medium">
+          <div className="flex flex-row items-center gap-3 text-xs text-[rgb(71_75_100/0.7)] mb-4">
+            <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 font-medium">
               {post.category}
             </span>
             <span>{formatPostDateFR(post.datePublished)}</span>
@@ -129,16 +129,16 @@ export default async function BlogPostPage({
             <span>{post.readingMinutes} min de lecture</span>
           </div>
 
-          <h1 className="text-3xl lg:text-5xl text-headings font-[var(--font-raptor)] leading-tight mb-6">
+          <h1 className="text-3xl lg:text-5xl text-headings font-(--font-raptor) leading-tight lg:leading-none mb-6">
             {post.title}
           </h1>
 
-          <p className="text-base lg:text-lg text-text leading-relaxed mb-10">
+          <p className="text-base lg:text-lg text-text leading-relaxed lg:leading-7 mb-10">
             {post.description}
           </p>
 
           {post.cover && (
-            <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden mb-12">
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-12">
               <Image
                 src={post.cover}
                 alt={post.coverAlt ?? post.title}
@@ -164,17 +164,17 @@ export default async function BlogPostPage({
           </div>
 
           <div className="mt-16 rounded-lg border border-bordercard bg-cardbackground p-8">
-            <h2 className="font-[var(--font-raptor)] text-2xl lg:text-3xl text-headings mb-3">
+            <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-3">
               Un projet en tête ?
             </h2>
-            <p className="text-sm lg:text-base text-text leading-relaxed mb-6 max-w-prose">
+            <p className="text-sm lg:text-base text-text leading-relaxed lg:leading-6 mb-6 max-w-prose">
               Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
             </p>
             <div className="flex flex-row flex-wrap gap-3">
               <PrimaryButton href="/#contact" content="Demander un devis" />
               <Link
                 href="/services"
-                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded hover:bg-accent1/5 transition-colors"
+                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded-sm hover:bg-[rgb(18_79_170/0.05)] transition-colors"
               >
                 Voir nos services
               </Link>
@@ -186,7 +186,7 @@ export default async function BlogPostPage({
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block rounded-full border border-bordercard text-text/80 px-3 py-1 text-xs"
+                  className="inline-block rounded-full border border-bordercard text-[rgb(71_75_100/0.8)] px-3 py-1 text-xs"
                 >
                   #{tag}
                 </span>
@@ -199,7 +199,7 @@ export default async function BlogPostPage({
       {others.length > 0 && (
         <Screen name="related">
           <div className="mx-auto max-w-3xl">
-            <h2 className="font-[var(--font-raptor)] text-2xl lg:text-3xl text-headings mb-6">
+            <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-6">
               À lire ensuite
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -209,10 +209,10 @@ export default async function BlogPostPage({
                   href={`/blog/${p.slug}`}
                   className="group rounded-lg border border-bordercard bg-cardbackground p-6 transition-all duration-300 hover:border-accent1"
                 >
-                  <span className="inline-block rounded-full bg-accent1/10 text-accent1 px-3 py-1 text-xs font-medium mb-3">
+                  <span className="inline-block rounded-full bg-[rgb(18_79_170/0.1)] text-accent1 px-3 py-1 text-xs font-medium mb-3">
                     {p.category}
                   </span>
-                  <h3 className="text-base lg:text-lg text-headings font-medium leading-snug group-hover:text-accent1 transition-colors">
+                  <h3 className="text-base lg:text-lg text-headings font-medium leading-snug lg:leading-7 group-hover:text-accent1 transition-colors">
                     {p.title}
                   </h3>
                 </Link>

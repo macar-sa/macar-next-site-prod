@@ -11,13 +11,13 @@ const components = {
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
       {...props}
-      className="font-[var(--font-raptor)] text-xl lg:text-2xl 2xl:text-3xl text-headings mt-14 mb-5 scroll-mt-24"
+      className="font-(--font-raptor) text-xl lg:text-2xl 2xl:text-3xl text-headings mt-14 mb-5 scroll-mt-24"
     />
   ),
   h3: (props: ComponentPropsWithoutRef<"h3">) => (
     <h3
       {...props}
-      className="font-[var(--font-raptor)] text-lg lg:text-xl 2xl:text-2xl text-headings mt-10 mb-3 scroll-mt-24"
+      className="font-(--font-raptor) text-lg lg:text-xl 2xl:text-2xl text-headings mt-10 mb-3 scroll-mt-24"
     />
   ),
   h4: (props: ComponentPropsWithoutRef<"h4">) => (
@@ -29,19 +29,19 @@ const components = {
   p: (props: ComponentPropsWithoutRef<"p">) => (
     <p
       {...props}
-      className="text-sm lg:text-base 2xl:text-lg leading-loose text-text my-5 max-w-prose"
+      className="text-sm lg:text-base 2xl:text-lg leading-loose lg:leading-6 2xl:leading-7 text-text my-5 max-w-prose"
     />
   ),
   ul: (props: ComponentPropsWithoutRef<"ul">) => (
     <ul
       {...props}
-      className="list-disc pl-6 my-5 space-y-2 text-sm lg:text-base 2xl:text-lg leading-loose text-text max-w-prose"
+      className="list-disc pl-6 my-5 sibling:mt-2 sibling:mb-0 text-sm lg:text-base 2xl:text-lg leading-loose lg:leading-6 2xl:leading-7 text-text max-w-prose"
     />
   ),
   ol: (props: ComponentPropsWithoutRef<"ol">) => (
     <ol
       {...props}
-      className="list-decimal pl-6 my-5 space-y-2 text-sm lg:text-base 2xl:text-lg leading-loose text-text max-w-prose"
+      className="list-decimal pl-6 my-5 sibling:mt-2 sibling:mb-0 text-sm lg:text-base 2xl:text-lg leading-loose lg:leading-6 2xl:leading-7 text-text max-w-prose"
     />
   ),
   li: (props: ComponentPropsWithoutRef<"li">) => (
@@ -73,13 +73,13 @@ const components = {
   blockquote: (props: ComponentPropsWithoutRef<"blockquote">) => (
     <blockquote
       {...props}
-      className="border-l-4 border-accent1 pl-5 my-8 italic text-text/90 max-w-prose"
+      className="border-l-4 border-accent1 pl-5 my-8 italic text-[rgb(71_75_100/0.9)] max-w-prose"
     />
   ),
   code: (props: ComponentPropsWithoutRef<"code">) => (
     <code
       {...props}
-      className="rounded bg-default-100 px-1.5 py-0.5 text-[0.9em] font-mono"
+      className="rounded-sm bg-default-100 px-1.5 py-0.5 text-[0.9em] font-mono"
     />
   ),
   pre: (props: ComponentPropsWithoutRef<"pre">) => (
@@ -114,7 +114,7 @@ const components = {
   img: ({ src, alt, ...rest }: ComponentPropsWithoutRef<"img">) => {
     if (typeof src !== "string") return null;
     return (
-      <span className="block my-8 relative w-full aspect-[16/9] rounded-lg overflow-hidden">
+      <span className="block my-8 relative w-full aspect-video rounded-lg overflow-hidden">
         <Image
           src={src}
           alt={alt ?? ""}

@@ -83,7 +83,7 @@ export default async function ZonePage({
                 Rénovation, plomberie, électricité et toiture à {commune.name}
               </h1>
             </MainHeading>
-            <p className="mt-6 text-base lg:text-lg text-default-700 leading-relaxed">
+            <p className="mt-6 text-base lg:text-lg text-default-700 leading-relaxed lg:leading-7">
               {body}
             </p>
             <div className="mt-8">
@@ -108,7 +108,7 @@ export default async function ZonePage({
                 <Link
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-default-50/50 p-5 transition-colors hover:border-accent1 hover:bg-primary/5"
+                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-[hsl(var(--heroui-default-50)/0.5)] p-5 transition-colors hover:border-accent1 hover:bg-[hsl(var(--heroui-primary)/0.05)]"
                 >
                   <Image
                     src={s.image}
@@ -143,7 +143,7 @@ export default async function ZonePage({
                   <Link
                     key={c.slug}
                     href={`/zones/${c.slug}`}
-                    className="inline-flex items-center rounded-full border border-default-200 bg-default-50/50 px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-primary/5 hover:text-accent1"
+                    className="inline-flex items-center rounded-full border border-default-200 bg-[hsl(var(--heroui-default-50)/0.5)] px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--heroui-primary)/0.05)] hover:text-accent1"
                   >
                     {c.name}
                   </Link>

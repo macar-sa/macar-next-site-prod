@@ -4,7 +4,6 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { Switch } from "@heroui/react";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
-import { RevealWrapper, RevealList } from "next-reveal";
 import { motion } from "framer-motion";
 
 const USER_CONSENT_COOKIE_KEY = "macar_cookie_consent_is_true";
@@ -42,7 +41,7 @@ const CookieConsent = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 divide-y divide-font-gray fixed bottom-0 right-0 z-50 cardbackground border border-gray-300 cardbackground bg-white max-w-lg overflow-auto max-h-full"
+        className="grid grid-cols-1 sibling:border-t sibling:border-b-0 divide-font-gray fixed bottom-0 right-0 z-50 cardbackground border border-gray-300 cardbackground bg-white max-w-lg overflow-auto max-h-full"
 
       >
         {prefIsTrue && (
@@ -130,7 +129,7 @@ const CookieConsent = () => {
             </p>
           </div>
         )}
-        <div className="grid grid-cols-3 divide-x divide-font-gray">
+        <div className="grid grid-cols-3 sibling:border-l sibling:border-r-0 divide-font-gray">
           <CookieButton content="Refuser Tout" onClick={onClick} />
           <CookieButton
             content="Préférences"

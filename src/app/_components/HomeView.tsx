@@ -64,7 +64,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               customClasses="mt-6 mb-6"
               content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture."
             />
-            <div className="flex space-x-4">
+            <div className="flex sibling:ml-4 sibling:mr-0">
               <PrimaryButton href="/#contact" content="Commencez votre projet !" />
               <SecondaryButton href="/#services" content="Services" />
             </div>
@@ -92,7 +92,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
 
       <Screen name="Nos Services" id="services">
         <div className="md:flex md:items-start justify-between">
-          <div className="md:flex-shrink-0 md:w-1/3">
+          <div className="md:flex-shrink-0 md:w-third">
             <SecondHeading>
               <h2>Nos Services</h2>
             </SecondHeading>
@@ -129,7 +129,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               />
             </div>
           </div>
-          <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
+          <div className="md:w-two-thirds md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4">
               <Link href="/services/renovation" className="block group h-full">
                 <Card
