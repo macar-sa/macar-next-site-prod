@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import Screen from "./screen";
-import { MainHeading, P } from "./textStyles";
+import { MainHeading } from "./textStyles";
 import { ButtonLink } from "./links";
+import { ServiceCard } from "./ServiceCard";
 import ServiceSection from "./ServiceSection";
 import { Breadcrumbs } from "./jsonld";
 import { services, type ServiceItem } from "@/lib/services";
@@ -75,40 +75,24 @@ export default function ServiceDetailBody({
         </Screen>
 
         <Screen name="other-services" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-border pt-8">
-            <P customClasses="text-sm font-medium text-muted mb-4">
-              <p>Nos autres services</p>
-            </P>
+          <div className="w-full max-w-full">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Nos autres services</h2>
             <nav
               className="grid grid-cols-1 sm:grid-cols-3 gap-3"
               aria-label="Autres services"
             >
               {otherServices.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`/services/${s.id}`}
-                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-3 text-sm font-medium text-muted transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
-                >
-                  <Image
-                    src={s.image}
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="shrink-0 object-contain"
-                    aria-hidden
-                  />
-                  <span className="min-w-0">{s.title}</span>
-                </Link>
+                <ServiceCard key={s.id} href={`/services/${s.id}`} image={s.image} title={s.title} />
               ))}
             </nav>
           </div>
         </Screen>
 
         <Screen name="zones-cross-links" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-border pt-8 pb-8">
-            <P customClasses="text-sm font-medium text-muted mb-4">
-              <p>Intervention à Bruxelles</p>
-            </P>
+          <div className="w-full max-w-full pb-8">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Intervention à Bruxelles</h2>
             <div className="flex flex-wrap gap-2">
               {topCommunes.map((c) => (
                 <ButtonLink key={c.slug} href={`/zones/${c.slug}`} variant="tertiary" size="sm">

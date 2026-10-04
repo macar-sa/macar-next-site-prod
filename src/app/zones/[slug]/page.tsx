@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import { notFound } from "next/navigation";
 import Screen from "@/app/_components/screen";
-import { MainHeading, P } from "@/app/_components/textStyles";
+import { MainHeading } from "@/app/_components/textStyles";
 import { ButtonLink } from "@/app/_components/links";
+import { ServiceCard } from "@/app/_components/ServiceCard";
 import { Breadcrumbs } from "@/app/_components/jsonld";
 import { communes, getCommune } from "@/lib/seo/communes";
 import { services } from "@/lib/services";
@@ -93,46 +93,31 @@ export default async function ZonePage({
         </Screen>
 
         <Screen name="zone-services" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-border pt-8">
-            <P customClasses="text-sm font-medium text-muted mb-4">
-              <p>Nos services à {commune.name}</p>
-            </P>
+          <div className="w-full max-w-full">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Nos services à {commune.name}</h2>
             <nav
               className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
               aria-label={`Services Macar à ${commune.name}`}
             >
               {services.map((s) => (
-                <Link
+                <ServiceCard
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent hover:bg-accent-soft"
-                >
-                  <Image
-                    src={s.image}
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="shrink-0 object-contain"
-                    aria-hidden
-                  />
-                  <h2 className="text-base font-semibold text-foreground group-hover:text-accent">
-                    {s.title}
-                  </h2>
-                  <p className="text-sm text-muted">{s.summary}</p>
-                  <span className="mt-auto text-sm font-medium text-accent">
-                    Voir le détail →
-                  </span>
-                </Link>
+                  image={s.image}
+                  title={s.title}
+                  description={s.summary}
+                  footer="Voir le détail →"
+                />
               ))}
             </nav>
           </div>
         </Screen>
 
         <Screen name="zone-other-zones" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-border pt-8 pb-8">
-            <P customClasses="text-sm font-medium text-muted mb-4">
-              <p>Autres zones desservies à Bruxelles</p>
-            </P>
+          <div className="w-full max-w-full pb-8">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Autres zones desservies à Bruxelles</h2>
             <div className="flex flex-wrap gap-2">
               {communes
                 .filter((c) => c.slug !== commune.slug)

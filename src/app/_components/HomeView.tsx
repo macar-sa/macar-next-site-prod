@@ -2,10 +2,9 @@
 import Image from "next/image";
 import Screen from "./screen";
 import { MainHeading, P, Raptor, SecondHeading } from "./textStyles";
-import { Card } from "./cards";
+import { ServiceCard } from "./ServiceCard";
 import { ButtonLink, TextLink } from "./links";
 import { ContactForm } from "@/components/contact_form";
-import Link from "next/link";
 import { CheckMark } from "./checkMark";
 import { LogoCarousel } from "./logocarousel";
 import Statistics from "@/components/Statistics";
@@ -144,62 +143,34 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-4">
-              <Link href="/services/renovation" className="block group h-full">
-                <Card
-                  title="Rénovation intérieure et extérieure"
-                  description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/renovation.png"
-                    alt="Rénovation intérieure et extérieure par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
-              <Link href="/services/plomberie" className="block group h-full">
-                <Card
-                  title="Plomberie"
-                  description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/plomberie.png"
-                    alt="Plomberie par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
-              <Link href="/services/electricite" className="block group h-full">
-                <Card
-                  title="Installation Electrique"
-                  description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/installation-electrique.png"
-                    alt="Installation électrique par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
-              <Link href="/services/toiture" className="block group h-full">
-                <Card
-                  title="Toiture"
-                  description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
-                  customClasses="h-full"
-                >
-                  <Image
-                    src="/services/toiture.png"
-                    alt="Toiture par Macar"
-                    width={100}
-                    height={100}
-                  />
-                </Card>
-              </Link>
+              <ServiceCard
+                href="/services/renovation"
+                image="/services/renovation.png"
+                imageAlt="Rénovation intérieure et extérieure par Macar"
+                title="Rénovation intérieure et extérieure"
+                description="Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs."
+              />
+              <ServiceCard
+                href="/services/plomberie"
+                image="/services/plomberie.png"
+                imageAlt="Plomberie par Macar"
+                title="Plomberie"
+                description="Installation de robinetterie, remplacement de chauffe-eau et chaudière, installation complète de chauffage central, débouchage de canalisations, réparation de fuites."
+              />
+              <ServiceCard
+                href="/services/electricite"
+                image="/services/installation-electrique.png"
+                imageAlt="Installation électrique par Macar"
+                title="Installation Electrique"
+                description="Mise aux normes de tableaux électriques, installation de prises de terre, pose de détecteurs de fumée, installation d'éclairage LED, câblage réseau."
+              />
+              <ServiceCard
+                href="/services/toiture"
+                image="/services/toiture.png"
+                imageAlt="Toiture par Macar"
+                title="Toiture"
+                description="Remplacement de tuiles, construction de nouvelle toitures et charpentes, étanchéité de toit-terrasse, isolation, pose de velux, construction/réparation/nettoyage/entretien de corniches et gouttières."
+              />
             </div>
           </div>
         </div>

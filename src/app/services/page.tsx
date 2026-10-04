@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import Screen from "../_components/screen";
-import { MainHeading, P } from "../_components/textStyles";
+import { MainHeading } from "../_components/textStyles";
 import { ButtonLink } from "../_components/links";
+import { ServiceCard } from "../_components/ServiceCard";
 import { Breadcrumbs } from "../_components/jsonld";
 import { services } from "@/lib/services";
 import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
@@ -95,36 +95,22 @@ export default function ServicesIndexPage() {
         </Screen>
 
         <Screen name="services-grid" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-border pt-8 pb-4">
-            <P customClasses="text-sm font-medium text-muted mb-4">
-              <p>Nos domaines</p>
-            </P>
+          <div className="w-full max-w-full pb-4">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Nos domaines</h2>
             <nav
               className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
               aria-label="Liste des services"
             >
               {services.map((s) => (
-                <Link
+                <ServiceCard
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent hover:bg-accent-soft"
-                >
-                  <Image
-                    src={s.image}
-                    alt=""
-                    width={48}
-                    height={48}
-                    className="shrink-0 object-contain"
-                    aria-hidden
-                  />
-                  <h2 className="text-base font-semibold text-foreground group-hover:text-accent">
-                    {s.title}
-                  </h2>
-                  <p className="text-sm text-muted">{s.summary}</p>
-                  <span className="mt-auto text-sm font-medium text-accent">
-                    Voir le détail →
-                  </span>
-                </Link>
+                  image={s.image}
+                  title={s.title}
+                  description={s.summary}
+                  footer="Voir le détail →"
+                />
               ))}
             </nav>
             <p className="mt-6 text-sm text-muted">
