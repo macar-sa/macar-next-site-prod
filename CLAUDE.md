@@ -58,18 +58,21 @@ Variables d'environnement (toutes facultatives en local, définies sur Vercel) :
 Site vitrine statique de Macar (rénovation, plomberie, électricité, toiture), Next.js 15 App Router, React 19, en français (`fr-BE`). Pas de backend : le formulaire de contact poste vers Formspree.
 
 - **Pages** dans `src/app/`. Les composants serveur portent les `metadata` et le JSON-LD, puis délèguent le rendu interactif à des vues client (ex. `page.tsx` passe la FAQ à `_components/HomeView.tsx`).
-- **Composants** : `src/app/_components/` contient la mise en page et les briques propres au site (`Screen`, `textStyles`, `buttons`, `cards`, navbar, footer). `src/components/` contient les blocs réutilisés (formulaire de contact, avis Google, stats) et `src/components/ui/` les primitives générées par shadcn.
+- **Composants** : `src/app/_components/` contient la mise en page et les briques propres au site (`Screen`, `textStyles`, `links` pour les liens au style HeroUI, `ServiceCard`, navbar, footer). `src/components/` contient les blocs réutilisés (formulaire de contact, avis Google, stats).
 - **Données en TypeScript**, pas de CMS : contenu des services dans `src/lib/services.ts` (rendu par `ServiceDetailBody`), communes dans `src/lib/seo/communes.ts`, avis dans `src/data/reviews.ts`.
 - **Pages de zones** `src/app/zones/[slug]` : générées statiquement depuis `communes.ts`. Le texte vient de `intros.ts`, avec un texte générique si la commune n'y figure pas.
 - **Blog** : fichiers MDX dans `content/blog/` avec frontmatter (`title`, `description`, `slug`, `datePublished`, `dateModified`, `category`, `tags`, `cover`, `draft`). `src/lib/blog.ts` les lit avec `gray-matter` au build ; `draft: true` masque un article. Rendu par `next-mdx-remote/rsc` avec les composants de `src/app/blog/_components/MdxComponents.tsx`.
 - **SEO** : le JSON-LD `LocalBusiness` (`src/lib/seo/localBusiness.ts`) est injecté dans `layout.tsx` ; les autres schémas y renvoient par `LOCAL_BUSINESS_ID`. `src/app/sitemap.ts` liste les pages à la main (une nouvelle page statique doit y être ajoutée) et inclut automatiquement communes et articles. `public/llms.txt` décrit le site pour les LLM et doit suivre les changements de services ou de zones.
 
-## Styles : HeroUI v3 et Tailwind 4
+## Styles : HeroUI v3 natif et Tailwind 4
 
-Le site est passé de HeroUI v2 + Tailwind 3 à HeroUI v3 + Tailwind 4 à rendu identique (voir `superpowers/specs/2026-10-02-heroui-v3-migration-design.md`). Il n'y a pas de `tailwind.config` : tout est dans `src/app/globals.css`.
+Le site utilise les composants HeroUI v3 tels qu'ils sont conçus, aux couleurs Macar (voir `superpowers/specs/2026-10-04-heroui-v3-native-design.md`). Il n'y a pas de `tailwind.config` : `src/app/globals.css` ne contient que les imports, les sources, les polices et les variables du thème.
 
 - Les sources Tailwind sont déclarées explicitement (`@source` sur `src/app` et `src/components`) ; `content/` n'est pas scanné, donc une classe utilisée seulement dans un article MDX ne sera pas générée.
-- Couleurs du site : `background`, `headings`, `text`, `accent1`, `cardbackground`, `bordercard`. Les couleurs HeroUI v2 encore utilisées (`primary`, `default-*`, etc.) sont recréées via les variables `--v2-*` ; pour une opacité, écrire `bg-[hsl(var(--v2-primary)/0.1)]` et non `bg-primary/10`, qui changerait la couleur rendue.
-- Plusieurs utilitaires sont redéfinis pour garder le comportement de Tailwind 3 (`transition`, `shadow-*`, `ring-2`, `hover` actif aussi au toucher). Piège : `transition-transform` n'anime que `transform`, donc `scale-*`, `rotate-*` et `translate-*` ne sont pas animés avec lui.
-- HeroUI v3 s'utilise en composants composés (ex. `Accordion`). La locale React Aria est fixée à `fr-BE` dans `providers.tsx` ; ne pas la lire depuis les en-têtes, cela rendrait toutes les routes dynamiques. Le serveur MCP `heroui-react` (`.mcp.json`) donne la doc v3.
+- Couleurs : les noms v3 (`background`, `foreground`, `muted`, `accent`, `surface`, `border`, `separator`, `default`, `danger`, variantes `-soft` et `-hover`), réglés par les variables `:root` de `globals.css`. Pas de couleur maison ni d'opacité arbitraire.
+- Polices : `font-sans` (Open Sans) pour le texte, `font-heading` (Raptor) pour les titres.
+- Aucune classe ne modifie le style d'un composant HeroUI : les classes servent seulement à la mise en page autour (grille, espacement, largeur, affichage). Pour changer l'apparence, passer par les props de variante ou par les variables du thème.
+- Liens : `TextLink` (style Link v3) et `ButtonLink` (style Button v3, `primary` ou `tertiary`) de `_components/links.tsx` gardent le lien Next.js (navigation côté client, préchargement).
+- Composants serveur : importer HeroUI par son sous-chemin (`@heroui/react/card`, `@heroui/react/separator`…) ; l'import `@heroui/react` complet ne compile que dans un composant client. Les fonctions de style (`buttonVariants`, `linkVariants`) viennent de `@heroui/styles`.
+- HeroUI v3 s'utilise en composants composés (ex. `Accordion`, `Drawer`). La locale React Aria est fixée à `fr-BE` dans `providers.tsx` ; ne pas la lire depuis les en-têtes, cela rendrait toutes les routes dynamiques. Le serveur MCP `heroui-react` (`.mcp.json`) donne la doc v3.
 - L'accordéon v3 n'a pas la navigation clavier de la v2 (flèches, Home, End) : `faqKeyboard.ts` la recrée à partir des marqueurs `data-faq-column` et `data-faq-trigger`, à poser sur toute nouvelle FAQ.
