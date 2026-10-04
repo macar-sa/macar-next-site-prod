@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Chip } from "@heroui/react";
+import { Chip } from "@heroui/react/chip";
 import { SecondHeading } from "./textStyles";
 import type { ServiceItem } from "@/lib/services";
 
@@ -26,7 +26,7 @@ export default function ServiceSection({
               alt=""
               width={40}
               height={40}
-              className="flex-shrink-0 object-contain"
+              className="shrink-0 object-contain"
               aria-hidden
             />
             <SecondHeading customClasses="text-left text-xl lg:text-2xl mt-0">
@@ -38,15 +38,9 @@ export default function ServiceSection({
             {chips.map((label) => (
               <Chip
                 key={label}
-                variant="flat"
-                color="primary"
-                size="sm"
-                classNames={{
-                  base: "bg-[hsl(var(--heroui-primary)/0.1)]",
-                  content: "text-primary font-medium",
-                }}
+                className="relative inline-flex items-center justify-between whitespace-nowrap shrink w-auto gap-[normal] px-1 py-0 rounded-full bg-[hsl(var(--v2-primary)/0.1)] text-inherit [font-size:inherit] [line-height:inherit] [font-weight:inherit]"
               >
-                {label}
+                <Chip.Label className="flex-1 px-1 text-primary font-medium">{label}</Chip.Label>
               </Chip>
             ))}
           </div>
@@ -69,7 +63,7 @@ export default function ServiceSection({
                     <h3 className="text-sm font-semibold text-headings mb-2">
                       {cat.title}
                     </h3>
-                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-[hsl(var(--heroui-primary)/0.7)]">
+                    <ul className="text-sm text-default-700 leading-relaxed sibling:mt-1 sibling:mb-0 list-disc list-inside marker:text-[hsl(var(--v2-primary)/0.7)]">
                       {cat.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}

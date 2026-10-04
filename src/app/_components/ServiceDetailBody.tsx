@@ -90,14 +90,14 @@ export default function ServiceDetailBody({
                 <Link
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="inline-flex items-center gap-2 rounded-lg border border-default-200 bg-[hsl(var(--heroui-default-50)/0.5)] px-4 py-3 text-sm font-medium text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--heroui-primary)/0.05)] hover:text-accent1"
+                  className="inline-flex items-center gap-2 rounded-lg border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] px-4 py-3 text-sm font-medium text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)] hover:text-accent1"
                 >
                   <Image
                     src={s.image}
                     alt=""
                     width={24}
                     height={24}
-                    className="flex-shrink-0 object-contain"
+                    className="shrink-0 object-contain"
                     aria-hidden
                   />
                   <span className="min-w-0">{s.title}</span>
@@ -117,7 +117,7 @@ export default function ServiceDetailBody({
                 <Link
                   key={c.slug}
                   href={`/zones/${c.slug}`}
-                  className="inline-flex items-center rounded-full border border-default-200 bg-[hsl(var(--heroui-default-50)/0.5)] px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--heroui-primary)/0.05)] hover:text-accent1"
+                  className="inline-flex items-center rounded-full border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)] hover:text-accent1"
                 >
                   {c.name}
                 </Link>

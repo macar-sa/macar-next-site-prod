@@ -12,9 +12,48 @@ import Statistics from "@/components/Statistics";
 import GoogleReviews from "@/components/GoogleReviews";
 import { Star, ExternalLink } from "lucide-react";
 import { RATING } from "@/lib/seo/localBusiness";
-import { Accordion, AccordionItem } from "@heroui/react";
+import { Accordion } from "@heroui/react";
+import { Fragment } from "react";
+import { onFaqTriggerKeyDown } from "./faqKeyboard";
 
 export type FaqItem = { question: string; answer: string };
+
+// One FAQ column. The HeroUI v3 default styles are overridden by the classes below (utilities
+// layer) to keep the HeroUI v2 rendering: h2 titles, <hr> separators between questions, same
+// chevron, native focus outline, v2 opening and closing timings (faq-panel-transition).
+function FaqAccordion({ items }: { items: FaqItem[] }) {
+  return (
+    <Accordion hideSeparator className="px-2 w-full max-w-full">
+      {items.map((item, i) => (
+        <Fragment key={i}>
+          {i > 0 && <hr />}
+          <Accordion.Item className="static border-solid">
+            <Accordion.Heading level={2} className="block">
+              <Accordion.Trigger
+                onKeyDown={onFaqTriggerKeyDown}
+                className="flex flex-initial justify-normal items-center gap-3 w-full px-0 py-4 text-center [font-size:inherit] [line-height:inherit] [font-weight:inherit] bg-transparent transition-opacity [box-shadow:none] [outline:revert] [-webkit-tap-highlight-color:inherit]"
+              >
+                <div className="flex-1 flex flex-col">
+                  <span className="text-foreground text-sm sm:text-base text-left">{item.question}</span>
+                </div>
+                <span aria-hidden="true" className="transition-transform">
+                  <Accordion.Indicator className="ms-0 size-[1em] shrink text-inherit [transition:rotate_150ms_cubic-bezier(0.4,0,0.2,1)] data-[expanded=true]:-rotate-90">
+                    <svg aria-hidden="true" fill="none" focusable="false" height="1em" role="presentation" viewBox="0 0 24 24" width="1em">
+                      <path d="M15.5 19l-7-7 7-7" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                    </svg>
+                  </Accordion.Indicator>
+                </span>
+              </Accordion.Trigger>
+            </Accordion.Heading>
+            <Accordion.Panel role="region" className="faq-panel-transition overflow-x-visible">
+              <Accordion.Body className="px-0 pt-2 pb-4 text-sm text-left text-inherit">{item.answer}</Accordion.Body>
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Fragment>
+      ))}
+    </Accordion>
+  );
+}
 
 export default function HomeView({ faq }: { faq: FaqItem[] }) {
   return (
@@ -92,7 +131,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
 
       <Screen name="Nos Services" id="services">
         <div className="md:flex md:items-start justify-between">
-          <div className="md:flex-shrink-0 md:w-third">
+          <div className="md:shrink-0 md:w-third">
             <SecondHeading>
               <h2>Nos Services</h2>
             </SecondHeading>
@@ -267,36 +306,8 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
           <h2>Questions fréquentes</h2>
         </SecondHeading>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-          <Accordion className="max-w-full">
-            {faq.slice(0, Math.ceil(faq.length / 2)).map((item, i) => (
-              <AccordionItem
-                key={i}
-                aria-label={item.question}
-                title={item.question}
-                classNames={{
-                  content: "text-sm text-font-gray pb-4 text-left",
-                  title: "text-sm sm:text-base text-left",
-                }}
-              >
-                {item.answer}
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <Accordion className="max-w-full">
-            {faq.slice(Math.ceil(faq.length / 2)).map((item, i) => (
-              <AccordionItem
-                key={Math.ceil(faq.length / 2) + i}
-                aria-label={item.question}
-                title={item.question}
-                classNames={{
-                  content: "text-sm text-font-gray pb-4 text-left",
-                  title: "text-sm sm:text-base text-left",
-                }}
-              >
-                {item.answer}
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <FaqAccordion items={faq.slice(0, Math.ceil(faq.length / 2))} />
+          <FaqAccordion items={faq.slice(Math.ceil(faq.length / 2))} />
         </div>
       </Screen>
     </main>

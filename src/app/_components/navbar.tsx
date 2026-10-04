@@ -1,150 +1,151 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import Link from "next/link";
+import { FocusScope, usePreventScroll, useToggleButton } from "react-aria";
+import { Menu, X } from "lucide-react";
 import { NavLink, PrimaryButton } from "./buttons";
 import { Logo } from "./icons/logo";
-import {
-    Navbar,
-    NavbarBrand,
-    NavbarContent,
-    NavbarItem,
-    NavbarMenu,
-    NavbarMenuToggle,
-    NavbarMenuItem,
-} from "@heroui/react";
-import Link from "next/link";
-import { Menu, X } from "lucide-react";
 
 const menuItems = [
-    { name: "Accueil", href: "/", type: "item" },
-    { name: "Découvrez Macar", href: "/about", type: "item" },
-    { name: "Services", href: "/services", type: "item" },
-    { name: "Blog", href: "/blog", type: "item" },
-    { name: "FAQ", href: "/#faq", type: "item" },
-    { name: "Nous recrutons", href: "/job", type: "item" },
+    { name: "Accueil", href: "/" },
+    { name: "Découvrez Macar", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Blog", href: "/blog" },
+    { name: "FAQ", href: "/#faq" },
+    { name: "Nous recrutons", href: "/job" },
 ];
 
-const MENU_PORTAL_Z_INDEX = 9999;
-const NAVBAR_HEIGHT = "4rem";
-const PAGE_BG = "#F6F8FF";
-
-const navbarMenuStyles = `
-#navbar-menu-portal {
-  transition: background-color 0.25s ease;
-}
-#navbar-menu-portal > * {
-  animation: navbar-menu-in 0.25s ease-out;
-}
-@keyframes navbar-menu-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-`;
+// After closing, the panel stays on screen this long, then disappears at once, like the v2 menu:
+// its 0.25 s exit animation was hidden by the min-height and started one frame after the click
+// (v2 recordings: removed 275 to 284 ms after the click).
+const MENU_EXIT_MS = 265;
 
 export const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [menuPortalEl, setMenuPortalEl] = useState<HTMLDivElement | null>(null);
-    const portalCreated = useRef(false);
+    const [isPanelMounted, setIsPanelMounted] = useState(false);
+    const navRef = useRef<HTMLElement>(null);
+    const toggleRef = useRef<HTMLButtonElement>(null);
+
+    if (isMenuOpen && !isPanelMounted) setIsPanelMounted(true);
 
     useEffect(() => {
-        if (portalCreated.current || typeof document === "undefined") return;
-        const div = document.createElement("div");
-        div.id = "navbar-menu-portal";
-        div.style.cssText = `position:fixed;top:${NAVBAR_HEIGHT};left:0;right:0;bottom:0;z-index:${MENU_PORTAL_Z_INDEX};pointer-events:none;`;
-        document.body.appendChild(div);
-        setMenuPortalEl(div);
-        portalCreated.current = true;
-        return () => {
-            if (div.parentNode) div.parentNode.removeChild(div);
-            portalCreated.current = false;
-        };
+        if (isMenuOpen || !isPanelMounted) return;
+        const timer = window.setTimeout(() => setIsPanelMounted(false), MENU_EXIT_MS);
+        return () => window.clearTimeout(timer);
+    }, [isMenuOpen, isPanelMounted]);
+
+    usePreventScroll({ isDisabled: !isMenuOpen });
+
+    // Same rule as the v2 navbar: any width change of the bar closes the menu, except the
+    // change caused by the scroll bar appearing or disappearing.
+    useEffect(() => {
+        const nav = navRef.current;
+        if (!nav) return;
+        let prevWidth = nav.offsetWidth;
+        const observer = new ResizeObserver(() => {
+            const currentWidth = nav.offsetWidth;
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            if (currentWidth && currentWidth + scrollbarWidth === prevWidth) return;
+            if (currentWidth !== prevWidth) {
+                prevWidth = currentWidth;
+                setIsMenuOpen(false);
+            }
+        });
+        observer.observe(nav);
+        return () => observer.disconnect();
     }, []);
 
-    useEffect(() => {
-        if (!menuPortalEl) return;
-        menuPortalEl.style.pointerEvents = isMenuOpen ? "auto" : "none";
-        menuPortalEl.style.backgroundColor = isMenuOpen ? PAGE_BG : "transparent";
-    }, [isMenuOpen, menuPortalEl]);
+    const label = isMenuOpen ? "Fermer le menu" : "Ouvrir le menu";
+    const { buttonProps } = useToggleButton(
+        { "aria-label": label },
+        {
+            isSelected: isMenuOpen,
+            defaultSelected: false,
+            setSelected: setIsMenuOpen,
+            toggle: () => setIsMenuOpen(!isMenuOpen),
+        },
+        toggleRef,
+    );
+    const closeMenu = () => setIsMenuOpen(false);
 
     return (
-        <>
-            <style dangerouslySetInnerHTML={{ __html: navbarMenuStyles }} />
-            <Navbar
-                height="4rem"
-                maxWidth="full"
-                classNames={{
-                    base: "sticky top-0 z-100 min-h-0 bg-background border-b border-[hsl(var(--heroui-default-200)/0.5)]",
-                    wrapper: "w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 h-16",
-                    toggle: "[&_span]:hidden!",
-                    menu: "fixed! top-16! left-0! right-0! w-full! min-h-[calc(100dvh-4rem)] z-9999! pt-4 pb-6 px-4 bg-background border-b border-[hsl(var(--heroui-default-200)/0.5)] shadow-lg pointer-events-auto",
-                    menuItem: "min-h-[44px] py-0 data-[active=true]:bg-default-100 rounded-lg",
-                }}
-                isMenuOpen={isMenuOpen}
-                onMenuOpenChange={setIsMenuOpen}
-                isBlurred={false}
-            >
-                <NavbarContent className="md:hidden" justify="start">
-                    <NavbarMenuToggle
-                        aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                        srOnlyText={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-                        icon={(isOpen) => (isOpen ? <X size={24} /> : <Menu size={24} />)}
-                    />
-                </NavbarContent>
+        <nav
+            ref={navRef}
+            className="sticky top-0 z-100 flex w-full min-h-0 items-center justify-center bg-background border-b border-[hsl(var(--v2-default-200)/0.5)]"
+        >
+            <header className="relative flex flex-row flex-nowrap items-center justify-between gap-4 w-full max-w-full md:max-w-[1600px] px-4 md:px-16 2xl:px-4 h-16">
+                <ul className="flex flex-row items-center gap-4 h-full md:hidden">
+                    <li className="flex h-full">
+                        <button
+                            {...buttonProps}
+                            ref={toggleRef}
+                            className="flex items-center justify-center h-full"
+                        >
+                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </li>
+                </ul>
 
-                <NavbarContent className="md:hidden" justify="center">
-                    <NavbarBrand>
-                        <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                <ul className="flex flex-row items-center gap-4 h-full md:hidden">
+                    <li className="flex flex-row justify-start items-center whitespace-nowrap">
+                        <Link href="/" onClick={closeMenu}>
                             <Logo iconOnly={false} width={120} />
                         </Link>
-                    </NavbarBrand>
-                </NavbarContent>
+                    </li>
+                </ul>
 
-                <NavbarContent className="hidden md:flex items-center gap-6" justify="start">
-                    <NavbarBrand>
+                <ul className="hidden md:flex flex-row items-center gap-6 h-full">
+                    <li className="flex flex-row justify-start items-center whitespace-nowrap">
                         <Link href="/">
                             <Logo iconOnly={false} customClasses="hidden lg:inline" />
-                            <Logo
-                                iconOnly={false}
-                                width={120}
-                                customClasses="inline lg:hidden"
-                            />
+                            <Logo iconOnly={false} width={120} customClasses="inline lg:hidden" />
                         </Link>
-                    </NavbarBrand>
-                    {menuItems.map((item, index) => (
-                        <NavbarItem key={index} className="items-center">
+                    </li>
+                    {menuItems.map((item) => (
+                        <li key={item.href} className="items-center whitespace-nowrap">
                             <NavLink href={item.href} content={item.name} />
-                        </NavbarItem>
+                        </li>
                     ))}
-                </NavbarContent>
+                </ul>
 
-                <NavbarContent justify="end" className="hidden md:flex items-center">
-                    <NavbarItem>
+                <ul className="hidden md:flex flex-row items-center gap-4 h-full">
+                    <li className="whitespace-nowrap">
                         <PrimaryButton href="/#contact" content="Demander un devis" />
-                    </NavbarItem>
-                </NavbarContent>
+                    </li>
+                </ul>
+            </header>
 
-                <NavbarMenu className="gap-1" portalContainer={menuPortalEl ?? undefined}>
-                    {menuItems.map((item, index) => (
-                        <NavbarMenuItem key={`${item.name}-${index}`}>
-                            <Link
-                                className="flex items-center w-full min-h-[44px] px-4 text-base font-regular text-foreground hover:text-accent1 active:bg-default-100 rounded-lg transition-colors"
-                                href={item.href}
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {item.name}
-                            </Link>
-                        </NavbarMenuItem>
-                    ))}
-                    <NavbarMenuItem className="pt-2 mt-2 border-t border-default-200">
-                        <Link
-                            className="flex items-center justify-center w-full min-h-[44px] px-4 rounded-lg bg-accent1 text-background font-medium text-base active:opacity-90"
-                            href="/#contact"
-                            onClick={() => setIsMenuOpen(false)}
-                        >
-                            Demander un devis
-                        </Link>
-                    </NavbarMenuItem>
-                </NavbarMenu>
-            </Navbar>
-        </>
+            {isPanelMounted &&
+                createPortal(
+                    <div className="fixed top-16 right-0 bottom-0 left-0 z-9999 bg-background animate-navbar-backdrop-in">
+                        <FocusScope restoreFocus>
+                            <ul className="fixed top-16 right-0 bottom-0 left-0 z-9999 flex flex-col gap-1 w-full max-w-full h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] overflow-y-auto pt-4 pb-6 px-4 bg-background border-b border-[hsl(var(--v2-default-200)/0.5)] shadow-lg animate-navbar-menu-in">
+                                {menuItems.map((item) => (
+                                    <li key={item.href} className="min-h-[44px] py-0 rounded-lg">
+                                        <Link
+                                            className="flex items-center w-full min-h-[44px] px-4 text-base text-foreground hover:text-accent1 active:bg-default-100 rounded-lg transition-colors"
+                                            href={item.href}
+                                            onClick={closeMenu}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                                <li className="min-h-[44px] py-0 rounded-lg pt-2 mt-2 border-t border-default-200">
+                                    <Link
+                                        className="flex items-center justify-center w-full min-h-[44px] px-4 rounded-lg bg-accent1 text-background font-medium text-base active:opacity-90"
+                                        href="/#contact"
+                                        onClick={closeMenu}
+                                    >
+                                        Demander un devis
+                                    </Link>
+                                </li>
+                            </ul>
+                        </FocusScope>
+                    </div>,
+                    document.body,
+                )}
+        </nav>
     );
 };

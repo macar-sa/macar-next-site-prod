@@ -109,17 +109,17 @@ export const Footer = () => {
                     </p>
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
                         <Link href="/mentions-legales" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
+                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all">
                                 Mentions légales
                             </p>
                         </Link>
                         <Link href="/politique-confidentialite" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
+                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all">
                                 Politique de confidentialité
                             </p>
                         </Link>
                         <Link href="/politique-cookies" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
+                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all">
                                 Politique cookies
                             </p>
                         </Link>
@@ -133,7 +133,7 @@ export const Footer = () => {
 const FooterLink = ({ href, content }: { href: string; content: string }) => {
     return (
         <Link href={href} className="inline-block">
-            <p className="text-sm md:text-base hover:text-accent1 transition-all ease-in-out-quad">
+            <p className="text-sm md:text-base hover:text-accent1 transition-all">
                 {content}
             </p>
         </Link>
