@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 
 export default function Screen({
     children,
-    name,
     isCentered = false,
     noPadding = false,
     id,

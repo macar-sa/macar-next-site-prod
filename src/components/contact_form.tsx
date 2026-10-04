@@ -11,7 +11,6 @@ import { P, SecondHeading } from "@/app/_components/textStyles"
 import React, { useState } from "react";
 import { z } from "zod";
 import axios from "axios";
-import { SecondaryButton } from "@/app/_components/buttons"
 
 const contactFormSchema = z.object({
   name: z.string().optional(),
@@ -43,7 +42,7 @@ export function contact_form() {
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidationErrors({});
 
@@ -65,7 +64,7 @@ export function contact_form() {
             }
           }
         )
-        .then(function (response) {
+        .then(function () {
           setFormData({
             name: "",
             email: "",
@@ -74,7 +73,7 @@ export function contact_form() {
           });
           setSubmissionSuccess(true);
         })
-        .catch(function (error) {
+        .catch(function () {
           setBackendError(true)
         });
     } catch (error) {
@@ -106,7 +105,7 @@ export function contact_form() {
             <div className="sibling:mt-8 sibling:mb-0">
               <div className="sibling:mt-2 sibling:mb-0">
                 <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
-                <p className="text-gray-500">Nous sommes à l'écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
+                <p className="text-gray-500">Nous sommes à l&apos;écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
               </div>
               <div className="sibling:mt-3 sibling:mb-0">
                 <div className="sibling:mt-2 sibling:mb-0">
@@ -133,7 +132,7 @@ export function contact_form() {
                 <p className="text-sm text-gray-500 italic">Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.</p>
                 {backendError && (
                   <div className="flex h-10 text-sm text-red-700" role="alert" aria-live="assertive" aria-atomic="true">
-                    Oups quelque chose s'est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
+                    Oups quelque chose s&apos;est mal passé, contactez-nous par email à <a href="mailto:info@macar.be" className="underline underline-offset-4">info@macar.be</a>
                   </div>
                 )}
               </div>

@@ -132,7 +132,7 @@ export default function ServicesIndexPage() {
             </nav>
             <p className="mt-6 text-sm text-default-500">
               Les prestations listées sur chaque page sont non exhaustives ;
-              chaque projet fait l'objet d'un devis sur mesure.
+              chaque projet fait l&apos;objet d&apos;un devis sur mesure.
             </p>
           </div>
         </Screen>

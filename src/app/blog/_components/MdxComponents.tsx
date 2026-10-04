@@ -1,4 +1,4 @@
-import Image, { type ImageProps } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
@@ -111,7 +111,7 @@ const components = {
   hr: (props: ComponentPropsWithoutRef<"hr">) => (
     <hr {...props} className="my-12 border-bordercard" />
   ),
-  img: ({ src, alt, ...rest }: ComponentPropsWithoutRef<"img">) => {
+  img: ({ src, alt }: ComponentPropsWithoutRef<"img">) => {
     if (typeof src !== "string") return null;
     return (
       <span className="block my-8 relative w-full aspect-video rounded-lg overflow-hidden">

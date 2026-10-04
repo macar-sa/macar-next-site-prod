@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import Cookies from "js-cookie";
 import { Switch } from "@heroui/react";
-import { ComponentProps, MouseEvent, useCallback, useEffect, useState } from "react";
+import { ComponentProps, MouseEvent, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const USER_CONSENT_COOKIE_KEY = "macar_cookie_consent_is_true";
@@ -28,10 +27,6 @@ const CookieSwitch = (props: Omit<ComponentProps<typeof Switch>, "children">) =>
 const CookieConsent = () => {
   const [cookieConsentIsTrue, setCookieConsentIsTrue] = useState(true);
   const [prefIsTrue, setprefIsTrue] = useState(false);
-  const [enabled, setEnabled] = useState(false);
-  const [essentials, setEssentials] = useState(false);
-  const [analytics, setAnalytics] = useState(false);
-  const [functionnals, setFunctionnals] = useState(false);
 
   useEffect(() => {
     const consentIsTrue = Cookies.get(USER_CONSENT_COOKIE_KEY) === "true";
@@ -68,7 +63,7 @@ const CookieConsent = () => {
                 Préférences
               </p>
               <p className="text-sm font-ligt text-font-gray mb-4 max-w-prose leading-loose">
-                Grâce à cette interface, vous avez la possibilité d'autoriser ou de refuser certains cookies.
+                Grâce à cette interface, vous avez la possibilité d&apos;autoriser ou de refuser certains cookies.
                 Notez que les cookies essentiels ne peuvent pas être refusés.
                 Ils sont nécessaires au bon fonctionnement du site.
                 <br />
@@ -109,7 +104,7 @@ const CookieConsent = () => {
               </div>
               <p className="text-sm font-light text-font-gray">
                 {" "}
-                Permettre d'obtenir des statistiques anonymes afin d'optimiser notre site et, par conséquent, votre expérience.
+                Permettre d&apos;obtenir des statistiques anonymes afin d&apos;optimiser notre site et, par conséquent, votre expérience.
               </p>
             </div>
             <div className="px-6 py-6">
@@ -139,7 +134,7 @@ const CookieConsent = () => {
             </p>
             <p className="text-sm font-ligt text-font-gray mb-4 max-w-prose leading-loose">
               Macar utilise des cookies pour améliorer votre expérience de navigation.
-              Pour certains d'entre eux, votre consentement est nécessaire. Vous pouvez définir vos préférences via le bouton ci-dessous.
+              Pour certains d&apos;entre eux, votre consentement est nécessaire. Vous pouvez définir vos préférences via le bouton ci-dessous.
             </p>
           </div>
         )}
