@@ -42,7 +42,7 @@ export const Card = ({
             onMouseLeave={() => {
                 setOpacity(0);
             }}
-            className={`rounded z-20 relative overflow-clip px-12 py-10 border border-neutral-100 bg-cardbackground backdrop-blur-lg transition-all duration-300 hover:border-blue-500 ${customClasses}`}
+            className={`rounded-sm z-20 relative overflow-clip px-12 py-10 border border-neutral-100 bg-cardbackground backdrop-blur-lg transition-all duration-300 hover:border-blue-500 ${customClasses}`}
         >
             {children && (
                 <div className="relative z-10 w-12 h-12  md:w-12 md:h-12 flex flex-col items-start justify-center">

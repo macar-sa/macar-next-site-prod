@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-neutral-500/30";
 const sectionHeading = "md:col-span-1";
-const sectionBody = "md:col-span-2 !max-w-none";
+const sectionBody = "md:col-span-2 max-w-none!";
 
 export default function PolitiqueConfidentialitePage() {
     return (
@@ -35,7 +35,7 @@ export default function PolitiqueConfidentialitePage() {
                     <h1 className="leading-tight">Politique de confidentialité</h1>
                 </SecondHeading>
 
-                <P customClasses="mt-6 !max-w-3xl" content="La présente politique de confidentialité décrit la manière dont Macar SRL (« Macar », « nous ») collecte, utilise et protège les données à caractère personnel des visiteurs et utilisateurs du site macar.be, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel." />
+                <P customClasses="mt-6 max-w-3xl!" content="La présente politique de confidentialité décrit la manière dont Macar SRL (« Macar », « nous ») collecte, utilise et protège les données à caractère personnel des visiteurs et utilisateurs du site macar.be, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel." />
 
                 <div className="mt-10">
                     <section className={sectionGrid}>
@@ -57,8 +57,8 @@ export default function PolitiqueConfidentialitePage() {
                             <h2>Données collectées</h2>
                         </ThirdHeading>
                         <div className="md:col-span-2">
-                            <P customClasses="!max-w-none" content="Nous collectons les données suivantes :" />
-                            <P customClasses="mt-2 !max-w-none">
+                            <P customClasses="max-w-none!" content="Nous collectons les données suivantes :" />
+                            <P customClasses="mt-2 max-w-none!">
                                 <ul className="list-disc pl-6 leading-loose">
                                     <li>
                                         Données fournies via le formulaire de contact : nom, adresse
@@ -103,15 +103,15 @@ export default function PolitiqueConfidentialitePage() {
                             <h2>Destinataires et sous-traitants</h2>
                         </ThirdHeading>
                         <div className="md:col-span-2">
-                            <P customClasses="!max-w-none" content="Vos données sont traitées par Macar et par les sous-traitants suivants, dans la stricte mesure nécessaire à la finalité poursuivie :" />
-                            <P customClasses="mt-2 !max-w-none">
+                            <P customClasses="max-w-none!" content="Vos données sont traitées par Macar et par les sous-traitants suivants, dans la stricte mesure nécessaire à la finalité poursuivie :" />
+                            <P customClasses="mt-2 max-w-none!">
                                 <ul className="list-disc pl-6 leading-loose">
                                     <li>Formspree (États-Unis) : hébergement du formulaire de contact.</li>
                                     <li>Vercel Inc. (États-Unis) : hébergement du site et analytics.</li>
                                     <li>Google Ireland Limited : Google Analytics 4.</li>
                                 </ul>
                             </P>
-                            <P customClasses="mt-2 !max-w-none" content="Lorsque des données sont transférées hors de l'Espace économique européen, ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne." />
+                            <P customClasses="mt-2 max-w-none!" content="Lorsque des données sont transférées hors de l'Espace économique européen, ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne." />
                         </div>
                     </section>
 
@@ -147,8 +147,8 @@ export default function PolitiqueConfidentialitePage() {
                             <h2>Vos droits</h2>
                         </ThirdHeading>
                         <div className="md:col-span-2">
-                            <P customClasses="!max-w-none" content="Conformément au RGPD, vous disposez à tout moment des droits suivants : droit d'accès, de rectification, d'effacement, de limitation du traitement, d'opposition et de portabilité de vos données, ainsi que du droit de retirer votre consentement. Vous pouvez exercer ces droits en nous écrivant à info@macar.be, en joignant une preuve d'identité." />
-                            <P customClasses="mt-2 !max-w-none" content="Vous avez également le droit d'introduire une réclamation auprès de l'Autorité de protection des données (APD) : Rue de la Presse 35, 1000 Bruxelles, contact@apd-gba.be, www.autoriteprotectiondonnees.be." />
+                            <P customClasses="max-w-none!" content="Conformément au RGPD, vous disposez à tout moment des droits suivants : droit d'accès, de rectification, d'effacement, de limitation du traitement, d'opposition et de portabilité de vos données, ainsi que du droit de retirer votre consentement. Vous pouvez exercer ces droits en nous écrivant à info@macar.be, en joignant une preuve d'identité." />
+                            <P customClasses="mt-2 max-w-none!" content="Vous avez également le droit d'introduire une réclamation auprès de l'Autorité de protection des données (APD) : Rue de la Presse 35, 1000 Bruxelles, contact@apd-gba.be, www.autoriteprotectiondonnees.be." />
                         </div>
                     </section>
 

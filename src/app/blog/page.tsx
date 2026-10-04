@@ -71,7 +71,7 @@ function PostCard({ post }: { post: ReturnType<typeof getAllPosts>[number] }) {
       href={`/blog/${post.slug}`}
       className="group flex flex-col rounded-lg overflow-hidden border border-bordercard bg-cardbackground transition-all duration-300 hover:border-accent1 hover:shadow-lg"
     >
-      <div className="relative w-full aspect-[16/9] overflow-hidden">
+      <div className="relative w-full aspect-video overflow-hidden">
         <Image
           src={post.cover}
           alt={post.coverAlt ?? post.title}

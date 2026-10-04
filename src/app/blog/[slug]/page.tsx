@@ -129,7 +129,7 @@ export default async function BlogPostPage({
             <span>{post.readingMinutes} min de lecture</span>
           </div>
 
-          <h1 className="text-3xl lg:text-5xl text-headings font-[var(--font-raptor)] leading-tight mb-6">
+          <h1 className="text-3xl lg:text-5xl text-headings font-(--font-raptor) leading-tight mb-6">
             {post.title}
           </h1>
 
@@ -138,7 +138,7 @@ export default async function BlogPostPage({
           </p>
 
           {post.cover && (
-            <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden mb-12">
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-12">
               <Image
                 src={post.cover}
                 alt={post.coverAlt ?? post.title}
@@ -164,7 +164,7 @@ export default async function BlogPostPage({
           </div>
 
           <div className="mt-16 rounded-lg border border-bordercard bg-cardbackground p-8">
-            <h2 className="font-[var(--font-raptor)] text-2xl lg:text-3xl text-headings mb-3">
+            <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-3">
               Un projet en tête ?
             </h2>
             <p className="text-sm lg:text-base text-text leading-relaxed mb-6 max-w-prose">
@@ -174,7 +174,7 @@ export default async function BlogPostPage({
               <PrimaryButton href="/#contact" content="Demander un devis" />
               <Link
                 href="/services"
-                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded hover:bg-accent1/5 transition-colors"
+                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent1 border border-accent1 rounded-sm hover:bg-accent1/5 transition-colors"
               >
                 Voir nos services
               </Link>
@@ -199,7 +199,7 @@ export default async function BlogPostPage({
       {others.length > 0 && (
         <Screen name="related">
           <div className="mx-auto max-w-3xl">
-            <h2 className="font-[var(--font-raptor)] text-2xl lg:text-3xl text-headings mb-6">
+            <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-6">
               À lire ensuite
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -28,7 +28,7 @@ const CARD_BODY_HEIGHT = "10rem"; /* hauteur fixe pour éviter le déplacement a
 function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expanded: boolean; onToggle: () => void }) {
   const needsExpand = review.text.length > 180;
   return (
-    <Card className="border border-neutral-100 bg-cardbackground/80 backdrop-blur-sm flex-shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start flex flex-col">
+    <Card className="border border-neutral-100 bg-cardbackground/80 backdrop-blur-xs flex-shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start flex flex-col">
       <CardHeader className="flex gap-2 px-4 pt-4 pb-1 flex-shrink-0">
         <Avatar
           src={review.authorPhotoUrl}
@@ -44,7 +44,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
           </div>
         </div>
       </CardHeader>
-      <CardBody className="pt-0 pb-2 pr-4 !pl-4 flex-1 min-h-0 flex flex-col">
+      <CardBody className="pt-0 pb-2 pr-4 pl-4! flex-1 min-h-0 flex flex-col">
         <div
           className="flex flex-col flex-shrink-0"
           style={{ minHeight: CARD_BODY_HEIGHT, maxHeight: CARD_BODY_HEIGHT }}
@@ -117,7 +117,7 @@ export default function GoogleReviews() {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x overscroll-x-contain overscroll-y-none"
+            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x overscroll-x-contain overscroll-y-none"
             onMouseEnter={pauseCarousel}
             onMouseLeave={resumeCarousel}
             onTouchStart={pauseCarousel}
@@ -135,7 +135,7 @@ export default function GoogleReviews() {
           </div>
           {/* Dégradé uniquement sur le carousel, pas sur le texte en dessous */}
           <div
-            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-gradient-to-l from-background to-transparent z-10"
+            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-linear-to-l from-background to-transparent z-10"
             aria-hidden
           />
         </div>

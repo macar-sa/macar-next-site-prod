@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-neutral-500/30";
 const sectionHeading = "md:col-span-1";
-const sectionBody = "md:col-span-2 !max-w-none";
+const sectionBody = "md:col-span-2 max-w-none!";
 
 export default function PolitiqueCookiesPage() {
     return (
@@ -35,7 +35,7 @@ export default function PolitiqueCookiesPage() {
                     <h1 className="leading-tight">Politique cookies</h1>
                 </SecondHeading>
 
-                <P customClasses="mt-6 !max-w-3xl" content="Un cookie est un petit fichier texte déposé sur votre appareil lors de votre visite sur un site web. Il permet notamment d'enregistrer des informations relatives à votre navigation. La présente politique vous explique quels cookies sont utilisés sur macar.be, à quelles fins, et comment vous pouvez gérer votre consentement." />
+                <P customClasses="mt-6 max-w-3xl!" content="Un cookie est un petit fichier texte déposé sur votre appareil lors de votre visite sur un site web. Il permet notamment d'enregistrer des informations relatives à votre navigation. La présente politique vous explique quels cookies sont utilisés sur macar.be, à quelles fins, et comment vous pouvez gérer votre consentement." />
 
                 <div className="mt-10">
                     <section className="py-10 border-b border-neutral-500/30">
@@ -100,8 +100,8 @@ export default function PolitiqueCookiesPage() {
                             <h2>Gestion de votre consentement</h2>
                         </ThirdHeading>
                         <div className="md:col-span-2">
-                            <P customClasses="!max-w-none" content="Lors de votre première visite sur macar.be, une bannière vous invite à accepter ou refuser le dépôt des cookies non essentiels (mesure d'audience). Vous pouvez modifier ou retirer votre consentement à tout moment :" />
-                            <P customClasses="mt-2 !max-w-none">
+                            <P customClasses="max-w-none!" content="Lors de votre première visite sur macar.be, une bannière vous invite à accepter ou refuser le dépôt des cookies non essentiels (mesure d'audience). Vous pouvez modifier ou retirer votre consentement à tout moment :" />
+                            <P customClasses="mt-2 max-w-none!">
                                 <ul className="list-disc pl-6 leading-loose">
                                     <li>
                                         En supprimant le cookie « macar_cookie_consent_is_true »

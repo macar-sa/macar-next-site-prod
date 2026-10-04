@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-neutral-500/30";
 const sectionHeading = "md:col-span-1";
-const sectionBody = "md:col-span-2 !max-w-none";
+const sectionBody = "md:col-span-2 max-w-none!";
 
 export default function MentionsLegalesPage() {
     return (
