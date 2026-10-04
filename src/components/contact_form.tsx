@@ -26,7 +26,7 @@ type ValidationErrorsType = {
   message?: string;
 };
 
-export function contact_form() {
+export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

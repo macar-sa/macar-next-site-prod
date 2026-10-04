@@ -4,7 +4,7 @@ import Screen from "./screen";
 import { MainHeading, P, Raptor, SecondHeading } from "./textStyles";
 import { Card } from "./cards";
 import { PrimaryButton, SecondaryButton } from "./buttons";
-import { contact_form } from "@/components/contact_form";
+import { ContactForm } from "@/components/contact_form";
 import Link from "next/link";
 import { CheckMark } from "./checkMark";
 import { LogoCarousel } from "./logocarousel";
@@ -298,7 +298,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             </div>
           </div>
 
-          <div className="col-span-3">{contact_form()}</div>
+          <div className="col-span-3"><ContactForm /></div>
         </div>
       </Screen>
 
