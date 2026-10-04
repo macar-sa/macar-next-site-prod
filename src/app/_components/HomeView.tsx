@@ -130,7 +130,7 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             </P>
             <p className="mt-4 text-sm text-muted">
               Retrouvez le détail des prestations par domaine sur notre{" "}
-              <TextLink href="/services">page Services</TextLink>.
+              <TextLink underline href="/services">page Services</TextLink>.
             </p>
             <div className="mt-10 flex flex-col gap-3 w-fit">
               <ButtonLink href="/#contact" fullWidth>

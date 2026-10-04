@@ -8,8 +8,10 @@ import { buttonVariants, linkVariants, type ButtonVariants } from "@heroui/style
 type NextLinkProps = ComponentProps<typeof NextLink>;
 
 // Text link: the v3 Link look (accent colour, underline on hover, focus ring).
-export function TextLink({ className, ...props }: NextLinkProps) {
-  return <NextLink {...props} className={linkVariants().base({ className })} />;
+// underline: always-visible underline (the documented v3 `underline` class), for links inside
+// running text, where colour alone is not enough to tell a link apart (WCAG 1.4.1).
+export function TextLink({ className, underline, ...props }: NextLinkProps & { underline?: boolean }) {
+  return <NextLink {...props} className={linkVariants().base({ className: [underline && "underline", className] })} />;
 }
 
 // Action link: the v3 Button look. variant "primary" for the main action, "tertiary" for the second one.

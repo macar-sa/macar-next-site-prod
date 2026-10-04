@@ -22,7 +22,7 @@ export function ServiceCard({
   return (
     <NextLink href={href} className="block h-full">
       <Card className="h-full">
-        <Image src={image} alt={imageAlt} width={48} height={48} className="object-contain" />
+        <Image src={image} alt={imageAlt} width={48} height={48} className="size-12 object-contain" />
         <Card.Header>
           <Card.Title>{title}</Card.Title>
           {description && <Card.Description>{description}</Card.Description>}

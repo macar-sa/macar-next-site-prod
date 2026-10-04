@@ -99,10 +99,10 @@ export function Jobs() {
               <P>
                 <ul className="list-disc list-inside space-y-2 text-muted pl-5">
                   <li className="leading-relaxed">
-                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <TextLink href="tel:+32499523079">0499.523.079</TextLink> pour discuter de votre candidature.
+                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <TextLink underline href="tel:+32499523079">0499.523.079</TextLink> pour discuter de votre candidature.
                   </li>
                   <li className="leading-relaxed">
-                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <TextLink href="mailto:info@macar.be">info@macar.be</TextLink>. N&apos;oubliez pas d&apos;inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
+                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <TextLink underline href="mailto:info@macar.be">info@macar.be</TextLink>. N&apos;oubliez pas d&apos;inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
                   </li>
                 </ul>
               </P>

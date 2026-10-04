@@ -127,7 +127,7 @@ export default function PolitiqueCookiesPage() {
                             <p className="leading-loose">
                                 Pour en savoir plus sur le traitement de vos données, consultez
                                 notre{" "}
-                                <TextLink href="/politique-confidentialite">politique de confidentialité</TextLink>
+                                <TextLink underline href="/politique-confidentialite">politique de confidentialité</TextLink>
                                 . Pour toute question : info@macar.be.
                             </p>
                         </P>

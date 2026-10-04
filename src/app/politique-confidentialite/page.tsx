@@ -131,7 +131,7 @@ export default function PolitiqueConfidentialitePage() {
                                 </li>
                                 <li>
                                     Cookies : voir la{" "}
-                                    <TextLink href="/politique-cookies">politique cookies</TextLink>
+                                    <TextLink underline href="/politique-cookies">politique cookies</TextLink>
                                     .
                                 </li>
                             </ul>

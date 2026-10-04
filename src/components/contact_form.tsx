@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, FieldError, Form, Input, Label, TextArea, TextField } from "@heroui/react";
+import { Button, Card, FieldError, Form, Input, Label, Spinner, TextArea, TextField } from "@heroui/react";
 import { P, SecondHeading } from "@/app/_components/textStyles";
 import { TextLink } from "@/app/_components/links";
 import { useState, type FormEvent } from "react";
@@ -27,6 +27,7 @@ export function ContactForm() {
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [backendError, setBackendError] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
   const fieldProps = (name: keyof FormValues) => ({
     name,
@@ -50,6 +51,7 @@ export function ContactForm() {
       setBackendError(true);
       return;
     }
+    setIsSending(true);
     axios
       .post(formEndpoint, values, {
         headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -58,7 +60,8 @@ export function ContactForm() {
         setValues(EMPTY_FORM);
         setSubmissionSuccess(true);
       })
-      .catch(() => setBackendError(true));
+      .catch(() => setBackendError(true))
+      .finally(() => setIsSending(false));
   };
 
   return (
@@ -107,8 +110,13 @@ export function ContactForm() {
                 <FieldError />
               </TextField>
             </div>
-            <Button type="submit" fullWidth>
-              Envoyer
+            <Button type="submit" fullWidth isPending={isSending}>
+              {({ isPending }) => (
+                <>
+                  {isPending ? <Spinner color="current" size="sm" /> : null}
+                  Envoyer
+                </>
+              )}
             </Button>
             <p className="text-sm text-muted italic">
               Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.
@@ -116,7 +124,7 @@ export function ContactForm() {
             {backendError && (
               <p className="text-sm text-danger" role="alert" aria-live="assertive" aria-atomic="true">
                 Oups quelque chose s&apos;est mal passé, contactez-nous par email à{" "}
-                <TextLink href="mailto:info@macar.be">info@macar.be</TextLink>
+                <TextLink underline href="mailto:info@macar.be">info@macar.be</TextLink>
               </p>
             )}
           </Form>
