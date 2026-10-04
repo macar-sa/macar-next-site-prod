@@ -83,7 +83,7 @@ export default async function ZonePage({
                 Rénovation, plomberie, électricité et toiture à {commune.name}
               </h1>
             </MainHeading>
-            <p className="mt-6 text-base lg:text-lg text-default-700 leading-relaxed">
+            <p className="mt-6 text-base lg:text-lg text-default-700 leading-relaxed lg:leading-7">
               {body}
             </p>
             <div className="mt-8">

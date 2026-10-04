@@ -60,7 +60,7 @@ export default function ServiceSection({
         <div className="mt-6 lg:mt-0">
           {hasDetailCategories ? (
             <div className="sibling:mt-6 sibling:mb-0">
-              <p className="text-sm lg:text-base text-default-700 leading-relaxed">
+              <p className="text-sm lg:text-base text-default-700 leading-relaxed lg:leading-6">
                 {detailIntro}
               </p>
               <div className="sibling:mt-5 sibling:mb-0">
@@ -79,7 +79,7 @@ export default function ServiceSection({
               </div>
             </div>
           ) : (
-            <p className="text-sm lg:text-base text-default-700 leading-relaxed">
+            <p className="text-sm lg:text-base text-default-700 leading-relaxed lg:leading-6">
               {detail}
             </p>
           )}

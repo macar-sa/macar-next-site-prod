@@ -89,7 +89,7 @@ function PostCard({ post }: { post: ReturnType<typeof getAllPosts>[number] }) {
           <span aria-hidden="true">·</span>
           <span>{post.readingMinutes} min de lecture</span>
         </div>
-        <h3 className="text-lg lg:text-xl text-headings font-medium leading-snug group-hover:text-accent1 transition-colors">
+        <h3 className="text-lg lg:text-xl text-headings font-medium leading-snug lg:leading-7 group-hover:text-accent1 transition-colors">
           {post.title}
         </h3>
         <p className="text-sm text-text leading-relaxed line-clamp-3">

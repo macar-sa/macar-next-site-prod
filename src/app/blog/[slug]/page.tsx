@@ -129,11 +129,11 @@ export default async function BlogPostPage({
             <span>{post.readingMinutes} min de lecture</span>
           </div>
 
-          <h1 className="text-3xl lg:text-5xl text-headings font-(--font-raptor) leading-tight mb-6">
+          <h1 className="text-3xl lg:text-5xl text-headings font-(--font-raptor) leading-tight lg:leading-none mb-6">
             {post.title}
           </h1>
 
-          <p className="text-base lg:text-lg text-text leading-relaxed mb-10">
+          <p className="text-base lg:text-lg text-text leading-relaxed lg:leading-7 mb-10">
             {post.description}
           </p>
 
@@ -167,7 +167,7 @@ export default async function BlogPostPage({
             <h2 className="font-(--font-raptor) text-2xl lg:text-3xl text-headings mb-3">
               Un projet en tête ?
             </h2>
-            <p className="text-sm lg:text-base text-text leading-relaxed mb-6 max-w-prose">
+            <p className="text-sm lg:text-base text-text leading-relaxed lg:leading-6 mb-6 max-w-prose">
               Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
             </p>
             <div className="flex flex-row flex-wrap gap-3">
@@ -212,7 +212,7 @@ export default async function BlogPostPage({
                   <span className="inline-block rounded-full bg-accent1/10 text-accent1 px-3 py-1 text-xs font-medium mb-3">
                     {p.category}
                   </span>
-                  <h3 className="text-base lg:text-lg text-headings font-medium leading-snug group-hover:text-accent1 transition-colors">
+                  <h3 className="text-base lg:text-lg text-headings font-medium leading-snug lg:leading-7 group-hover:text-accent1 transition-colors">
                     {p.title}
                   </h3>
                 </Link>
