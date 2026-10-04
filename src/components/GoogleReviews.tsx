@@ -28,7 +28,7 @@ const CARD_BODY_HEIGHT = "10rem"; /* hauteur fixe pour éviter le déplacement a
 function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expanded: boolean; onToggle: () => void }) {
   const needsExpand = review.text.length > 180;
   return (
-    <Card className="border border-neutral-100 bg-[rgb(255_255_255/0.8)] backdrop-blur-xs flex-shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start flex flex-col">
+    <Card className="border border-neutral-100 bg-[rgb(255_255_255/0.8)] backdrop-blur-xs flex-shrink-0 w-review-card min-w-[260px] max-w-[400px] snap-start flex flex-col">
       <CardHeader className="flex gap-2 px-4 pt-4 pb-1 flex-shrink-0">
         <Avatar
           src={review.authorPhotoUrl}
@@ -135,7 +135,7 @@ export default function GoogleReviews() {
           </div>
           {/* Dégradé uniquement sur le carousel, pas sur le texte en dessous */}
           <div
-            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-linear-to-l from-background to-transparent z-10"
+            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-fade-left z-10"
             aria-hidden
           />
         </div>
