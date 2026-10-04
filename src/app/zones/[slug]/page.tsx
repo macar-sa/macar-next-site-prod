@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Screen from "@/app/_components/screen";
 import { MainHeading, P } from "@/app/_components/textStyles";
-import { PrimaryButton } from "@/app/_components/buttons";
+import { ButtonLink } from "@/app/_components/links";
 import { Breadcrumbs } from "@/app/_components/jsonld";
 import { communes, getCommune } from "@/lib/seo/communes";
 import { services } from "@/lib/services";
@@ -87,10 +87,7 @@ export default async function ZonePage({
               {body}
             </p>
             <div className="mt-8">
-              <PrimaryButton
-                href="/#contact"
-                content="Demander un devis gratuit"
-              />
+              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>
@@ -140,13 +137,9 @@ export default async function ZonePage({
               {communes
                 .filter((c) => c.slug !== commune.slug)
                 .map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/zones/${c.slug}`}
-                    className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
-                  >
+                  <ButtonLink key={c.slug} href={`/zones/${c.slug}`} variant="tertiary" size="sm">
                     {c.name}
-                  </Link>
+                  </ButtonLink>
                 ))}
             </div>
           </div>

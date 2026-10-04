@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
+import { TextLink } from "../_components/links";
 
 export const metadata: Metadata = {
     title: "Politique cookies | Macar",
@@ -126,12 +127,7 @@ export default function PolitiqueCookiesPage() {
                             <p className="leading-loose">
                                 Pour en savoir plus sur le traitement de vos données, consultez
                                 notre{" "}
-                                <a
-                                    href="/politique-confidentialite"
-                                    className="text-accent hover:underline"
-                                >
-                                    politique de confidentialité
-                                </a>
+                                <TextLink href="/politique-confidentialite">politique de confidentialité</TextLink>
                                 . Pour toute question : info@macar.be.
                             </p>
                         </P>

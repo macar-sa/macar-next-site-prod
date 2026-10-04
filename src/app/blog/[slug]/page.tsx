@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import Screen from "../../_components/screen";
 import { Breadcrumbs } from "../../_components/jsonld";
-import { PrimaryButton } from "../../_components/buttons";
+import { ButtonLink, TextLink } from "../../_components/links";
 import {
   getAllSlugs,
   getPostBySlug,
@@ -113,12 +113,9 @@ export default async function BlogPostPage({
 
       <Screen name="post-hero">
         <article className="mx-auto max-w-3xl">
-          <Link
-            href="/blog"
-            className="inline-block text-sm text-accent hover:opacity-80 mb-6"
-          >
-            ← Tous les articles
-          </Link>
+          <p className="mb-6 text-sm">
+            <TextLink href="/blog">← Tous les articles</TextLink>
+          </p>
 
           <div className="flex flex-row items-center gap-3 text-xs text-muted mb-4">
             <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 font-medium">
@@ -171,13 +168,10 @@ export default async function BlogPostPage({
               Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
             </p>
             <div className="flex flex-row flex-wrap gap-3">
-              <PrimaryButton href="/#contact" content="Demander un devis" />
-              <Link
-                href="/services"
-                className="inline-flex items-center px-5 py-2 text-sm font-medium text-accent border border-accent rounded-sm hover:bg-accent-soft transition-colors"
-              >
+              <ButtonLink href="/#contact">Demander un devis</ButtonLink>
+              <ButtonLink href="/services" variant="tertiary">
                 Voir nos services
-              </Link>
+              </ButtonLink>
             </div>
           </div>
 

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Screen from "./screen";
 import { MainHeading, P } from "./textStyles";
-import { PrimaryButton } from "./buttons";
+import { ButtonLink } from "./links";
 import ServiceSection from "./ServiceSection";
 import { Breadcrumbs } from "./jsonld";
 import { services, type ServiceItem } from "@/lib/services";
@@ -63,10 +63,7 @@ export default function ServiceDetailBody({
               {intro}
             </p>
             <div className="mt-8">
-              <PrimaryButton
-                href="/#contact"
-                content="Demander un devis gratuit"
-              />
+              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>
@@ -114,13 +111,9 @@ export default function ServiceDetailBody({
             </P>
             <div className="flex flex-wrap gap-2">
               {topCommunes.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/zones/${c.slug}`}
-                  className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
-                >
+                <ButtonLink key={c.slug} href={`/zones/${c.slug}`} variant="tertiary" size="sm">
                   {c.name}
-                </Link>
+                </ButtonLink>
               ))}
             </div>
           </div>

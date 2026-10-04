@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Chip } from "@heroui/react/chip";
 import { SecondHeading } from "./textStyles";
+import { TextLink } from "./links";
 import type { ServiceItem } from "@/lib/services";
 
 export default function ServiceSection({
@@ -41,12 +41,9 @@ export default function ServiceSection({
               </Chip>
             ))}
           </div>
-          <Link
-            href="/#contact"
-            className="text-sm font-medium text-accent hover:underline"
-          >
-            Demander un devis pour ce service →
-          </Link>
+          <p className="text-sm">
+            <TextLink href="/#contact">Demander un devis pour ce service →</TextLink>
+          </p>
         </div>
         <div className="mt-6 lg:mt-0">
           {hasDetailCategories ? (

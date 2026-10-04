@@ -5,6 +5,7 @@
 import { MainHeading, P, Raptor, SecondHeading } from "@/app/_components/textStyles"
 import Image from "next/image"
 import Screen from "@/app/_components/screen"
+import { TextLink } from "@/app/_components/links"
 
 
 
@@ -98,10 +99,10 @@ export function Jobs() {
               <P>
                 <ul className="list-disc list-inside space-y-2 text-muted pl-5">
                   <li className="leading-relaxed">
-                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <a href="tel:+32499523079" className="underline underline-offset-4 text-accent transition-all duration-300">0499.523.079</a> pour discuter de votre candidature.
+                    Par <span className="font-bold">téléphone</span> : Appelez-nous directement au <TextLink href="tel:+32499523079">0499.523.079</TextLink> pour discuter de votre candidature.
                   </li>
                   <li className="leading-relaxed">
-                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <a href="mailto:info@macar.be" className="underline underline-offset-4 text-accent transition-all duration-300">info@macar.be</a>. N&apos;oubliez pas d&apos;inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
+                    Par <span className="font-bold">e-mail</span> : Envoyez-nous votre CV et toutes les informations pertinentes à <TextLink href="mailto:info@macar.be">info@macar.be</TextLink>. N&apos;oubliez pas d&apos;inclure vos coordonnées afin que nous puissions vous contacter facilement pour discuter de votre candidature.
                   </li>
                 </ul>
               </P>

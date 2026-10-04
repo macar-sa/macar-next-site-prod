@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Screen from "../_components/screen";
 import { MainHeading, P } from "../_components/textStyles";
-import { PrimaryButton } from "../_components/buttons";
+import { ButtonLink } from "../_components/links";
 import { Breadcrumbs } from "../_components/jsonld";
 import { services } from "@/lib/services";
 import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
@@ -89,10 +89,7 @@ export default function ServicesIndexPage() {
               demande de devis.
             </p>
             <div className="mt-8">
-              <PrimaryButton
-                href="/#contact"
-                content="Demander un devis gratuit"
-              />
+              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>

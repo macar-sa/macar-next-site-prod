@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
+import { TextLink } from "../_components/links";
 
 export const metadata: Metadata = {
     title: "Politique de confidentialité | Macar",
@@ -130,12 +131,7 @@ export default function PolitiqueConfidentialitePage() {
                                 </li>
                                 <li>
                                     Cookies : voir la{" "}
-                                    <a
-                                        href="/politique-cookies"
-                                        className="text-accent hover:underline"
-                                    >
-                                        politique cookies
-                                    </a>
+                                    <TextLink href="/politique-cookies">politique cookies</TextLink>
                                     .
                                 </li>
                             </ul>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Screen from "./screen";
 import { MainHeading, P, Raptor, SecondHeading } from "./textStyles";
 import { Card } from "./cards";
-import { PrimaryButton, SecondaryButton } from "./buttons";
+import { ButtonLink, TextLink } from "./links";
 import { ContactForm } from "@/components/contact_form";
 import Link from "next/link";
 import { CheckMark } from "./checkMark";
@@ -55,24 +55,24 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               électriques et toiture basée à Bruxelles (Belgique), active depuis
               2002.
             </p>
-            <Link
-              href="/#reviews"
-              className="mt-4 inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
-              aria-label={`Note ${RATING.value.replace(".", ",")} sur 5, ${RATING.count} avis Google`}
-            >
-              <span className="flex items-center gap-0.5" aria-hidden>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
-                  />
-                ))}
-              </span>
-              <span className="font-medium text-foreground">
-                {RATING.value.replace(".", ",")}
-              </span>
-              <span>· {RATING.count} avis Google</span>
-            </Link>
+            <p className="mt-4 text-sm">
+              <TextLink
+                href="/#reviews"
+                className="gap-2"
+                aria-label={`Note ${RATING.value.replace(".", ",")} sur 5, ${RATING.count} avis Google`}
+              >
+                <span className="flex items-center gap-0.5" aria-hidden>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </span>
+                <span>{RATING.value.replace(".", ",")}</span>
+                <span>· {RATING.count} avis Google</span>
+              </TextLink>
+            </p>
             <div className="mt-4">
               <Raptor>
                 <h5 className="mb-4 text-sm lg:text-base 2xl:text-lg">
@@ -87,9 +87,9 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               customClasses="mt-6 mb-6"
               content="Depuis 2002, notre équipe dédiée excelle dans la rénovation, la plomberie, les installations électriques et la toiture."
             />
-            <div className="flex space-x-4">
-              <PrimaryButton href="/#contact" content="Commencez votre projet !" />
-              <SecondaryButton href="/#services" content="Services" />
+            <div className="flex flex-wrap gap-4">
+              <ButtonLink href="/#contact">Commencez votre projet !</ButtonLink>
+              <ButtonLink href="/#services" variant="tertiary">Services</ButtonLink>
             </div>
           </div>
         </div>
@@ -131,25 +131,15 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             </P>
             <p className="mt-4 text-sm text-muted">
               Retrouvez le détail des prestations par domaine sur notre{" "}
-              <Link
-                href="/services"
-                className="font-medium text-accent hover:underline"
-              >
-                page Services
-              </Link>
-              .
+              <TextLink href="/services">page Services</TextLink>.
             </p>
             <div className="mt-10 flex flex-col gap-3 w-fit">
-              <PrimaryButton
-                content="Commencez votre projet !"
-                href="/#contact"
-                customClasses="w-full"
-              />
-              <SecondaryButton
-                href="/services"
-                content="Voir le détail des services"
-                customClasses="w-full"
-              />
+              <ButtonLink href="/#contact" fullWidth>
+                Commencez votre projet !
+              </ButtonLink>
+              <ButtonLink href="/services" variant="tertiary" fullWidth>
+                Voir le détail des services
+              </ButtonLink>
             </div>
           </div>
           <div className="md:w-2/3 md:pl-10 mt-10 md:mt-0">
@@ -238,21 +228,15 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
             <div className="flex flex-col md:flex-col items-start gap-6 mt-12">
               <div>
                 <P customClasses="font-medium">Téléphone</P>
-                <Link href="tel:+32478235008">
-                  <P customClasses="text-muted hover:text-foreground">
-                    {" "}
-                    +32 478 23 50 08
-                  </P>
-                </Link>
+                <P>
+                  <TextLink href="tel:+32478235008">+32 478 23 50 08</TextLink>
+                </P>
               </div>
               <div>
                 <P customClasses="font-medium">Email</P>
-                <Link href="mailto:info@macar.be">
-                  <P customClasses="text-muted hover:text-foreground">
-                    {" "}
-                    info@macar.be
-                  </P>
-                </Link>
+                <P>
+                  <TextLink href="mailto:info@macar.be">info@macar.be</TextLink>
+                </P>
               </div>
               <div>
                 <P customClasses="font-medium">Adresse</P>
@@ -261,15 +245,17 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                   Avenue Prudent Bols, 43 <br />
                   B-1020 Bruxelles/Brussel
                 </P>
-                <a
-                  href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-sm text-accent hover:underline"
-                >
-                  Voir sur Google Maps
-                  <ExternalLink className="w-3.5 h-3.5" aria-hidden />
-                </a>
+                <p className="mt-2 text-sm">
+                  <TextLink
+                    href="https://www.google.com/maps/place/Macar+-+Construction,+Assistance,+R%C3%A9novation/@50.877796,4.3408706,17z/data=!3m1!4b1!4m6!3m5!1s0x47c3c3b79029f705:0xf83dc2c32ee6c273!8m2!3d50.877796!4d4.3408706!16s%2Fg%2F11lcp66xw1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1"
+                  >
+                    Voir sur Google Maps
+                    <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+                  </TextLink>
+                </p>
               </div>
               <div>
                 <P customClasses="font-medium">Horaires</P>
