@@ -96,6 +96,9 @@
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
 }
 
+/* Keeps the Tailwind 3 behaviour: only `transform` is transitioned. Tailwind 4 utilities that set
+   the separate `scale`, `rotate` or `translate` properties (scale-*, rotate-*, translate-*) will
+   therefore not animate with transition-transform; use `transform-[...]` or an explicit transition. */
 @utility transition-transform {
   transition-property: transform;
 }

@@ -23,13 +23,14 @@ export type FaqItem = { question: string; answer: string };
 // chevron, native focus outline, v2 opening and closing timings (faq-panel-transition).
 function FaqAccordion({ items }: { items: FaqItem[] }) {
   return (
-    <Accordion hideSeparator className="px-2 w-full max-w-full">
+    <Accordion data-faq-column hideSeparator className="px-2 w-full max-w-full">
       {items.map((item, i) => (
         <Fragment key={i}>
           {i > 0 && <hr />}
           <Accordion.Item className="static border-solid">
             <Accordion.Heading level={2} className="block">
               <Accordion.Trigger
+                data-faq-trigger
                 onKeyDown={onFaqTriggerKeyDown}
                 className="flex flex-initial justify-normal items-center gap-3 w-full px-0 py-4 text-center [font-size:inherit] [line-height:inherit] [font-weight:inherit] bg-transparent transition-opacity [box-shadow:none] [outline:revert] [-webkit-tap-highlight-color:inherit]"
               >
