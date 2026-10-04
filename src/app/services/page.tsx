@@ -110,14 +110,14 @@ export default function ServicesIndexPage() {
                 <Link
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-[hsl(var(--heroui-default-50)/0.5)] p-5 transition-colors hover:border-accent1 hover:bg-[hsl(var(--heroui-primary)/0.05)]"
+                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-[hsl(var(--v2-default-50)/0.5)] p-5 transition-colors hover:border-accent1 hover:bg-[hsl(var(--v2-primary)/0.05)]"
                 >
                   <Image
                     src={s.image}
                     alt=""
                     width={48}
                     height={48}
-                    className="flex-shrink-0 object-contain"
+                    className="shrink-0 object-contain"
                     aria-hidden
                   />
                   <h2 className="text-base font-semibold text-headings group-hover:text-accent1">

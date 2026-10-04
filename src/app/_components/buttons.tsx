@@ -18,7 +18,7 @@ export const NavLink = ({
             className="group h-full flex items-center justify-center"
         >
             <div
-                className={`text-sm font-regular group-hover:text-accent1 transition-all ease-in-out-quad ${customClasses}`}
+                className={`text-sm font-regular group-hover:text-accent1 transition-all ${customClasses}`}
             >
                 <p>{content}</p>
             </div>
@@ -42,7 +42,7 @@ export const PrimaryButton = ({
             <div
                 className={`group inline-block rounded-lg relative px-5 py-3 lg:px-6 lg:py-3 text-xs lg:text-sm bg-accent1 text-background font-regular ${customClasses}`}
             >
-                <div className="rounded-lg absolute left-0 bottom-0 h-0 bg-[rgb(229_229_229/0.1)] w-full group-hover:h-full transition-all ease-in-out-quad"></div>
+                <div className="rounded-lg absolute left-0 bottom-0 h-0 bg-[rgb(229_229_229/0.1)] w-full group-hover:h-full transition-all"></div>
                 <p className="relative z-20 font-medium">{content}</p>
             </div>
         </Link>
@@ -68,7 +68,7 @@ export const SecondaryButton = ({
                     transition: "background-color 0.3s ease, color 0.3s ease", // Add this line for smooth transitions
                 }}
             >
-                <div className="rounded-lg absolute left-0 bottom-0 h-0 bg-[rgb(18_79_170/0.1)] w-full group-hover:h-full transition-all ease-in-out-quad"></div>
+                <div className="rounded-lg absolute left-0 bottom-0 h-0 bg-[rgb(18_79_170/0.1)] w-full group-hover:h-full transition-all"></div>
                 <p className="relative z-20 font-medium">{content}</p>
             </div>
         </Link>

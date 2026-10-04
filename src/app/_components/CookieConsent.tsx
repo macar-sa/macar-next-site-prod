@@ -3,11 +3,27 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { Switch } from "@heroui/react";
-import { MouseEvent, useCallback, useEffect, useState } from "react";
+import { ComponentProps, MouseEvent, useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const USER_CONSENT_COOKIE_KEY = "macar_cookie_consent_is_true";
 const USER_CONSENT_COOKIE_EXPIRE_DATE = 365;
+
+// HeroUI v3 Switch (structure required since 3.2.0). Checked colour: the HeroUI v2 "success"
+// green, also on hover and press. The v3 focus style is replaced by the browser's native focus
+// outline, as on the native checkbox rendered before.
+const CookieSwitch = (props: Omit<ComponentProps<typeof Switch>, "children">) => (
+  <Switch
+    {...props}
+    className="[--switch-control-bg-checked:#17C964] [--switch-control-bg-checked-hover:#17C964] [-webkit-tap-highlight-color:inherit]"
+  >
+    <Switch.Content className="[-webkit-tap-highlight-color:inherit]">
+      <Switch.Control className="[box-shadow:none] in-data-focus-visible:[outline-style:auto] in-data-focus-visible:[outline-width:1px] in-data-focus-visible:[outline-color:-webkit-focus-ring-color]">
+        <Switch.Thumb />
+      </Switch.Control>
+    </Switch.Content>
+  </Switch>
+);
 
 const CookieConsent = () => {
   const [cookieConsentIsTrue, setCookieConsentIsTrue] = useState(true);
@@ -66,7 +82,7 @@ const CookieConsent = () => {
                   {" "}
                   Essentiels{" "}
                 </p>
-                <Switch
+                <CookieSwitch
                   defaultSelected
                   aria-label="Essential Cookies"
                   size="sm"
@@ -85,11 +101,10 @@ const CookieConsent = () => {
                   {" "}
                   Analytique{" "}
                 </p>
-                <Switch
+                <CookieSwitch
                   defaultSelected
                   aria-label="Analytics Cookies"
                   size="sm"
-                  color="success"
                 />
               </div>
               <p className="text-sm font-light text-font-gray">
@@ -103,11 +118,10 @@ const CookieConsent = () => {
                   {" "}
                   Les fonctionnalités{" "}
                 </p>
-                <Switch
+                <CookieSwitch
                   defaultSelected
                   aria-label="Analytics Cookies"
                   size="sm"
-                  color="success"
                 />
               </div>
               <p className="text-sm font-light text-font-gray">
