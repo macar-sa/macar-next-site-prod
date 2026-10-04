@@ -10,8 +10,22 @@ type NextLinkProps = ComponentProps<typeof NextLink>;
 // Text link: the v3 Link look (accent colour, underline on hover, focus ring).
 // underline: always-visible underline (the documented v3 `underline` class), for links inside
 // running text, where colour alone is not enough to tell a link apart (WCAG 1.4.1).
-export function TextLink({ className, underline, ...props }: NextLinkProps & { underline?: boolean }) {
-  return <NextLink {...props} className={linkVariants().base({ className: [underline && "underline", className] })} />;
+// navigation: dark text that turns accent on hover, for the navbar, the mobile menu and the
+// footer (owner decision: navigation links stay dark as on the previous site).
+export function TextLink({
+  className,
+  underline,
+  navigation,
+  ...props
+}: NextLinkProps & { underline?: boolean; navigation?: boolean }) {
+  return (
+    <NextLink
+      {...props}
+      className={linkVariants().base({
+        className: [underline && "underline", navigation && "text-foreground hover:text-accent", className],
+      })}
+    />
+  );
 }
 
 // Action link: the v3 Button look. variant "primary" for the main action, "tertiary" for the second one.

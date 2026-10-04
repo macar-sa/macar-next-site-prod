@@ -42,20 +42,20 @@ export const Footer = () => {
                         <ul className="flex flex-col md:flex-row justify-start gap-8 mt-4 text-sm md:text-base">
                             {menuItems.map((item) => (
                                 <li key={item.href}>
-                                    <TextLink href={item.href}>{item.name}</TextLink>
+                                    <TextLink href={item.href} navigation>{item.name}</TextLink>
                                 </li>
                             ))}
                         </ul>
                         <p className="font-medium text-sm md:text-base mt-12">Contact</p>
                         <ul className="flex flex-col justify-start gap-2 mt-4 text-sm">
                             <li>
-                                tel: <TextLink href="tel:+32478235008">+32 478 23 50 08</TextLink>
+                                tel: <TextLink href="tel:+32478235008" navigation>+32 478 23 50 08</TextLink>
                             </li>
                             <li>
-                                email: <TextLink href="mailto:info@macar.be">info@macar.be</TextLink>
+                                email: <TextLink href="mailto:info@macar.be" navigation>info@macar.be</TextLink>
                             </li>
                             <li>
-                                fixe: <TextLink href="tel:+3224665304">+32 246 653 04</TextLink>
+                                fixe: <TextLink href="tel:+3224665304" navigation>+32 246 653 04</TextLink>
                             </li>
                             <li>
                                 Avenue Prudent Bols, 43<br />
@@ -81,7 +81,7 @@ export const Footer = () => {
                     <ul className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
                         {legalLinks.map((item) => (
                             <li key={item.href}>
-                                <TextLink href={item.href}>{item.name}</TextLink>
+                                <TextLink href={item.href} navigation>{item.name}</TextLink>
                             </li>
                         ))}
                     </ul>
