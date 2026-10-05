@@ -3,7 +3,8 @@
 import { Avatar, Button, Card, ScrollShadow } from "@heroui/react";
 import { SecondHeading, P } from "@/app/_components/textStyles";
 import { Star, ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, type FocusEvent } from "react";
+import { useReducedMotion } from "framer-motion";
 import { reviews, type GoogleReview } from "@/data/reviews";
 
 const CAROUSEL_SCROLL_STEP = 1;
@@ -86,7 +87,12 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
 
 export default function GoogleReviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  // The auto-scroll stops while the pointer or a finger is on the carousel, while the keyboard
+  // focus is inside it, and never starts for visitors who ask for reduced motion (WCAG 2.2.2).
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const isPaused = isHovered || hasFocus || !!prefersReducedMotion;
   const [expandedCards, setExpandedCards] = useState<Record<number, boolean>>({});
 
   const toggleCard = useCallback((index: number) => {
@@ -117,8 +123,13 @@ export default function GoogleReviews() {
     };
   }, [isPaused]);
 
-  const pauseCarousel = useCallback(() => setIsPaused(true), []);
-  const resumeCarousel = useCallback(() => setIsPaused(false), []);
+  const pauseCarousel = useCallback(() => setIsHovered(true), []);
+  const resumeCarousel = useCallback(() => setIsHovered(false), []);
+  const onFocusIn = useCallback(() => setHasFocus(true), []);
+  // Focus moving between two buttons of the carousel stays inside: no resume.
+  const onFocusOut = useCallback((e: FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHasFocus(false);
+  }, []);
 
   return (
     <div className="w-full">
@@ -140,6 +151,8 @@ export default function GoogleReviews() {
           onMouseLeave={resumeCarousel}
           onTouchStart={pauseCarousel}
           onTouchEnd={resumeCarousel}
+          onFocus={onFocusIn}
+          onBlur={onFocusOut}
           style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
         >
           {reviews.map((review, i) => (
