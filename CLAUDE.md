@@ -38,8 +38,9 @@ Pour les articles du blog (`content/blog/`) en plus :
 - `npm run build` : build de production, qui vérifie aussi les types TypeScript
 - `npm run lint` : ESLint (config plate `eslint.config.mjs`, presets `next/core-web-vitals` et `next/typescript`)
 - `npx tsc --noEmit` : vérification des types seule, plus rapide qu'un build
+- `npm run test:e2e` : suite de comportement Playwright (`e2e/`), à lancer après `npm run build` ; elle démarre le site sur le port 3100 (ou réutilise un serveur déjà lancé). Première fois : `npx playwright install chromium`.
 
-Il n'y a pas de suite de tests. La vérification se fait par lint, build et contrôle visuel dans le navigateur.
+Les tests de `e2e/tests/` vérifient le comportement du site dans un navigateur (menu, FAQ au clavier, formulaire, cookies, avis, blog, pages légales, ancres, absence de défilement horizontal à 320 px). Ils bloquent toute requête externe : le formulaire n'est jamais envoyé à Formspree. Tout changement de comportement ou d'interface met à jour ou ajoute le test correspondant. Sur GitHub, le workflow `.github/workflows/e2e.yml` lance lint, types, build et cette suite sur chaque PR vers `dev` ou `main`.
 
 Variables d'environnement (toutes facultatives en local, définies sur Vercel) : `NEXT_PUBLIC_FORMSPREE_ENDPOINT` (formulaire de contact), `NEXT_PUBLIC_GOOGLE_ANALYTICS`, `NEXT_PUBLIC_GSC_TOKEN`, `NEXT_PUBLIC_BING_TOKEN`.
 
