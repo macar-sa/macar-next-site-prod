@@ -44,7 +44,7 @@ export const NavBar = () => {
                                     <ul className="flex flex-col gap-4">
                                         {menuItems.map((item) => (
                                             <li key={item.href}>
-                                                <TextLink href={item.href} onClick={closeMenu}>
+                                                <TextLink href={item.href} onClick={closeMenu} navigation>
                                                     {item.name}
                                                 </TextLink>
                                             </li>
@@ -72,7 +72,7 @@ export const NavBar = () => {
                     </li>
                     {menuItems.map((item) => (
                         <li key={item.href} className="whitespace-nowrap">
-                            <TextLink href={item.href}>{item.name}</TextLink>
+                            <TextLink href={item.href} navigation>{item.name}</TextLink>
                         </li>
                     ))}
                 </ul>
