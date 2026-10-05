@@ -19,8 +19,7 @@ export const localBusinessJsonLd = {
     "LocalBusiness",
   ],
   name: "Macar",
-  // TODO confirm legal form (SRL / SPRL / SA) before shipping to prod.
-  legalName: "Macar",
+  legalName: "Macar SA",
   description:
     "Macar est une entreprise belge de rénovation, plomberie, installations électriques et toiture, basée à Bruxelles, active depuis 2002 et sous la direction actuelle depuis 2010.",
   disambiguatingDescription:

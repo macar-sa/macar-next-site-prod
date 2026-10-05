@@ -37,7 +37,7 @@ export default function PolitiqueConfidentialitePage() {
                     <h1 className="leading-tight">Politique de confidentialité</h1>
                 </SecondHeading>
 
-                <P customClasses="mt-6 max-w-3xl!" content="La présente politique de confidentialité décrit la manière dont Macar SRL (« Macar », « nous ») collecte, utilise et protège les données à caractère personnel des visiteurs et utilisateurs du site macar.be, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel." />
+                <P customClasses="mt-6 max-w-3xl!" content="La présente politique de confidentialité décrit la manière dont Macar SA (« Macar », « nous ») collecte, utilise et protège les données à caractère personnel des visiteurs et utilisateurs du site macar.be, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel." />
 
                 <div className="mt-10">
                     <section className={sectionGrid}>
@@ -46,7 +46,7 @@ export default function PolitiqueConfidentialitePage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody}>
                             <p className="leading-loose">
-                                Macar SRL<br />
+                                Macar SA<br />
                                 Avenue Prudent Bols, 43, B-1020 Bruxelles<br />
                                 TVA : BE0477.45.10.24<br />
                                 Email : info@macar.be
