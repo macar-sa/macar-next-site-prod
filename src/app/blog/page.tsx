@@ -8,9 +8,9 @@ import { MainHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
 import { getAllPosts, formatPostDateFR } from "@/lib/blog";
 
-const TITLE = "Blog Macar : conseils rénovation, plomberie, électricité, toiture à Bruxelles";
+const TITLE = "Blog Macar : conseils rénovation, plomberie, électricité, toiture";
 const DESCRIPTION =
-  "Conseils pratiques, prix indicatifs et démarches pour vos travaux de rénovation, plomberie, électricité et toiture à Bruxelles. Par Macar, entreprise belge depuis 2002.";
+  "Conseils pratiques et démarches pour vos travaux de rénovation, plomberie, électricité et toiture : ce qui fait varier un devis, les règles à connaître, les bons réflexes. Par Macar, entreprise belge depuis 2002.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -46,7 +46,7 @@ export default function BlogIndexPage() {
           <div className="col-span-2">
             <P
               customClasses="mt-6 mb-6"
-              content="Conseils pratiques, prix indicatifs et démarches pour vos travaux à Bruxelles : rénovation, plomberie, électricité, toiture. Écrits par des professionnels actifs sur le terrain depuis 2002."
+              content="Conseils pratiques et démarches pour vos travaux de rénovation, plomberie, électricité et toiture. Écrits par des professionnels actifs sur le terrain depuis 2002."
             />
           </div>
         </div>
