@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import NextLink from "next/link";
+import { Card } from "@heroui/react/card";
+import { Chip } from "@heroui/react/chip";
 import Screen from "../_components/screen";
 import { MainHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
@@ -65,37 +67,34 @@ export default function BlogIndexPage() {
   );
 }
 
+// A HeroUI v3 Card, with its own styles, that links to the article as a whole (same pattern as
+// ServiceCard). Only the cover image has its own classes: size, rounded corners, zoom on hover.
 function PostCard({ post }: { post: ReturnType<typeof getAllPosts>[number] }) {
   return (
-    <Link
-      href={`/blog/${post.slug}`}
-      className="group flex flex-col rounded-lg overflow-hidden border border-border bg-surface transition-all duration-300 hover:border-accent hover:shadow-lg"
-    >
-      <div className="relative w-full aspect-video overflow-hidden">
-        <Image
-          src={post.cover}
-          alt={post.coverAlt ?? post.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:transform-[scale(1.05)]"
-        />
-      </div>
-      <div className="flex flex-col gap-3 p-6">
-        <div className="flex flex-row items-center gap-3 text-xs text-muted">
-          <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 font-medium">
+    <NextLink href={`/blog/${post.slug}`} className="group block h-full">
+      <Card className="h-full">
+        <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
+          <Image
+            src={post.cover}
+            alt={post.coverAlt ?? post.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:transform-[scale(1.05)]"
+          />
+        </div>
+        <div className="flex flex-row flex-wrap items-center gap-3 text-xs text-muted">
+          <Chip color="accent" variant="soft" size="sm">
             {post.category}
-          </span>
+          </Chip>
           <span>{formatPostDateFR(post.datePublished)}</span>
           <span aria-hidden="true">·</span>
           <span>{post.readingMinutes} min de lecture</span>
         </div>
-        <h3 className="text-lg lg:text-xl text-foreground font-medium leading-snug lg:leading-7 group-hover:text-accent transition-colors">
-          {post.title}
-        </h3>
-        <p className="text-sm text-muted leading-relaxed line-clamp-3">
-          {post.description}
-        </p>
-      </div>
-    </Link>
+        <Card.Header>
+          <Card.Title>{post.title}</Card.Title>
+          <Card.Description className="line-clamp-3">{post.description}</Card.Description>
+        </Card.Header>
+      </Card>
+    </NextLink>
   );
 }
