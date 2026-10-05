@@ -11,6 +11,14 @@ export type GoogleReview = {
 
 export const reviews: GoogleReview[] = [
   {
+    authorName: "Carole Jenner",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a/ACg8ocLl3qOs5F7lDajIyDVC1vovKxCpE1itMgF1d-CVETny7fS_-g=w72-h72-p-rp-mo-br100",
+    rating: 5,
+    relativeTime: "Il y a 2 semaines",
+    text: "Installation de fenêtres doubles et triples était très bien exécutée et le site bien nettoyé par la suite.",
+  },
+  {
     authorName: "Cathe",
     authorPhotoUrl:
       "https://lh3.googleusercontent.com/a/ACg8ocKVe803dq8oizkwxCkx6gfc9cD4NoBz_lj_StrYQkv9Xpk0jA=w72-h72-p-rp-mo-br100",
