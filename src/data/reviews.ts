@@ -11,11 +11,27 @@ export type GoogleReview = {
 
 export const reviews: GoogleReview[] = [
   {
+    authorName: "Cathe",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a/ACg8ocKVe803dq8oizkwxCkx6gfc9cD4NoBz_lj_StrYQkv9Xpk0jA=w72-h72-p-rp-mo-br100",
+    rating: 5,
+    relativeTime: "Il y a 2 mois",
+    text: "Je recommande cette entreprise sans la moindre hésitation. L'entrepreneur a été professionnel et à l'écoute du début à la fin des travaux.\n\nMon appartement a été entièrement rénové : électricité, sols, salle de bain, cuisine… Tout a été réalisé avec beaucoup de soin et le résultat est impeccable.\n\nCe que j'ai aussi apprécié, c'est le suivi après les travaux. Ils restent disponibles, répondent toujours au téléphone et, s'il y a le moindre petit souci, ils reviennent rapidement pour le résoudre. C'est très rassurant de pouvoir compter sur eux.\n\nUne entreprise sérieuse, fiable et digne de confiance, que je recommande sans aucune hésitation.",
+  },
+  {
+    authorName: "Safdar Butt",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a/ACg8ocI-GwuXLavQ-pIyEDkaWSJe-Lnupl7yZt1s3vOA3H0-fFuswQ=w72-h72-p-rp-mo-br100",
+    rating: 5,
+    relativeTime: "Il y a 2 mois",
+    text: "",
+  },
+  {
     authorName: "Nathalie Claus",
     authorPhotoUrl:
       "https://lh3.googleusercontent.com/a/ACg8ocJ2n_6DtDwxGp6UuJTkt8_6pcHfq12n8Plw4ShUjPRnTsikGA=w72-h72-p-rp-mo-br100",
     rating: 5,
-    relativeTime: "Il y a un jour",
+    relativeTime: "Il y a 4 mois",
     text: "Nous travaillons avec la société depuis 11 ans suite à des dégâts de cheminée dû à la foudre. L'assurance avait fait appel à MACAR. Le travail bien fait, le respect des horaires, la propreté, les conseils, la disponibilité et la sympathie de la direction et des ouvriers font que nous faisons systématiquement confiance à cette entreprise. Nous avons déjà pû profiter de plusieurs de leurs expertises.\nMacar est devenu Notre Entrepreneur.",
   },
   {

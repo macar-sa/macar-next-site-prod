@@ -5,7 +5,7 @@ export const LOCAL_BUSINESS_ID = "https://www.macar.be/#localbusiness";
 // Single source of truth for the aggregate rating shown in the JSON-LD,
 // the Review schema in page.tsx, and the rating badge in the hero.
 // Update these two numbers when refreshing with real Google Business Profile totals.
-export const RATING = { value: "5.0", count: 9 } as const;
+export const RATING = { value: "5.0", count: 12 } as const;
 
 export const localBusinessJsonLd = {
   "@context": "https://schema.org",
