@@ -27,6 +27,9 @@ export function ContactForm() {
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
   const [backendError, setBackendError] = useState(false);
+  // The summary above the fields follows the last submit, not the remaining errors: it stays while
+  // the visitor fixes the fields, so nothing moves above the field being typed in.
+  const [submitFailed, setSubmitFailed] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
   const fieldProps = (name: keyof FormValues) => ({
@@ -54,9 +57,11 @@ export function ContactForm() {
     const result = contactFormSchema.safeParse(values);
     if (!result.success) {
       setValidationErrors(result.error.flatten().fieldErrors);
+      setSubmitFailed(true);
       return;
     }
     setValidationErrors({});
+    setSubmitFailed(false);
     const formEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT?.trim();
     if (!formEndpoint) {
       setBackendError(true);
@@ -94,7 +99,7 @@ export function ContactForm() {
               <SecondHeading customClasses="text-xl lg:text-2xl 2xl:text-[30px] mt-2 mb-4">Contactez-nous</SecondHeading>
               <p className="text-muted">Nous sommes à l&apos;écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
             </div>
-            {Object.keys(validationErrors).length > 0 && (
+            {submitFailed && (
               <Alert status="danger" role="alert" aria-atomic="true">
                 <Alert.Indicator />
                 <Alert.Content>

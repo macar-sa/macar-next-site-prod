@@ -191,7 +191,7 @@ export default async function BlogPostPage({
             <div className="mt-10 flex flex-row flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <Chip key={tag} size="sm">
-                  #{tag}
+                  {`#${tag}`}
                 </Chip>
               ))}
             </div>
