@@ -18,11 +18,14 @@ const legalLinks = [
 ];
 
 // Footer: HeroUI v3 links (TextLink, ButtonLink) and Separator, same layout as before.
+// On a computer, the first row (logo, info@macar.be button) is as tall as the sticky navigation
+// bar and the rest of the footer is at least one screen minus the bar: scrolled to the very
+// bottom, that row sits exactly behind the bar, so its logo and blue button do not show twice.
 export const Footer = () => {
     return (
-        <div className="pt-28 pb-14">
+        <div className="pt-28">
             <div className="mx-auto max-w-[1600px] px-4 md:px-16 2xl:px-4">
-                <div className="flex flex-col gap-8 md:gap-0 md:flex-row md:items-center md:justify-between">
+                <div data-footer-top className="flex flex-col gap-8 md:gap-0 md:flex-row md:items-center md:justify-between lg:h-16">
                     <Logo_specific logoType="Logo_border_blue"
                         complexity="svg_simple"
                         width='100'
@@ -35,56 +38,61 @@ export const Footer = () => {
                         <ButtonLink href="mailto:info@macar.be">info@macar.be</ButtonLink>
                     </div>
                 </div>
-                <Separator className="mt-14" />
-                <div className="mt-14 flex flex-row items-start justify-between">
-                    <div className="flex flex-col items-start">
-                        <p className="font-medium text-sm md:text-base">Entreprise</p>
-                        <ul className="flex flex-col md:flex-row justify-start gap-8 mt-4 text-sm md:text-base">
-                            {menuItems.map((item) => (
-                                <li key={item.href}>
-                                    <TextLink href={item.href} navigation>{item.name}</TextLink>
+                <div className="flex flex-col pb-14 lg:min-h-[calc(100dvh-4rem)]">
+                    <Separator className="mt-14" />
+                    <div className="mt-14 flex flex-row items-start justify-between">
+                        <div className="flex flex-col items-start">
+                            <p className="font-medium text-sm md:text-base">Entreprise</p>
+                            <ul className="flex flex-col md:flex-row justify-start gap-8 mt-4 text-sm md:text-base">
+                                {menuItems.map((item) => (
+                                    <li key={item.href}>
+                                        <TextLink href={item.href} navigation>{item.name}</TextLink>
+                                    </li>
+                                ))}
+                            </ul>
+                            <p className="font-medium text-sm md:text-base mt-12">Contact</p>
+                            <ul className="flex flex-col justify-start gap-2 mt-4 text-sm">
+                                <li>
+                                    tel: <TextLink href="tel:+32478235008" navigation>+32 478 23 50 08</TextLink>
                                 </li>
-                            ))}
-                        </ul>
-                        <p className="font-medium text-sm md:text-base mt-12">Contact</p>
-                        <ul className="flex flex-col justify-start gap-2 mt-4 text-sm">
-                            <li>
-                                tel: <TextLink href="tel:+32478235008" navigation>+32 478 23 50 08</TextLink>
-                            </li>
-                            <li>
-                                email: <TextLink href="mailto:info@macar.be" navigation>info@macar.be</TextLink>
-                            </li>
-                            <li>
-                                fixe: <TextLink href="tel:+3224665304" navigation>+32 246 653 04</TextLink>
-                            </li>
-                            <li>
-                                Avenue Prudent Bols, 43<br />
-                                B-1020 Bruxelles/Brussel
-                            </li>
-                            <li>TVA: BE0477.45.10.24</li>
-                        </ul>
+                                <li>
+                                    email: <TextLink href="mailto:info@macar.be" navigation>info@macar.be</TextLink>
+                                </li>
+                                <li>
+                                    fixe: <TextLink href="tel:+3224665304" navigation>+32 246 653 04</TextLink>
+                                </li>
+                                <li>
+                                    Avenue Prudent Bols, 43<br />
+                                    B-1020 Bruxelles/Brussel
+                                </li>
+                                <li>TVA: BE0477.45.10.24</li>
+                            </ul>
+                        </div>
+                        <div className="flex flex-col items-end">
+                            <p className="font-medium text-sm md:text-base">Rejoignez nos réseaux sociaux</p>
+                            <TextLink
+                                href="https://www.facebook.com/profile.php?id=61552507283765"
+                                aria-label="Macar sur Facebook"
+                                className="mt-6"
+                            >
+                                <Facebook />
+                            </TextLink>
+                        </div>
                     </div>
-                    <div className="flex flex-col items-end">
-                        <p className="font-medium text-sm md:text-base">Rejoignez nos réseaux sociaux</p>
-                        <TextLink
-                            href="https://www.facebook.com/profile.php?id=61552507283765"
-                            aria-label="Macar sur Facebook"
-                            className="mt-6"
-                        >
-                            <Facebook />
-                        </TextLink>
+                    {/* Copyright pinned to the bottom when the footer is taller than its content. */}
+                    <div className="mt-auto">
+                        <Separator className="mt-14" />
+                        <div className="mt-14 flex flex-col md:flex-row items-start gap-8 justify-between text-sm md:text-base">
+                            <p>Copyright © {new Date().getFullYear()} Macar</p>
+                            <ul className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+                                {legalLinks.map((item) => (
+                                    <li key={item.href}>
+                                        <TextLink href={item.href} navigation>{item.name}</TextLink>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <Separator className="mt-14" />
-                <div className="mt-14 flex flex-col md:flex-row items-start gap-8 justify-between text-sm md:text-base">
-                    <p>Copyright © {new Date().getFullYear()} Macar</p>
-                    <ul className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
-                        {legalLinks.map((item) => (
-                            <li key={item.href}>
-                                <TextLink href={item.href} navigation>{item.name}</TextLink>
-                            </li>
-                        ))}
-                    </ul>
                 </div>
             </div>
         </div>
