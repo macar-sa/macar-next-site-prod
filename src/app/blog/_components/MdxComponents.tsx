@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import type { ComponentPropsWithoutRef } from "react";
+import { TextLink } from "../../_components/links";
 
 function isInternalHref(href: string | undefined): boolean {
   if (!href) return false;
@@ -47,27 +48,20 @@ const components = {
   li: (props: ComponentPropsWithoutRef<"li">) => (
     <li {...props} className="leading-loose" />
   ),
+  // Links in running text: the v3 Link look, always underlined (TextLink underline). External
+  // links open in a new tab.
   a: ({ href, children, ...rest }: ComponentPropsWithoutRef<"a">) => {
     if (isInternalHref(href)) {
       return (
-        <Link
-          href={href ?? "#"}
-          className="text-accent underline underline-offset-4 hover:opacity-80"
-        >
+        <TextLink underline href={href ?? "#"}>
           {children}
-        </Link>
+        </TextLink>
       );
     }
     return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-accent underline underline-offset-4 hover:opacity-80"
-        {...rest}
-      >
+      <TextLink {...rest} underline href={href ?? "#"} target="_blank" rel="noopener noreferrer">
         {children}
-      </a>
+      </TextLink>
     );
   },
   blockquote: (props: ComponentPropsWithoutRef<"blockquote">) => (
@@ -108,9 +102,7 @@ const components = {
   td: (props: ComponentPropsWithoutRef<"td">) => (
     <td {...props} className="border border-border px-4 py-2" />
   ),
-  hr: (props: ComponentPropsWithoutRef<"hr">) => (
-    <hr {...props} className="my-12 border-border" />
-  ),
+  hr: () => <Separator className="my-12" />,
   img: ({ src, alt }: ComponentPropsWithoutRef<"img">) => {
     if (typeof src !== "string") return null;
     return (
