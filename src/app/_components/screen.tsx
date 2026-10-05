@@ -18,9 +18,11 @@ export default function Screen({
     customClassesInner?: string;
     customClassesOuter?: string;
 }) {
+    // scroll-mt-16: a link to the section (/#services, /#contact…) stops below the sticky
+    // navigation bar (h-16) instead of under it.
     return (
         <section
-            className={`relative ${noPadding ? "" : "pt-12 pb-4 md:pb-12"
+            className={`relative scroll-mt-16 ${noPadding ? "" : "pt-12 pb-4 md:pb-12"
                 } overflow-x-clip overflow-y-visible ${customClassesOuter}`}
             id={id}
         >
