@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import { notFound } from "next/navigation";
 import Screen from "@/app/_components/screen";
-import { MainHeading, P } from "@/app/_components/textStyles";
-import { PrimaryButton } from "@/app/_components/buttons";
+import { MainHeading } from "@/app/_components/textStyles";
+import { ButtonLink } from "@/app/_components/links";
+import { ServiceCard } from "@/app/_components/ServiceCard";
 import { Breadcrumbs } from "@/app/_components/jsonld";
 import { communes, getCommune } from "@/lib/seo/communes";
 import { services } from "@/lib/services";
@@ -83,70 +83,48 @@ export default async function ZonePage({
                 Rénovation, plomberie, électricité et toiture à {commune.name}
               </h1>
             </MainHeading>
-            <p className="mt-6 text-base lg:text-lg text-default-700 leading-relaxed">
+            <p className="mt-6 text-base lg:text-lg text-muted leading-relaxed lg:leading-7">
               {body}
             </p>
             <div className="mt-8">
-              <PrimaryButton
-                href="/#contact"
-                content="Demander un devis gratuit"
-              />
+              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>
 
         <Screen name="zone-services" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
-              <p>Nos services à {commune.name}</p>
-            </P>
+          <div className="w-full max-w-full">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Nos services à {commune.name}</h2>
             <nav
               className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
               aria-label={`Services Macar à ${commune.name}`}
             >
               {services.map((s) => (
-                <Link
+                <ServiceCard
                   key={s.id}
                   href={`/services/${s.id}`}
-                  className="group flex flex-col gap-3 rounded-lg border border-default-200 bg-default-50/50 p-5 transition-colors hover:border-accent1 hover:bg-primary/5"
-                >
-                  <Image
-                    src={s.image}
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="flex-shrink-0 object-contain"
-                    aria-hidden
-                  />
-                  <h2 className="text-base font-semibold text-headings group-hover:text-accent1">
-                    {s.title}
-                  </h2>
-                  <p className="text-sm text-default-600">{s.summary}</p>
-                  <span className="mt-auto text-sm font-medium text-accent1">
-                    Voir le détail →
-                  </span>
-                </Link>
+                  image={s.image}
+                  title={s.title}
+                  description={s.summary}
+                  footer="Voir le détail →"
+                />
               ))}
             </nav>
           </div>
         </Screen>
 
         <Screen name="zone-other-zones" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8 pb-8">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
-              <p>Autres zones desservies à Bruxelles</p>
-            </P>
+          <div className="w-full max-w-full pb-8">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Autres zones desservies à Bruxelles</h2>
             <div className="flex flex-wrap gap-2">
               {communes
                 .filter((c) => c.slug !== commune.slug)
                 .map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/zones/${c.slug}`}
-                    className="inline-flex items-center rounded-full border border-default-200 bg-default-50/50 px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-primary/5 hover:text-accent1"
-                  >
+                  <ButtonLink key={c.slug} href={`/zones/${c.slug}`} variant="tertiary" size="sm">
                     {c.name}
-                  </Link>
+                  </ButtonLink>
                 ))}
             </div>
           </div>

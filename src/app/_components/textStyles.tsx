@@ -1,26 +1,11 @@
-import localFont from "next/font/local";
-
-const raptor = localFont({
-    src: [
-        {
-            path: "../../../public/fonts/raptor/Semibold.otf",
-            weight: "600"
-        }
-    ],
-    variable: "--font-raptor"
-})
-
+// Headings use the Raptor font through the font-heading utility (variable set in layout.tsx).
 export const Raptor = ({
     children,
 }: {
     children: React.ReactNode;
 }) => {
-    return <div
-        className={`${raptor.className} text-headings`}
-    >
-        {children}
-    </div>
-}
+    return <div className="font-heading text-foreground">{children}</div>;
+};
 
 export const MainHeading = ({
     children,
@@ -31,7 +16,7 @@ export const MainHeading = ({
 }) => {
     return (
         <div
-            className={`${raptor.className} leading-loose text-4xl lg:text-6xl 2xl:text-7xl max-w-[20ch] text-headings ${customClasses}`}
+            className={`font-heading leading-loose lg:leading-none text-4xl lg:text-6xl 2xl:text-7xl max-w-[20ch] text-foreground ${customClasses}`}
         >
             {children}
         </div>
@@ -47,7 +32,7 @@ export const SecondHeading = ({
 }) => {
     return (
         <div
-            className={`${raptor.className} text-3xl max-w-[20ch] lg:text-5xl 2xl:text-6xl lg:max-w-[30ch] text-headings ${customClasses}`}
+            className={`font-heading text-3xl max-w-[20ch] lg:text-5xl 2xl:text-6xl lg:max-w-[30ch] text-foreground ${customClasses}`}
         >
             {children}
         </div>
@@ -63,7 +48,7 @@ export const ThirdHeading = ({
 }) => {
     return (
         <div
-            className={`${raptor.className} text-base max-w-[20ch] lg:text-3xl 2xl:text-4xl lg:max-w-[30ch] text-headings ${customClasses}`}
+            className={`font-heading text-base max-w-[20ch] lg:text-3xl 2xl:text-4xl lg:max-w-[30ch] text-foreground ${customClasses}`}
         >
             {children}
         </div>

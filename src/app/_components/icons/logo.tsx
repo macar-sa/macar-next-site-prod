@@ -1,11 +1,8 @@
 export const Logo = ({
-    iconOnly,
     width = 224,
     customClasses,
 }: {
     width?: number;
-    iconOnly?: boolean;
-    color?: string;
     customClasses?: string;
 }) => {
     return (

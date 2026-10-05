@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Separator } from "@heroui/react/separator";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
@@ -17,9 +18,9 @@ export const metadata: Metadata = {
     },
 };
 
-const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-neutral-500/30";
+const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";
 const sectionHeading = "md:col-span-1";
-const sectionBody = "md:col-span-2 !max-w-none";
+const sectionBody = "md:col-span-2 max-w-none!";
 
 export default function MentionsLegalesPage() {
     return (
@@ -51,6 +52,7 @@ export default function MentionsLegalesPage() {
                             </p>
                         </P>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -58,6 +60,7 @@ export default function MentionsLegalesPage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody} content="Le directeur de la publication du site macar.be est le représentant légal de Macar SRL." />
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -71,6 +74,7 @@ export default function MentionsLegalesPage() {
                             </p>
                         </P>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -78,6 +82,7 @@ export default function MentionsLegalesPage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody} content="L'ensemble des contenus présents sur le site macar.be (textes, photographies, illustrations, logos, marques, éléments graphiques) est la propriété exclusive de Macar SRL ou de ses partenaires, et est protégé par la législation belge et internationale relative à la propriété intellectuelle. Toute reproduction, représentation, modification, publication, adaptation totale ou partielle des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable de Macar SRL." />
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -85,6 +90,7 @@ export default function MentionsLegalesPage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody} content="Macar SRL s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le site, mais ne peut garantir l'absence d'erreurs ou d'omissions. L'utilisateur reconnaît utiliser les informations du site sous sa responsabilité exclusive. Macar SRL ne saurait être tenue responsable des dommages directs ou indirects pouvant résulter de l'accès au site ou de l'utilisation de son contenu." />
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -92,6 +98,7 @@ export default function MentionsLegalesPage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody} content="Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à l'utilisation du site macar.be relèvera de la compétence exclusive des tribunaux de Bruxelles." />
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -99,8 +106,9 @@ export default function MentionsLegalesPage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody} content="Pour toute question relative aux présentes mentions légales, vous pouvez nous contacter à l'adresse info@macar.be." />
                     </section>
+                    <Separator />
 
-                    <p className="text-font-gray text-xs mt-10">
+                    <p className="text-muted text-xs mt-10">
                         Dernière mise à jour : 17 mai 2026.
                     </p>
                 </div>

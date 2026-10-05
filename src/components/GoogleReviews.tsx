@@ -1,9 +1,10 @@
 "use client";
 
-import { Card, CardBody, CardHeader, Avatar } from "@heroui/react";
+import { Avatar, Button, Card, ScrollShadow } from "@heroui/react";
 import { SecondHeading, P } from "@/app/_components/textStyles";
 import { Star, ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, type FocusEvent } from "react";
+import { useReducedMotion } from "framer-motion";
 import { reviews, type GoogleReview } from "@/data/reviews";
 
 const CAROUSEL_SCROLL_STEP = 1;
@@ -15,7 +16,7 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          className={`w-3.5 h-3.5 ${i < rating ? "fill-amber-400 text-amber-400" : "text-neutral-200"}`}
+          className={`w-3.5 h-3.5 ${i < rating ? "fill-amber-400 text-amber-400" : "text-separator"}`}
           aria-hidden
         />
       ))}
@@ -25,65 +26,73 @@ function StarRating({ rating }: { rating: number }) {
 
 const CARD_BODY_HEIGHT = "10rem"; /* hauteur fixe pour éviter le déplacement au "Voir plus" */
 
+// Initials shown by Avatar.Fallback while the photo loads, or instead of a photo that fails.
+function getInitials(name: string) {
+  return name
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => Array.from(word)[0].toUpperCase())
+    .join("");
+}
+
+// HeroUI v3 Card and Avatar with their own styles; the classes only size and place the card
+// in the scrolling row.
 function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expanded: boolean; onToggle: () => void }) {
   const needsExpand = review.text.length > 180;
   return (
-    <Card className="border border-neutral-100 bg-cardbackground/80 backdrop-blur-sm flex-shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start flex flex-col">
-      <CardHeader className="flex gap-2 px-4 pt-4 pb-1 flex-shrink-0">
-        <Avatar
-          src={review.authorPhotoUrl}
-          name={review.authorName}
-          size="sm"
-          className="flex-shrink-0 w-8 h-8 min-w-8 min-h-8"
-          imgProps={{ referrerPolicy: "no-referrer" }}
-        />
-        <div className="flex flex-col flex-1 min-w-0">
-          <p className="font-semibold text-headings text-sm truncate">{review.authorName}</p>
-          <div className="flex items-center gap-1.5 mt-0.5">
+    <Card className="shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start">
+      <Card.Header>
+        <div className="flex items-center gap-2">
+          <Avatar size="sm">
+            <Avatar.Image src={review.authorPhotoUrl} alt={review.authorName} referrerPolicy="no-referrer" />
+            <Avatar.Fallback>{getInitials(review.authorName)}</Avatar.Fallback>
+          </Avatar>
+          <div className="flex flex-col min-w-0">
+            <p className="font-semibold text-foreground text-sm truncate">{review.authorName}</p>
             <StarRating rating={review.rating} />
           </div>
         </div>
-      </CardHeader>
-      <CardBody className="pt-0 pb-2 pr-4 !pl-4 flex-1 min-h-0 flex flex-col">
-        <div
-          className="flex flex-col flex-shrink-0"
-          style={{ minHeight: CARD_BODY_HEIGHT, maxHeight: CARD_BODY_HEIGHT }}
-        >
+      </Card.Header>
+      <Card.Content>
+        <div className="flex flex-col" style={{ minHeight: CARD_BODY_HEIGHT, maxHeight: CARD_BODY_HEIGHT }}>
           {expanded ? (
-            <div className="flex-1 min-h-0 overflow-y-auto pr-1 text-font-gray text-sm leading-relaxed whitespace-pre-line">
+            <div className="flex-1 min-h-0 overflow-y-auto pr-1 text-muted text-sm leading-relaxed whitespace-pre-line">
               {review.text}
             </div>
           ) : (
-            <p className="text-font-gray text-sm leading-relaxed whitespace-pre-line line-clamp-3">
+            <p className="text-muted text-sm leading-relaxed whitespace-pre-line line-clamp-3">
               {review.text}
             </p>
           )}
           {needsExpand && (
-            <button
-              type="button"
-              onClick={onToggle}
-              className="mt-2 flex items-center gap-1 text-xs font-medium text-accent1 hover:underline flex-shrink-0"
-            >
+            <Button variant="ghost" size="sm" onPress={onToggle} className="mt-2 self-start shrink-0">
               {expanded ? (
                 <>
-                  <ChevronUp className="w-3.5 h-3.5" /> Voir moins
+                  <ChevronUp aria-hidden /> Voir moins
                 </>
               ) : (
                 <>
-                  <ChevronDown className="w-3.5 h-3.5" /> Voir plus
+                  <ChevronDown aria-hidden /> Voir plus
                 </>
               )}
-            </button>
+            </Button>
           )}
         </div>
-      </CardBody>
+      </Card.Content>
     </Card>
   );
 }
 
 export default function GoogleReviews() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  // The auto-scroll stops while the pointer or a finger is on the carousel, while the keyboard
+  // focus is inside it, and never starts for visitors who ask for reduced motion (WCAG 2.2.2).
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const isPaused = isHovered || hasFocus || !!prefersReducedMotion;
   const [expandedCards, setExpandedCards] = useState<Record<number, boolean>>({});
 
   const toggleCard = useCallback((index: number) => {
@@ -93,17 +102,34 @@ export default function GoogleReviews() {
   useEffect(() => {
     if (isPaused || !scrollRef.current) return;
     const el = scrollRef.current;
+    // Scroll-snap would catch each 1 px step and bring it back to the snap point, so snapping
+    // and smooth scrolling are off while the carousel runs and restored on pause and unmount.
+    el.style.scrollSnapType = "none";
+    el.style.scrollBehavior = "auto";
     const id = setInterval(() => {
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (maxScroll <= 0) return;
-      if (el.scrollLeft >= maxScroll) return;
+      // At the end of the list, loop back to the start.
+      if (el.scrollLeft >= maxScroll - 1) {
+        el.scrollLeft = 0;
+        return;
+      }
       el.scrollLeft += CAROUSEL_SCROLL_STEP;
     }, CAROUSEL_INTERVAL_MS);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      el.style.scrollSnapType = "";
+      el.style.scrollBehavior = "smooth";
+    };
   }, [isPaused]);
 
-  const pauseCarousel = useCallback(() => setIsPaused(true), []);
-  const resumeCarousel = useCallback(() => setIsPaused(false), []);
+  const pauseCarousel = useCallback(() => setIsHovered(true), []);
+  const resumeCarousel = useCallback(() => setIsHovered(false), []);
+  const onFocusIn = useCallback(() => setHasFocus(true), []);
+  // Focus moving between two buttons of the carousel stays inside: no resume.
+  const onFocusOut = useCallback((e: FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setHasFocus(false);
+  }, []);
 
   return (
     <div className="w-full">
@@ -114,34 +140,33 @@ export default function GoogleReviews() {
         <p>Découvrez ce que nos clients disent de leur expérience avec nous.</p>
       </P>
       <div className="w-full mt-6">
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x overscroll-x-contain overscroll-y-none"
-            onMouseEnter={pauseCarousel}
-            onMouseLeave={resumeCarousel}
-            onTouchStart={pauseCarousel}
-            onTouchEnd={resumeCarousel}
-            style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
-          >
-            {reviews.map((review, i) => (
-              <ReviewCard
-                key={i}
-                review={review}
-                expanded={!!expandedCards[i]}
-                onToggle={() => toggleCard(i)}
-              />
-            ))}
-          </div>
-          {/* Dégradé uniquement sur le carousel, pas sur le texte en dessous */}
-          <div
-            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-gradient-to-l from-background to-transparent z-10"
-            aria-hidden
-          />
-        </div>
-        <p className="mt-2 text-right text-sm text-font-gray flex items-center justify-end gap-1">
+        {/* HeroUI v3 ScrollShadow: it is the scrolling row, and its fade marks the edge where more
+            reviews follow. The auto-scroll moves its scrollLeft. */}
+        <ScrollShadow
+          ref={scrollRef}
+          orientation="horizontal"
+          hideScrollBar
+          className="flex gap-4 overflow-y-hidden snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] touch-pan-x overscroll-x-contain overscroll-y-none"
+          onMouseEnter={pauseCarousel}
+          onMouseLeave={resumeCarousel}
+          onTouchStart={pauseCarousel}
+          onTouchEnd={resumeCarousel}
+          onFocus={onFocusIn}
+          onBlur={onFocusOut}
+          style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
+        >
+          {reviews.map((review, i) => (
+            <ReviewCard
+              key={i}
+              review={review}
+              expanded={!!expandedCards[i]}
+              onToggle={() => toggleCard(i)}
+            />
+          ))}
+        </ScrollShadow>
+        <p className="mt-2 text-right text-sm text-muted flex items-center justify-end gap-1">
           <span>Plus d&apos;avis</span>
-          <ChevronRight className="w-4 h-4 text-accent1" aria-hidden />
+          <ChevronRight className="w-4 h-4 text-accent" aria-hidden />
         </p>
       </div>
     </div>

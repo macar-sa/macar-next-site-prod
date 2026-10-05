@@ -1,3 +1,53 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source(none);
+@import "@heroui/styles";
+
+/* Tailwind sources, declared explicitly: content/ (MDX articles) is not scanned. */
+@source "../app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../components/**/*.{js,ts,jsx,tsx,mdx}";
+
+/* Fonts loaded by next/font in layout.tsx: Open Sans for the text, Raptor for the headings (font-heading). */
+@theme inline {
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-raptor), var(--font-open-sans), sans-serif;
+}
+
+/*
+ * Macar colours on the HeroUI v3 theme variables. Outside any layer, so they win over the
+ * default theme (declared in a layer). Radius, shadows, spacing and durations stay HeroUI's.
+ */
+:root {
+  --accent: #124FAA;
+  --accent-foreground: #FFFFFF;
+  --background: #F6F8FF;
+  --foreground: #0E1435;
+  --muted: #474B64;
+  --surface: #FFFFFF;
+  --border: #D8DBE9;
+  --focus: var(--accent);
+  --link: var(--accent);
+}
+
+@layer components {
+  /* Cards: more room and body-size text (HeroUI v3 defaults are 16 px padding and 14 px text). */
+  .card {
+    padding: 1.5rem;
+  }
+  .card__title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .card__description {
+    font-size: 1rem;
+    line-height: 1.625rem;
+  }
+
+  /*
+   * react-responsive-carousel (logo strip) names its track "slider", like the HeroUI v3 Slider.
+   * Only the .slider declarations that the carousel stylesheet does not set itself are reset.
+   */
+  .carousel .slider {
+    gap: normal;
+    grid-template-areas: none;
+    grid-template-columns: none;
+  }
+}

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Chip } from "@heroui/react";
+import { Chip } from "@heroui/react/chip";
 import { SecondHeading } from "./textStyles";
+import { TextLink } from "./links";
 import type { ServiceItem } from "@/lib/services";
 
 export default function ServiceSection({
@@ -26,50 +26,38 @@ export default function ServiceSection({
               alt=""
               width={40}
               height={40}
-              className="flex-shrink-0 object-contain"
+              className="shrink-0 object-contain"
               aria-hidden
             />
             <SecondHeading customClasses="text-left text-xl lg:text-2xl mt-0">
               <h2>{title}</h2>
             </SecondHeading>
           </div>
-          <p className="text-sm text-default-600 mb-4">{summary}</p>
+          <p className="text-sm text-muted mb-4">{summary}</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {chips.map((label) => (
-              <Chip
-                key={label}
-                variant="flat"
-                color="primary"
-                size="sm"
-                classNames={{
-                  base: "bg-primary/10",
-                  content: "text-primary font-medium",
-                }}
-              >
+              <Chip key={label} color="accent" variant="soft">
                 {label}
               </Chip>
             ))}
           </div>
-          <Link
-            href="/#contact"
-            className="text-sm font-medium text-accent1 hover:underline"
-          >
-            Demander un devis pour ce service →
-          </Link>
+          <p className="text-sm">
+            <TextLink href="/#contact">Demander un devis pour ce service →</TextLink>
+          </p>
         </div>
         <div className="mt-6 lg:mt-0">
           {hasDetailCategories ? (
             <div className="space-y-6">
-              <p className="text-sm lg:text-base text-default-700 leading-relaxed">
+              <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6">
                 {detailIntro}
               </p>
               <div className="space-y-5">
                 {detailCategories!.map((cat) => (
                   <div key={cat.title}>
-                    <h3 className="text-sm font-semibold text-headings mb-2">
+                    <h3 className="text-sm font-semibold text-foreground mb-2">
                       {cat.title}
                     </h3>
-                    <ul className="text-sm text-default-700 leading-relaxed space-y-1 list-disc list-inside marker:text-primary/70">
+                    <ul className="text-sm text-muted leading-relaxed space-y-1 list-disc list-inside marker:text-accent">
                       {cat.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
@@ -79,7 +67,7 @@ export default function ServiceSection({
               </div>
             </div>
           ) : (
-            <p className="text-sm lg:text-base text-default-700 leading-relaxed">
+            <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6">
               {detail}
             </p>
           )}

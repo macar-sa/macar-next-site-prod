@@ -1,142 +1,101 @@
-"use client";
-import Link from "next/link";
-import { PrimaryButton } from "./buttons";
-import { Logo } from "./icons/logo";
-import { P } from "./textStyles";
+import { Separator } from "@heroui/react/separator";
+import { ButtonLink, TextLink } from "./links";
 import { Logo_specific } from "./icons/logo_specific";
 
+const menuItems = [
+    { name: "Accueil", href: "/" },
+    { name: "Découvrez Macar", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Blog", href: "/blog" },
+    { name: "FAQ", href: "/#faq" },
+    { name: "Nous recrutons", href: "/job" },
+];
 
+const legalLinks = [
+    { name: "Mentions légales", href: "/mentions-legales" },
+    { name: "Politique de confidentialité", href: "/politique-confidentialite" },
+    { name: "Politique cookies", href: "/politique-cookies" },
+];
 
+// Footer: HeroUI v3 links (TextLink, ButtonLink) and Separator, same layout as before.
+// On a computer, the first row (logo, info@macar.be button) is as tall as the sticky navigation
+// bar and the rest of the footer is at least one screen minus the bar: scrolled to the very
+// bottom, that row sits exactly behind the bar, so its logo and blue button do not show twice.
 export const Footer = () => {
-    const menuItems = [
-        { name: "Accueil", href: "/" },
-        { name: "Découvrez Macar", href: "/about" },
-        { name: "Services", href: "/services" },
-        { name: "Blog", href: "/blog" },
-        { name: "FAQ", href: "/#faq" },
-        { name: "Nous recrutons", href: "/job" },
-    ];
     return (
-        <div className="pt-28 pb-14">
+        <div className="pt-28">
             <div className="mx-auto max-w-[1600px] px-4 md:px-16 2xl:px-4">
-                <div className="flex flex-col gap-8 md:gap-0 md:flex-row md:items-center md:justify-between">
-                    {/*<Logo iconOnly={false} width={300} />*/}
+                <div data-footer-top className="flex flex-col gap-8 md:gap-0 md:flex-row md:items-center md:justify-between lg:h-16">
                     <Logo_specific logoType="Logo_border_blue"
                         complexity="svg_simple"
                         width='100'
                         customClasses="hidden lg:inline">
                     </Logo_specific>
-                    <div className="flex flex-row items-center">
-                        <p className="mr-10 text-sm md:text-base">
+                    <div className="flex flex-row flex-wrap items-center gap-4">
+                        <p className="mr-6 text-sm md:text-base">
                             Pour des informations supplémentaires
                         </p>
-                        <PrimaryButton
-                            content="info@macar.be"
-                            href="mailto:info@macar.be"
-                        />
+                        <ButtonLink href="mailto:info@macar.be">info@macar.be</ButtonLink>
                     </div>
                 </div>
-                <div className="h-[1px] w-full bg-neutral-500 mt-14" />
-                <div className="mt-14 flex flex-row items-start justify-between">
-                    <div className="flex flex-col items-start">
-                        <p className="font-medium text-sm md:text-base">Entreprise</p>
-                        <div className="flex flex-col md:flex-row justify-start gap-8 mt-4">
-                            {menuItems.map((item, index) => {
-                                return (
-                                    <FooterLink
-                                        key={index}
-                                        href={item.href}
-                                        content={item.name}
-                                    />
-                                );
-                            })}
-                        </div>
-                        <p className="font-medium text-sm md:text-base mt-12">Contact</p>
-                        <div className="flex flex-col justify-start gap-1 mt-4">
-                            <div>
-                                <Link href="tel:+32478235008">
-                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
-                                        {" "}
-                                        tel: +32 478 23 50 08
-                                    </P>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link href="mailto:info@macar.be">
-                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
-                                        {" "}
-                                        email: info@macar.be
-                                    </P>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link href="tel:+3224665304">
-                                    <P customClasses="text-font-gray hover:text-font-lighter-gray text-sm">
-                                        {" "}
-                                        fixe: +32 246 653 04
-                                    </P>
-                                </Link>
-                            </div>
-                            <div>
-                                <P customClasses="text-font-gray text-sm">
-                                    {" "}
+                <div className="flex flex-col pb-14 lg:min-h-[calc(100dvh-4rem)]">
+                    <Separator className="mt-14" />
+                    <div className="mt-14 flex flex-row items-start justify-between">
+                        <div className="flex flex-col items-start">
+                            <p className="font-medium text-sm md:text-base">Entreprise</p>
+                            <ul className="flex flex-col md:flex-row justify-start gap-8 mt-4 text-sm md:text-base">
+                                {menuItems.map((item) => (
+                                    <li key={item.href}>
+                                        <TextLink href={item.href} navigation>{item.name}</TextLink>
+                                    </li>
+                                ))}
+                            </ul>
+                            <p className="font-medium text-sm md:text-base mt-12">Contact</p>
+                            <ul className="flex flex-col justify-start gap-2 mt-4 text-sm">
+                                <li>
+                                    tel: <TextLink href="tel:+32478235008" navigation>+32 478 23 50 08</TextLink>
+                                </li>
+                                <li>
+                                    email: <TextLink href="mailto:info@macar.be" navigation>info@macar.be</TextLink>
+                                </li>
+                                <li>
+                                    fixe: <TextLink href="tel:+3224665304" navigation>+32 246 653 04</TextLink>
+                                </li>
+                                <li>
                                     Avenue Prudent Bols, 43<br />
                                     B-1020 Bruxelles/Brussel
-                                </P>
-                            </div>
-                            <div>
-                                <P customClasses="text-font-gray text-sm">
-                                    {" "}
-                                    TVA: BE0477.45.10.24
-                                </P>
-                            </div>
+                                </li>
+                                <li>TVA: BE0477.45.10.24</li>
+                            </ul>
+                        </div>
+                        <div className="flex flex-col items-end">
+                            <p className="font-medium text-sm md:text-base">Rejoignez nos réseaux sociaux</p>
+                            <TextLink
+                                href="https://www.facebook.com/profile.php?id=61552507283765"
+                                aria-label="Macar sur Facebook"
+                                className="mt-6"
+                            >
+                                <Facebook />
+                            </TextLink>
                         </div>
                     </div>
-                    <div className="flex flex-col items-end">
-                        <p className="font-medium text-sm md:text-base">Rejoignez nos réseaux sociaux</p>
-                        <Link
-                            href={"https://www.facebook.com/profile.php?id=61552507283765"}
-                            className="inline-block mt-6"
-                        >
-                            <Facebook />
-                        </Link>
-                    </div>
-                </div>
-                <div className="h-[1px] w-full bg-neutral-500 mt-14" />
-                <div className="mt-14 flex flex-col md:flex-row items-start gap-8 justify-between">
-                    <p className="text-font-gray text-sm md:text-base">
-                        Copyright © {new Date().getFullYear()} Macar
-                    </p>
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
-                        <Link href="/mentions-legales" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
-                                Mentions légales
-                            </p>
-                        </Link>
-                        <Link href="/politique-confidentialite" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
-                                Politique de confidentialité
-                            </p>
-                        </Link>
-                        <Link href="/politique-cookies" className="inline-block">
-                            <p className="text-font-gray text-sm md:text-base hover:text-font-lighter-gray transition-all ease-in-out-quad">
-                                Politique cookies
-                            </p>
-                        </Link>
+                    {/* Copyright pinned to the bottom when the footer is taller than its content. */}
+                    <div className="mt-auto">
+                        <Separator className="mt-14" />
+                        <div className="mt-14 flex flex-col md:flex-row items-start gap-8 justify-between text-sm md:text-base">
+                            <p>Copyright © {new Date().getFullYear()} Macar</p>
+                            <ul className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+                                {legalLinks.map((item) => (
+                                    <li key={item.href}>
+                                        <TextLink href={item.href} navigation>{item.name}</TextLink>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
-
-const FooterLink = ({ href, content }: { href: string; content: string }) => {
-    return (
-        <Link href={href} className="inline-block">
-            <p className="text-sm md:text-base hover:text-accent1 transition-all ease-in-out-quad">
-                {content}
-            </p>
-        </Link>
     );
 };
 

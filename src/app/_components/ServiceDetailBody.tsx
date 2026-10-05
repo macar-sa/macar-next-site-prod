@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Separator } from "@heroui/react/separator";
 import Screen from "./screen";
-import { MainHeading, P } from "./textStyles";
-import { PrimaryButton } from "./buttons";
+import { MainHeading } from "./textStyles";
+import { ButtonLink } from "./links";
+import { ServiceCard } from "./ServiceCard";
 import ServiceSection from "./ServiceSection";
 import { Breadcrumbs } from "./jsonld";
 import { services, type ServiceItem } from "@/lib/services";
@@ -59,14 +59,11 @@ export default function ServiceDetailBody({
             <MainHeading>
               <h1 className="leading-tight">{h1}</h1>
             </MainHeading>
-            <p className="mt-4 text-base lg:text-lg text-default-600">
+            <p className="mt-4 text-base lg:text-lg text-muted">
               {intro}
             </p>
             <div className="mt-8">
-              <PrimaryButton
-                href="/#contact"
-                content="Demander un devis gratuit"
-              />
+              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>
@@ -78,49 +75,29 @@ export default function ServiceDetailBody({
         </Screen>
 
         <Screen name="other-services" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
-              <p>Nos autres services</p>
-            </P>
+          <div className="w-full max-w-full">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Nos autres services</h2>
             <nav
               className="grid grid-cols-1 sm:grid-cols-3 gap-3"
               aria-label="Autres services"
             >
               {otherServices.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`/services/${s.id}`}
-                  className="inline-flex items-center gap-2 rounded-lg border border-default-200 bg-default-50/50 px-4 py-3 text-sm font-medium text-default-700 transition-colors hover:border-accent1 hover:bg-primary/5 hover:text-accent1"
-                >
-                  <Image
-                    src={s.image}
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="flex-shrink-0 object-contain"
-                    aria-hidden
-                  />
-                  <span className="min-w-0">{s.title}</span>
-                </Link>
+                <ServiceCard key={s.id} href={`/services/${s.id}`} image={s.image} title={s.title} />
               ))}
             </nav>
           </div>
         </Screen>
 
         <Screen name="zones-cross-links" customClassesInner="text-left">
-          <div className="w-full max-w-full border-t border-default-200 pt-8 pb-8">
-            <P customClasses="text-sm font-medium text-default-500 mb-4">
-              <p>Intervention à Bruxelles</p>
-            </P>
+          <div className="w-full max-w-full pb-8">
+            <Separator className="mb-8" />
+            <h2 className="mb-4 text-sm font-medium text-muted">Intervention à Bruxelles</h2>
             <div className="flex flex-wrap gap-2">
               {topCommunes.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/zones/${c.slug}`}
-                  className="inline-flex items-center rounded-full border border-default-200 bg-default-50/50 px-3 py-1.5 text-sm text-default-700 transition-colors hover:border-accent1 hover:bg-primary/5 hover:text-accent1"
-                >
+                <ButtonLink key={c.slug} href={`/zones/${c.slug}`} variant="tertiary" size="sm">
                   {c.name}
-                </Link>
+                </ButtonLink>
               ))}
             </div>
           </div>
