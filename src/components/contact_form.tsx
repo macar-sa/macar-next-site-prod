@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, FieldError, Form, Input, Label, Spinner, TextArea, TextField } from "@heroui/react";
+import { Alert, Button, Card, FieldError, Form, Input, Label, Spinner, TextArea, TextField } from "@heroui/react";
 import { P, SecondHeading } from "@/app/_components/textStyles";
 import { TextLink } from "@/app/_components/links";
 import { useState, type FormEvent } from "react";
@@ -20,8 +20,8 @@ type ValidationErrors = Partial<Record<keyof FormValues, string[]>>;
 const EMPTY_FORM: FormValues = { name: "", email: "", telephone: "", message: "" };
 
 // HeroUI v3 form. zod checks the values on submit; its messages go to Form's validationErrors,
-// which shows each one in the FieldError of its field and clears it once the field is edited
-// and left. validationBehavior="aria": no browser bubble, only the site's messages.
+// which shows each one in the FieldError of its field until the field is edited.
+// validationBehavior="aria": no browser bubble, only the site's messages.
 export function ContactForm() {
   const [values, setValues] = useState<FormValues>(EMPTY_FORM);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
@@ -32,7 +32,18 @@ export function ContactForm() {
   const fieldProps = (name: keyof FormValues) => ({
     name,
     value: values[name],
-    onChange: (value: string) => setValues((prev) => ({ ...prev, [name]: value })),
+    onChange: (value: string) => {
+      setValues((prev) => ({ ...prev, [name]: value }));
+      // Drop the field's error as soon as it is edited, not when it is left: otherwise pressing
+      // "Envoyer" blurs the field, its error disappears, the button moves up under the pointer
+      // and the click is lost.
+      setValidationErrors((prev) => {
+        if (!(name in prev)) return prev;
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    },
     variant: "secondary" as const,
     fullWidth: true,
   });
@@ -84,9 +95,13 @@ export function ContactForm() {
               <p className="text-muted">Nous sommes à l&apos;écoute de vos besoins pour toute rénovation, plomberie, électricité ou toiture.</p>
             </div>
             {Object.keys(validationErrors).length > 0 && (
-              <p className="text-sm text-danger" role="alert" aria-live="polite" aria-atomic="true">
-                Le formulaire contient des erreurs. Veuillez corriger les champs indiqués.
-              </p>
+              <Alert status="danger" role="alert" aria-atomic="true">
+                <Alert.Indicator />
+                <Alert.Content>
+                  <Alert.Title>Le formulaire contient des erreurs.</Alert.Title>
+                  <Alert.Description>Veuillez corriger les champs indiqués.</Alert.Description>
+                </Alert.Content>
+              </Alert>
             )}
             <div className="flex flex-col gap-4">
               <TextField {...fieldProps("name")}>
@@ -122,10 +137,16 @@ export function ContactForm() {
               Nous ne partageons vos informations à <span className="underline underline-offset-4">aucun</span> tiers.
             </p>
             {backendError && (
-              <p className="text-sm text-danger" role="alert" aria-live="assertive" aria-atomic="true">
-                Oups quelque chose s&apos;est mal passé, contactez-nous par email à{" "}
-                <TextLink underline href="mailto:info@macar.be">info@macar.be</TextLink>
-              </p>
+              <Alert status="danger" role="alert" aria-atomic="true">
+                <Alert.Indicator />
+                <Alert.Content>
+                  <Alert.Title>Oups quelque chose s&apos;est mal passé</Alert.Title>
+                  <Alert.Description>
+                    Contactez-nous par email à{" "}
+                    <TextLink underline href="mailto:info@macar.be">info@macar.be</TextLink>
+                  </Alert.Description>
+                </Alert.Content>
+              </Alert>
             )}
           </Form>
         )}
