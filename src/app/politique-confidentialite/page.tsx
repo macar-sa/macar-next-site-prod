@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Separator } from "@heroui/react/separator";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     },
 };
 
-const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10 border-b border-separator";
+const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";
 
@@ -52,6 +53,7 @@ export default function PolitiqueConfidentialitePage() {
                             </p>
                         </P>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -75,6 +77,7 @@ export default function PolitiqueConfidentialitePage() {
                             </P>
                         </div>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -98,6 +101,7 @@ export default function PolitiqueConfidentialitePage() {
                             </ul>
                         </P>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -115,6 +119,7 @@ export default function PolitiqueConfidentialitePage() {
                             <P customClasses="mt-2 max-w-none!" content="Lorsque des données sont transférées hors de l'Espace économique européen, ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne." />
                         </div>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -137,6 +142,7 @@ export default function PolitiqueConfidentialitePage() {
                             </ul>
                         </P>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -147,6 +153,7 @@ export default function PolitiqueConfidentialitePage() {
                             <P customClasses="mt-2 max-w-none!" content="Vous avez également le droit d'introduire une réclamation auprès de l'Autorité de protection des données (APD) : Rue de la Presse 35, 1000 Bruxelles, contact@apd-gba.be, www.autoriteprotectiondonnees.be." />
                         </div>
                     </section>
+                    <Separator />
 
                     <section className={sectionGrid}>
                         <ThirdHeading customClasses={sectionHeading}>
@@ -154,6 +161,7 @@ export default function PolitiqueConfidentialitePage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody} content="Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte, altération ou divulgation." />
                     </section>
+                    <Separator />
 
                     <p className="text-muted text-xs mt-10">
                         Dernière mise à jour : 17 mai 2026.

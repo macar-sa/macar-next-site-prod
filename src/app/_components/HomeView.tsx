@@ -5,16 +5,18 @@ import { MainHeading, P, Raptor, SecondHeading } from "./textStyles";
 import { ServiceCard } from "./ServiceCard";
 import { ButtonLink, TextLink } from "./links";
 import { ContactForm } from "@/components/contact_form";
-import { CheckMark } from "./checkMark";
 import { LogoCarousel } from "./logocarousel";
 import Statistics from "@/components/Statistics";
 import GoogleReviews from "@/components/GoogleReviews";
-import { Star, ExternalLink } from "lucide-react";
+import { Check, Star, ExternalLink } from "lucide-react";
 import { RATING } from "@/lib/seo/localBusiness";
-import { Accordion } from "@heroui/react";
+import { Accordion, Chip } from "@heroui/react";
 import { onFaqTriggerKeyDown } from "./faqKeyboard";
 
 export type FaqItem = { question: string; answer: string };
+
+// Strengths listed next to the contact form, each one a HeroUI v3 Chip with a check icon.
+const STRENGTHS = ["Réponse rapide", "Devis personnalisé et gratuit", "Experts Engagés", "Transparence", "Qualité"];
 
 // One FAQ column: the HeroUI v3 Accordion with its own styles. The data-faq-* markers drive
 // the arrow, Home and End keys of faqKeyboard.ts.
@@ -189,13 +191,16 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
                 pouvons donner vie à vos idées avec efficacité et savoir-faire.
               </p>
             </P>
-            <div className="flex flex-col items-start md:flex-row md:justify-start flex-wrap gap-6 mt-12">
-              <CheckMark content="Réponse rapide" />
-              <CheckMark content="Devis personnalisé et gratuit" />
-              <CheckMark content="Experts Engagés" />
-              <CheckMark content="Transparence" />
-              <CheckMark content="Qualité" />
-            </div>
+            <ul className="flex flex-wrap gap-3 mt-12">
+              {STRENGTHS.map((label) => (
+                <li key={label}>
+                  <Chip color="accent" variant="soft" size="lg">
+                    <Check aria-hidden size={14} />
+                    <Chip.Label>{label}</Chip.Label>
+                  </Chip>
+                </li>
+              ))}
+            </ul>
             <div className="flex flex-col md:flex-col items-start gap-6 mt-12">
               <div>
                 <P customClasses="font-medium">Téléphone</P>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Card } from "@heroui/react";
+import { Avatar, Button, Card, ScrollShadow } from "@heroui/react";
 import { SecondHeading, P } from "@/app/_components/textStyles";
 import { Star, ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
 import { useRef, useState, useEffect, useCallback } from "react";
@@ -129,31 +129,28 @@ export default function GoogleReviews() {
         <p>Découvrez ce que nos clients disent de leur expérience avec nous.</p>
       </P>
       <div className="w-full mt-6">
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] scrollbar-none touch-pan-x overscroll-x-contain overscroll-y-none"
-            onMouseEnter={pauseCarousel}
-            onMouseLeave={resumeCarousel}
-            onTouchStart={pauseCarousel}
-            onTouchEnd={resumeCarousel}
-            style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
-          >
-            {reviews.map((review, i) => (
-              <ReviewCard
-                key={i}
-                review={review}
-                expanded={!!expandedCards[i]}
-                onToggle={() => toggleCard(i)}
-              />
-            ))}
-          </div>
-          {/* Dégradé uniquement sur le carousel, pas sur le texte en dessous */}
-          <div
-            className="absolute top-0 right-0 bottom-0 w-20 sm:w-28 pointer-events-none bg-linear-to-l from-background to-transparent z-10"
-            aria-hidden
-          />
-        </div>
+        {/* HeroUI v3 ScrollShadow: it is the scrolling row, and its fade marks the edge where more
+            reviews follow. The auto-scroll moves its scrollLeft. */}
+        <ScrollShadow
+          ref={scrollRef}
+          orientation="horizontal"
+          hideScrollBar
+          className="flex gap-4 overflow-y-hidden snap-x snap-proximity md:snap-mandatory py-2 px-3 -mx-1 min-h-[180px] touch-pan-x overscroll-x-contain overscroll-y-none"
+          onMouseEnter={pauseCarousel}
+          onMouseLeave={resumeCarousel}
+          onTouchStart={pauseCarousel}
+          onTouchEnd={resumeCarousel}
+          style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
+        >
+          {reviews.map((review, i) => (
+            <ReviewCard
+              key={i}
+              review={review}
+              expanded={!!expandedCards[i]}
+              onToggle={() => toggleCard(i)}
+            />
+          ))}
+        </ScrollShadow>
         <p className="mt-2 text-right text-sm text-muted flex items-center justify-end gap-1">
           <span>Plus d&apos;avis</span>
           <ChevronRight className="w-4 h-4 text-accent" aria-hidden />

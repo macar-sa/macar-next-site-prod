@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import NextLink from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@heroui/react/breadcrumbs";
+import { Card } from "@heroui/react/card";
+import { Chip } from "@heroui/react/chip";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import Screen from "../../_components/screen";
-import { Breadcrumbs } from "../../_components/jsonld";
-import { ButtonLink, TextLink } from "../../_components/links";
+import { Breadcrumbs as BreadcrumbsJsonLd } from "../../_components/jsonld";
+import { ButtonLink } from "../../_components/links";
 import {
   getAllSlugs,
   getPostBySlug,
@@ -99,7 +102,7 @@ export default async function BlogPostPage({
 
   return (
     <main className="flex min-h-screen flex-col">
-      <Breadcrumbs
+      <BreadcrumbsJsonLd
         items={[
           { name: "Accueil", url: `${SITE_URL}/` },
           { name: "Blog", url: `${SITE_URL}/blog` },
@@ -113,14 +116,20 @@ export default async function BlogPostPage({
 
       <Screen name="post-hero">
         <article className="mx-auto max-w-3xl">
-          <p className="mb-6 text-sm">
-            <TextLink href="/blog">← Tous les articles</TextLink>
-          </p>
+          {/* Visible trail, same items as the JSON-LD above. flex-wrap and shrink on the last item
+              let a long title wrap on a phone instead of overflowing (layout classes only). */}
+          <nav aria-label="Fil d'Ariane" className="mb-6">
+            <Breadcrumbs className="flex-wrap">
+              <Breadcrumbs.Item href="/">Accueil</Breadcrumbs.Item>
+              <Breadcrumbs.Item href="/blog">Blog</Breadcrumbs.Item>
+              <Breadcrumbs.Item className="shrink">{post.title}</Breadcrumbs.Item>
+            </Breadcrumbs>
+          </nav>
 
-          <div className="flex flex-row items-center gap-3 text-xs text-muted mb-4">
-            <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 font-medium">
+          <div className="flex flex-row flex-wrap items-center gap-3 text-xs text-muted mb-4">
+            <Chip color="accent" variant="soft" size="sm">
               {post.category}
-            </span>
+            </Chip>
             <span>{formatPostDateFR(post.datePublished)}</span>
             <span aria-hidden="true">·</span>
             <span>{post.readingMinutes} min de lecture</span>
@@ -160,30 +169,30 @@ export default async function BlogPostPage({
             />
           </div>
 
-          <div className="mt-16 rounded-lg border border-border bg-surface p-8">
-            <h2 className="font-heading text-2xl lg:text-3xl text-foreground mb-3">
-              Un projet en tête ?
-            </h2>
-            <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6 mb-6 max-w-prose">
-              Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
-            </p>
-            <div className="flex flex-row flex-wrap gap-3">
+          {/* The h2 keeps Raptor and the heading level (Card.Title is an h3). */}
+          <Card className="mt-16">
+            <Card.Header>
+              <h2 className="font-heading text-2xl lg:text-3xl text-foreground mb-3">
+                Un projet en tête ?
+              </h2>
+              <Card.Description className="max-w-prose">
+                Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
+              </Card.Description>
+            </Card.Header>
+            <Card.Footer className="flex-wrap gap-3">
               <ButtonLink href="/#contact">Demander un devis</ButtonLink>
               <ButtonLink href="/services" variant="tertiary">
                 Voir nos services
               </ButtonLink>
-            </div>
-          </div>
+            </Card.Footer>
+          </Card>
 
           {post.tags.length > 0 && (
             <div className="mt-10 flex flex-row flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-block rounded-full border border-border text-muted px-3 py-1 text-xs"
-                >
+                <Chip key={tag} size="sm">
                   #{tag}
-                </span>
+                </Chip>
               ))}
             </div>
           )}
@@ -198,18 +207,16 @@ export default async function BlogPostPage({
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {others.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/blog/${p.slug}`}
-                  className="group rounded-lg border border-border bg-surface p-6 transition-all duration-300 hover:border-accent"
-                >
-                  <span className="inline-block rounded-full bg-accent-soft text-accent px-3 py-1 text-xs font-medium mb-3">
-                    {p.category}
-                  </span>
-                  <h3 className="text-base lg:text-lg text-foreground font-medium leading-snug lg:leading-7 group-hover:text-accent transition-colors">
-                    {p.title}
-                  </h3>
-                </Link>
+                <NextLink key={p.slug} href={`/blog/${p.slug}`} className="block h-full">
+                  <Card className="h-full">
+                    <Chip color="accent" variant="soft" size="sm">
+                      {p.category}
+                    </Chip>
+                    <Card.Header>
+                      <Card.Title>{p.title}</Card.Title>
+                    </Card.Header>
+                  </Card>
+                </NextLink>
               ))}
             </div>
           </div>
