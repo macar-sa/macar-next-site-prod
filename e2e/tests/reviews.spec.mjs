@@ -91,6 +91,7 @@ test.describe("avis à jour", () => {
     const cards = page.locator('#reviews [data-slot="card"]');
     await expect(cards.filter({ hasText: "Cathe" })).toContainText("le suivi après les travaux");
     await expect(cards.filter({ hasText: "Safdar Butt" })).toHaveCount(1);
+    await expect(cards.filter({ hasText: "Carole Jenner" })).toContainText("fenêtres doubles et triples");
     await expect(page.getByText("· 12 avis Google")).toBeVisible();
   });
 });
