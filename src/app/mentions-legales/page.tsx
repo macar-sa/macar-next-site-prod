@@ -43,7 +43,7 @@ export default function MentionsLegalesPage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody}>
                             <p className="leading-loose">
-                                Macar SRL<br />
+                                Macar SA<br />
                                 Avenue Prudent Bols, 43<br />
                                 B-1020 Bruxelles, Belgique<br />
                                 Téléphone : +32 478 23 50 08 · Fixe : +32 2 466 53 04<br />
@@ -58,7 +58,7 @@ export default function MentionsLegalesPage() {
                         <ThirdHeading customClasses={sectionHeading}>
                             <h2>Directeur de la publication</h2>
                         </ThirdHeading>
-                        <P customClasses={sectionBody} content="Le directeur de la publication du site macar.be est le représentant légal de Macar SRL." />
+                        <P customClasses={sectionBody} content="Le directeur de la publication du site macar.be est le représentant légal de Macar SA." />
                     </section>
                     <Separator />
 
@@ -80,7 +80,7 @@ export default function MentionsLegalesPage() {
                         <ThirdHeading customClasses={sectionHeading}>
                             <h2>Propriété intellectuelle</h2>
                         </ThirdHeading>
-                        <P customClasses={sectionBody} content="L'ensemble des contenus présents sur le site macar.be (textes, photographies, illustrations, logos, marques, éléments graphiques) est la propriété exclusive de Macar SRL ou de ses partenaires, et est protégé par la législation belge et internationale relative à la propriété intellectuelle. Toute reproduction, représentation, modification, publication, adaptation totale ou partielle des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable de Macar SRL." />
+                        <P customClasses={sectionBody} content="L'ensemble des contenus présents sur le site macar.be (textes, photographies, illustrations, logos, marques, éléments graphiques) est la propriété exclusive de Macar SA ou de ses partenaires, et est protégé par la législation belge et internationale relative à la propriété intellectuelle. Toute reproduction, représentation, modification, publication, adaptation totale ou partielle des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable de Macar SA." />
                     </section>
                     <Separator />
 
@@ -88,7 +88,7 @@ export default function MentionsLegalesPage() {
                         <ThirdHeading customClasses={sectionHeading}>
                             <h2>Responsabilité</h2>
                         </ThirdHeading>
-                        <P customClasses={sectionBody} content="Macar SRL s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le site, mais ne peut garantir l'absence d'erreurs ou d'omissions. L'utilisateur reconnaît utiliser les informations du site sous sa responsabilité exclusive. Macar SRL ne saurait être tenue responsable des dommages directs ou indirects pouvant résulter de l'accès au site ou de l'utilisation de son contenu." />
+                        <P customClasses={sectionBody} content="Macar SA s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le site, mais ne peut garantir l'absence d'erreurs ou d'omissions. L'utilisateur reconnaît utiliser les informations du site sous sa responsabilité exclusive. Macar SA ne saurait être tenue responsable des dommages directs ou indirects pouvant résulter de l'accès au site ou de l'utilisation de son contenu." />
                     </section>
                     <Separator />
 

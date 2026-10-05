@@ -55,3 +55,18 @@ test.describe("pages légales, Separator entre les sections", () => {
     });
   }
 });
+
+test.describe("pages légales, forme juridique", () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
+  test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL));
+
+  // Macar est une SA, pas une SRL.
+  for (const path of ["/mentions-legales", "/politique-confidentialite"]) {
+    test(`${path} : l'éditeur est Macar SA`, async ({ page }) => {
+      await open(page, path);
+      const main = page.locator("main");
+      await expect(main).toContainText("Macar SA");
+      await expect(main).not.toContainText("SRL");
+    });
+  }
+});
