@@ -31,6 +31,7 @@ const COOKIES = [
     { name: "_ga_*", issuer: "Google Analytics 4", purpose: "Conserver l'état de la session", duration: "13 mois" },
     { name: "Vercel Analytics", issuer: "Vercel", purpose: "Mesure d'audience anonyme, sans cookie", duration: "Aucun cookie" },
     { name: "macar_consent", issuer: "Macar", purpose: "Mémoriser vos choix concernant les cookies", duration: "6 mois" },
+    { name: "macar_origine", issuer: "Macar", purpose: "Retenir la provenance de votre visite pour la joindre à votre demande de devis (si vous acceptez Publicité), stockage de session, sans cookie", duration: "Fin de la visite" },
 ];
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";

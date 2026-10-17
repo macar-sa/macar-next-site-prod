@@ -68,6 +68,13 @@ export default function PolitiqueConfidentialitePage() {
                                         e-mail, contenu du message.
                                     </li>
                                     <li>
+                                        Provenance de votre demande, jointe à votre message quand vous
+                                        utilisez le formulaire : page d&apos;où vous l&apos;envoyez et
+                                        manière dont vous êtes arrivé sur le site (publicité, moteur de
+                                        recherche, site référent ou accès direct), sans identifiant
+                                        publicitaire.
+                                    </li>
+                                    <li>
                                         Données techniques collectées automatiquement via Google
                                         Analytics 4 et Vercel Analytics : type d&apos;appareil, navigateur,
                                         pages visitées, durée de visite, source de trafic, adresse IP
@@ -86,8 +93,9 @@ export default function PolitiqueConfidentialitePage() {
                         <P customClasses={sectionBody}>
                             <ul className="list-disc pl-6 leading-loose">
                                 <li>
-                                    Répondre à vos demandes de devis ou questions. Base légale :
-                                    mesures précontractuelles à votre demande (art. 6.1.b RGPD).
+                                    Répondre à vos demandes de devis ou questions et savoir comment
+                                    vous nous avez trouvés. Base légale : mesures précontractuelles à
+                                    votre demande (art. 6.1.b RGPD).
                                 </li>
                                 <li>
                                     Mesurer l&apos;audience et améliorer le site. Base légale : votre
@@ -135,6 +143,11 @@ export default function PolitiqueConfidentialitePage() {
                                     Données d&apos;audience (Google Analytics 4) : 14 mois.
                                 </li>
                                 <li>
+                                    Provenance de votre visite gardée sur votre appareil (si vous
+                                    acceptez la catégorie Publicité) : effacée à la fermeture de
+                                    l&apos;onglet.
+                                </li>
+                                <li>
                                     Cookies : voir la{" "}
                                     <TextLink underline href="/politique-cookies">politique cookies</TextLink>
                                     .
@@ -164,7 +177,7 @@ export default function PolitiqueConfidentialitePage() {
                     <Separator />
 
                     <p className="text-muted text-xs mt-10">
-                        Dernière mise à jour : 17 mai 2026.
+                        Dernière mise à jour : 17 octobre 2026.
                     </p>
                 </div>
             </Screen>
