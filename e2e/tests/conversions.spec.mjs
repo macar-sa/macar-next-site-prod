@@ -109,3 +109,122 @@ test.describe("formulaire", () => {
     expect(await events(page)).toEqual([]);
   });
 });
+
+// Origin of the request: read at arrival (memory), kept in sessionStorage only with Publicité,
+// joined to every submission as "origine" and "page". The gclid value itself never travels.
+const readStored = (page) => page.evaluate(() => sessionStorage.getItem("macar_origine"));
+const goHomeByMenu = async (page) => {
+  await page.getByRole("link", { name: "Accueil" }).first().click();
+  await expect(page).toHaveURL(/\/$/);
+};
+const banner = (page) => page.getByRole("region", { name: "Consentement aux cookies" });
+
+test.describe("origine de la demande", () => {
+  test("gclid sans choix de cookies, navigation, envoi : Pub Google, rien en session, aucun événement", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL, { consent: false });
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/services/toiture?gclid=test123");
+    expect(await readStored(page)).toBeNull();
+    await goHomeByMenu(page);
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /services/toiture", page: "/" });
+    expect(JSON.stringify(bodies[0])).not.toContain("test123");
+    expect(await events(page)).toEqual([]);
+  });
+
+  test("gclid avec Publicité : mémorisé sans la valeur, survit au rechargement", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/services/toiture?gclid=test123");
+    const stored = JSON.parse(await readStored(page));
+    expect(stored).toMatchObject({ ad: true, landing: "/services/toiture" });
+    expect(JSON.stringify(stored)).not.toContain("test123");
+    await open(page, "/");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /services/toiture", page: "/" });
+  });
+
+  test("gclid avec Publicité refusée : rien en session, perdu au rechargement", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL, { consent: { analytics: true, marketing: false } });
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/services/toiture?gclid=test123");
+    expect(await readStored(page)).toBeNull();
+    await open(page, "/");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0]).toMatchObject({ origine: "Accès direct ou favori", page: "/" });
+  });
+
+  test("utm sans gclid : Campagne source / campaign", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/?utm_source=facebook&utm_campaign=toiture");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0].origine).toBe("Campagne facebook / toiture, arrivée sur /");
+  });
+
+  test("utm_medium=cpc compte comme une pub", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL, { consent: false });
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/zones/uccle?utm_source=google&utm_medium=cpc");
+    await goHomeByMenu(page);
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0].origine).toBe("Pub Google, arrivée sur /zones/uccle");
+  });
+
+  test("référent Google sans paramètre : Recherche Google", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await page.goto("/", { referer: "https://www.google.com/" });
+    await page.waitForLoadState("networkidle");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0].origine).toBe("Recherche Google");
+  });
+
+  test("Publicité accordée après navigation : l'arrivée gardée en mémoire est conservée", async ({ page, context, baseURL }) => {
+    await prepare(context, baseURL, { consent: false });
+    await open(page, "/services/toiture?gclid=late");
+    await goHomeByMenu(page);
+    expect(await readStored(page)).toBeNull();
+    await banner(page).getByRole("button", { name: "Tout accepter" }).click();
+    await expect.poll(() => readStored(page)).toContain('"landing":"/services/toiture"');
+  });
+
+  test("retrait de Publicité : la clé disparaît sans recharger", async ({ page, context, baseURL }) => {
+    await prepare(context, baseURL);
+    await open(page, "/services/toiture?gclid=gone");
+    expect(await readStored(page)).not.toBeNull();
+    await page.getByRole("button", { name: "Gérer mes cookies" }).click();
+    await page.getByText("Publicité", { exact: true }).click();
+    await page.getByRole("button", { name: "Enregistrer mes choix" }).click();
+    await expect.poll(() => readStored(page)).toBeNull();
+  });
+
+  test("sessionStorage indisponible : l'envoi passe, l'origine vient de la mémoire", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await page.addInitScript(() => {
+      Object.defineProperty(window, "sessionStorage", {
+        get() {
+          throw new Error("blocked");
+        },
+      });
+    });
+    await open(page, "/?gclid=blocked");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /", page: "/" });
+  });
+});

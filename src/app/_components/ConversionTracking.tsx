@@ -2,11 +2,17 @@
 
 import { useEffect } from "react";
 import { MACAR_PHONES, normalizePhone, trackEvent } from "@/lib/analytics";
+import { onConsentChange } from "@/lib/consent";
+import { persistArrival, rememberArrival } from "@/lib/origin";
 
-// Invisible. Counts clicks on Macar's phone numbers wherever they appear (delegated listener,
-// so footer and HomeView keep their plain links). Never prevents the call.
+// Invisible. Remembers where the visitor arrived from, and counts clicks on Macar's phone
+// numbers wherever they appear (delegated listener, so footer and HomeView keep their plain
+// links). Never prevents the call.
 export default function ConversionTracking() {
   useEffect(() => {
+    rememberArrival();
+    persistArrival();
+    const offConsent = onConsentChange(() => persistArrival());
     const onClick = (event: MouseEvent) => {
       const target = event.target instanceof Element ? event.target : null;
       const anchor = target?.closest<HTMLAnchorElement>('a[href^="tel:"]');
@@ -19,7 +25,10 @@ export default function ConversionTracking() {
       });
     };
     document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
+    return () => {
+      offConsent();
+      document.removeEventListener("click", onClick);
+    };
   }, []);
   return null;
 }
