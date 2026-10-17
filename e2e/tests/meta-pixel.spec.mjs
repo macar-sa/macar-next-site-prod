@@ -2,7 +2,7 @@
 // revoke, cookies removed on withdrawal, Lead and Contact. The script itself is blocked by the
 // network policy, so the base code's queue stays readable.
 import { test, expect } from "@playwright/test";
-import { prepare, open, keepTelClicks, CONSENT, META_PIXEL_ID, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
+import { prepare, open, keepTelClicks, META_PIXEL_ID, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -129,7 +129,7 @@ test("envoi réussi avec Publicité : Lead", async ({ page, context, baseURL }) 
 });
 
 test("Analytique seul : le clic téléphone ne crée pas de fbq", async ({ page, context, baseURL }) => {
-  await prepare(context, baseURL, { consent: CONSENT.none });
+  await prepare(context, baseURL, { consent: { analytics: true, marketing: false } });
   await keepTelClicks(page);
   await open(page, "/");
   await page.locator("footer").getByRole("link", { name: "+32 478 23 50 08" }).click();

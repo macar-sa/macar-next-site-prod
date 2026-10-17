@@ -154,12 +154,12 @@ Un relecteur « constructeur » a lu la première version. Tranché par l'auteur
 - Forme du texte de `CLAUDE.md` et de la PR.
 - Ordre d'implémentation. Suggestion : utilitaire et téléphone, puis formulaire, puis origine, puis légal, chaque étape avec son test.
 
-## 6. Liste de contrôle de fin
+## 5bis. Liste de contrôle de fin
 
 - [ ] Avec « tout accepté » : clic téléphone et envoi réussi produisent les deux événements dans `dataLayer` ; avec « tout refusé » ou sans choix, aucun `event`.
 - [ ] Aucune requête vers Google ni Formspree ne sort des tests.
 - [ ] Mail de test reçu sur info@macar.be avec les lignes `origine` et `page` (vérification manuelle en production, après fusion).
-- [ ] Arrivée avec `gclid` sans choix de cookies, navigation, envoi : la ligne `origine` dit `Pub Google`. `sessionStorage` vide sans accord Publicité, rempli avec l'accord (sans la valeur du `gclid`), vidé au retrait.
+- [ ] Arrivée avec `gclid` sans choix de cookies, navigation, envoi : la ligne `origine` dit `Pub Google`. `sessionStorage` vide sans accord Publicité, rempli avec l'accord (avec la valeur du `gclid` depuis la section 6.1.2), vidé au retrait.
 - [ ] Pages légales et `legal.spec.mjs` à jour.
 - [ ] `npm run lint`, `npx tsc --noEmit`, `npm run build`, `npm run test:e2e` au vert, en local et en CI.
 - [ ] Captures 375 px et 1440 px du formulaire après succès : rien ne bouge visuellement (la mesure est invisible).
@@ -170,7 +170,7 @@ Demande du propriétaire, après la relecture de la branche : appliquer les amé
 
 ### 6.1 Ce qui change sur le site
 
-1. **Attribution Google après navigation.** Quand le visiteur accepte Analytique après avoir quitté sa page d'arrivée, l'URL ne porte plus les paramètres de la pub. `GoogleTag` envoie alors dans son `config` un `page_location` reconstruit à partir de l'arrivée gardée en mémoire (`arrivalPageLocation()` de `src/lib/origin.ts`). Les identifiants de clic (`gclid`, `gbraid`, `wbraid`) n'y figurent que si Publicité est accordé ; sinon seuls les `utm_*` restent. Rien ne change si le visiteur est encore sur sa page d'arrivée ou s'il est arrivé sans paramètre. (`ads_data_redaction`, posé par M.1, masque de toute façon les identifiants quand `ad_storage` est refusé.)
+1. **Attribution Google après navigation.** Quand le visiteur accepte Analytique après avoir quitté sa page d'arrivée, l'URL ne porte plus les paramètres de la pub. `GoogleTag` envoie alors, à la place de la page vue automatique (`send_page_view: false` dans le `config`), un événement `page_view` unique portant un `page_location` reconstruit à partir de l'arrivée gardée en mémoire (`arrivalPageLocation()` de `src/lib/origin.ts`). Ce paramètre n'est pas mis dans le `config` : il collerait à tous les événements suivants de la page. Les identifiants de clic (`gclid`, `gbraid`, `wbraid`) n'y figurent que si Publicité est accordé ; sinon seuls les `utm_*` restent. Rien ne change si le visiteur est encore sur sa page d'arrivée ou s'il est arrivé sans paramètre. (`ads_data_redaction`, posé par M.1, masque de toute façon les identifiants quand `ad_storage` est refusé.)
 2. **Identifiant de clic pour les conversions hors ligne.** La valeur du `gclid` (ou `gbraid`, `wbraid`) est désormais gardée en mémoire à l'arrivée, conservée dans `sessionStorage` seulement avec Publicité, et **jointe à la demande seulement si Publicité est accordé au moment de l'envoi**, dans un champ du même nom. But : recopier cet identifiant dans Dolibarr avec le devis, puis importer les devis signés dans Google Ads comme conversions hors ligne. Cela remplace la décision 3 de la section 4.8 et l'anti-objectif sur la valeur du `gclid`, à la demande du propriétaire. La valeur n'est acceptée que si elle ne contient que lettres, chiffres, `_` et `-`, 200 caractères au plus.
 3. **Pixel Meta** (`src/lib/meta.ts`, `_components/MetaPixel.tsx`). Chargé seulement si `NEXT_PUBLIC_FACEBOOK_PIXEL_ID` est défini et que Publicité est accordé : `fbq('consent','grant')`, `init`, `PageView`, puis le script `connect.facebook.net/en_US/fbevents.js`. Le pixel compte lui-même les changements de page de l'application (événements d'historique, comportement par défaut vérifié dans `fbevents.js`). Au retrait de Publicité : `fbq('consent','revoke')` et suppression des cookies `_fbp` et `_fbc`. Événements : `Lead` au succès Formspree, `Contact` au clic sur un numéro Macar, tous deux seulement avec Publicité. Sans identifiant de pixel, rien n'est chargé.
 4. **Consentement en version 2.** La catégorie Publicité couvre désormais aussi Meta : `CONSENT_VERSION` passe à 2, les visiteurs qui avaient répondu à la version 1 (en production depuis la PR #24) revoient la bannière. La description de Publicité nomme Google et Meta.

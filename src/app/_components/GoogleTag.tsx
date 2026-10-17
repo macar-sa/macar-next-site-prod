@@ -63,9 +63,12 @@ function apply({ current, previous }: ConsentChangeDetail, gaId?: string) {
       googleLoaded = true;
       gtag("js", new Date());
       // Granted after leaving the landing page: give GA4 the landing URL back, or the session
-      // loses its campaign (and Google Ads its click). Click ids only with Advertising.
+      // loses its campaign (and Google Ads its click). Click ids only with Advertising. It goes
+      // on a one-off page_view, not on the config, whose parameters would stick to every later
+      // event of the page load (page views, phone_click, generate_lead).
       const pageLocation = arrivalPageLocation(current.marketing);
-      gtag("config", gaId, { cookie_expires: COOKIE_EXPIRES, ...(pageLocation && { page_location: pageLocation }) });
+      gtag("config", gaId, { cookie_expires: COOKIE_EXPIRES, ...(pageLocation && { send_page_view: false }) });
+      if (pageLocation) gtag("event", "page_view", { page_location: pageLocation });
       const script = document.createElement("script");
       script.async = true;
       script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;

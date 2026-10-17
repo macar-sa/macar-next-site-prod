@@ -183,6 +183,19 @@ test.describe("origine de la demande", () => {
     expect(bodies[0]).not.toHaveProperty("gclid");
   });
 
+  test("gclid, Analytique seul, navigation sans recharger : Pub Google mais pas d'identifiant de clic", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL, { consent: { analytics: true, marketing: false } });
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/services/toiture?gclid=test123");
+    await goHomeByMenu(page);
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /services/toiture", page: "/" });
+    expect(bodies[0]).not.toHaveProperty("gclid");
+    expect(JSON.stringify(bodies[0])).not.toContain("test123");
+  });
+
   test("utm sans gclid : Campagne source / campaign", async ({ page, context, baseURL }) => {
     test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
     await prepare(context, baseURL);
@@ -334,6 +347,9 @@ test.describe("page_location après navigation", () => {
   const SKIP_GA = "build sans NEXT_PUBLIC_GOOGLE_ANALYTICS";
   const LANDING = "/services/toiture?gclid=abc&utm_source=google";
   const config = async (page) => (await readDataLayer(page)).find((e) => e[0] === "config");
+  // The landing URL goes on a one-off page_view, never on the config: config parameters would
+  // stick to every later event of the page load (page views, phone_click, generate_lead).
+  const pageViews = async (page) => (await readDataLayer(page)).filter((e) => e[0] === "event" && e[1] === "page_view");
   const grantAnalyticsOnly = async (page) => {
     await banner(page).getByRole("button", { name: "Personnaliser" }).click();
     await page.getByRole("switch", { name: "Analytique" }).focus();
@@ -349,7 +365,8 @@ test.describe("page_location après navigation", () => {
     await goHomeByMenu(page);
     await banner(page).getByRole("button", { name: "Tout accepter" }).click();
     await expect.poll(() => config(page)).toBeTruthy();
-    expect(await config(page)).toEqual(["config", GA_ID, { cookie_expires: 33696000, page_location: `${baseURL}${LANDING}` }]);
+    expect(await config(page)).toEqual(["config", GA_ID, { cookie_expires: 33696000, send_page_view: false }]);
+    expect(await pageViews(page)).toEqual([["event", "page_view", { page_location: `${baseURL}${LANDING}` }]]);
   });
 
   test("Analytique seul : page_location sans identifiant de clic", async ({ page, context, baseURL }) => {
@@ -359,7 +376,8 @@ test.describe("page_location après navigation", () => {
     await goHomeByMenu(page);
     await grantAnalyticsOnly(page);
     await expect.poll(() => config(page)).toBeTruthy();
-    expect((await config(page))[2]).toEqual({ cookie_expires: 33696000, page_location: `${baseURL}/services/toiture?utm_source=google` });
+    expect((await config(page))[2]).toEqual({ cookie_expires: 33696000, send_page_view: false });
+    expect(await pageViews(page)).toEqual([["event", "page_view", { page_location: `${baseURL}/services/toiture?utm_source=google` }]]);
   });
 
   test("Analytique seul, gclid sans utm : pas de page_location", async ({ page, context, baseURL }) => {
@@ -370,6 +388,7 @@ test.describe("page_location après navigation", () => {
     await grantAnalyticsOnly(page);
     await expect.poll(() => config(page)).toBeTruthy();
     expect((await config(page))[2]).toEqual({ cookie_expires: 33696000 });
+    expect(await pageViews(page)).toEqual([]);
   });
 
   test("acceptation sur la page d'arrivée : pas de page_location", async ({ page, context, baseURL }) => {
@@ -379,5 +398,6 @@ test.describe("page_location après navigation", () => {
     await banner(page).getByRole("button", { name: "Tout accepter" }).click();
     await expect.poll(() => config(page)).toBeTruthy();
     expect((await config(page))[2]).toEqual({ cookie_expires: 33696000 });
+    expect(await pageViews(page)).toEqual([]);
   });
 });
