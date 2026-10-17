@@ -13,7 +13,8 @@ export type ConsentChangeDetail = { current: StoredConsent; previous: StoredCons
 export const CONSENT_COOKIE = "macar_consent";
 export const LEGACY_CONSENT_COOKIE = "macar_cookie_consent_is_true";
 // Raise it when the banner or its categories change significantly: older choices are then ignored.
-export const CONSENT_VERSION = 1;
+// 2 (17 October 2026): Publicité also covers the Meta Pixel.
+export const CONSENT_VERSION = 2;
 export const CONSENT_MAX_AGE_DAYS = 182;
 // Window event carrying a ConsentChangeDetail; also relayed to the other open tabs.
 export const CONSENT_CHANGE_EVENT = "macar:consent-change";

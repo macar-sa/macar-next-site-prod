@@ -7,6 +7,8 @@ import { NavBar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
 import CookieConsent from "./_components/CookieConsent";
 import GoogleTag from "./_components/GoogleTag";
+import ConversionTracking from "./_components/ConversionTracking";
+import MetaPixel from "./_components/MetaPixel";
 import { Analytics } from "@vercel/analytics/react"
 import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
 
@@ -65,6 +67,7 @@ export const metadata: Metadata = {
 };
 
 const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim();
+const metaPixelId = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID?.trim();
 
 export default function RootLayout({
   children,
@@ -105,6 +108,8 @@ export default function RootLayout({
       <body className="bg-background text-muted antialiased">
         <Providers>
           <GoogleTag gaId={gaId} />
+          <ConversionTracking />
+          <MetaPixel pixelId={metaPixelId} />
           <NavBar />
           {children}
           <CookieConsent />

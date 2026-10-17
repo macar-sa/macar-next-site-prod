@@ -25,7 +25,8 @@ const OPTIONAL_CATEGORIES: { key: ConsentCategory; label: string; description: s
   {
     key: "marketing",
     label: "Publicité",
-    description: "Mesurer l'efficacité de nos publicités et vous en montrer de plus pertinentes.",
+    description:
+      "Mesurer l'efficacité de nos publicités Google et Meta (Facebook, Instagram) et vous en montrer de plus pertinentes.",
   },
 ];
 
