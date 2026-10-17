@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { onConsentChange, readConsent, type ConsentChangeDetail } from "@/lib/consent";
+import { arrivalPageLocation } from "@/lib/origin";
 
 // 13 months of 30 days, in seconds.
 const COOKIE_EXPIRES = 33696000;
@@ -77,7 +78,10 @@ function apply({ current, previous }: ConsentChangeDetail, gaId?: string) {
     if (!googleLoaded) {
       googleLoaded = true;
       gtag("js", new Date());
-      gtag("config", gaId, { cookie_expires: COOKIE_EXPIRES });
+      // Granted after leaving the landing page: give GA4 the landing URL back, or the session
+      // loses its campaign (and Google Ads its click). Click ids only with Advertising.
+      const pageLocation = arrivalPageLocation(current.marketing);
+      gtag("config", gaId, { cookie_expires: COOKIE_EXPIRES, ...(pageLocation && { page_location: pageLocation }) });
       const script = document.createElement("script");
       script.async = true;
       script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;

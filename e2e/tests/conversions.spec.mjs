@@ -1,6 +1,6 @@
 // Conversions (spec 2026-10-17-conversions): events only with Analytics granted, read in dataLayer.
 import { test, expect } from "@playwright/test";
-import { prepare, open, events, CONSENT, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
+import { prepare, open, events, readDataLayer, CONSENT, GA_ID, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -337,5 +337,59 @@ test.describe("origine de la demande", () => {
     await fillAndSend(page);
     await expect(page.getByText(SENT)).toBeVisible();
     expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /", page: "/" });
+  });
+});
+
+// Google attribution after navigation: the landing URL's campaign parameters are given back to
+// GA4 as page_location when Analytics is granted on another page.
+test.describe("page_location après navigation", () => {
+  const SKIP_GA = "build sans NEXT_PUBLIC_GOOGLE_ANALYTICS";
+  const LANDING = "/services/toiture?gclid=abc&utm_source=google";
+  const config = async (page) => (await readDataLayer(page)).find((e) => e[0] === "config");
+  const grantAnalyticsOnly = async (page) => {
+    await banner(page).getByRole("button", { name: "Personnaliser" }).click();
+    await page.getByRole("switch", { name: "Analytique" }).focus();
+    await page.keyboard.press(" ");
+    await page.getByRole("button", { name: "Enregistrer mes choix" }).click();
+    await expect(banner(page)).toHaveCount(0);
+  };
+
+  test("tout accepté sur une autre page : page_location de l'arrivée, gclid compris", async ({ page, context, baseURL }) => {
+    test.skip(!GA_ID, SKIP_GA);
+    await prepare(context, baseURL, { consent: false });
+    await open(page, LANDING);
+    await goHomeByMenu(page);
+    await banner(page).getByRole("button", { name: "Tout accepter" }).click();
+    await expect.poll(() => config(page)).toBeTruthy();
+    expect(await config(page)).toEqual(["config", GA_ID, { cookie_expires: 33696000, page_location: `${baseURL}${LANDING}` }]);
+  });
+
+  test("Analytique seul : page_location sans identifiant de clic", async ({ page, context, baseURL }) => {
+    test.skip(!GA_ID, SKIP_GA);
+    await prepare(context, baseURL, { consent: false });
+    await open(page, LANDING);
+    await goHomeByMenu(page);
+    await grantAnalyticsOnly(page);
+    await expect.poll(() => config(page)).toBeTruthy();
+    expect((await config(page))[2]).toEqual({ cookie_expires: 33696000, page_location: `${baseURL}/services/toiture?utm_source=google` });
+  });
+
+  test("Analytique seul, gclid sans utm : pas de page_location", async ({ page, context, baseURL }) => {
+    test.skip(!GA_ID, SKIP_GA);
+    await prepare(context, baseURL, { consent: false });
+    await open(page, "/services/toiture?gclid=abc");
+    await goHomeByMenu(page);
+    await grantAnalyticsOnly(page);
+    await expect.poll(() => config(page)).toBeTruthy();
+    expect((await config(page))[2]).toEqual({ cookie_expires: 33696000 });
+  });
+
+  test("acceptation sur la page d'arrivée : pas de page_location", async ({ page, context, baseURL }) => {
+    test.skip(!GA_ID, SKIP_GA);
+    await prepare(context, baseURL, { consent: false });
+    await open(page, LANDING);
+    await banner(page).getByRole("button", { name: "Tout accepter" }).click();
+    await expect.poll(() => config(page)).toBeTruthy();
+    expect((await config(page))[2]).toEqual({ cookie_expires: 33696000 });
   });
 });
