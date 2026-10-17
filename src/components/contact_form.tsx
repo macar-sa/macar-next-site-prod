@@ -7,6 +7,7 @@ import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import axios from "axios";
 import { trackEvent } from "@/lib/analytics";
+import { trackMetaEvent } from "@/lib/meta";
 import { describeOrigin } from "@/lib/origin";
 
 const contactFormSchema = z.object({
@@ -79,6 +80,7 @@ export function ContactForm() {
       .then(() => {
         // Counted only once Formspree has accepted the request, never on the click.
         trackEvent("generate_lead", { lead_source: "formulaire_contact" });
+        trackMetaEvent("Lead");
         setValues(EMPTY_FORM);
         setSubmissionSuccess(true);
       })

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { MACAR_PHONES, normalizePhone, trackEvent } from "@/lib/analytics";
 import { onConsentChange } from "@/lib/consent";
+import { trackMetaEvent } from "@/lib/meta";
 import { persistArrival, rememberArrival } from "@/lib/origin";
 
 // Invisible. Remembers where the visitor arrived from, and counts clicks on Macar's phone
@@ -23,6 +24,7 @@ export default function ConversionTracking() {
         phone_number: phone,
         link_location: anchor.closest("footer") ? "pied_de_page" : "page",
       });
+      trackMetaEvent("Contact");
     };
     document.addEventListener("click", onClick);
     return () => {

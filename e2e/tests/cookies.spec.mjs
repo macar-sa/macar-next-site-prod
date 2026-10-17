@@ -41,7 +41,7 @@ test("Tout refuser enregistre deux non et ferme le bandeau", async ({ page, cont
   await banner(page).getByRole("button", { name: "Tout refuser" }).click();
   await expect(banner(page)).toHaveCount(0);
   const c = await storedConsent(context);
-  expect(c).toMatchObject({ analytics: false, marketing: false, version: 1 });
+  expect(c).toMatchObject({ analytics: false, marketing: false, version: 2 });
   expect(Number.isNaN(Date.parse(c.at))).toBe(false);
 });
 
@@ -49,7 +49,7 @@ test("Tout accepter enregistre deux oui et ferme le bandeau", async ({ page, con
   await open(page, "/");
   await banner(page).getByRole("button", { name: "Tout accepter" }).click();
   await expect(banner(page)).toHaveCount(0);
-  expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true, version: 1 });
+  expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true, version: 2 });
   // Attributes of the consent cookie: site-wide, Lax, about 6 months.
   const cookie = (await context.cookies()).find((c) => c.name === "macar_consent");
   const days = (cookie.expires - Date.now() / 1000) / 86400;
@@ -102,6 +102,18 @@ test("ancien cookie seul : bandeau affiché et ancien cookie supprimé", async (
   await open(page, "/");
   await expect(banner(page)).toBeVisible();
   expect((await context.cookies()).find((c) => c.name === "macar_cookie_consent_is_true")).toBeUndefined();
+});
+
+// Version 2: Publicité now covers Meta too, so a version 1 answer is asked again.
+test("choix enregistré en version 1 : bandeau affiché à nouveau", async ({ page, context, baseURL }) => {
+  await context.addCookies([{ ...consentCookie(CONSENT.all, { version: 1 }), url: baseURL }]);
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+});
+
+test("Publicité nomme Google et Meta", async ({ page }) => {
+  await openPreferences(page);
+  await expect(banner(page)).toContainText("Mesurer l'efficacité de nos publicités Google et Meta (Facebook, Instagram)");
 });
 
 test("cookie d'une autre version : bandeau affiché", async ({ page, context, baseURL }) => {
@@ -216,9 +228,9 @@ test("la politique cookies propose Gérer mes cookies, qui rouvre le second nive
   await expect(page.getByRole("switch")).toHaveCount(3);
 });
 
-test("la politique cookies affiche la version 1", async ({ page }) => {
+test("la politique cookies affiche la version 2", async ({ page }) => {
   await open(page, "/politique-cookies");
-  await expect(page.locator("main")).toContainText("Version 1, dernière mise à jour : 17 octobre 2026.");
+  await expect(page.locator("main")).toContainText("Version 2, dernière mise à jour : 17 octobre 2026.");
 });
 
 // Focus: moved into the reopened banner, given back to the trigger when it closes.

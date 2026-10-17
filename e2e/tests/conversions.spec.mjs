@@ -1,21 +1,9 @@
 // Conversions (spec 2026-10-17-conversions): events only with Analytics granted, read in dataLayer.
 import { test, expect } from "@playwright/test";
-import { prepare, open, events, readDataLayer, CONSENT, GA_ID, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
+import { prepare, open, events, readDataLayer, keepTelClicks, CONSENT, GA_ID, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
-// tel: links: keep the click in the page (headless Chromium has no dialer).
-const keepTelClicks = (page) =>
-  page.addInitScript(() => {
-    document.addEventListener(
-      "click",
-      (e) => {
-        const a = e.target instanceof Element && e.target.closest('a[href^="tel:"]');
-        if (a) e.preventDefault();
-      },
-      true,
-    );
-  });
 const footerGsm = (page) => page.locator("footer").getByRole("link", { name: "+32 478 23 50 08" });
 
 test.describe("clic téléphone", () => {

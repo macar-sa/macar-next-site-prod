@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 import { onConsentChange, readConsent, type ConsentChangeDetail } from "@/lib/consent";
 import { arrivalPageLocation } from "@/lib/origin";
+import { removeCookies } from "@/lib/cookies";
 
 // 13 months of 30 days, in seconds.
 const COOKIE_EXPIRES = 33696000;
@@ -31,22 +31,6 @@ function ensureGtag() {
     analytics_storage: "denied",
   });
   window.gtag("set", "ads_data_redaction", true);
-}
-
-// Removes the cookies whose name matches, on the exact host and on every parent domain
-// (www.macar.be, macar.be), since Google may have set them on either.
-function removeCookies(matches: (name: string) => boolean) {
-  const names = document.cookie
-    .split(";")
-    .map((part) => part.split("=")[0].trim())
-    .filter((name) => name && matches(name));
-  const labels = window.location.hostname.split(".");
-  const domains: string[] = [];
-  for (let i = 0; i <= labels.length - 2; i++) domains.push(labels.slice(i).join("."));
-  for (const name of names) {
-    Cookies.remove(name, { path: "/" });
-    for (const domain of domains) Cookies.remove(name, { path: "/", domain });
-  }
 }
 
 // Keyed on the current choice only (idempotent), so a refusal also clears cookies left over

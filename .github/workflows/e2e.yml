@@ -19,6 +19,8 @@ jobs:
       NEXT_PUBLIC_GOOGLE_ANALYTICS: G-TEST
       # Fake endpoint: the conversions tests intercept Formspree and answer themselves.
       NEXT_PUBLIC_FORMSPREE_ENDPOINT: https://formspree.io/f/test-e2e
+      # Fake pixel: the Meta script is blocked by the tests, its queue is read instead.
+      NEXT_PUBLIC_FACEBOOK_PIXEL_ID: "000000000000000"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

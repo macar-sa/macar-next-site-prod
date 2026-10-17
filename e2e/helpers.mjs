@@ -27,7 +27,7 @@ export const CONSENT = {
 };
 
 // The default version must match CONSENT_VERSION in src/lib/consent.ts.
-export function consentCookie(choice, { version = 1 } = {}) {
+export function consentCookie(choice, { version = 2 } = {}) {
   return {
     name: "macar_consent",
     value: encodeURIComponent(JSON.stringify({ ...choice, at: "2026-10-17T00:00:00.000Z", version })),
@@ -36,6 +36,23 @@ export function consentCookie(choice, { version = 1 } = {}) {
 
 // Google Analytics ID baked into the build; Google-dependent tests skip when it is empty.
 export const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim() || "";
+// Meta Pixel ID baked into the build; Meta-dependent tests skip when it is empty.
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID?.trim() || "";
+
+// tel: links: keep the click in the page (headless Chromium has no dialer).
+export async function keepTelClicks(page) {
+  await page.addInitScript(() => {
+    document.addEventListener(
+      "click",
+      (e) => {
+        const a = e.target instanceof Element && e.target.closest('a[href^="tel:"]');
+        if (a) e.preventDefault();
+      },
+      true,
+    );
+  });
+}
+
 // Formspree endpoint baked into the build; the form-success tests skip when it is empty.
 export const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT?.trim() || "";
 
