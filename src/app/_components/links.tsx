@@ -12,20 +12,27 @@ type NextLinkProps = ComponentProps<typeof NextLink>;
 // running text, where colour alone is not enough to tell a link apart (WCAG 1.4.1).
 // navigation: dark text that turns accent on hover, for the navbar, the mobile menu and the
 // footer (owner decision: navigation links stay dark as on the previous site).
+export function textLinkClassName({
+  underline,
+  navigation,
+  className,
+}: {
+  underline?: boolean;
+  navigation?: boolean;
+  className?: string;
+}): string {
+  return linkVariants().base({
+    className: [underline && "underline", navigation && "text-foreground hover:text-accent", className],
+  });
+}
+
 export function TextLink({
   className,
   underline,
   navigation,
   ...props
 }: NextLinkProps & { underline?: boolean; navigation?: boolean }) {
-  return (
-    <NextLink
-      {...props}
-      className={linkVariants().base({
-        className: [underline && "underline", navigation && "text-foreground hover:text-accent", className],
-      })}
-    />
-  );
+  return <NextLink {...props} className={textLinkClassName({ underline, navigation, className })} />;
 }
 
 // Action link: the v3 Button look. variant "primary" for the main action, "tertiary" for the second one.

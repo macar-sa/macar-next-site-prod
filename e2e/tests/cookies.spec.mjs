@@ -1,51 +1,248 @@
-// Spec 4 and 7: cookie banner with native v3 Card, Switch and Button. Behaviour unchanged.
+// Cookie banner: real per-category choice, two levels, keyboard, legacy and invalid cookies.
 import { test, expect } from "@playwright/test";
-import { prepare, open } from "../helpers.mjs";
+import { prepare, open, consentCookie, keyboardFocus, CONSENT } from "../helpers.mjs";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL, { consent: false }));
 
-const BANNER_TEXT = "Macar utilise des cookies";
+const banner = (page) => page.getByRole("region", { name: "Consentement aux cookies" });
+
+async function storedConsent(context) {
+  const cookie = (await context.cookies()).find((c) => c.name === "macar_consent");
+  return cookie ? JSON.parse(decodeURIComponent(cookie.value)) : null;
+}
 
 async function openPreferences(page) {
   await open(page, "/");
-  await expect(page.getByText(BANNER_TEXT)).toBeVisible();
-  await page.getByRole("button", { name: "Préférences", exact: true }).click();
+  await expect(banner(page)).toBeVisible();
+  await banner(page).getByRole("button", { name: "Personnaliser" }).click();
   await expect(page.getByRole("switch")).toHaveCount(3);
 }
 
-test("le bandeau apparaît sans cookie de consentement et se ferme après Accepter tout", async ({ page, context }) => {
+test("premier niveau : Tout refuser, Personnaliser, Tout accepter, lien vers la politique cookies", async ({ page }) => {
   await open(page, "/");
-  await expect(page.getByText(BANNER_TEXT)).toBeVisible();
-  await page.getByRole("button", { name: /^accepter tout$/i }).click();
-  await expect(page.getByText(BANNER_TEXT)).toHaveCount(0);
-  const cookie = (await context.cookies()).find((c) => c.name === "macar_cookie_consent_is_true");
-  expect(cookie && cookie.value).toBe("true");
+  const b = banner(page);
+  for (const name of ["Tout refuser", "Personnaliser", "Tout accepter"]) {
+    await expect(b.getByRole("button", { name })).toBeVisible();
+  }
+  await expect(b.locator('a[href="/politique-cookies"]')).toHaveCount(1);
 });
 
-test("Essentiels est coché et verrouillé", async ({ page }) => {
+test("Tout refuser et Tout accepter ont la même apparence", async ({ page }) => {
+  await open(page, "/");
+  const b = banner(page);
+  const refuse = await b.getByRole("button", { name: "Tout refuser" }).getAttribute("class");
+  const accept = await b.getByRole("button", { name: "Tout accepter" }).getAttribute("class");
+  expect(refuse).toBe(accept);
+});
+
+test("Tout refuser enregistre deux non et ferme le bandeau", async ({ page, context }) => {
+  await open(page, "/");
+  await banner(page).getByRole("button", { name: "Tout refuser" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  const c = await storedConsent(context);
+  expect(c).toMatchObject({ analytics: false, marketing: false, version: 1 });
+  expect(Number.isNaN(Date.parse(c.at))).toBe(false);
+});
+
+test("Tout accepter enregistre deux oui et ferme le bandeau", async ({ page, context }) => {
+  await open(page, "/");
+  await banner(page).getByRole("button", { name: "Tout accepter" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true, version: 1 });
+  // Attributes of the consent cookie: site-wide, Lax, about 6 months.
+  const cookie = (await context.cookies()).find((c) => c.name === "macar_consent");
+  const days = (cookie.expires - Date.now() / 1000) / 86400;
+  expect(cookie.path).toBe("/");
+  expect(cookie.sameSite).toBe("Lax");
+  expect(days).toBeGreaterThan(181);
+  expect(days).toBeLessThan(183);
+});
+
+test("second niveau : Essentiels coché et verrouillé, Analytique et Publicité décochés", async ({ page }) => {
   await openPreferences(page);
   const essentials = page.getByRole("switch", { name: "Essentiels" });
   await expect(essentials).toBeChecked();
   await expect(essentials).toBeDisabled();
+  await expect(page.getByRole("switch", { name: "Analytique" })).not.toBeChecked();
+  await expect(page.getByRole("switch", { name: "Publicité" })).not.toBeChecked();
 });
 
-test("Analytique et Les fonctionnalités basculent au clic et à la barre d'espace", async ({ page }) => {
+test("Enregistrer mes choix avec Analytique seul", async ({ page, context }) => {
   await openPreferences(page);
-  for (const name of ["Analytique", "Les fonctionnalités"]) {
-    const sw = page.getByRole("switch", { name });
-    await expect(sw).toBeChecked();
-    await page.getByText(name, { exact: true }).click();
-    await expect(sw).not.toBeChecked();
-    await sw.focus();
-    await page.keyboard.press(" ");
-    await expect(sw).toBeChecked();
-  }
+  await page.getByText("Analytique", { exact: true }).click();
+  await page.getByRole("button", { name: "Enregistrer mes choix" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: false });
+});
+
+test("les interrupteurs basculent au clavier", async ({ page }) => {
+  await openPreferences(page);
+  const sw = page.getByRole("switch", { name: "Publicité" });
+  await sw.focus();
+  await page.keyboard.press(" ");
+  await expect(sw).toBeChecked();
+});
+
+test("Échap ne ferme pas le bandeau à la première visite", async ({ page }) => {
+  await openPreferences(page);
+  await page.keyboard.press("Escape");
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Annuler" })).toHaveCount(0);
+});
+
+test("visiteur qui revient avec un choix valide : pas de bandeau", async ({ page, context, baseURL }) => {
+  await context.addCookies([{ ...consentCookie(CONSENT.all), url: baseURL }]);
+  await open(page, "/");
+  await expect(banner(page)).toHaveCount(0);
+});
+
+test("ancien cookie seul : bandeau affiché et ancien cookie supprimé", async ({ page, context, baseURL }) => {
+  await context.addCookies([{ name: "macar_cookie_consent_is_true", value: "true", url: baseURL }]);
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+  expect((await context.cookies()).find((c) => c.name === "macar_cookie_consent_is_true")).toBeUndefined();
+});
+
+test("cookie d'une autre version : bandeau affiché", async ({ page, context, baseURL }) => {
+  await context.addCookies([{ ...consentCookie(CONSENT.all, { version: 0 }), url: baseURL }]);
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+});
+
+test("cookie illisible : bandeau affiché, pas d'erreur console", async ({ page, context, baseURL }) => {
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  // Vercel Analytics script does not exist outside Vercel: unrelated 404.
+  page.on("console", (m) => m.type() === "error" && !m.location().url.includes("/_vercel/") && errors.push(m.text()));
+  await context.addCookies([{ name: "macar_consent", value: "pas-du-json", url: baseURL }]);
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("le bandeau ne bloque pas la page", async ({ page }) => {
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+  await page.getByRole("link", { name: "Blog" }).first().click();
+  await expect(page).toHaveURL(/\/blog$/);
+});
+
+test("320 px : pas de défilement horizontal, premier et second niveau", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  await banner(page).getByRole("button", { name: "Personnaliser" }).click();
+  await expect(page.getByRole("switch")).toHaveCount(3);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
 
 test("le bandeau est une Card v3 et ses actions des Button v3", async ({ page }) => {
   await open(page, "/");
-  const banner = page.locator(".card").filter({ hasText: BANNER_TEXT });
-  await expect(banner).toHaveCount(1);
-  await expect(banner.locator("button.button")).toHaveCount(3);
+  await expect(banner(page).locator(".card")).toHaveCount(1);
+  await expect(banner(page).locator("button.button")).toHaveCount(3);
+});
+
+// "Gérer mes cookies" (pied de page) : changer d'avis à tout moment.
+const manageButton = (page) => page.getByRole("button", { name: "Gérer mes cookies" });
+
+async function withChoice(context, baseURL, choice) {
+  await context.addCookies([{ ...consentCookie(choice), url: baseURL }]);
+}
+
+async function rawConsentCookie(context) {
+  return (await context.cookies()).find((c) => c.name === "macar_consent")?.value;
+}
+
+test("Gérer mes cookies (pied de page) rouvre le second niveau avec le choix enregistré", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, { analytics: true, marketing: false });
+  await open(page, "/");
+  await expect(banner(page)).toHaveCount(0);
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("switch", { name: "Analytique" })).toBeChecked();
+  await expect(page.getByRole("switch", { name: "Publicité" })).not.toBeChecked();
+});
+
+test("Annuler et Échap referment sans rien changer", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, { analytics: true, marketing: false });
+  await open(page, "/");
+  const before = await rawConsentCookie(context);
+
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await page.getByText("Publicité", { exact: true }).click();
+  await page.getByRole("button", { name: "Annuler" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  expect(await rawConsentCookie(context)).toBe(before);
+
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(banner(page)).toHaveCount(0);
+  expect(await rawConsentCookie(context)).toBe(before);
+});
+
+test("Gérer mes cookies pendant le premier niveau : second niveau sans Annuler", async ({ page }) => {
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("switch")).toHaveCount(0);
+  await manageButton(page).click();
+  await expect(page.getByRole("switch")).toHaveCount(3);
+  await expect(page.getByRole("button", { name: "Annuler" })).toHaveCount(0);
+});
+
+test("changement appliqué sans recharger", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, { analytics: true, marketing: false });
+  await open(page, "/");
+  await page.evaluate(() => {
+    window.__marker = 1;
+  });
+  await manageButton(page).click();
+  await page.getByText("Publicité", { exact: true }).click();
+  await page.getByRole("button", { name: "Enregistrer mes choix" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  expect(await page.evaluate(() => window.__marker)).toBe(1);
+  expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true });
+});
+
+test("la politique cookies propose Gérer mes cookies, qui rouvre le second niveau", async ({ page }) => {
+  await open(page, "/politique-cookies");
+  await banner(page).getByRole("button", { name: "Tout refuser" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  await page.locator("main").getByRole("button", { name: "Gérer mes cookies" }).click();
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("switch")).toHaveCount(3);
+});
+
+test("la politique cookies affiche la version 1", async ({ page }) => {
+  await open(page, "/politique-cookies");
+  await expect(page.locator("main")).toContainText("Version 1, dernière mise à jour : 17 octobre 2026.");
+});
+
+// Focus: moved into the reopened banner, given back to the trigger when it closes.
+test("Gérer mes cookies (pied de page) : le focus entre dans le bandeau, Échap le rend au bouton", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, CONSENT.all);
+  await open(page, "/");
+  await keyboardFocus(page, manageButton(page));
+  await page.keyboard.press("Enter");
+  await expect(banner(page)).toBeVisible();
+  await expect(banner(page)).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(banner(page)).toHaveCount(0);
+  await expect(manageButton(page)).toBeFocused();
+});
+
+test("politique cookies : le focus entre dans le bandeau, Annuler le rend au bouton", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, CONSENT.all);
+  await open(page, "/politique-cookies");
+  const button = page.locator("main").getByRole("button", { name: "Gérer mes cookies" });
+  await keyboardFocus(page, button);
+  await page.keyboard.press("Enter");
+  await expect(banner(page)).toBeVisible();
+  await expect(banner(page)).toBeFocused();
+  await banner(page).getByRole("button", { name: "Annuler" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  await expect(button).toBeFocused();
 });

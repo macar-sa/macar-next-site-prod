@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 import { prepare, open } from "../helpers.mjs";
 
 const COLUMNS = ["Cookie", "Émetteur", "Finalité", "Durée"];
-const ROWS = ["_ga", "_ga_*", "Vercel Analytics", "macar_cookie_consent_is_true"];
+const ROWS = ["_ga", "_ga_*", "Vercel Analytics", "macar_consent"];
 const cookieTable = (page) =>
   page.getByRole("grid", { name: "Cookies utilisés" }).or(page.getByRole("table", { name: "Cookies utilisés" }));
 
