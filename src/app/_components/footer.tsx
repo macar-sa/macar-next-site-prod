@@ -1,5 +1,6 @@
 import { Separator } from "@heroui/react/separator";
 import { ButtonLink, TextLink } from "./links";
+import ManageCookiesButton from "./ManageCookiesButton";
 import { Logo_specific } from "./icons/logo_specific";
 
 const menuItems = [
@@ -90,6 +91,9 @@ export const Footer = () => {
                                         <TextLink href={item.href} navigation>{item.name}</TextLink>
                                     </li>
                                 ))}
+                                <li>
+                                    <ManageCookiesButton appearance="link" />
+                                </li>
                             </ul>
                         </div>
                     </div>

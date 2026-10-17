@@ -39,6 +39,7 @@ Pour les articles du blog (`content/blog/`) en plus :
 - `npm run lint` : ESLint (config plate `eslint.config.mjs`, presets `next/core-web-vitals` et `next/typescript`)
 - `npx tsc --noEmit` : vérification des types seule, plus rapide qu'un build
 - `npm run test:e2e` : suite de comportement Playwright (`e2e/`), à lancer après `npm run build` ; elle démarre le site sur le port 3100 (ou réutilise un serveur déjà lancé). Première fois : `npx playwright install chromium`.
+  - Les tests de Google (chargement après consentement) demandent un build fait avec `NEXT_PUBLIC_GOOGLE_ANALYTICS=G-TEST`, sinon ils s'ignorent.
 
 Les tests de `e2e/tests/` vérifient le comportement du site dans un navigateur (menu, FAQ au clavier, formulaire, cookies, avis, blog, pages légales, ancres, absence de défilement horizontal à 320 px). Ils bloquent toute requête externe : le formulaire n'est jamais envoyé à Formspree. Tout changement de comportement ou d'interface met à jour ou ajoute le test correspondant. Sur GitHub, le workflow `.github/workflows/e2e.yml` lance lint, types, build et cette suite sur chaque PR vers `dev` ou `main`.
 
@@ -63,6 +64,7 @@ Site vitrine statique de Macar (rénovation, plomberie, électricité, toiture),
 - **Données en TypeScript**, pas de CMS : contenu des services dans `src/lib/services.ts` (rendu par `ServiceDetailBody`), communes dans `src/lib/seo/communes.ts`, avis dans `src/data/reviews.ts`.
 - **Pages de zones** `src/app/zones/[slug]` : générées statiquement depuis `communes.ts`. Le texte vient de `intros.ts`, avec un texte générique si la commune n'y figure pas.
 - **Blog** : fichiers MDX dans `content/blog/` avec frontmatter (`title`, `description`, `slug`, `datePublished`, `dateModified`, `category`, `tags`, `cover`, `draft`). `src/lib/blog.ts` les lit avec `gray-matter` au build ; `draft: true` masque un article. Rendu par `next-mdx-remote/rsc` avec les composants de `src/app/blog/_components/MdxComponents.tsx`.
+- **Consentement aux cookies** : le choix est dans `src/lib/consent.ts` (lu par `CookieConsent` et `GoogleTag`, les futurs événements de conversion du formulaire et des liens téléphone s'appuieront sur ce module). Google n'est chargé qu'après l'accord d'Analytique, en mode consentement v2 basique.
 - **SEO** : le JSON-LD `LocalBusiness` (`src/lib/seo/localBusiness.ts`) est injecté dans `layout.tsx` ; les autres schémas y renvoient par `LOCAL_BUSINESS_ID`. `src/app/sitemap.ts` liste les pages à la main (une nouvelle page statique doit y être ajoutée) et inclut automatiquement communes et articles. `public/llms.txt` décrit le site pour les LLM et doit suivre les changements de services ou de zones.
 
 ## Styles : HeroUI v3 natif et Tailwind 4

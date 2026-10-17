@@ -6,7 +6,7 @@ import { Providers } from "./providers";
 import { NavBar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
 import CookieConsent from "./_components/CookieConsent";
-import Script from "next/script";
+import GoogleTag from "./_components/GoogleTag";
 import { Analytics } from "@vercel/analytics/react"
 import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
 
@@ -101,34 +101,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
-
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              async
-              strategy="afterInteractive"
-            />
-            <Script
-              id="google-analytics"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-          if (window.location.hostname !== 'localhost') {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gaId}');
-          }
-        `,
-              }}
-            />
-          </>
-        )}
-
       </head>
       <body className="bg-background text-muted antialiased">
         <Providers>
+          <GoogleTag gaId={gaId} />
           <NavBar />
           {children}
           <CookieConsent />

@@ -20,7 +20,22 @@ export const PAGES = [
   { slug: "not-found", path: "/page-introuvable-harness" },
 ];
 
-export const CONSENT_COOKIE = { name: "macar_cookie_consent_is_true", value: "true" };
+// Consent presets and cookie builder (the cookie format is defined in src/lib/consent.ts).
+export const CONSENT = {
+  all: { analytics: true, marketing: true },
+  none: { analytics: false, marketing: false },
+};
+
+// The default version must match CONSENT_VERSION in src/lib/consent.ts.
+export function consentCookie(choice, { version = 1 } = {}) {
+  return {
+    name: "macar_consent",
+    value: encodeURIComponent(JSON.stringify({ ...choice, at: "2026-10-17T00:00:00.000Z", version })),
+  };
+}
+
+// Google Analytics ID baked into the build; Google-dependent tests skip when it is empty.
+export const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim() || "";
 
 // 1x1 PNG served in place of the Google profile photos.
 const AVATAR_PNG = Buffer.from(
@@ -46,8 +61,24 @@ export async function routeNetwork(context, baseUrl, { onAvatarRequest, abortAva
 }
 
 export async function prepare(context, baseURL, { consent = true, onAvatarRequest, abortAvatar } = {}) {
-  if (consent) await context.addCookies([{ ...CONSENT_COOKIE, url: baseURL }]);
+  // consent: true => everything accepted, false => no cookie, object => that choice.
+  if (consent) await context.addCookies([{ ...consentCookie(consent === true ? CONSENT.all : consent), url: baseURL }]);
   await routeNetwork(context, baseURL, { onAvatarRequest, abortAvatar });
+}
+
+// Every dataLayer entry (an Arguments object for gtag calls) as a plain array.
+export async function readDataLayer(page) {
+  return page.evaluate(() => (window.dataLayer || []).map((entry) => Array.from(entry)));
+}
+
+// Collects the requests sent to Google (even those the network policy then aborts).
+export function trackGoogleRequests(page) {
+  const requests = [];
+  page.on("request", (request) => {
+    const host = new URL(request.url()).host;
+    if (host.endsWith("googletagmanager.com") || host.endsWith("google-analytics.com")) requests.push(request.url());
+  });
+  return requests;
 }
 
 // Navigates and waits for hydration (network idle after load).
