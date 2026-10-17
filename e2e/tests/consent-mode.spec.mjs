@@ -144,3 +144,58 @@ test("navigation côté client après acceptation : un seul consent default", as
   await expect(page).toHaveURL(/\/blog$/);
   expect(consentDefault(await readDataLayer(page))).toHaveLength(1);
 });
+
+// Retrait du consentement : les cookies Google déjà posés sont supprimés.
+const manageButton = (page) => page.getByRole("button", { name: "Gérer mes cookies" });
+const cookieNames = async (context) => (await context.cookies()).map((c) => c.name);
+
+async function withdraw(page, label) {
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await page.getByText(label, { exact: true }).click();
+  await page.getByRole("button", { name: "Enregistrer mes choix" }).click();
+  await expect(banner(page)).toHaveCount(0);
+}
+
+test("retrait d'Analytique : update denied, ga-disable posé, _ga et _ga_* supprimés", async ({ page, context, baseURL }) => {
+  test.skip(!GA_ID, SKIP);
+  await prepare(context, baseURL, { consent: true });
+  await context.addCookies([
+    { name: "_ga", value: "GA1.1.1.1", url: baseURL },
+    { name: "_ga_TEST", value: "GS1.1.1", url: baseURL },
+    { name: "_gac_TEST", value: "1", url: baseURL },
+  ]);
+  await open(page, "/");
+  await withdraw(page, "Analytique");
+  const updates = consentUpdate(await readDataLayer(page));
+  expect(updates.at(-1)[2].analytics_storage).toBe("denied");
+  expect(await page.evaluate((id) => window["ga-disable-" + id], GA_ID)).toBe(true);
+  const names = await cookieNames(context);
+  expect(names).not.toContain("_ga");
+  expect(names).not.toContain("_ga_TEST");
+  expect(names).toContain("_gac_TEST");
+});
+
+test("retrait de Publicité : _gcl_au supprimé", async ({ page, context, baseURL }) => {
+  test.skip(!GA_ID, SKIP);
+  await prepare(context, baseURL, { consent: true });
+  await context.addCookies([
+    { name: "_ga", value: "GA1.1.1.1", url: baseURL },
+    { name: "_gcl_au", value: "1.1.1", url: baseURL },
+  ]);
+  await open(page, "/");
+  await withdraw(page, "Publicité");
+  const names = await cookieNames(context);
+  expect(names).not.toContain("_gcl_au");
+  expect(names).toContain("_ga");
+});
+
+test("réacceptation d'Analytique après retrait : ga-disable repasse à false", async ({ page, context, baseURL }) => {
+  test.skip(!GA_ID, SKIP);
+  await prepare(context, baseURL, { consent: true });
+  await open(page, "/");
+  await withdraw(page, "Analytique");
+  expect(await page.evaluate((id) => window["ga-disable-" + id], GA_ID)).toBe(true);
+  await withdraw(page, "Analytique");
+  expect(await page.evaluate((id) => window["ga-disable-" + id], GA_ID)).toBe(false);
+});

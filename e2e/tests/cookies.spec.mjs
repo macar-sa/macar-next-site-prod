@@ -136,3 +136,66 @@ test("le bandeau est une Card v3 et ses actions des Button v3", async ({ page })
   await expect(banner(page).locator(".card")).toHaveCount(1);
   await expect(banner(page).locator("button.button")).toHaveCount(3);
 });
+
+// "Gérer mes cookies" (pied de page) : changer d'avis à tout moment.
+const manageButton = (page) => page.getByRole("button", { name: "Gérer mes cookies" });
+
+async function withChoice(context, baseURL, choice) {
+  await context.addCookies([{ ...consentCookie(choice), url: baseURL }]);
+}
+
+async function rawConsentCookie(context) {
+  return (await context.cookies()).find((c) => c.name === "macar_consent")?.value;
+}
+
+test("Gérer mes cookies (pied de page) rouvre le second niveau avec le choix enregistré", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, { analytics: true, marketing: false });
+  await open(page, "/");
+  await expect(banner(page)).toHaveCount(0);
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("switch", { name: "Analytique" })).toBeChecked();
+  await expect(page.getByRole("switch", { name: "Publicité" })).not.toBeChecked();
+});
+
+test("Annuler et Échap referment sans rien changer", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, { analytics: true, marketing: false });
+  await open(page, "/");
+  const before = await rawConsentCookie(context);
+
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await page.getByText("Publicité", { exact: true }).click();
+  await page.getByRole("button", { name: "Annuler" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  expect(await rawConsentCookie(context)).toBe(before);
+
+  await manageButton(page).click();
+  await expect(banner(page)).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(banner(page)).toHaveCount(0);
+  expect(await rawConsentCookie(context)).toBe(before);
+});
+
+test("Gérer mes cookies pendant le premier niveau : second niveau sans Annuler", async ({ page }) => {
+  await open(page, "/");
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("switch")).toHaveCount(0);
+  await manageButton(page).click();
+  await expect(page.getByRole("switch")).toHaveCount(3);
+  await expect(page.getByRole("button", { name: "Annuler" })).toHaveCount(0);
+});
+
+test("changement appliqué sans recharger", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, { analytics: true, marketing: false });
+  await open(page, "/");
+  await page.evaluate(() => {
+    window.__marker = 1;
+  });
+  await manageButton(page).click();
+  await page.getByText("Publicité", { exact: true }).click();
+  await page.getByRole("button", { name: "Enregistrer mes choix" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  expect(await page.evaluate(() => window.__marker)).toBe(1);
+  expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true });
+});

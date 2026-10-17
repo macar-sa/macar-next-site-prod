@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 import { onConsentChange, readConsent, type ConsentChangeDetail } from "@/lib/consent";
 
 declare global {
@@ -36,7 +37,34 @@ function ensureGtag() {
   window.gtag("set", "ads_data_redaction", true);
 }
 
-function apply({ current }: ConsentChangeDetail, gaId?: string) {
+// Removes the cookies whose name matches, on the exact host and on every parent domain
+// (www.macar.be, macar.be), since Google may have set them on either.
+function removeCookies(matches: (name: string) => boolean) {
+  const names = document.cookie
+    .split(";")
+    .map((part) => part.split("=")[0].trim())
+    .filter((name) => name && matches(name));
+  const labels = window.location.hostname.split(".");
+  const domains: string[] = [];
+  for (let i = 0; i <= labels.length - 2; i++) domains.push(labels.slice(i).join("."));
+  for (const name of names) {
+    Cookies.remove(name, { path: "/" });
+    for (const domain of domains) Cookies.remove(name, { path: "/", domain });
+  }
+}
+
+function withdraw({ current, previous }: ConsentChangeDetail, gaId?: string) {
+  if (previous?.analytics && !current.analytics) {
+    if (gaId) window[`ga-disable-${gaId}`] = true;
+    // "_ga_" (not "_ga") so that "_gac_" campaign cookies, which belong to Advertising, are left alone.
+    removeCookies((name) => name === "_ga" || name.startsWith("_ga_"));
+  }
+  if (previous?.marketing && !current.marketing) {
+    removeCookies((name) => name.startsWith("_gcl_") || name.startsWith("_gac_"));
+  }
+}
+
+function apply({ current, previous }: ConsentChangeDetail, gaId?: string) {
   const gtag = window.gtag;
   if (!gtag) return;
   const ads = current.marketing ? "granted" : "denied";
@@ -46,6 +74,7 @@ function apply({ current }: ConsentChangeDetail, gaId?: string) {
     ad_personalization: ads,
     analytics_storage: current.analytics ? "granted" : "denied",
   });
+  withdraw({ current, previous }, gaId);
   if (current.analytics && gaId) {
     window[`ga-disable-${gaId}`] = false;
     if (!googleLoaded) {
