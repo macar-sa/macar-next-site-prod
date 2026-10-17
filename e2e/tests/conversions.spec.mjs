@@ -55,6 +55,23 @@ test.describe("clic téléphone", () => {
     expect(await events(page)).toEqual([]);
   });
 
+  test("numéro au format national : compté au format international", async ({ page, context, baseURL }) => {
+    await prepare(context, baseURL);
+    await keepTelClicks(page);
+    await open(page, "/");
+    await page.evaluate(() => {
+      const a = document.createElement("a");
+      a.href = "tel:0478 23 50 08";
+      a.textContent = "0478 23 50 08";
+      a.id = "national-test";
+      // Outside the React tree and above the sticky bar, so the click lands on it.
+      a.style.cssText = "position:fixed;top:50%;left:50%;z-index:99999;background:white;padding:8px";
+      document.body.append(a);
+    });
+    await page.locator("#national-test").click();
+    expect(await events(page)).toEqual([["phone_click", { phone_number: "+32478235008", link_location: "page" }]]);
+  });
+
   test("numéro de la page Emploi : pas compté", async ({ page, context, baseURL }) => {
     await prepare(context, baseURL);
     await keepTelClicks(page);
@@ -151,18 +168,18 @@ test.describe("origine de la demande", () => {
     expect(await events(page)).toEqual([]);
   });
 
-  test("gclid avec Publicité : mémorisé sans la valeur, survit au rechargement", async ({ page, context, baseURL }) => {
+  test("gclid avec Publicité : mémorisé avec sa valeur, survit au rechargement, joint à l'envoi", async ({ page, context, baseURL }) => {
     test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
     await prepare(context, baseURL);
     const bodies = await fulfillFormspree(context);
     await open(page, "/services/toiture?gclid=test123");
     const stored = JSON.parse(await readStored(page));
-    expect(stored).toMatchObject({ ad: true, landing: "/services/toiture" });
-    expect(JSON.stringify(stored)).not.toContain("test123");
+    expect(stored).toMatchObject({ ad: true, landing: "/services/toiture", click: { type: "gclid", value: "test123" } });
+    expect(stored).not.toHaveProperty("search");
     await open(page, "/");
     await fillAndSend(page);
     await expect(page.getByText(SENT)).toBeVisible();
-    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /services/toiture", page: "/" });
+    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /services/toiture", page: "/", gclid: "test123" });
   });
 
   test("gclid avec Publicité refusée : rien en session, perdu au rechargement", async ({ page, context, baseURL }) => {
@@ -175,6 +192,7 @@ test.describe("origine de la demande", () => {
     await fillAndSend(page);
     await expect(page.getByText(SENT)).toBeVisible();
     expect(bodies[0]).toMatchObject({ origine: "Accès direct ou favori", page: "/" });
+    expect(bodies[0]).not.toHaveProperty("gclid");
   });
 
   test("utm sans gclid : Campagne source / campaign", async ({ page, context, baseURL }) => {
@@ -218,6 +236,72 @@ test.describe("origine de la demande", () => {
     await expect(page.getByText(SENT)).toBeVisible();
     expect(bodies[0].origine).toBe("Recherche Google");
   });
+
+  for (const [referer, label] of [
+    ["https://www.bing.com/", "Recherche Bing"],
+    ["https://l.facebook.com/", "Facebook ou Instagram"],
+    ["https://www.example.org/page?x=1", "Site référent : www.example.org"],
+  ]) {
+    test(`référent ${new URL(referer).hostname} : ${label}`, async ({ page, context, baseURL }) => {
+      test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+      await prepare(context, baseURL);
+      const bodies = await fulfillFormspree(context);
+      await page.goto("/", { referer });
+      await page.waitForLoadState("networkidle");
+      await fillAndSend(page);
+      await expect(page.getByText(SENT)).toBeVisible();
+      expect(bodies[0].origine).toBe(label);
+    });
+  }
+
+  test("référent du site lui-même : Origine inconnue (navigation interne)", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await page.goto("/", { referer: `${baseURL}/about` });
+    await page.waitForLoadState("networkidle");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0].origine).toBe("Origine inconnue (navigation interne)");
+  });
+
+  test("libellés utm nettoyés et coupés à 100 caractères", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await open(page, `/?utm_source=face%0Abook&utm_campaign=${"x".repeat(300)}`);
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0].origine).toBe(`Campagne facebook / ${"x".repeat(100)}, arrivée sur /`);
+  });
+
+  test("gbraid avec Publicité : joint sous son nom", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/?gbraid=0AAAAA-b_1");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0]).toMatchObject({ origine: "Pub Google, arrivée sur /", gbraid: "0AAAAA-b_1" });
+    expect(bodies[0]).not.toHaveProperty("gclid");
+  });
+
+  for (const [name, value] of [
+    ["balise", "<script>alert(1)</script>"],
+    ["espaces", "abc def"],
+    ["500 caractères", "a".repeat(500)],
+  ]) {
+    test(`gclid fabriqué (${name}) : ignoré, l'arrivée reste une pub`, async ({ page, context, baseURL }) => {
+      test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+      await prepare(context, baseURL);
+      const bodies = await fulfillFormspree(context);
+      await open(page, `/?gclid=${encodeURIComponent(value)}`);
+      await fillAndSend(page);
+      await expect(page.getByText(SENT)).toBeVisible();
+      expect(bodies[0].origine).toBe("Pub Google, arrivée sur /");
+      expect(bodies[0]).not.toHaveProperty("gclid");
+    });
+  }
 
   test("Publicité accordée après navigation : l'arrivée gardée en mémoire est conservée", async ({ page, context, baseURL }) => {
     await prepare(context, baseURL, { consent: false });

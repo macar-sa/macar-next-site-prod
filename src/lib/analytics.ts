@@ -19,7 +19,10 @@ export function trackEvent(name: string, params?: Record<string, string | number
   }
 }
 
-// "tel:+32 478 23 50 08" -> "+32478235008"
+// "tel:+32 478 23 50 08", "tel:0478 23 50 08" and "tel:0032478235008" -> "+32478235008"
 export function normalizePhone(href: string): string {
-  return href.replace(/^tel:/i, "").replace(/[^\d+]/g, "");
+  const digits = href.replace(/^tel:/i, "").replace(/[^\d+]/g, "");
+  if (digits.startsWith("00")) return `+${digits.slice(2)}`;
+  if (digits.startsWith("0")) return `+32${digits.slice(1)}`;
+  return digits;
 }
