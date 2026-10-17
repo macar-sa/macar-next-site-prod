@@ -6,6 +6,8 @@ import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
 import { Breadcrumbs } from "../_components/jsonld";
 import { TextLink } from "../_components/links";
+import ManageCookiesButton from "../_components/ManageCookiesButton";
+import { CONSENT_VERSION } from "@/lib/consent";
 
 export const metadata: Metadata = {
     title: "Politique cookies | Macar",
@@ -28,7 +30,7 @@ const COOKIES = [
     { name: "_ga", issuer: "Google Analytics 4", purpose: "Distinguer les utilisateurs (mesure d'audience)", duration: "13 mois" },
     { name: "_ga_*", issuer: "Google Analytics 4", purpose: "Conserver l'état de la session", duration: "13 mois" },
     { name: "Vercel Analytics", issuer: "Vercel", purpose: "Mesure d'audience anonyme côté serveur (sans cookie persistant)", duration: "Session" },
-    { name: "macar_cookie_consent_is_true", issuer: "Macar", purpose: "Mémoriser votre choix concernant les cookies", duration: "12 mois" },
+    { name: "macar_consent", issuer: "Macar", purpose: "Mémoriser vos choix concernant les cookies", duration: "6 mois" },
 ];
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";
@@ -90,18 +92,22 @@ export default function PolitiqueCookiesPage() {
                             <h2>Gestion de votre consentement</h2>
                         </ThirdHeading>
                         <div className="md:col-span-2">
-                            <P customClasses="max-w-none!" content="Lors de votre première visite sur macar.be, une bannière vous invite à accepter ou refuser le dépôt des cookies non essentiels (mesure d'audience). Vous pouvez modifier ou retirer votre consentement à tout moment :" />
-                            <P customClasses="mt-2 max-w-none!">
+                            <P customClasses="max-w-none!" content="Lors de votre première visite sur macar.be, une bannière vous demande votre choix. Aucun cookie de mesure n'est déposé et aucune mesure n'est faite avant votre réponse. Vous pouvez tout refuser, tout accepter ou personnaliser vos choix." />
+                            <P customClasses="mt-4 max-w-none!" content="Deux catégories sont facultatives : Analytique (mesure d'audience avec Google Analytics) et Publicité. Les cookies essentiels, dont celui qui mémorise votre choix, ne demandent pas de consentement." />
+                            <P customClasses="mt-4 max-w-none!" content="Votre choix est gardé 6 mois, puis la bannière vous le redemande. Vous pouvez le modifier ou le retirer à tout moment :" />
+                            <div className="mt-4">
+                                <ManageCookiesButton appearance="button" />
+                            </div>
+                            <P customClasses="mt-4 max-w-none!">
                                 <ul className="list-disc pl-6 leading-loose">
                                     <li>
-                                        En supprimant le cookie « macar_cookie_consent_is_true »
-                                        dans les paramètres de votre navigateur, la bannière vous
-                                        sera proposée à nouveau.
+                                        Si vous retirez votre consentement, les cookies concernés
+                                        sont supprimés et la mesure s&apos;arrête aussitôt.
                                     </li>
                                     <li>
-                                        En configurant votre navigateur pour bloquer ou supprimer
-                                        les cookies tiers (voir l&apos;aide de Chrome, Firefox, Safari,
-                                        Edge).
+                                        Vous pouvez aussi configurer votre navigateur pour bloquer
+                                        ou supprimer les cookies (voir l&apos;aide de Chrome, Firefox,
+                                        Safari, Edge).
                                     </li>
                                 </ul>
                             </P>
@@ -125,7 +131,7 @@ export default function PolitiqueCookiesPage() {
                     <Separator />
 
                     <p className="text-muted text-xs mt-10">
-                        Dernière mise à jour : 17 mai 2026.
+                        Version {CONSENT_VERSION}, dernière mise à jour : 17 octobre 2026.
                     </p>
                 </div>
             </Screen>

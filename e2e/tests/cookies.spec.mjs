@@ -199,3 +199,17 @@ test("changement appliqué sans recharger", async ({ page, context, baseURL }) =
   expect(await page.evaluate(() => window.__marker)).toBe(1);
   expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true });
 });
+
+test("la politique cookies propose Gérer mes cookies, qui rouvre le second niveau", async ({ page }) => {
+  await open(page, "/politique-cookies");
+  await banner(page).getByRole("button", { name: "Tout refuser" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  await page.locator("main").getByRole("button", { name: "Gérer mes cookies" }).click();
+  await expect(banner(page)).toBeVisible();
+  await expect(page.getByRole("switch")).toHaveCount(3);
+});
+
+test("la politique cookies affiche la version 1", async ({ page }) => {
+  await open(page, "/politique-cookies");
+  await expect(page.locator("main")).toContainText("Version 1, dernière mise à jour : 17 octobre 2026.");
+});
