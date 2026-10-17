@@ -29,7 +29,7 @@ const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";
 const COOKIES = [
     { name: "_ga", issuer: "Google Analytics 4", purpose: "Distinguer les utilisateurs (mesure d'audience)", duration: "13 mois" },
     { name: "_ga_*", issuer: "Google Analytics 4", purpose: "Conserver l'état de la session", duration: "13 mois" },
-    { name: "Vercel Analytics", issuer: "Vercel", purpose: "Mesure d'audience anonyme côté serveur (sans cookie persistant)", duration: "Session" },
+    { name: "Vercel Analytics", issuer: "Vercel", purpose: "Mesure d'audience anonyme, sans cookie", duration: "Aucun cookie" },
     { name: "macar_consent", issuer: "Macar", purpose: "Mémoriser vos choix concernant les cookies", duration: "6 mois" },
 ];
 const sectionHeading = "md:col-span-1";

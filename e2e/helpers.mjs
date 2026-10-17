@@ -26,6 +26,7 @@ export const CONSENT = {
   none: { analytics: false, marketing: false },
 };
 
+// The default version must match CONSENT_VERSION in src/lib/consent.ts.
 export function consentCookie(choice, { version = 1 } = {}) {
   return {
     name: "macar_consent",

@@ -104,9 +104,9 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-muted antialiased">
         <Providers>
+          <GoogleTag gaId={gaId} />
           <NavBar />
           {children}
-          <GoogleTag gaId={gaId} />
           <CookieConsent />
           <Footer />
           <Analytics />

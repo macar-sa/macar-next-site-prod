@@ -199,3 +199,29 @@ test("réacceptation d'Analytique après retrait : ga-disable repasse à false",
   await withdraw(page, "Analytique");
   expect(await page.evaluate((id) => window["ga-disable-" + id], GA_ID)).toBe(false);
 });
+
+test("refus sans choix précédent : _ga et _ga_* déjà présents sont supprimés", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL, { consent: false });
+  await context.addCookies([
+    { name: "_ga", value: "GA1.1.1.1", url: baseURL },
+    { name: "_ga_TEST", value: "GS1.1.1", url: baseURL },
+  ]);
+  await open(page, "/");
+  await banner(page).getByRole("button", { name: "Tout refuser" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  const names = await cookieNames(context);
+  expect(names).not.toContain("_ga");
+  expect(names).not.toContain("_ga_TEST");
+});
+
+test("retrait dans un onglet : appliqué dans l'autre onglet ouvert", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL, { consent: true });
+  await open(page, "/");
+  const other = await context.newPage();
+  await open(other, "/");
+  await withdraw(page, "Analytique");
+  await expect
+    .poll(async () => consentUpdate(await readDataLayer(other)).at(-1)?.[2].analytics_storage)
+    .toBe("denied");
+  if (GA_ID) expect(await other.evaluate((id) => window["ga-disable-" + id], GA_ID)).toBe(true);
+});

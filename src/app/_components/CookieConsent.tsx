@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, Description, Label, Separator, Switch } from "@heroui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   clearLegacyConsent,
@@ -37,6 +37,9 @@ const CookieConsent = () => {
   const [view, setView] = useState<View>("hidden");
   const [draft, setDraft] = useState<ConsentChoice>(NONE);
   const [canCancel, setCanCancel] = useState(false);
+  const regionRef = useRef<HTMLElement>(null);
+  // Element that asked to reopen the banner: it gets the focus back when the banner closes.
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   // Read the cookie after mount, never during render, to avoid a hydration mismatch.
   useEffect(() => {
@@ -48,6 +51,8 @@ const CookieConsent = () => {
   useEffect(
     () =>
       onConsentPreferencesRequest(() => {
+        const active = document.activeElement;
+        triggerRef.current = active instanceof HTMLElement ? active : null;
         const saved = readConsent();
         setDraft(saved ? { analytics: saved.analytics, marketing: saved.marketing } : NONE);
         setCanCancel(saved !== null);
@@ -56,11 +61,24 @@ const CookieConsent = () => {
     [],
   );
 
+  // Moves the focus into the banner when it shows the preferences (reopened, or "Personnaliser").
+  useEffect(() => {
+    if (view === "prefs") regionRef.current?.focus();
+  }, [view]);
+
+  // Hides the banner, then gives the focus back to the element that reopened it, if still there.
+  const close = () => {
+    setView("hidden");
+    const trigger = triggerRef.current;
+    triggerRef.current = null;
+    if (trigger?.isConnected) trigger.focus();
+  };
+
   // Escape closes the reopened preferences without changing anything; on a first visit it does nothing.
   useEffect(() => {
     if (!canCancel || view !== "prefs") return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setView("hidden");
+      if (event.key === "Escape") close();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -68,7 +86,7 @@ const CookieConsent = () => {
 
   const choose = (choice: ConsentChoice) => {
     writeConsent(choice);
-    setView("hidden");
+    close();
   };
 
   if (view === "hidden") return null;
@@ -80,7 +98,7 @@ const CookieConsent = () => {
       transition={{ duration: 0.5 }}
       className="fixed bottom-4 left-4 right-4 sm:left-auto z-50 max-w-lg"
     >
-      <section aria-label="Consentement aux cookies">
+      <section ref={regionRef} tabIndex={-1} aria-label="Consentement aux cookies" className="outline-none">
         <Card className="max-h-[calc(100dvh-5rem)] overflow-auto">
           <Card.Content className="flex flex-col gap-4">
             {view === "prefs" ? (
@@ -134,7 +152,7 @@ const CookieConsent = () => {
             )}
             <div className="flex flex-wrap justify-end gap-2">
               {view === "prefs" && canCancel && (
-                <Button variant="tertiary" onPress={() => setView("hidden")}>
+                <Button variant="tertiary" onPress={close}>
                   Annuler
                 </Button>
               )}

@@ -1,6 +1,6 @@
 // Cookie banner: real per-category choice, two levels, keyboard, legacy and invalid cookies.
 import { test, expect } from "@playwright/test";
-import { prepare, open, consentCookie, CONSENT } from "../helpers.mjs";
+import { prepare, open, consentCookie, keyboardFocus, CONSENT } from "../helpers.mjs";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL, { consent: false }));
@@ -50,6 +50,13 @@ test("Tout accepter enregistre deux oui et ferme le bandeau", async ({ page, con
   await banner(page).getByRole("button", { name: "Tout accepter" }).click();
   await expect(banner(page)).toHaveCount(0);
   expect(await storedConsent(context)).toMatchObject({ analytics: true, marketing: true, version: 1 });
+  // Attributes of the consent cookie: site-wide, Lax, about 6 months.
+  const cookie = (await context.cookies()).find((c) => c.name === "macar_consent");
+  const days = (cookie.expires - Date.now() / 1000) / 86400;
+  expect(cookie.path).toBe("/");
+  expect(cookie.sameSite).toBe("Lax");
+  expect(days).toBeGreaterThan(181);
+  expect(days).toBeLessThan(183);
 });
 
 test("second niveau : Essentiels coché et verrouillé, Analytique et Publicité décochés", async ({ page }) => {
@@ -212,4 +219,30 @@ test("la politique cookies propose Gérer mes cookies, qui rouvre le second nive
 test("la politique cookies affiche la version 1", async ({ page }) => {
   await open(page, "/politique-cookies");
   await expect(page.locator("main")).toContainText("Version 1, dernière mise à jour : 17 octobre 2026.");
+});
+
+// Focus: moved into the reopened banner, given back to the trigger when it closes.
+test("Gérer mes cookies (pied de page) : le focus entre dans le bandeau, Échap le rend au bouton", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, CONSENT.all);
+  await open(page, "/");
+  await keyboardFocus(page, manageButton(page));
+  await page.keyboard.press("Enter");
+  await expect(banner(page)).toBeVisible();
+  await expect(banner(page)).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(banner(page)).toHaveCount(0);
+  await expect(manageButton(page)).toBeFocused();
+});
+
+test("politique cookies : le focus entre dans le bandeau, Annuler le rend au bouton", async ({ page, context, baseURL }) => {
+  await withChoice(context, baseURL, CONSENT.all);
+  await open(page, "/politique-cookies");
+  const button = page.locator("main").getByRole("button", { name: "Gérer mes cookies" });
+  await keyboardFocus(page, button);
+  await page.keyboard.press("Enter");
+  await expect(banner(page)).toBeVisible();
+  await expect(banner(page)).toBeFocused();
+  await banner(page).getByRole("button", { name: "Annuler" }).click();
+  await expect(banner(page)).toHaveCount(0);
+  await expect(button).toBeFocused();
 });

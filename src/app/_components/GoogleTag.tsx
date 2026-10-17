@@ -4,29 +4,24 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { onConsentChange, readConsent, type ConsentChangeDetail } from "@/lib/consent";
 
-declare global {
-  interface Window {
-    dataLayer: unknown[];
-    gtag?: (...args: unknown[]) => void;
-    [key: `ga-disable-${string}`]: boolean | undefined;
-  }
-}
-
 // 13 months of 30 days, in seconds.
 const COOKIE_EXPIRES = 33696000;
 
 // Module-level on purpose: they survive remounts, so nothing is pushed or inserted twice.
 let googleLoaded = false;
+let initialized = false;
 
 // Basic Consent Mode: the default is pushed once, before any choice is applied, and gtag.js
-// is not inserted until Analytics is granted.
+// is not inserted until Analytics is granted. Guarded by a flag, not by window.gtag, so that
+// other code defining gtag first cannot skip the default; an existing dataLayer is kept.
 function ensureGtag() {
-  if (window.gtag) return;
-  window.dataLayer = window.dataLayer || [];
+  if (initialized) return;
+  initialized = true;
+  const dataLayer = (window.dataLayer = window.dataLayer || []);
   window.gtag = function () {
     // gtag.js only understands the arguments object, not an array.
     // eslint-disable-next-line prefer-rest-params
-    window.dataLayer.push(arguments);
+    dataLayer.push(arguments);
   };
   window.gtag("consent", "default", {
     ad_storage: "denied",
@@ -53,13 +48,15 @@ function removeCookies(matches: (name: string) => boolean) {
   }
 }
 
-function withdraw({ current, previous }: ConsentChangeDetail, gaId?: string) {
-  if (previous?.analytics && !current.analytics) {
+// Keyed on the current choice only (idempotent), so a refusal also clears cookies left over
+// from an earlier visit, and a stored refusal is enforced again on load.
+function withdraw({ current }: ConsentChangeDetail, gaId?: string) {
+  if (!current.analytics) {
     if (gaId) window[`ga-disable-${gaId}`] = true;
     // "_ga_" (not "_ga") so that "_gac_" campaign cookies, which belong to Advertising, are left alone.
     removeCookies((name) => name === "_ga" || name.startsWith("_ga_"));
   }
-  if (previous?.marketing && !current.marketing) {
+  if (!current.marketing) {
     removeCookies((name) => name.startsWith("_gcl_") || name.startsWith("_gac_"));
   }
 }
