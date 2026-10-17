@@ -71,6 +71,12 @@ export async function readDataLayer(page) {
   return page.evaluate(() => (window.dataLayer || []).map((entry) => Array.from(entry)));
 }
 
+// Only the gtag("event", …) calls of dataLayer, as plain arrays: [name, params].
+export async function events(page) {
+  const layer = await readDataLayer(page);
+  return layer.filter((e) => e[0] === "event").map((e) => e.slice(1));
+}
+
 // Collects the requests sent to Google (even those the network policy then aborts).
 export function trackGoogleRequests(page) {
   const requests = [];

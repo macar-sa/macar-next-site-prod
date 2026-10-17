@@ -24,7 +24,7 @@ const legalLinks = [
 // bottom, that row sits exactly behind the bar, so its logo and blue button do not show twice.
 export const Footer = () => {
     return (
-        <div className="pt-28">
+        <footer className="pt-28">
             <div className="mx-auto max-w-[1600px] px-4 md:px-16 2xl:px-4">
                 <div data-footer-top className="flex flex-col gap-8 md:gap-0 md:flex-row md:items-center md:justify-between lg:h-16">
                     <Logo_specific logoType="Logo_border_blue"
@@ -99,7 +99,7 @@ export const Footer = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     );
 };
 

@@ -4,6 +4,12 @@ import { defineConfig } from "@playwright/test";
 
 const PORT = 3100;
 
+// Local runs: the GA id and Formspree endpoint baked into the build come from .env.local
+// (CI sets them as job env). Missing file: nothing happens.
+try {
+  process.loadEnvFile(new URL("../.env.local", import.meta.url).pathname);
+} catch {}
+
 export default defineConfig({
   testDir: "./tests",
   testMatch: "*.spec.mjs",

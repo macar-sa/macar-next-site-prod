@@ -7,6 +7,7 @@ import { NavBar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
 import CookieConsent from "./_components/CookieConsent";
 import GoogleTag from "./_components/GoogleTag";
+import ConversionTracking from "./_components/ConversionTracking";
 import { Analytics } from "@vercel/analytics/react"
 import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
 
@@ -105,6 +106,7 @@ export default function RootLayout({
       <body className="bg-background text-muted antialiased">
         <Providers>
           <GoogleTag gaId={gaId} />
+          <ConversionTracking />
           <NavBar />
           {children}
           <CookieConsent />
