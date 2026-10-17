@@ -163,3 +163,31 @@ Un relecteur « constructeur » a lu la première version. Tranché par l'auteur
 - [ ] Pages légales et `legal.spec.mjs` à jour.
 - [ ] `npm run lint`, `npx tsc --noEmit`, `npm run build`, `npm run test:e2e` au vert, en local et en CI.
 - [ ] Captures 375 px et 1440 px du formulaire après succès : rien ne bouge visuellement (la mesure est invisible).
+
+## 6. Suite du 17 octobre 2026 : améliorations et publicités dans les pages légales
+
+Demande du propriétaire, après la relecture de la branche : appliquer les améliorations proposées, et faire décrire Google Ads et GA4 par la politique de confidentialité (mesure des conversions, cookies publicitaires), Google pouvant refuser des annonces si le site ne l'explique pas. Tout est fait sur la même branche `feat/conversions`.
+
+### 6.1 Ce qui change sur le site
+
+1. **Attribution Google après navigation.** Quand le visiteur accepte Analytique après avoir quitté sa page d'arrivée, l'URL ne porte plus les paramètres de la pub. `GoogleTag` envoie alors dans son `config` un `page_location` reconstruit à partir de l'arrivée gardée en mémoire (`arrivalPageLocation()` de `src/lib/origin.ts`). Les identifiants de clic (`gclid`, `gbraid`, `wbraid`) n'y figurent que si Publicité est accordé ; sinon seuls les `utm_*` restent. Rien ne change si le visiteur est encore sur sa page d'arrivée ou s'il est arrivé sans paramètre. (`ads_data_redaction`, posé par M.1, masque de toute façon les identifiants quand `ad_storage` est refusé.)
+2. **Identifiant de clic pour les conversions hors ligne.** La valeur du `gclid` (ou `gbraid`, `wbraid`) est désormais gardée en mémoire à l'arrivée, conservée dans `sessionStorage` seulement avec Publicité, et **jointe à la demande seulement si Publicité est accordé au moment de l'envoi**, dans un champ du même nom. But : recopier cet identifiant dans Dolibarr avec le devis, puis importer les devis signés dans Google Ads comme conversions hors ligne. Cela remplace la décision 3 de la section 4.8 et l'anti-objectif sur la valeur du `gclid`, à la demande du propriétaire. La valeur n'est acceptée que si elle ne contient que lettres, chiffres, `_` et `-`, 200 caractères au plus.
+3. **Pixel Meta** (`src/lib/meta.ts`, `_components/MetaPixel.tsx`). Chargé seulement si `NEXT_PUBLIC_FACEBOOK_PIXEL_ID` est défini et que Publicité est accordé : `fbq('consent','grant')`, `init`, `PageView`, puis le script `connect.facebook.net/en_US/fbevents.js`. Le pixel compte lui-même les changements de page de l'application (événements d'historique, comportement par défaut vérifié dans `fbevents.js`). Au retrait de Publicité : `fbq('consent','revoke')` et suppression des cookies `_fbp` et `_fbc`. Événements : `Lead` au succès Formspree, `Contact` au clic sur un numéro Macar, tous deux seulement avec Publicité. Sans identifiant de pixel, rien n'est chargé.
+4. **Consentement en version 2.** La catégorie Publicité couvre désormais aussi Meta : `CONSENT_VERSION` passe à 2, les visiteurs qui avaient répondu à la version 1 (en production depuis la PR #24) revoient la bannière. La description de Publicité nomme Google et Meta.
+5. **Finitions** : le référent est gardé par son seul nom d'hôte (`referrer_host`) ; un référent qui est le site lui-même donne `Origine inconnue (navigation interne)` ; les libellés `utm_*` sont débarrassés des caractères de contrôle et coupés à 100 caractères ; `normalizePhone` ramène `0478…` et `0032…` au format `+32…` ; `playwright.config.mjs` utilise `fileURLToPath` ; phrase périmée de `CLAUDE.md` corrigée.
+
+### 6.2 Pages légales
+
+- **Politique de confidentialité** : téléphone ajouté aux données du formulaire ; provenance décrite précisément (page d'arrivée, campagne) ; identifiant du clic Google joint avec l'accord Publicité ; données de mesure publicitaire de Google Ads et du pixel Meta ; nouvelle finalité « mesurer l'efficacité de nos publicités », base légale consentement (art. 6.1.a), catégorie Publicité ; destinataires Google Ireland Limited (GA4 et Google Ads) avec le lien « Comment utilisons-nous les informations collectées via les sites ou applications qui font appel à nos services ? » (policies.google.com/technologies/partner-sites), et Meta Platforms Ireland Limited avec le lien vers sa politique ; durées ; comment retirer son accord (« Gérer mes cookies » en bas de chaque page).
+- **Politique cookies** : lignes `_gcl_au` et `_gcl_aw` (Google Ads, 90 jours, source business.safety.google/adscookies), `_fbp` et `_fbc` (Meta, 90 jours, durée lue dans `fbevents.js`) ; note sous le tableau et description des catégories mises à jour.
+
+### 6.3 Hors du site (propriétaire)
+
+- **Dimensions personnalisées GA4** : Administration, Définitions personnalisées, créer trois dimensions de portée Événement : `phone_number`, `link_location`, `lead_source`. Sans elles, ces paramètres n'apparaissent pas dans les rapports.
+- **Appels** : composants Appel dans Google Ads avec suivi des appels (gratuit) ; journal d'appels du 0478 23 50 08 pendant 2 à 4 semaines ; question « comment nous avez-vous trouvés ? » à chaque appel.
+- **Conversions hors ligne** : champ Dolibarr « Identifiant de clic Google » (avec M.3) ; à la signature d'un devis venu d'une pub, import dans Google Ads (Objectifs, Conversions, Importer, depuis un fichier) avec l'identifiant et la date de signature. Google n'accepte que des clics récents (fenêtre de conversion de l'action, 90 jours au plus) : importer au fil de l'eau.
+- **Preuve du consentement** : Google demande de conserver une trace des consentements. Le site n'a pas de serveur ; le choix, sa date et sa version ne sont gardés que dans le cookie du visiteur. Combler ce point demande un stockage côté serveur (spec à part).
+
+### 6.4 Tests ajoutés
+
+`page_location` reconstruit après navigation (avec et sans Publicité) et absent sur la page d'arrivée ; identifiant de clic joint avec Publicité, absent sans ; libellés de référent Bing, Facebook, site tiers, navigation interne ; libellé UTM nettoyé et coupé ; numéro au format national compté ; pixel Meta absent sans accord, chargé avec, `Lead` et `Contact`, retrait avec `revoke` et cookies supprimés ; version 2 du consentement ; lignes du tableau des cookies.
