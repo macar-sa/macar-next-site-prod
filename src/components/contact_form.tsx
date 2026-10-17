@@ -6,6 +6,9 @@ import { TextLink } from "@/app/_components/links";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import axios from "axios";
+import { trackEvent } from "@/lib/analytics";
+import { trackMetaEvent } from "@/lib/meta";
+import { describeOrigin } from "@/lib/origin";
 
 const contactFormSchema = z.object({
   name: z.string().optional(),
@@ -67,12 +70,17 @@ export function ContactForm() {
       setBackendError(true);
       return;
     }
+    // origine and page: where the visitor came from and wrote from, for the quote's record.
+    const payload = { ...values, ...describeOrigin() };
     setIsSending(true);
     axios
-      .post(formEndpoint, values, {
+      .post(formEndpoint, payload, {
         headers: { Accept: "application/json", "Content-Type": "application/json" },
       })
       .then(() => {
+        // Counted only once Formspree has accepted the request, never on the click.
+        trackEvent("generate_lead", { lead_source: "formulaire_contact" });
+        trackMetaEvent("Lead");
         setValues(EMPTY_FORM);
         setSubmissionSuccess(true);
       })

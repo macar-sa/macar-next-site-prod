@@ -27,7 +27,7 @@ export const CONSENT = {
 };
 
 // The default version must match CONSENT_VERSION in src/lib/consent.ts.
-export function consentCookie(choice, { version = 1 } = {}) {
+export function consentCookie(choice, { version = 2 } = {}) {
   return {
     name: "macar_consent",
     value: encodeURIComponent(JSON.stringify({ ...choice, at: "2026-10-17T00:00:00.000Z", version })),
@@ -36,6 +36,50 @@ export function consentCookie(choice, { version = 1 } = {}) {
 
 // Google Analytics ID baked into the build; Google-dependent tests skip when it is empty.
 export const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim() || "";
+// Meta Pixel ID baked into the build; Meta-dependent tests skip when it is empty.
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID?.trim() || "";
+
+// tel: links: keep the click in the page (headless Chromium has no dialer).
+export async function keepTelClicks(page) {
+  await page.addInitScript(() => {
+    document.addEventListener(
+      "click",
+      (e) => {
+        const a = e.target instanceof Element && e.target.closest('a[href^="tel:"]');
+        if (a) e.preventDefault();
+      },
+      true,
+    );
+  });
+}
+
+// Formspree endpoint baked into the build; the form-success tests skip when it is empty.
+export const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT?.trim() || "";
+
+const isFormspreeHost = (hostname) => hostname === "formspree.io" || hostname.endsWith(".formspree.io");
+
+// Answers every Formspree request itself (nothing leaves the machine) and returns the array
+// that receives each posted JSON body. Register it after prepare(): the newest route wins.
+export async function fulfillFormspree(context, { status = 200 } = {}) {
+  const bodies = [];
+  await context.route("**/*", async (route) => {
+    const request = route.request();
+    if (!isFormspreeHost(new URL(request.url()).hostname)) return route.fallback();
+    if (request.method() === "POST") {
+      try {
+        bodies.push(JSON.parse(request.postData() || "{}"));
+      } catch {
+        bodies.push({});
+      }
+    }
+    return route.fulfill({
+      status,
+      contentType: "application/json",
+      body: JSON.stringify(status >= 400 ? { error: "test" } : { ok: true }),
+    });
+  });
+  return bodies;
+}
 
 // 1x1 PNG served in place of the Google profile photos.
 const AVATAR_PNG = Buffer.from(
@@ -69,6 +113,12 @@ export async function prepare(context, baseURL, { consent = true, onAvatarReques
 // Every dataLayer entry (an Arguments object for gtag calls) as a plain array.
 export async function readDataLayer(page) {
   return page.evaluate(() => (window.dataLayer || []).map((entry) => Array.from(entry)));
+}
+
+// Only the gtag("event", …) calls of dataLayer, as plain arrays: [name, params].
+export async function events(page) {
+  const layer = await readDataLayer(page);
+  return layer.filter((e) => e[0] === "event").map((e) => e.slice(1));
 }
 
 // Collects the requests sent to Google (even those the network policy then aborts).

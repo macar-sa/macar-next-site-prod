@@ -27,10 +27,15 @@ const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";
 
 // Cookies listed in the table: name, issuer, purpose, lifetime.
 const COOKIES = [
-    { name: "_ga", issuer: "Google Analytics 4", purpose: "Distinguer les utilisateurs (mesure d'audience)", duration: "13 mois" },
-    { name: "_ga_*", issuer: "Google Analytics 4", purpose: "Conserver l'état de la session", duration: "13 mois" },
+    { name: "_ga", issuer: "Google Analytics 4", purpose: "Distinguer les utilisateurs pour la mesure d'audience (si vous acceptez Analytique)", duration: "13 mois" },
+    { name: "_ga_*", issuer: "Google Analytics 4", purpose: "Conserver l'état de la session (si vous acceptez Analytique)", duration: "13 mois" },
+    { name: "_gcl_au", issuer: "Google Ads", purpose: "Relier vos visites et vos demandes à nos annonces Google (si vous acceptez Publicité)", duration: "90 jours" },
+    { name: "_gcl_aw", issuer: "Google Ads", purpose: "Retenir le clic sur une de nos annonces Google pour mesurer la demande qui suit (si vous acceptez Publicité)", duration: "90 jours" },
+    { name: "_fbp", issuer: "Meta", purpose: "Mesurer l'efficacité de nos publicités sur Facebook et Instagram (si vous acceptez Publicité)", duration: "90 jours" },
+    { name: "_fbc", issuer: "Meta", purpose: "Retenir le clic sur une de nos annonces Facebook ou Instagram (si vous acceptez Publicité)", duration: "90 jours" },
     { name: "Vercel Analytics", issuer: "Vercel", purpose: "Mesure d'audience anonyme, sans cookie", duration: "Aucun cookie" },
     { name: "macar_consent", issuer: "Macar", purpose: "Mémoriser vos choix concernant les cookies", duration: "6 mois" },
+    { name: "macar_origine", issuer: "Macar", purpose: "Retenir la provenance de votre visite pour la joindre à votre demande de devis (si vous acceptez Publicité), stockage de session, sans cookie", duration: "Fin de la visite" },
 ];
 const sectionHeading = "md:col-span-1";
 const sectionBody = "md:col-span-2 max-w-none!";
@@ -81,9 +86,9 @@ export default function PolitiqueCookiesPage() {
                             </ScrollShadow>
                         </Table>
                         <p className="mt-4 text-muted text-xs">
-                            macar.be ne dépose aucun cookie de réseau social. Les cookies
-                            publicitaires de Google ne sont déposés que si vous acceptez la
-                            catégorie Publicité.
+                            macar.be n&apos;intègre aucun bouton ni contenu de réseau social. Les
+                            cookies publicitaires de Google et de Meta ne sont déposés que si vous
+                            acceptez la catégorie Publicité.
                         </p>
                     </section>
                     <Separator />
@@ -93,8 +98,8 @@ export default function PolitiqueCookiesPage() {
                             <h2>Gestion de votre consentement</h2>
                         </ThirdHeading>
                         <div className="md:col-span-2">
-                            <P customClasses="max-w-none!" content="Lors de votre première visite sur macar.be, une bannière vous demande votre choix. Aucun cookie de mesure n'est déposé et Google Analytics n'est pas chargé avant votre réponse. Seule la mesure d'audience anonyme de Vercel, sans cookie, fonctionne dès votre arrivée (voir le tableau ci-dessus). Vous pouvez tout refuser, tout accepter ou personnaliser vos choix." />
-                            <P customClasses="mt-4 max-w-none!" content="Deux catégories sont facultatives : Analytique (mesure d'audience avec Google Analytics) et Publicité. Les cookies essentiels, dont celui qui mémorise votre choix, ne demandent pas de consentement." />
+                            <P customClasses="max-w-none!" content="Lors de votre première visite sur macar.be, une bannière vous demande votre choix. Aucun cookie de mesure ni cookie publicitaire n'est déposé, et ni Google ni Meta ne sont chargés avant votre réponse. Seule la mesure d'audience anonyme de Vercel, sans cookie, fonctionne dès votre arrivée (voir le tableau ci-dessus). Vous pouvez tout refuser, tout accepter ou personnaliser vos choix." />
+                            <P customClasses="mt-4 max-w-none!" content="Deux catégories sont facultatives : Analytique (mesure d'audience avec Google Analytics) et Publicité (mesure de nos publicités avec Google Ads et le pixel Meta). Les cookies essentiels, dont celui qui mémorise votre choix, ne demandent pas de consentement." />
                             <P customClasses="mt-4 max-w-none!" content="Votre choix est gardé 6 mois, puis la bannière vous le redemande. Vous pouvez le modifier ou le retirer à tout moment :" />
                             <div className="mt-4">
                                 <ManageCookiesButton appearance="button" />

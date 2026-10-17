@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import Cookies from "js-cookie";
 import { onConsentChange, readConsent, type ConsentChangeDetail } from "@/lib/consent";
+import { arrivalPageLocation } from "@/lib/origin";
+import { removeCookies } from "@/lib/cookies";
 
 // 13 months of 30 days, in seconds.
 const COOKIE_EXPIRES = 33696000;
@@ -30,22 +31,6 @@ function ensureGtag() {
     analytics_storage: "denied",
   });
   window.gtag("set", "ads_data_redaction", true);
-}
-
-// Removes the cookies whose name matches, on the exact host and on every parent domain
-// (www.macar.be, macar.be), since Google may have set them on either.
-function removeCookies(matches: (name: string) => boolean) {
-  const names = document.cookie
-    .split(";")
-    .map((part) => part.split("=")[0].trim())
-    .filter((name) => name && matches(name));
-  const labels = window.location.hostname.split(".");
-  const domains: string[] = [];
-  for (let i = 0; i <= labels.length - 2; i++) domains.push(labels.slice(i).join("."));
-  for (const name of names) {
-    Cookies.remove(name, { path: "/" });
-    for (const domain of domains) Cookies.remove(name, { path: "/", domain });
-  }
 }
 
 // Keyed on the current choice only (idempotent), so a refusal also clears cookies left over
@@ -77,7 +62,13 @@ function apply({ current, previous }: ConsentChangeDetail, gaId?: string) {
     if (!googleLoaded) {
       googleLoaded = true;
       gtag("js", new Date());
-      gtag("config", gaId, { cookie_expires: COOKIE_EXPIRES });
+      // Granted after leaving the landing page: give GA4 the landing URL back, or the session
+      // loses its campaign (and Google Ads its click). Click ids only with Advertising. It goes
+      // on a one-off page_view, not on the config, whose parameters would stick to every later
+      // event of the page load (page views, phone_click, generate_lead).
+      const pageLocation = arrivalPageLocation(current.marketing);
+      gtag("config", gaId, { cookie_expires: COOKIE_EXPIRES, ...(pageLocation && { send_page_view: false }) });
+      if (pageLocation) gtag("event", "page_view", { page_location: pageLocation });
       const script = document.createElement("script");
       script.async = true;
       script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
