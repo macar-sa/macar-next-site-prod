@@ -36,6 +36,33 @@ export function consentCookie(choice, { version = 1 } = {}) {
 
 // Google Analytics ID baked into the build; Google-dependent tests skip when it is empty.
 export const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS?.trim() || "";
+// Formspree endpoint baked into the build; the form-success tests skip when it is empty.
+export const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT?.trim() || "";
+
+const isFormspreeHost = (hostname) => hostname === "formspree.io" || hostname.endsWith(".formspree.io");
+
+// Answers every Formspree request itself (nothing leaves the machine) and returns the array
+// that receives each posted JSON body. Register it after prepare(): the newest route wins.
+export async function fulfillFormspree(context, { status = 200 } = {}) {
+  const bodies = [];
+  await context.route("**/*", async (route) => {
+    const request = route.request();
+    if (!isFormspreeHost(new URL(request.url()).hostname)) return route.fallback();
+    if (request.method() === "POST") {
+      try {
+        bodies.push(JSON.parse(request.postData() || "{}"));
+      } catch {
+        bodies.push({});
+      }
+    }
+    return route.fulfill({
+      status,
+      contentType: "application/json",
+      body: JSON.stringify(status >= 400 ? { error: "test" } : { ok: true }),
+    });
+  });
+  return bodies;
+}
 
 // 1x1 PNG served in place of the Google profile photos.
 const AVATAR_PNG = Buffer.from(

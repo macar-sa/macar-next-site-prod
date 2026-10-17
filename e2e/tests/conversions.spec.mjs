@@ -1,6 +1,6 @@
 // Conversions (spec 2026-10-17-conversions): events only with Analytics granted, read in dataLayer.
 import { test, expect } from "@playwright/test";
-import { prepare, open, events, CONSENT } from "../helpers.mjs";
+import { prepare, open, events, CONSENT, fulfillFormspree, FORMSPREE_ENDPOINT } from "../helpers.mjs";
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -60,6 +60,52 @@ test.describe("clic téléphone", () => {
     await keepTelClicks(page);
     await open(page, "/job");
     await page.locator("main").locator('a[href^="tel:"]').first().click();
+    expect(await events(page)).toEqual([]);
+  });
+});
+
+// Contact form: generate_lead only once Formspree has answered OK.
+const SKIP_FORM = "build sans NEXT_PUBLIC_FORMSPREE_ENDPOINT";
+const SENT = "Merci pour votre confiance";
+
+async function fillAndSend(page) {
+  const form = page.locator("#contact form");
+  await form.getByLabel("Nom et Prénom", { exact: true }).fill("Jeanne Test");
+  await form.getByLabel("Email", { exact: true }).fill("jeanne@example.com");
+  await form.getByLabel("Téléphone", { exact: true }).fill("0470000000");
+  await form.getByLabel("Message", { exact: true }).fill("Bonjour");
+  await form.getByRole("button", { name: "Envoyer" }).click();
+}
+
+test.describe("formulaire", () => {
+  test("envoi réussi, tout accepté : generate_lead une fois", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies).toHaveLength(1);
+    expect(await events(page)).toEqual([["generate_lead", { lead_source: "formulaire_contact" }]]);
+  });
+
+  test("envoi réussi, Analytique refusé : aucun événement", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL, { consent: CONSENT.none });
+    await fulfillFormspree(context);
+    await open(page, "/");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(await events(page)).toEqual([]);
+  });
+
+  test("Formspree en erreur : pas de generate_lead", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL);
+    await fulfillFormspree(context, { status: 500 });
+    await open(page, "/");
+    await fillAndSend(page);
+    await expect(page.locator("#contact form").getByRole("alert").filter({ hasText: "Oups" })).toBeVisible();
     expect(await events(page)).toEqual([]);
   });
 });

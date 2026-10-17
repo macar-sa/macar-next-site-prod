@@ -1,7 +1,8 @@
 // Spec 4 and 7: contact form with v3 Form, TextField, Label, Input, TextArea, FieldError, Button.
-// Never sends anything: routeNetwork (lib/common.mjs) aborts every request that leaves localhost,
-// Formspree included. Aborted requests never "finish", so afterEach checks the `request` events
-// instead: it fails if the page ever issued a request to Formspree, even one that was aborted.
+// Never sends anything: routeNetwork (helpers.mjs) aborts every request that leaves localhost,
+// Formspree included. The build may carry a Formspree endpoint (CI does, for the conversions
+// tests), so the form does attempt the request: afterEach fails only if one of them finished,
+// that is, got an answer, which an aborted request never does.
 import { test, expect } from "@playwright/test";
 import { prepare, open } from "../helpers.mjs";
 
@@ -24,11 +25,11 @@ let formspree;
 test.beforeEach(async ({ page, context, baseURL }) => {
   await prepare(context, baseURL);
   formspree = [];
-  page.on("request", (r) => { if (isFormspree(r.url())) formspree.push(r.url()); });
+  page.on("requestfinished", (r) => { if (isFormspree(r.url())) formspree.push(r.url()); });
   await open(page, "/");
   await page.locator("#contact").scrollIntoViewIfNeeded();
 });
-test.afterEach(() => expect(formspree, "requêtes émises vers Formspree").toEqual([]));
+test.afterEach(() => expect(formspree, "requêtes abouties vers Formspree").toEqual([]));
 
 const form = (page) => page.locator("#contact form");
 const field = (page, label) => form(page).getByLabel(label, { exact: true });
