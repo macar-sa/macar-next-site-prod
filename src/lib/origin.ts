@@ -7,6 +7,8 @@ import { readConsent } from "@/lib/consent";
 export const ORIGIN_KEY = "macar_origine";
 
 export type Arrival = {
+  // true for a Google click id (gclid, gbraid, wbraid) or utm_medium=cpc; the label then names
+  // utm_source, so a paid Meta campaign is not reported as Google.
   ad: boolean;
   utm_source?: string;
   utm_medium?: string;
@@ -62,6 +64,8 @@ export function persistArrival(): void {
   }
 }
 
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
 function describeReferrer(referrer: string): string {
   if (!referrer) return "Accès direct ou favori";
   let host: string;
@@ -76,12 +80,23 @@ function describeReferrer(referrer: string): string {
   return `Site référent : ${host}`;
 }
 
-// The two fields added to the Formspree payload, built at submit time.
+// The two fields added to the Formspree payload, built at submit time. Never throws.
 export function describeOrigin(): { origine: string; page: string } {
+  try {
+    return describe();
+  } catch {
+    return { origine: "", page: "" };
+  }
+}
+
+function describe(): { origine: string; page: string } {
   const page = window.location.pathname;
   const source: Arrival = readStoredArrival() ??
     arrival ?? { ad: false, landing: page, referrer: document.referrer };
-  if (source.ad) return { origine: `Pub Google, arrivée sur ${source.landing}`, page };
+  if (source.ad) {
+    const network = source.utm_source ? capitalize(source.utm_source) : "Google";
+    return { origine: `Pub ${network}, arrivée sur ${source.landing}`, page };
+  }
   if (source.utm_source) {
     const campaign = [source.utm_source, source.utm_medium, source.utm_campaign].filter(Boolean).join(" / ");
     return { origine: `Campagne ${campaign}, arrivée sur ${source.landing}`, page };

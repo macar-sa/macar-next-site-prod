@@ -33,6 +33,7 @@ Macar va payer des Annonces Local Services puis Google Ads. Pour juger chaque eu
 
 **Anti-objectifs**
 
+- Un envoi réussi affiché comme une erreur parce que la mesure a planté : `trackEvent` et `describeOrigin` ne lèvent jamais d'exception.
 - Un événement envoyé à Google sans accord Analytique, y compris un événement mis en file avant le consentement et expédié après.
 - Un identifiant publicitaire (`gclid`) écrit sur l'appareil (cookie ou stockage) sans accord Publicité. Le garder en mémoire JavaScript le temps de la page n'est pas un stockage sur l'appareil : c'est admis.
 - La valeur du `gclid` dans un mail ou dans Dolibarr : seul le fait « venu d'une pub » est transmis.
@@ -95,7 +96,7 @@ Le cas qui compte est le visiteur qui clique sur une pub : c'est presque toujour
 - `page` : `window.location.pathname` au moment de l'envoi.
 - source : l'entrée `macar_origine` si elle existe et est valide, sinon l'arrivée gardée en mémoire (perdue si la page a été rechargée sans accord Publicité : on retombe alors sur le référent).
 - `origine`, dans cet ordre :
-  1. `ad` vrai → `Pub Google, arrivée sur <landing>` ;
+  1. `ad` vrai → `Pub <utm_source avec majuscule initiale>, arrivée sur <landing>`, ou `Pub Google` quand il n'y a pas d'`utm_source` (clic Google : `gclid`, `gbraid`, `wbraid`). Ainsi une campagne Meta taguée `utm_source=facebook&utm_medium=cpc` n'est pas attribuée à Google ;
   2. `utm_source` présent → `Campagne <utm_source> / <utm_medium> / <utm_campaign>, arrivée sur <landing>` (parties absentes omises, séparateurs compris) ;
   3. sinon d'après le référent (celui de l'arrivée gardé en mémoire, à défaut `document.referrer`) : hôte contenant `google.` → `Recherche Google` ; `bing.` → `Recherche Bing` ; `facebook.`, `instagram.` ou `fb.` → `Facebook ou Instagram` ; vide → `Accès direct ou favori` ; autre → `Site référent : <hôte>`.
 

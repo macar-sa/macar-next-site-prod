@@ -110,6 +110,23 @@ test.describe("formulaire", () => {
   });
 });
 
+// Measurement must never break the form: a gtag replaced by a throwing stub (privacy extension)
+// still lets the visitor see the success message once Formspree has accepted the request.
+test("gtag qui plante : l'envoi réussit quand même", async ({ page, context, baseURL }) => {
+  test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+  await prepare(context, baseURL);
+  const bodies = await fulfillFormspree(context);
+  await open(page, "/");
+  await page.evaluate(() => {
+    window.gtag = () => {
+      throw new Error("blocked by extension");
+    };
+  });
+  await fillAndSend(page);
+  await expect(page.getByText(SENT)).toBeVisible();
+  expect(bodies).toHaveLength(1);
+});
+
 // Origin of the request: read at arrival (memory), kept in sessionStorage only with Publicité,
 // joined to every submission as "origine" and "page". The gclid value itself never travels.
 const readStored = (page) => page.evaluate(() => sessionStorage.getItem("macar_origine"));
@@ -179,6 +196,16 @@ test.describe("origine de la demande", () => {
     await fillAndSend(page);
     await expect(page.getByText(SENT)).toBeVisible();
     expect(bodies[0].origine).toBe("Pub Google, arrivée sur /zones/uccle");
+  });
+
+  test("utm_medium=cpc avec une autre source : Pub <source>", async ({ page, context, baseURL }) => {
+    test.skip(!FORMSPREE_ENDPOINT, SKIP_FORM);
+    await prepare(context, baseURL, { consent: false });
+    const bodies = await fulfillFormspree(context);
+    await open(page, "/?utm_source=facebook&utm_medium=cpc&utm_campaign=toiture");
+    await fillAndSend(page);
+    await expect(page.getByText(SENT)).toBeVisible();
+    expect(bodies[0].origine).toBe("Pub Facebook, arrivée sur /");
   });
 
   test("référent Google sans paramètre : Recherche Google", async ({ page, context, baseURL }) => {

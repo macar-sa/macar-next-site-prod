@@ -69,10 +69,11 @@ export function ContactForm() {
       setBackendError(true);
       return;
     }
+    // origine and page: where the visitor came from and wrote from, for the quote's record.
+    const payload = { ...values, ...describeOrigin() };
     setIsSending(true);
     axios
-      // origine and page: where the visitor came from and wrote from, for the quote's record.
-      .post(formEndpoint, { ...values, ...describeOrigin() }, {
+      .post(formEndpoint, payload, {
         headers: { Accept: "application/json", "Content-Type": "application/json" },
       })
       .then(() => {
