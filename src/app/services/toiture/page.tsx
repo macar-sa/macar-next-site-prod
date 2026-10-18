@@ -21,7 +21,7 @@ export default function ToiturePage() {
     <ServiceDetailBody
       service={toitureService}
       h1="Couvreur à Bruxelles : tuiles, toit plat, velux, corniches"
-      intro="Macar intervient à Bruxelles pour tous vos travaux de toiture : couverture en tuiles, toit plat Derbigum et EPDM, velux et lucarnes, corniches et gouttières en zinc naturel, descentes d'eau pluviale. Devis gratuit, échafaudage compris."
+      intro="Macar intervient à Bruxelles pour tous vos travaux de toiture : couverture en tuiles, toit plat Derbigum et EPDM, velux et lucarnes, corniches et gouttières en zinc naturel, descentes d'eau pluviale. Devis gratuit, échafaudage chiffré dans le devis."
     />
   );
 }
