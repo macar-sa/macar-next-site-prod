@@ -16,10 +16,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Roofing ad landing page: Bruxelles-Ville (headquarters) first, then the communes whose page
+// describes roofing work.
+const TOITURE_ZONES = ["bruxelles-ville", "uccle", "woluwe-saint-pierre", "evere", "schaerbeek", "ixelles"];
+
 export default function ToiturePage() {
   return (
     <ServiceDetailBody
       service={toitureService}
+      zoneSlugs={TOITURE_ZONES}
       h1="Couvreur à Bruxelles : tuiles, toit plat, velux, corniches"
       intro="Macar intervient à Bruxelles pour tous vos travaux de toiture : couverture en tuiles, toit plat Derbigum et EPDM, velux et lucarnes, corniches et gouttières en zinc naturel, descentes d'eau pluviale. Devis gratuit, échafaudage chiffré dans le devis."
     />

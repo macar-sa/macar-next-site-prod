@@ -1,28 +1,44 @@
 import { Separator } from "@heroui/react/separator";
+import { buttonVariants } from "@heroui/styles";
+import { Phone } from "lucide-react";
 import Screen from "./screen";
-import { MainHeading } from "./textStyles";
-import { ButtonLink } from "./links";
+import { MainHeading, SecondHeading } from "./textStyles";
+import { ButtonLink, TextLink } from "./links";
 import { ServiceCard } from "./ServiceCard";
 import ServiceSection from "./ServiceSection";
 import { Breadcrumbs } from "./jsonld";
 import { services, type ServiceItem } from "@/lib/services";
-import { communes } from "@/lib/seo/communes";
+import { pickCommunes } from "@/lib/seo/communes";
 import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
+import { ContactForm } from "@/components/contact_form";
 
 const baseUrl = "https://www.macar.be";
 
+// Macar's mobile number. The tel: links are counted as phone_click by ConversionTracking's
+// delegated listener (any Macar number, anywhere on the page), nothing to wire here.
+const PHONE_HREF = "tel:+32478235008";
+const PHONE_LABEL = "0478 23 50 08";
+
+// Communes linked at the bottom of a service page, in this order: Bruxelles-Ville first
+// (headquarters in Laeken), then pages with a written introduction.
+const DEFAULT_ZONE_SLUGS = ["bruxelles-ville", "uccle", "schaerbeek", "ixelles"] as const;
+
+// Service pages are Google Ads landing pages: a call button at the top and the contact form on
+// the page itself (id "contact", so the page's own #contact links stay on the page).
 export default function ServiceDetailBody({
   service,
   h1,
   intro,
+  zoneSlugs = DEFAULT_ZONE_SLUGS,
 }: {
   service: ServiceItem;
   h1: string;
   intro: string;
+  zoneSlugs?: readonly string[];
 }) {
   const pageUrl = `${baseUrl}/services/${service.id}`;
   const otherServices = services.filter((s) => s.id !== service.id);
-  const topCommunes = communes.slice(0, 3);
+  const linkedCommunes = pickCommunes(zoneSlugs);
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -62,8 +78,12 @@ export default function ServiceDetailBody({
             <p className="mt-4 text-base lg:text-lg text-muted">
               {intro}
             </p>
-            <div className="mt-8">
-              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a href={PHONE_HREF} className={buttonVariants({ variant: "primary" })}>
+                <Phone aria-hidden size={16} />
+                Appeler le {PHONE_LABEL}
+              </a>
+              <ButtonLink href="#contact" variant="tertiary">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
         </Screen>
@@ -71,6 +91,27 @@ export default function ServiceDetailBody({
         <Screen name="service-detail" customClassesInner="text-left">
           <div className="w-full max-w-full">
             <ServiceSection {...service} />
+          </div>
+        </Screen>
+
+        <Screen name="service-contact" id="contact" customClassesInner="text-left">
+          <div className="grid md:grid-cols-5 gap-8">
+            <div className="md:col-span-2">
+              <SecondHeading>
+                <h2>Demander un devis gratuit</h2>
+              </SecondHeading>
+              <p className="mt-6 text-base text-muted leading-relaxed">
+                Décrivez votre projet dans le formulaire, nous revenons vers vous pour en parler.
+              </p>
+              <p className="mt-6 text-base">
+                Vous préférez appeler ?{" "}
+                <TextLink href={PHONE_HREF}>{PHONE_LABEL}</TextLink>
+              </p>
+              <p className="mt-1 text-sm text-muted">Du lundi au vendredi, de 8 h à 17 h.</p>
+            </div>
+            <div className="md:col-span-3">
+              <ContactForm />
+            </div>
           </div>
         </Screen>
 
@@ -94,7 +135,7 @@ export default function ServiceDetailBody({
             <Separator className="mb-8" />
             <h2 className="mb-4 text-sm font-medium text-muted">Intervention à Bruxelles</h2>
             <div className="flex flex-wrap gap-2">
-              {topCommunes.map((c) => (
+              {linkedCommunes.map((c) => (
                 <ButtonLink key={c.slug} href={`/zones/${c.slug}`} variant="tertiary" size="sm">
                   {c.name}
                 </ButtonLink>

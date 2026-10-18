@@ -42,7 +42,7 @@ export default function ServiceSection({
             ))}
           </div>
           <p className="text-sm">
-            <TextLink href="/#contact">Demander un devis pour ce service →</TextLink>
+            <TextLink href="#contact">Demander un devis pour ce service →</TextLink>
           </p>
         </div>
         <div className="mt-6 lg:mt-0">
