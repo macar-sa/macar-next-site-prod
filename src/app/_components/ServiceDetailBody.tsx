@@ -1,5 +1,4 @@
 import { Separator } from "@heroui/react/separator";
-import { buttonVariants } from "@heroui/styles";
 import { Phone } from "lucide-react";
 import Screen from "./screen";
 import { MainHeading, SecondHeading } from "./textStyles";
@@ -79,10 +78,10 @@ export default function ServiceDetailBody({
               {intro}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <a href={PHONE_HREF} className={buttonVariants({ variant: "primary" })}>
+              <ButtonLink href={PHONE_HREF}>
                 <Phone aria-hidden size={16} />
                 Appeler le {PHONE_LABEL}
-              </a>
+              </ButtonLink>
               <ButtonLink href="#contact" variant="tertiary">Demander un devis gratuit</ButtonLink>
             </div>
           </div>
