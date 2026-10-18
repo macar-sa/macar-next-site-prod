@@ -4,14 +4,14 @@ import { Raptor } from "@/app/_components/textStyles";
 const STATS = [
     { number: "+6000", text: "Projets de Rénovation" },
     { number: "24 ans", text: "d'Expérience" },
-    { number: "+95%", text: "Taux de Réussite des Projets" },
 ];
 
-// Key figures of the home page: three HeroUI v3 Cards, the figure in Raptor as before.
-// One column on phones: three padded Cards side by side do not fit at 320 px.
+// Key figures of the home page: HeroUI v3 Cards, the figure in Raptor as before. Only figures
+// Macar can back up (projects done, years of activity). One column on phones, then one column
+// per figure.
 const Statistics = () => {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-10">
             {STATS.map((stat) => (
                 <Card key={stat.text} className="items-center text-center">
                     <Raptor>
