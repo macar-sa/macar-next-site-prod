@@ -1,4 +1,6 @@
 export const intros: Record<string, string | null> = {
+  "bruxelles-ville":
+    "Bruxelles-Ville (1000) comprend aussi Laeken (1020), Neder-Over-Heembeek (1120) et Haren (1130). Le siège de Macar se trouve à Laeken, avenue Prudent Bols 43, 1020 Bruxelles. Notre équipe y intervient pour la rénovation intérieure et extérieure, la plomberie, les installations électriques et la toiture, comme dans le reste de la Région de Bruxelles-Capitale. Chaque projet à Bruxelles-Ville fait l'objet d'un devis gratuit sur mesure.",
   uccle:
     "Uccle (1180) est l'une des plus vastes communes de la Région de Bruxelles-Capitale, marquée par ses maisons de maître, ses villas années 1930 et ses immeubles d'appartements en bordure du bois de la Cambre. Macar y intervient régulièrement pour des rénovations intérieures et extérieures complètes : isolation de façade et crépi, peinture, parquet, plafonds en gyproc. Côté toiture, le tissu uccloise mélange charpentes anciennes en tuiles, toits plats en Derbigum ou EPDM, et nombreuses lucarnes et verrières typiques. Nos équipes prennent en charge la pose d'échafaudages, le remplacement des corniches et gouttières en zinc naturel, ainsi que la mise en conformité électrique du tableau (RGIE) sur les biens plus anciens. Pour la plomberie, nous installons et remplaçons chaudières à condensation, sanitaires et canalisations, avec détection de fuites par caméra. Devis gratuit sur mesure pour chaque chantier à Uccle.",
   schaerbeek:
@@ -17,4 +19,7 @@ export const intros: Record<string, string | null> = {
   anderlecht: null,
   jette: null,
   "molenbeek-saint-jean": null,
+  ganshoren: null,
+  koekelberg: null,
+  "berchem-sainte-agathe": null,
 };
