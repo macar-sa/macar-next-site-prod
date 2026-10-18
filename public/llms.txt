@@ -14,7 +14,7 @@ Macar est une entreprise belge basée à Bruxelles (Avenue Prudent Bols 43, B-10
 
 Toute la Région de Bruxelles-Capitale (19 communes). Quand le projet le justifie, Macar intervient aussi en périphérie (Brabant flamand et wallon limitrophes : Chastre, Overijse, Wezembeek-Oppem, etc.). Pages dédiées par commune :
 
-- Bruxelles-Ville (incl. 1020 Laeken) : siège social ; cœur de notre activité
+- Bruxelles-Ville (incl. 1020 Laeken, siège social) : https://www.macar.be/zones/bruxelles-ville
 - Jette : https://www.macar.be/zones/jette
 - Woluwe-Saint-Pierre : https://www.macar.be/zones/woluwe-saint-pierre
 - Schaerbeek : https://www.macar.be/zones/schaerbeek
@@ -27,6 +27,9 @@ Toute la Région de Bruxelles-Capitale (19 communes). Quand le projet le justifi
 - Anderlecht : https://www.macar.be/zones/anderlecht
 - Uccle : https://www.macar.be/zones/uccle
 - Molenbeek-Saint-Jean : https://www.macar.be/zones/molenbeek-saint-jean
+- Ganshoren : https://www.macar.be/zones/ganshoren
+- Koekelberg : https://www.macar.be/zones/koekelberg
+- Berchem-Sainte-Agathe : https://www.macar.be/zones/berchem-sainte-agathe
 
 ## Contact
 

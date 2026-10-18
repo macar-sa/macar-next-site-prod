@@ -1,4 +1,4 @@
-// Spec 2026-10-05, section 3 (home): key figures in three v3 Cards, strengths in five v3 Chips.
+// Spec 2026-10-05, section 3 (home): key figures in v3 Cards (two since the unverifiable success rate was removed), strengths in five v3 Chips.
 import { test, expect } from "@playwright/test";
 import { prepare, open } from "../helpers.mjs";
 
@@ -12,9 +12,9 @@ test.describe("accueil, 1440 px", () => {
     await open(page, "/");
   });
 
-  test("chiffres clés : trois Card v3, chiffre et libellé", async ({ page }) => {
-    await expect(statCards(page).locator("h4")).toHaveText(["+6000", "24 ans", "+95%"]);
-    await expect(statCards(page).locator(".card__description")).toHaveText(["Projets de Rénovation", "d'Expérience", "Taux de Réussite des Projets"]);
+  test("chiffres clés : deux Card v3, chiffre et libellé", async ({ page }) => {
+    await expect(statCards(page).locator("h4")).toHaveText(["+6000", "24 ans"]);
+    await expect(statCards(page).locator(".card__description")).toHaveText(["Projets de Rénovation", "d'Expérience"]);
   });
 
   test("atouts : cinq Chip v3 avec une coche", async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe("accueil, 320 px", () => {
   test("chiffres clés : chaque Card contient son texte", async ({ page, context, baseURL }) => {
     await prepare(context, baseURL);
     await open(page, "/");
-    await expect(statCards(page)).toHaveCount(3);
+    await expect(statCards(page)).toHaveCount(2);
     const overflowing = await statCards(page).evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth).length);
     expect(overflowing).toBe(0);
   });
