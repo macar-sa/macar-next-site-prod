@@ -36,3 +36,18 @@ test("375 px : pas d'espace ajouté sous le pied de page", async ({ page, contex
   });
   expect(gap).toBe(56);
 });
+
+// Plan 2026-10-21-mention-nom-commercial: every page names the legal entity behind the Macar
+// trade name and its company number, the copyright keeps the brand.
+for (const width of [1440, 375]) {
+  test(`${width} px : le pied de page nomme la société et son numéro d'entreprise`, async ({ page, context, baseURL }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await prepare(context, baseURL);
+    await open(page, "/");
+    const footer = page.locator("footer");
+    for (const text of ["M.A. Construction Assistance Rénovation SA", "nom commercial Macar", "BE 0477.451.024", "Copyright"]) {
+      await expect(footer).toContainText(text);
+    }
+    await expect(footer).not.toContainText("BE0477.45.10.24");
+  });
+}

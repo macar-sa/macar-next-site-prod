@@ -19,7 +19,8 @@ export const localBusinessJsonLd = {
     "LocalBusiness",
   ],
   name: "Macar",
-  legalName: "Macar SA",
+  legalName: "M.A. Construction Assistance Rénovation SA",
+  alternateName: ["M.A.C.A.R.", "Macar - Construction, Assistance, Rénovation"],
   description:
     "Macar est une entreprise belge de rénovation, plomberie, installations électriques et toiture, basée à Bruxelles, active depuis 2002 et sous la direction actuelle depuis 2010.",
   disambiguatingDescription:
@@ -35,7 +36,7 @@ export const localBusinessJsonLd = {
   telephone: "+32478235008",
   email: "info@macar.be",
   vatID: "BE0477451024",
-  taxID: "BE0477.45.10.24",
+  taxID: "0477.451.024",
   priceRange: "€€",
   currenciesAccepted: "EUR",
   paymentAccepted: "Cash, Bank transfer",
