@@ -60,13 +60,16 @@ test.describe("pages légales, forme juridique", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
   test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL));
 
-  // Macar est une SA, pas une SRL.
+  // Plan 2026-10-21-mention-nom-commercial: Macar is the trade name of the SA registered at the BCE,
+  // so Google can match the site to the VAT number.
   for (const path of ["/mentions-legales", "/politique-confidentialite"]) {
-    test(`${path} : l'éditeur est Macar SA`, async ({ page }) => {
+    test(`${path} : dénomination légale, nom commercial et numéro d'entreprise`, async ({ page }) => {
       await open(page, path);
       const main = page.locator("main");
-      await expect(main).toContainText("Macar SA");
-      await expect(main).not.toContainText("SRL");
+      for (const text of ["M.A. Construction Assistance Rénovation SA", "nom commercial", "0477.451.024", "Avenue Prudent Bols 43-45"]) {
+        await expect(main).toContainText(text);
+      }
+      for (const text of ["SRL", "Macar SA", "BE0477.45.10.24"]) await expect(main).not.toContainText(text);
     });
   }
 });
