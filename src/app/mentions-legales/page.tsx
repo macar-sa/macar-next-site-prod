@@ -48,6 +48,7 @@ export default function MentionsLegalesPage() {
                                 Siège social : Avenue Prudent Bols 43-45, B-1020 Bruxelles, Belgique<br />
                                 Numéro d&apos;entreprise (BCE) : 0477.451.024<br />
                                 TVA : BE 0477.451.024<br />
+                                RPM Bruxelles (tribunal de l&apos;entreprise francophone de Bruxelles)<br />
                                 Téléphone : +32 478 23 50 08 · Fixe : +32 2 466 53 04<br />
                                 Email : info@macar.be
                             </p>

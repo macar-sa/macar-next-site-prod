@@ -72,6 +72,12 @@ test.describe("pages légales, forme juridique", () => {
       for (const text of ["SRL", "Macar SA", "BE0477.45.10.24"]) await expect(main).not.toContainText(text);
     });
   }
+
+  // Court registry stamp on the company's acts in the Moniteur belge (filing of 2 August 2019).
+  test("/mentions-legales : RPM et tribunal", async ({ page }) => {
+    await open(page, "/mentions-legales");
+    await expect(page.locator("main")).toContainText("RPM Bruxelles (tribunal de l'entreprise francophone de Bruxelles)");
+  });
 });
 
 // Spec 2026-10-17-conversions, 6.2: Google asks the site to name each party that receives data,
