@@ -38,7 +38,7 @@ export default function PolitiqueConfidentialitePage() {
                     <h1 className="leading-tight">Politique de confidentialité</h1>
                 </SecondHeading>
 
-                <P customClasses="mt-6 max-w-3xl!" content="La présente politique de confidentialité décrit la manière dont Macar SA (« Macar », « nous ») collecte, utilise et protège les données à caractère personnel des visiteurs et utilisateurs du site macar.be, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel." />
+                <P customClasses="mt-6 max-w-3xl!" content="La présente politique de confidentialité décrit la manière dont M.A. Construction Assistance Rénovation SA, qui exerce sous le nom commercial Macar (« Macar », « nous »), collecte, utilise et protège les données à caractère personnel des visiteurs et utilisateurs du site macar.be, conformément au Règlement (UE) 2016/679 (RGPD) et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques à l'égard des traitements de données à caractère personnel." />
 
                 <div className="mt-10">
                     <section className={sectionGrid}>
@@ -47,9 +47,9 @@ export default function PolitiqueConfidentialitePage() {
                         </ThirdHeading>
                         <P customClasses={sectionBody}>
                             <p className="leading-loose">
-                                Macar SA<br />
-                                Avenue Prudent Bols, 43, B-1020 Bruxelles<br />
-                                TVA : BE0477.45.10.24<br />
+                                M.A. Construction Assistance Rénovation SA (nom commercial Macar)<br />
+                                Siège social : Avenue Prudent Bols 43-45, B-1020 Bruxelles<br />
+                                Numéro d&apos;entreprise et TVA : BE 0477.451.024<br />
                                 Email : info@macar.be
                             </p>
                         </P>
@@ -231,7 +231,7 @@ export default function PolitiqueConfidentialitePage() {
                     <Separator />
 
                     <p className="text-muted text-xs mt-10">
-                        Dernière mise à jour : 17 octobre 2026.
+                        Dernière mise à jour : 21 octobre 2026.
                     </p>
                 </div>
             </Screen>

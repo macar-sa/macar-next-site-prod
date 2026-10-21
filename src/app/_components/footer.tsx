@@ -66,7 +66,8 @@ export const Footer = () => {
                                     Avenue Prudent Bols, 43<br />
                                     B-1020 Bruxelles/Brussel
                                 </li>
-                                <li>TVA: BE0477.45.10.24</li>
+                                <li>M.A. Construction Assistance Rénovation SA (nom commercial Macar)</li>
+                                <li>BCE / TVA : BE 0477.451.024</li>
                             </ul>
                         </div>
                         <div className="flex flex-col items-end">
