@@ -105,3 +105,30 @@ test.describe("politique de confidentialité, publicités", () => {
     });
   }
 });
+
+// Plan 2026-10-21-mention-nom-commercial: the JSON-LD keeps the brand and the Google listing address,
+// and links them to the entity registered at the BCE.
+test.describe("données structurées, entité juridique", () => {
+  test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL));
+
+  test("LocalBusiness : nom Macar, dénomination légale et numéros", async ({ page }) => {
+    await open(page, "/");
+    const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+    const business = blocks.map((b) => JSON.parse(b)).find((d) => d["@id"] === "https://www.macar.be/#localbusiness");
+    expect(business).toMatchObject({
+      name: "Macar",
+      legalName: "M.A. Construction Assistance Rénovation SA",
+      alternateName: ["M.A.C.A.R.", "Macar - Construction, Assistance, Rénovation"],
+      vatID: "BE0477451024",
+      taxID: "0477.451.024",
+      address: { streetAddress: "Avenue Prudent Bols, 43", postalCode: "1020" },
+    });
+  });
+
+  test("llms.txt nomme la société derrière le nom commercial", async ({ request }) => {
+    const text = await (await request.get("/llms.txt")).text();
+    expect(text).toContain("M.A. Construction Assistance Rénovation SA");
+    expect(text).toContain("BE 0477.451.024");
+    expect(text).not.toContain("BE0477.45.10.24");
+  });
+});
