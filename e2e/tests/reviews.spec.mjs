@@ -38,6 +38,18 @@ for (const width of [1440, 375]) {
       await expect.poll(() => left(page), { timeout: 1000, intervals: [50] }).toBeLessThan(100);
     });
 
+    // Phase 3 review: a scroll made while the carousel runs (find in page, end of a swipe, this
+    // test) is kept, and the auto-scroll carries on from there.
+    test("un défilement pendant l'animation est gardé", async ({ page }) => {
+      const target = await carousel(page).evaluate((el) => {
+        const t = Math.round((el.scrollWidth - el.clientWidth) / 2);
+        el.scrollLeft = t;
+        return el.scrollLeft;
+      });
+      await page.waitForTimeout(300);
+      expect(await left(page)).toBeGreaterThanOrEqual(target - 2);
+    });
+
     // Review focus 5: the pause handlers still reach the scrolling element.
     test("le survol met en pause, la sortie relance", async ({ page }) => {
       const box = await carousel(page).boundingBox();
@@ -131,4 +143,28 @@ test.describe("avis, accessibilité du défilement", () => {
     await page.evaluate(() => document.activeElement?.blur());
     await expect.poll(async () => (await left(page)) - paused, { timeout: 2500, intervals: [100] }).toBeGreaterThanOrEqual(10);
   });
+});
+
+// Phase 3 review: requestAnimationFrame stops in a background tab; coming back must not turn the
+// whole hidden time into one jump. Frames are held for 3 s to reproduce it.
+test("retour sur l'onglet : pas de saut du carrousel", async ({ page, context, baseURL }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await prepare(context, baseURL);
+  await page.addInitScript(() => {
+    const raf = window.requestAnimationFrame.bind(window);
+    const held = [];
+    window.__holdFrames = false;
+    window.requestAnimationFrame = (cb) => (window.__holdFrames ? (held.push(cb), 0) : raf(cb));
+    window.__releaseFrames = () => { window.__holdFrames = false; held.splice(0).forEach((cb) => raf(cb)); };
+  });
+  await open(page, "/");
+  await carousel(page).scrollIntoViewIfNeeded();
+  await page.mouse.move(1, 1);
+  await page.waitForTimeout(500);
+  await page.evaluate(() => { window.__holdFrames = true; });
+  await page.waitForTimeout(3000);
+  const before = await left(page);
+  await page.evaluate(() => window.__releaseFrames());
+  await page.waitForTimeout(150);
+  expect((await left(page)) - before).toBeLessThan(30);
 });

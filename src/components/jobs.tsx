@@ -12,7 +12,7 @@ import { TextLink } from "@/app/_components/links"
 export function Jobs() {
   return (
     <main className="flex min-h-screen flex-col">
-      <Screen name="landing page">
+      <Screen name="landing page" animate={false}>
         <div className="grid lg:grid-cols-5 gap-8 text-left">
           <div className="col-span-3">
             <MainHeading>

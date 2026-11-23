@@ -70,7 +70,7 @@ export default function ServicesIndexPage() {
       />
       <script dangerouslySetInnerHTML={{ __html: hashRedirectScript }} />
       <main className="flex min-h-screen flex-col">
-        <Screen name="services" customClassesInner="text-left">
+        <Screen name="services" customClassesInner="text-left" animate={false}>
           <div className="lg:mt-16 max-w-3xl xl:max-w-4xl">
             <MainHeading>
               <h1 className="leading-tight">

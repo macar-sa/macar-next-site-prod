@@ -112,12 +112,20 @@ export default function GoogleReviews() {
     const resize = new ResizeObserver(() => { maxScroll = el.scrollWidth - el.clientWidth; });
     resize.observe(el);
     let position = el.scrollLeft;
+    // A scroll made while the carousel runs (find in page, end of a swipe) moves the position:
+    // carry on from there instead of pulling the row back. Our own sub-pixel writes stay within 2 px.
+    const onScroll = () => {
+      if (Math.abs(el.scrollLeft - position) > 2) position = el.scrollLeft;
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
     let last: number | null = null;
     let frame = 0;
     const step = (now: number) => {
       if (last !== null && maxScroll > 0) {
+        // Frames stop in a background tab: cap the step so coming back is not one big jump.
+        const elapsed = Math.min(now - last, 50);
         // At the end of the list, loop back to the start.
-        position = position >= maxScroll - 1 ? 0 : position + (now - last) * CAROUSEL_SPEED_PX_PER_MS;
+        position = position >= maxScroll - 1 ? 0 : position + elapsed * CAROUSEL_SPEED_PX_PER_MS;
         el.scrollLeft = position;
       }
       last = now;
@@ -127,6 +135,7 @@ export default function GoogleReviews() {
     return () => {
       cancelAnimationFrame(frame);
       resize.disconnect();
+      el.removeEventListener("scroll", onScroll);
       el.style.scrollSnapType = "";
       el.style.scrollBehavior = "smooth";
     };

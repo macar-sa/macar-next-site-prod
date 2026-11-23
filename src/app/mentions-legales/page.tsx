@@ -26,7 +26,7 @@ export default function MentionsLegalesPage() {
                     { name: "Mentions légales", url: "https://www.macar.be/mentions-legales" },
                 ]}
             />
-            <Screen name="mentions-legales">
+            <Screen name="mentions-legales" animate={false}>
                 <SecondHeading>
                     <h1 className="leading-tight">Mentions légales</h1>
                 </SecondHeading>

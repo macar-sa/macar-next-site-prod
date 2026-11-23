@@ -32,7 +32,7 @@ export default function BlogIndexPage() {
         ]}
       />
 
-      <Screen name="blog-hero">
+      <Screen name="blog-hero" animate={false}>
         <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
           <div className="col-span-3">
             <MainHeading>

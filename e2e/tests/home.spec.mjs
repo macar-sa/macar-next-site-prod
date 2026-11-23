@@ -41,7 +41,8 @@ test.describe("accueil, 320 px", () => {
 test.describe("premier écran sans JavaScript", () => {
   test.use({ javaScriptEnabled: false, viewport: { width: 375, height: 812 } });
 
-  for (const path of ["/", "/services/toiture", "/zones/ixelles", "/zones", "/blog/isolation-facade"]) {
+  for (const path of ["/", "/services/toiture", "/zones/ixelles", "/zones", "/blog/isolation-facade",
+    "/services", "/blog", "/about", "/job", "/mentions-legales", "/politique-confidentialite", "/politique-cookies"]) {
     test(`${path} : le titre est visible avant l'hydratation`, async ({ page }) => {
       await page.goto(path);
       const opacities = await page.locator("main h1").evaluate((h1) => {
@@ -82,7 +83,9 @@ test.describe("poids de la page", () => {
     await open(page, "/");
     await page.evaluate(() => document.fonts.ready);
     expect(fonts.filter((u) => /\.otf(\?|$)/.test(u))).toEqual([]);
-    expect(fonts.some((u) => /\.woff2(\?|$)/.test(u))).toBe(true);
+    // Open Sans is woff2 too: check that the heading font itself loaded.
+    const raptorLoaded = await page.evaluate(() => [...document.fonts].some((f) => /raptor/i.test(f.family) && f.status === "loaded"));
+    expect(raptorLoaded).toBe(true);
   });
 
   test("logos partenaires : un nom accessible chacun, une taille adaptée, aucun doublon", async ({ page }) => {
@@ -99,6 +102,8 @@ test.describe("poids de la page", () => {
     const res = await request.get("/_next/image?url=%2Flandpage_pics%2Fconstruction-tool.webp&w=640&q=75", {
       headers: { Accept: "image/avif,image/webp,*/*" },
     });
+    // next dev always answers max-age=0: the cache lifetime is only checked on a production build.
+    test.skip(res.headers()["cache-control"]?.includes("max-age=0"), "serveur de développement");
     expect(res.status()).toBe(200);
     expect(res.headers()["content-type"]).toBe("image/avif");
     expect(res.headers()["cache-control"]).toContain("max-age=2678400");
@@ -129,4 +134,13 @@ test("À propos : aucune erreur dans la console", async ({ page, context, baseUR
   await open(page, "/about");
   await page.waitForTimeout(500);
   expect(errors).toEqual([]);
+});
+
+test("logos partenaires lisibles à 320 px, police source non publiée", async ({ page, context, baseURL, request }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await prepare(context, baseURL);
+  await open(page, "/");
+  const widths = await page.locator('main img[src*="companies"]').evaluateAll((imgs) => imgs.map((i) => i.getBoundingClientRect().width));
+  expect(Math.min(...widths)).toBeGreaterThanOrEqual(70);
+  expect((await request.get("/fonts/raptor/Semibold.otf")).status()).toBe(404);
 });

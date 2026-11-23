@@ -140,7 +140,9 @@ test("plomberie : réparation de fuites, pas de détection vendue comme service"
   await prepare(context, baseURL);
   await open(page, "/services/plomberie");
   const main = page.locator("main");
-  await expect(main).not.toContainText(/détection de fuites(?! établi)/i);
+  // The only allowed mention: a report written by a specialist company.
+  const text = (await main.innerText()).replace("rapport de détection de fuites établi par une société spécialisée", "");
+  expect(text).not.toMatch(/détection de fuites/i);
   await expect(main).not.toContainText(/NDDetect|Polygon/i);
   await expect(main.locator("h3", { hasText: /^Réparation de fuites et étanchéité$/ })).toHaveCount(1);
   const description = await page.locator('meta[name="description"]').getAttribute("content");

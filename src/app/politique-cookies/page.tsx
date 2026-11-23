@@ -44,7 +44,7 @@ export default function PolitiqueCookiesPage() {
                     { name: "Politique cookies", url: "https://www.macar.be/politique-cookies" },
                 ]}
             />
-            <Screen name="politique-cookies">
+            <Screen name="politique-cookies" animate={false}>
                 <SecondHeading>
                     <h1 className="leading-tight">Politique cookies</h1>
                 </SecondHeading>

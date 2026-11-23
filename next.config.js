@@ -3,6 +3,8 @@ const nextConfig = {
   outputFileTracingRoot: __dirname,
   images: {
     // AVIF first (smaller), WebP for browsers without AVIF; optimised images kept a month.
+    // Images are referenced by path: to replace a photo or a logo, give the new file a new name,
+    // otherwise browsers may keep the old one for up to a month.
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2678400,
   },

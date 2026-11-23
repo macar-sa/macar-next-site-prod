@@ -68,7 +68,7 @@ export default function about() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }}
             />
-            <Screen name="about">
+            <Screen name="about" animate={false}>
                 <div className="lg:mt-16 grid lg:grid-cols-5 gap-8 text-left">
                     <div className="col-span-3">
                         <MainHeading>

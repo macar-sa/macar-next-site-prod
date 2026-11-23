@@ -50,7 +50,7 @@ export default function job() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
             />
-            <Screen name="Job">
+            <Screen name="Job" animate={false}>
                 <Jobs />
             </Screen>
         </main>

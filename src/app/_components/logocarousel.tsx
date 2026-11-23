@@ -12,7 +12,7 @@ const PARTNERS = [
 ];
 
 export const LogoCarousel: React.FC = () => (
-  <ul className="grid grid-cols-5 items-center gap-4 md:gap-8 md:w-3/4 opacity-95">
+  <ul className="grid grid-cols-3 sm:grid-cols-5 items-center gap-4 md:gap-8 md:w-3/4 opacity-95">
     {PARTNERS.map((p) => (
       <li key={p.file} className="relative h-10 md:h-12">
         <Image src={`/companies/${p.file}`} alt={`Logo ${p.name}`} fill sizes="116px" className="object-contain" />

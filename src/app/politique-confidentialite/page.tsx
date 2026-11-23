@@ -28,7 +28,7 @@ export default function PolitiqueConfidentialitePage() {
                     { name: "Politique de confidentialité", url: "https://www.macar.be/politique-confidentialite" },
                 ]}
             />
-            <Screen name="politique-confidentialite">
+            <Screen name="politique-confidentialite" animate={false}>
                 <SecondHeading>
                     <h1 className="leading-tight">Politique de confidentialité</h1>
                 </SecondHeading>
