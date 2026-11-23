@@ -4,35 +4,27 @@ import { getAllPosts } from "@/lib/blog";
 
 const baseUrl = "https://www.macar.be";
 
+// Only articles carry a lastmod: their dateModified is real. Static pages have no reliable
+// date, and changefreq / priority are ignored by Google.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const posts = getAllPosts();
+  const page = (path: string) => ({ url: `${baseUrl}${path}` });
 
   return [
-    { url: `${baseUrl}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/services`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${baseUrl}/services/renovation`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/services/plomberie`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/services/electricite`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/services/toiture`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/job`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${baseUrl}/zones`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    ...communes.map((c) => ({
-      url: `${baseUrl}/zones/${c.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    ...posts.map((p) => ({
-      url: `${baseUrl}/blog/${p.slug}`,
-      lastModified: new Date(p.dateModified),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-    { url: `${baseUrl}/mentions-legales`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${baseUrl}/politique-confidentialite`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
-    { url: `${baseUrl}/politique-cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    page("/"),
+    page("/about"),
+    page("/services"),
+    page("/services/renovation"),
+    page("/services/plomberie"),
+    page("/services/electricite"),
+    page("/services/toiture"),
+    page("/job"),
+    page("/zones"),
+    ...communes.map((c) => page(`/zones/${c.slug}`)),
+    page("/blog"),
+    ...posts.map((p) => ({ url: `${baseUrl}/blog/${p.slug}`, lastModified: new Date(p.dateModified) })),
+    page("/mentions-legales"),
+    page("/politique-confidentialite"),
+    page("/politique-cookies"),
   ];
 }
