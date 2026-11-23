@@ -143,6 +143,7 @@ test.describe("règles éditoriales des articles", () => {
     expect(hrefs.length).toBeGreaterThan(0);
     const rules = [
       /\d+\s*(à\s*\d+\s*)?(jours?|semaines?|mois)\b/i,
+      /\b(une?|deux|trois|quatre|cinq|six|sept|huit|dix|douze|quinze|quelques|plusieurs)\s+(à\s+\p{L}+\s+)?(jours?|semaines?|mois)\b/iu,
       /€|\beuros?\b/i,
       /fourchettes? indicatives?/i,
       /échafaudage[^.;]*\bcompris\b/i,
@@ -152,10 +153,29 @@ test.describe("règles éditoriales des articles", () => {
     for (const href of hrefs) {
       await open(page, href);
       // "devis valable 30 jours" is a Macar fact and stays.
-      const text = (await page.locator("article").innerText()).replace(/valable\s+30\s+jours/gi, "");
+      // Official deadlines quoted on purpose: the month to contest the 6 % VAT mention and
+      // Renolution's twelve months after the final invoice.
+      const text = (await page.locator("article").innerText())
+        .replace(/valable\s+30\s+jours/gi, "")
+        .replace(/un mois pour (la )?contester/gi, "")
+        .replace(/douze mois qui suivaient la dernière facture/gi, "");
       for (const rule of rules) expect(text, `${href} : ${rule}`).not.toMatch(rule);
       const tags = await page.locator("article .chip.chip--default").filter({ hasText: /^#/ }).allInnerTexts();
       expect(tags.join(" "), `${href} : tags`).not.toMatch(/bruxelles/i);
     }
   });
+});
+
+// Phase 2 review: Brussels exempts outside insulation of a rear façade not visible from the street
+// (non-protected building); only the front façade always needs a permit. PEB claims stay prudent.
+test("isolation de façade : règle de permis bruxelloise et PEB prudentes", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, ARTICLE);
+  const text = await page.locator("article").innerText();
+  expect(text).not.toMatch(/quasi-totalité des cas/i);
+  expect(text).toMatch(/façade avant/i);
+  expect(text).toMatch(/façade arrière[^.]*dispensée/i);
+  expect(text).not.toMatch(/gagne plusieurs niveaux PEB d'un coup/i);
+  expect(text).not.toMatch(/hors du marché/i);
+  expect(text).not.toMatch(/\bMacar est couvert\b/);
 });

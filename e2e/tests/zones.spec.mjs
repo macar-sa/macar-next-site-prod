@@ -39,10 +39,11 @@ test("sitemap : /zones présent", async ({ request }) => {
   expect(xml).toContain("<loc>https://www.macar.be/zones</loc>");
 });
 
-// Final review: 16 of the 19 Brussels communes have a page, the hub must not claim all of them.
-test("/zones : pas d'affirmation sur toutes les communes", async ({ page }) => {
+// All 19 Brussels communes have a page since task 11: the hub says so, without "déjà".
+test("/zones : les 19 communes bruxelloises", async ({ page }) => {
   await open(page, "/zones");
-  await expect(page.locator("main")).not.toContainText("Chaque commune bruxelloise a sa page");
+  await expect(page.locator("main")).not.toContainText("qui ont déjà leur page");
+  await expect(page.locator("main")).toContainText("les 19 communes de la Région de Bruxelles-Capitale");
 });
 
 // Task 11: every commune has its own introduction, long enough and not a copy of another one.
@@ -81,4 +82,25 @@ test("19 communes dans le sitemap et llms.txt", async ({ request }) => {
   const inLlms = new Set(llms.match(/\/zones\/[a-z-]+/g));
   expect(inLlms.size).toBe(19);
   for (const slug of SLUGS) expect(llms).toContain(`/zones/${slug})`);
+});
+
+// Phase 2 review: wording that claimed unchecked facts, work Macar does not list, or legal effects
+// stated as certain.
+test("textes des communes : ni affirmation non vérifiée ni effet légal présenté comme certain", async ({ page }) => {
+  test.setTimeout(120_000);
+  const forbidden = [
+    /on nous appelle/i,
+    /est née de l'industrie/i,
+    /\b(noues|solins)( et (les )?\p{L}+)? en plomb/iu,
+    /cloisons|plâtrerie/i,
+    /devis[^.]*sur place/i,
+    /l'installation électrique est à revoir/i,
+    /impose aussi/i,
+    /ancienne église villageoise, la vieille église/i,
+  ];
+  for (const slug of SLUGS) {
+    await page.goto(`/zones/${slug}`);
+    const text = await page.locator("main p").first().innerText();
+    for (const rule of forbidden) expect(text, `${slug} : ${rule}`).not.toMatch(rule);
+  }
 });

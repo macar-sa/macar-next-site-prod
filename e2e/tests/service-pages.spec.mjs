@@ -118,3 +118,17 @@ test.describe("contenu des pages de service", () => {
     }
   });
 });
+
+// Phase 2 review: no capability Macar has not confirmed; PVC frames on a street façade need a permit.
+test("toiture : pas de bâchage ni de facturation à l'assureur non confirmés", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/services/toiture");
+  await expect(page.locator("main")).not.toContainText(/bâchage|facturation directe/i);
+});
+
+test("rénovation : le permis pour les châssis à rue est signalé", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/services/renovation");
+  const frames = page.locator("main h3", { hasText: /^Châssis et fenêtres$/ }).locator("xpath=..");
+  await expect(frames).toContainText(/permis d'urbanisme/);
+});

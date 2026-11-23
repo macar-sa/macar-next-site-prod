@@ -133,7 +133,7 @@ export default function about() {
                                 ))}
                             </ul>
                             <p className="mt-4 leading-loose">
-                                Macar est couvert par une assurance responsabilité civile entreprise, pendant le chantier et après la livraison.
+                                Macar est couverte par une assurance responsabilité civile entreprise, pendant le chantier et après la livraison.
                             </p>
                         </div>
                     </div>

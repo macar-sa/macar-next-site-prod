@@ -155,6 +155,7 @@ test("À propos : gérant, assurance et page reliée à l'entreprise", async ({ 
   }
   await expect(main).not.toContainText("décennale");
   await expect(main).not.toContainText("dans les temps");
+  await expect(main).toContainText("Macar est couverte");
   const about = (await jsonLd(page)).find((n) => n["@type"] === "AboutPage");
   expect(about?.url).toBe("https://www.macar.be/about");
   expect(about?.about?.["@id"]).toBe("https://www.macar.be/#localbusiness");

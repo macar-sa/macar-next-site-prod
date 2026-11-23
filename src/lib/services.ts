@@ -21,6 +21,7 @@ const renovationDetailCategories: DetailCategory[] = [
       "Double ou triple vitrage",
       "Démontage et évacuation des anciens châssis",
       "Finitions intérieures autour du nouveau châssis",
+      "À Bruxelles, en façade à rue, remplacer des châssis en changeant de matériau demande en principe un permis d'urbanisme : nous travaillons sur la base des autorisations obtenues",
     ],
   },
   {
@@ -277,9 +278,7 @@ const toitureDetailCategories: DetailCategory[] = [
     title: "Sinistres et dégâts des eaux",
     items: [
       "Travaux suite à un rapport d'expert d'assurance ou de détection de fuite : visite pour vérifier les postes du rapport, devis ligne par ligne aligné sur ces postes",
-      "Bâchage et mesures conservatoires en journée, pour limiter une infiltration en attendant la réparation",
       "Remise en état après infiltration : couverture, étanchéité, corniches et gouttières, plafonds et peinture intérieure",
-      "Facturation directe à l'assureur quand la police et le client le permettent",
     ],
   },
   {

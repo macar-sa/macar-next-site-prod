@@ -35,7 +35,7 @@ export default function ZonesPage() {
             </MainHeading>
             <p className="mt-6 text-base lg:text-lg text-muted leading-relaxed lg:leading-7">
               Macar intervient partout en Belgique, et avant tout à Bruxelles, où l&apos;entreprise est basée depuis 2002.
-              Voici les communes bruxelloises qui ont déjà leur page, avec les travaux que nous y menons en
+              Voici les 19 communes de la Région de Bruxelles-Capitale, avec les travaux que nous y menons en
               rénovation, plomberie, électricité et toiture.
             </p>
           </div>
