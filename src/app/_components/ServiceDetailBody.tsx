@@ -1,5 +1,4 @@
 import { Separator } from "@heroui/react/separator";
-import { Phone } from "lucide-react";
 import Screen from "./screen";
 import { MainHeading, SecondHeading } from "./textStyles";
 import { ButtonLink, TextLink } from "./links";
@@ -10,13 +9,9 @@ import { services, type ServiceItem } from "@/lib/services";
 import { pickCommunes } from "@/lib/seo/communes";
 import { LOCAL_BUSINESS_ID, serviceId } from "@/lib/seo/localBusiness";
 import { ContactForm } from "@/components/contact_form";
+import { CallButton, PHONE_HREF, PHONE_LABEL } from "./CallButton";
 
 const baseUrl = "https://www.macar.be";
-
-// Macar's mobile number. The tel: links are counted as phone_click by ConversionTracking's
-// delegated listener (any Macar number, anywhere on the page), nothing to wire here.
-const PHONE_HREF = "tel:+32478235008";
-const PHONE_LABEL = "0478 23 50 08";
 
 // Communes linked at the bottom of a service page, in this order: Bruxelles-Ville first
 // (headquarters in Laeken), then pages with a written introduction.
@@ -79,10 +74,7 @@ export default function ServiceDetailBody({
               {intro}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <ButtonLink href={PHONE_HREF}>
-                <Phone aria-hidden size={16} />
-                Appeler le {PHONE_LABEL}
-              </ButtonLink>
+              <CallButton />
               <ButtonLink href="#contact" variant="tertiary">Demander un devis gratuit</ButtonLink>
             </div>
           </div>

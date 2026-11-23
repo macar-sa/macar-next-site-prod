@@ -4,6 +4,7 @@ import Screen from "./screen";
 import { MainHeading, P, Raptor, SecondHeading } from "./textStyles";
 import { ServiceCard } from "./ServiceCard";
 import { ButtonLink, TextLink } from "./links";
+import { CallButton } from "./CallButton";
 import { ContactForm } from "@/components/contact_form";
 import { LogoCarousel } from "./logocarousel";
 import Statistics from "@/components/Statistics";
@@ -56,6 +57,11 @@ export default function HomeView({ faq }: { faq: FaqItem[] }) {
               électriques et toiture basée à Bruxelles (Belgique), active depuis
               2002.
             </p>
+            {/* Phones: call and quote in the first screen (the right column comes after the logos). */}
+            <div className="mt-6 flex flex-wrap gap-4 lg:hidden">
+              <CallButton />
+              <ButtonLink href="/#contact" variant="tertiary">Demander un devis gratuit</ButtonLink>
+            </div>
             <p className="mt-4 text-sm">
               <TextLink
                 href="/#reviews"

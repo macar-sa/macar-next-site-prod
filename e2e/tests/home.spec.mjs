@@ -53,3 +53,20 @@ test.describe("premier écran sans JavaScript", () => {
     });
   }
 });
+
+// Audit 23/11/2026: on a phone the call and quote buttons were below the first screen.
+test.describe("premier écran mobile : appeler et demander un devis", () => {
+  test.use({ viewport: { width: 375, height: 812 } });
+  test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL));
+
+  for (const path of ["/", "/zones/ixelles"]) {
+    test(`${path} : bouton d'appel et lien de devis visibles sans défiler`, async ({ page }) => {
+      await open(page, path);
+      const call = page.locator('main a[href="tel:+32478235008"]').filter({ visible: true }).first();
+      await expect(call).toHaveText("Appeler le 0478 23 50 08");
+      await expect(call).toBeInViewport({ ratio: 1 });
+      const quote = page.locator('main a[href="/#contact"]').filter({ visible: true }).first();
+      await expect(quote).toBeInViewport({ ratio: 1 });
+    });
+  }
+});
