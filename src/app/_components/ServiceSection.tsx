@@ -13,6 +13,7 @@ export default function ServiceSection({
   detailIntro,
   detailCategories,
   chips,
+  readMore,
 }: ServiceItem) {
   const hasDetailCategories = detailCategories && detailCategories.length > 0;
 
@@ -65,6 +66,11 @@ export default function ServiceSection({
                   </div>
                 ))}
               </div>
+              {readMore && (
+                <p className="text-sm">
+                  À lire : <TextLink href={readMore.href}>{readMore.label}</TextLink>
+                </p>
+              )}
             </div>
           ) : (
             <p className="text-sm lg:text-base text-muted leading-relaxed lg:leading-6">

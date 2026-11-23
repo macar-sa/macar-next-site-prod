@@ -81,3 +81,40 @@ test("pages des nouvelles communes et sitemap", async ({ page, context, baseURL,
     expect(sitemap).toContain(`https://www.macar.be/zones/${slug}</loc>`);
   }
 });
+
+// Audit 23/11/2026: services Macar does (checked in its quotes) that the pages did not say.
+test.describe("contenu des pages de service", () => {
+  test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL));
+
+  test("toiture : sinistres et rapport d'expert", async ({ page }) => {
+    await open(page, "/services/toiture");
+    const main = page.locator("main");
+    await expect(main).toContainText(/sinistre/i);
+    await expect(main).toContainText("rapport d'expert");
+    await expect(main.locator('a[href="/blog/degats-eaux-toiture-sinistre-assurance"]')).toHaveCount(1);
+  });
+
+  test("plomberie : urgences en journée dès le premier écran", async ({ page }) => {
+    await open(page, "/services/plomberie");
+    const beforeFirstH2 = await page.locator("main").evaluate((main) => {
+      const h2 = main.querySelector("h2");
+      const range = document.createRange();
+      range.setStart(main, 0);
+      range.setEndBefore(h2);
+      return range.toString();
+    });
+    expect(beforeFirstH2).toContain("urgences en journée");
+  });
+
+  test("rénovation : châssis et fenêtres", async ({ page }) => {
+    await open(page, "/services/renovation");
+    await expect(page.locator("main h3", { hasText: /^Châssis et fenêtres$/ })).toHaveCount(1);
+  });
+
+  test("copropriétés", async ({ page }) => {
+    for (const path of ["/services/toiture", "/services/renovation"]) {
+      await open(page, path);
+      await expect(page.locator("main"), path).toContainText(/copropriété/i);
+    }
+  });
+});

@@ -9,9 +9,20 @@ export type ServiceItem = {
   detailIntro?: string;
   detailCategories?: DetailCategory[];
   chips: string[];
+  /** Article linked under the list of services. */
+  readMore?: { href: string; label: string };
 };
 
 const renovationDetailCategories: DetailCategory[] = [
+  {
+    title: "Châssis et fenêtres",
+    items: [
+      "Remplacement de châssis en PVC : oscillo-battants, fixes et levant-coulissants",
+      "Double ou triple vitrage",
+      "Démontage et évacuation des anciens châssis",
+      "Finitions intérieures autour du nouveau châssis",
+    ],
+  },
   {
     title: "Peinture",
     items: [
@@ -263,6 +274,15 @@ const electriciteDetailCategories: DetailCategory[] = [
 
 const toitureDetailCategories: DetailCategory[] = [
   {
+    title: "Sinistres et dégâts des eaux",
+    items: [
+      "Travaux suite à un rapport d'expert d'assurance ou de détection de fuite : visite pour vérifier les postes du rapport, devis ligne par ligne aligné sur ces postes",
+      "Bâchage et mesures conservatoires en journée, pour limiter une infiltration en attendant la réparation",
+      "Remise en état après infiltration : couverture, étanchéité, corniches et gouttières, plafonds et peinture intérieure",
+      "Facturation directe à l'assureur quand la police et le client le permettent",
+    ],
+  },
+  {
     title: "Chantier et échafaudage",
     items: [
       "Installation du chantier : pose d'un échafaudage (avant, arrière, colonnes), lift (monte-charge), conteneur (déchets normaux ou asbest), toilette de chantier",
@@ -374,12 +394,13 @@ export const renovationService: ServiceItem = {
   title: "Rénovation intérieure et extérieure",
   image: "/services/renovation.png",
   summary:
-    "Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs.",
+    "Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, remplacement de châssis PVC, abattage de murs porteurs.",
   detail: "",
   detailIntro:
-    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de rénovation intérieure et extérieure. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
+    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de rénovation intérieure et extérieure, pour les particuliers, les syndics et les copropriétés. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
   detailCategories: renovationDetailCategories,
   chips: [
+    "Châssis et fenêtres PVC",
     "Peinture intérieure et extérieure",
     "Plafonds en gyproc",
     "Carrelage et joints",
@@ -438,8 +459,12 @@ export const toitureService: ServiceItem = {
     "Couverture tuiles et ardoises, toit plat et étanchéité Derbigum/EPDM, corniches et gouttières zinc, velux et lucarnes, noues et arêtiers, cheminée et solins, descentes d'eau pluviale, coupoles.",
   detail: "",
   detailIntro:
-    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de toiture. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
+    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de toiture, pour les particuliers, les propriétaires bailleurs, les syndics et les copropriétés. Nous intervenons aussi après un sinistre, sur la base du rapport d'expert. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
   detailCategories: toitureDetailCategories,
+  readMore: {
+    href: "/blog/degats-eaux-toiture-sinistre-assurance",
+    label: "Dégâts des eaux et sinistre toiture : que faire et comment gérer son dossier d'assurance",
+  },
   chips: [
     "Couverture tuiles et ardoises",
     "Toit plat et étanchéité",
@@ -448,6 +473,7 @@ export const toitureService: ServiceItem = {
     "Noues et arêtiers",
     "Cheminée et solins",
     "Descentes d'eau pluviale",
+    "Sinistres et dégâts des eaux",
   ],
 };
 
