@@ -143,3 +143,19 @@ test("article : l'auteur du JSON-LD est visible sur la page", async ({ page, con
   await open(page, "/blog/isolation-facade");
   await expect(page.locator("main")).toContainText("Par Shkelzen Shalaj, gérant");
 });
+
+// Task 12: the about page says who runs Macar and how it works, with facts Macar confirmed
+// (23/11/2026): business liability insurance, no decennial guarantee, no "on time" promise.
+test("À propos : gérant, assurance et page reliée à l'entreprise", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/about");
+  const main = page.locator("main");
+  for (const text of ["Shkelzen Shalaj", "responsabilité civile", "2002", "2010", "valable 30 jours", "5 %", "40 %", "45 %", "10 %"]) {
+    await expect(main).toContainText(text);
+  }
+  await expect(main).not.toContainText("décennale");
+  await expect(main).not.toContainText("dans les temps");
+  const about = (await jsonLd(page)).find((n) => n["@type"] === "AboutPage");
+  expect(about?.url).toBe("https://www.macar.be/about");
+  expect(about?.about?.["@id"]).toBe("https://www.macar.be/#localbusiness");
+});
