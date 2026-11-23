@@ -81,10 +81,11 @@ export const localBusinessJsonLd = {
       closes: "17:00",
     },
   ],
+  // Macar works all over Belgium, Brussels first (confirmed by Macar on 2026-11-23).
   areaServed: [
-    { "@type": "City", name: "Bruxelles" },
-    ...communes.map((c) => ({ "@type": "City" as const, name: c.name })),
+    { "@type": "Country", name: "Belgique" },
     { "@type": "AdministrativeArea", name: "Région de Bruxelles-Capitale" },
+    ...communes.map((c) => ({ "@type": "City" as const, name: c.name })),
   ],
   knowsAbout: [
     "Rénovation intérieure",

@@ -21,7 +21,7 @@ const faq: { question: string; answer: string }[] = [
   {
     question: "Où est située l'entreprise Macar ?",
     answer:
-      "Macar est située au 43, avenue Prudent Bols, B-1020 Bruxelles (Belgique). Nous intervenons à Bruxelles et en Belgique.",
+      "Macar est située au 43, avenue Prudent Bols, B-1020 Bruxelles (Belgique). Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002.",
   },
   {
     question: "Quels services propose Macar ?",
@@ -40,7 +40,7 @@ const faq: { question: string; answer: string }[] = [
   {
     question: "Macar intervient-elle uniquement à Bruxelles ?",
     answer:
-      "Macar est basée à Bruxelles et intervient à Bruxelles et en Belgique. Notre zone d'intervention couvre la Belgique.",
+      "Non. Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002.",
   },
   {
     question: "Proposez-vous des travaux de toiture et de plomberie ?",

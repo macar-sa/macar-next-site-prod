@@ -29,3 +29,14 @@ test("llms.txt en Markdown", async ({ request }) => {
   expect(text).not.toContain("19 communes");
   expect(text).toContain(ZONE_SENTENCE);
 });
+
+test("areaServed : Belgique, Région bruxelloise et communes", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/");
+  const business = (await jsonLd(page)).find((n) => n["@id"] === BUSINESS_ID);
+  const areas = business.areaServed;
+  expect(areas).toContainEqual({ "@type": "Country", name: "Belgique" });
+  expect(areas).toContainEqual({ "@type": "AdministrativeArea", name: "Région de Bruxelles-Capitale" });
+  expect(areas.filter((a) => a.name === "Bruxelles")).toEqual([]);
+  expect(areas.filter((a) => a.name === "Bruxelles-Ville")).toHaveLength(1);
+});
