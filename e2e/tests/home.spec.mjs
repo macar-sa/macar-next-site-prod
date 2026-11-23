@@ -35,3 +35,21 @@ test.describe("accueil, 320 px", () => {
     expect(overflowing).toBe(0);
   });
 });
+
+// Audit 23/11/2026: the first screen faded in from opacity 0 with framer-motion, so before
+// hydration (slow phone, crawler without JavaScript) the heading was invisible.
+test.describe("premier écran sans JavaScript", () => {
+  test.use({ javaScriptEnabled: false, viewport: { width: 375, height: 812 } });
+
+  for (const path of ["/", "/services/toiture", "/zones/ixelles", "/zones", "/blog/isolation-facade"]) {
+    test(`${path} : le titre est visible avant l'hydratation`, async ({ page }) => {
+      await page.goto(path);
+      const opacities = await page.locator("main h1").evaluate((h1) => {
+        const out = [];
+        for (let el = h1; el && el !== document.body; el = el.parentElement) out.push(getComputedStyle(el).opacity);
+        return out;
+      });
+      expect(opacities.every((o) => o === "1"), opacities.join(",")).toBe(true);
+    });
+  }
+});

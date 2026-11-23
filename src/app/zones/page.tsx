@@ -28,7 +28,7 @@ export default function ZonesPage() {
         ]}
       />
       <main className="flex min-h-screen flex-col">
-        <Screen name="zones-hero" customClassesInner="text-left">
+        <Screen name="zones-hero" customClassesInner="text-left" animate={false}>
           <div className="lg:mt-16 max-w-3xl xl:max-w-4xl">
             <MainHeading>
               <h1 className="leading-tight">Zones desservies par Macar</h1>

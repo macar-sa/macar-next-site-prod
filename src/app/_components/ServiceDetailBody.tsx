@@ -70,7 +70,7 @@ export default function ServiceDetailBody({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       <main className="flex min-h-screen flex-col">
-        <Screen name="service-hero" customClassesInner="text-left">
+        <Screen name="service-hero" customClassesInner="text-left" animate={false}>
           <div className="lg:mt-16 max-w-3xl xl:max-w-4xl">
             <MainHeading>
               <h1 className="leading-tight">{h1}</h1>

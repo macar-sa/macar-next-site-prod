@@ -112,7 +112,7 @@ export default async function BlogPostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      <Screen name="post-hero">
+      <Screen name="post-hero" animate={false}>
         <article className="mx-auto max-w-3xl">
           {/* Visible trail, same items as the JSON-LD above. flex-wrap and shrink on the last item
               let a long title wrap on a phone instead of overflowing (layout classes only). */}
