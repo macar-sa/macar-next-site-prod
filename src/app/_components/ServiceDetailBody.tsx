@@ -8,7 +8,7 @@ import ServiceSection from "./ServiceSection";
 import { Breadcrumbs } from "./jsonld";
 import { services, type ServiceItem } from "@/lib/services";
 import { pickCommunes } from "@/lib/seo/communes";
-import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
+import { LOCAL_BUSINESS_ID, serviceId } from "@/lib/seo/localBusiness";
 import { ContactForm } from "@/components/contact_form";
 
 const baseUrl = "https://www.macar.be";
@@ -42,6 +42,7 @@ export default function ServiceDetailBody({
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": serviceId(service.id),
     name: service.title,
     serviceType: service.title,
     description: service.summary,

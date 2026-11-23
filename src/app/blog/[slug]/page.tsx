@@ -73,17 +73,17 @@ export default async function BlogPostPage({
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     image: coverAbs,
-    datePublished: post.datePublished,
-    dateModified: post.dateModified,
-    author: {
-      "@type": "Organization",
-      name: "Macar",
-      url: SITE_URL,
-    },
+    datePublished: new Date(post.datePublished).toISOString(),
+    dateModified: new Date(post.dateModified).toISOString(),
+    // Articles are signed by Macar's manager (confirmed by Macar on 2026-11-23).
+    author:
+      post.author === "Macar"
+        ? { "@type": "Organization", "@id": LOCAL_BUSINESS_ID, name: "Macar" }
+        : { "@type": "Person", name: post.author, jobTitle: "Gérant", worksFor: { "@id": LOCAL_BUSINESS_ID } },
     publisher: { "@id": LOCAL_BUSINESS_ID },
     mainEntityOfPage: {
       "@type": "WebPage",

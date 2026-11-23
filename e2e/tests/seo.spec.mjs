@@ -84,3 +84,52 @@ test("icônes du manifeste", async ({ request }) => {
   const manifest = await (await request.get("/favicon/site.webmanifest")).json();
   for (const icon of manifest.icons) expect((await request.get(icon.src)).status(), icon.src).toBe(200);
 });
+
+test("avis : 20 dans le JSON-LD", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/");
+  const business = (await jsonLd(page)).find((n) => n["@id"] === BUSINESS_ID);
+  expect(business.aggregateRating.reviewCount).toBe("20");
+});
+
+test("WebSite relié à l'entreprise", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/");
+  const site = (await jsonLd(page)).find((n) => n["@type"] === "WebSite");
+  expect(site["@id"]).toBe("https://www.macar.be/#website");
+  expect(site.inLanguage).toBe("fr-BE");
+  expect(site.publisher["@id"]).toBe(BUSINESS_ID);
+});
+
+test("JobPosting sur /job", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/job");
+  const job = (await jsonLd(page)).find((n) => n["@type"] === "JobPosting");
+  expect(job.title).toBe("Ouvrier polyvalent (Indépendant)");
+  expect(job.employmentType).toBe("CONTRACTOR");
+  expect(job.hiringOrganization["@id"]).toBe(BUSINESS_ID);
+  expect(job.jobLocation.address.postalCode).toBe("1020");
+  expect(job.datePosted).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(job.validThrough).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(new Date(job.validThrough).getTime()).toBeGreaterThan(Date.now());
+});
+
+test("BlogPosting signé par le gérant", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/blog/isolation-facade");
+  const post = (await jsonLd(page)).find((n) => n["@type"] === "BlogPosting");
+  expect(post.author["@type"]).toBe("Person");
+  expect(post.author.name).toBe("Shkelzen Shalaj");
+  expect(post.datePublished).toMatch(/(Z|[+-]\d{2}:\d{2})$/);
+});
+
+test("Service relié au catalogue de l'entreprise", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/services/toiture");
+  const nodes = await jsonLd(page);
+  const service = nodes.find((n) => n["@type"] === "Service" && n.url === "https://www.macar.be/services/toiture");
+  expect(service["@id"]).toBe("https://www.macar.be/services/toiture#service");
+  const business = nodes.find((n) => n["@id"] === BUSINESS_ID);
+  const ids = business.hasOfferCatalog.itemListElement.map((o) => o.itemOffered["@id"]);
+  expect(ids).toContain("https://www.macar.be/services/toiture#service");
+});

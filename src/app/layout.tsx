@@ -10,7 +10,7 @@ import GoogleTag from "./_components/GoogleTag";
 import ConversionTracking from "./_components/ConversionTracking";
 import MetaPixel from "./_components/MetaPixel";
 import { Analytics } from "@vercel/analytics/react"
-import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
+import { localBusinessJsonLd, websiteJsonLd } from "@/lib/seo/localBusiness";
 import { pageOpenGraph } from "@/lib/seo/openGraph";
 
 const open_sans = Open_Sans({ subsets: ['latin'], variable: '--font-open-sans' })
@@ -82,6 +82,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className="bg-background text-muted antialiased">

@@ -1,11 +1,17 @@
 import { communes } from "./communes";
 
 export const LOCAL_BUSINESS_ID = "https://www.macar.be/#localbusiness";
+export const WEBSITE_ID = "https://www.macar.be/#website";
+
+// One @id per service, shared by the OfferCatalog below and the Service block of its page.
+export function serviceId(id: string): string {
+  return `https://www.macar.be/services/${id}#service`;
+}
 
 // Single source of truth for the aggregate rating shown in the JSON-LD,
 // the Review schema in page.tsx, and the rating badge in the hero.
 // Update these two numbers when refreshing with real Google Business Profile totals.
-export const RATING = { value: "5.0", count: 12 } as const;
+export const RATING = { value: "5.0", count: 20 } as const;
 
 export const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -129,6 +135,7 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("renovation"),
           name: "Rénovation intérieure et extérieure",
           url: "https://www.macar.be/services/renovation",
         },
@@ -137,6 +144,7 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("plomberie"),
           name: "Plomberie",
           url: "https://www.macar.be/services/plomberie",
         },
@@ -145,6 +153,7 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("electricite"),
           name: "Installation électrique",
           url: "https://www.macar.be/services/electricite",
         },
@@ -153,10 +162,21 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("toiture"),
           name: "Toiture",
           url: "https://www.macar.be/services/toiture",
         },
       },
     ],
   },
+};
+
+export const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  url: "https://www.macar.be",
+  name: "Macar",
+  inLanguage: "fr-BE",
+  publisher: { "@id": LOCAL_BUSINESS_ID },
 };

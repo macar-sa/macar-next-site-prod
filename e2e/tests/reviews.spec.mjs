@@ -87,12 +87,17 @@ test.describe("avis à jour", () => {
     await open(page, "/");
   });
 
-  test("les nouveaux avis sont dans le carrousel et le compteur affiche 12 avis", async ({ page }) => {
+  // The count follows the Google Business Profile (20 reviews on 2026-11-23).
+  test("les nouveaux avis sont dans le carrousel et le compteur affiche 20 avis", async ({ page }) => {
     const cards = page.locator('#reviews [data-slot="card"]');
     await expect(cards.filter({ hasText: "Cathe" })).toContainText("le suivi après les travaux");
     await expect(cards.filter({ hasText: "Safdar Butt" })).toHaveCount(1);
     await expect(cards.filter({ hasText: "Carole Jenner" })).toContainText("fenêtres doubles et triples");
-    await expect(page.getByText("· 12 avis Google")).toBeVisible();
+    await expect(page.getByText("· 20 avis Google")).toBeVisible();
+  });
+
+  test("pas de date relative figée sur les cartes", async ({ page }) => {
+    await expect(page.locator('#reviews [data-slot="card"]').filter({ hasText: /Il y a/ })).toHaveCount(0);
   });
 });
 
