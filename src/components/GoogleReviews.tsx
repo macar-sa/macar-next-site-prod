@@ -40,7 +40,21 @@ function getInitials(name: string) {
 // HeroUI v3 Card and Avatar with their own styles; the classes only size and place the card
 // in the scrolling row.
 function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expanded: boolean; onToggle: () => void }) {
-  const needsExpand = review.text.length > 180;
+  // "Voir plus" when the 3-line clamp actually cuts the text, measured on the rendered card (a
+  // character count missed short reviews in narrow cards). The length guess only serves the
+  // first render, before measuring.
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [isClamped, setIsClamped] = useState(review.text.length > 180);
+  useEffect(() => {
+    const el = textRef.current;
+    if (!el) return;
+    const measure = () => setIsClamped(el.scrollHeight > el.clientHeight + 1);
+    measure();
+    const resize = new ResizeObserver(measure);
+    resize.observe(el);
+    return () => resize.disconnect();
+  }, [expanded]);
+  const needsExpand = expanded || isClamped;
   return (
     <Card className="shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start">
       <Card.Header>
@@ -62,7 +76,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
               {review.text}
             </div>
           ) : (
-            <p className="text-muted text-sm leading-relaxed whitespace-pre-line line-clamp-3">
+            <p ref={textRef} className="text-muted text-sm leading-relaxed whitespace-pre-line line-clamp-3">
               {review.text}
             </p>
           )}
