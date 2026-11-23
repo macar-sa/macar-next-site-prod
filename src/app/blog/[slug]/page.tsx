@@ -180,7 +180,7 @@ export default async function BlogPostPage({
                 Un projet en tête ?
               </h2>
               <Card.Description className="max-w-prose">
-                Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
+                Macar accompagne particuliers et professionnels partout en Belgique depuis 2002. Demandez un devis gratuit et sans engagement.
               </Card.Description>
             </Card.Header>
             <Card.Footer className="flex-wrap gap-3">

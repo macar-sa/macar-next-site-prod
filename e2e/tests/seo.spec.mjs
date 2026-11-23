@@ -68,7 +68,7 @@ test("sitemap : lastmod seulement sur les articles", async ({ request }) => {
   const entry = (loc) => xml.split("<url>").find((u) => u.includes(`<loc>${loc}</loc>`)) || "";
   expect(entry("https://www.macar.be/about")).not.toContain("<lastmod>");
   expect(entry("https://www.macar.be/zones/ixelles")).not.toContain("<lastmod>");
-  expect(entry("https://www.macar.be/blog/isolation-facade")).toMatch(/<lastmod>2026-10-02/);
+  expect(entry("https://www.macar.be/blog/isolation-facade")).toMatch(/<lastmod>2026-11-23/);
   expect(xml).not.toContain("<priority>");
   expect(xml).not.toContain("<changefreq>");
 });
