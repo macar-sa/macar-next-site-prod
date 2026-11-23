@@ -48,9 +48,9 @@ export default async function ZonePage({
   if (!commune) notFound();
 
   const pageUrl = `${baseUrl}/zones/${commune.slug}`;
-  const intro = intros[commune.slug];
-  const placeholder = `Macar intervient à ${commune.name} (${commune.postal}) pour la rénovation intérieure et extérieure, la plomberie, les installations électriques et la toiture. Notre équipe est basée à Bruxelles depuis 2002 et couvre l'ensemble de la Région de Bruxelles-Capitale. Chaque projet à ${commune.name} fait l'objet d'un devis gratuit sur mesure.`;
-  const body = intro ?? placeholder;
+  // No generic fallback: a commune without its own text fails the static build.
+  const body = intros[commune.slug];
+  if (!body) throw new Error(`Texte manquant pour la commune ${commune.slug} (zones/[slug]/intros.ts)`);
 
   const localServiceJsonLd = {
     "@context": "https://schema.org",

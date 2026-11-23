@@ -19,6 +19,7 @@ export const PAGES = [
   { slug: "zones", path: "/zones" },
   { slug: "zones-uccle", path: "/zones/uccle" },
   { slug: "zones-bruxelles-ville", path: "/zones/bruxelles-ville" },
+  { slug: "zones-auderghem", path: "/zones/auderghem" },
   { slug: "not-found", path: "/page-introuvable-harness" },
 ];
 

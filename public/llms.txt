@@ -36,6 +36,9 @@ Pages dédiées par commune bruxelloise :
 - [Ganshoren](https://www.macar.be/zones/ganshoren)
 - [Koekelberg](https://www.macar.be/zones/koekelberg)
 - [Berchem-Sainte-Agathe](https://www.macar.be/zones/berchem-sainte-agathe)
+- [Auderghem](https://www.macar.be/zones/auderghem)
+- [Watermael-Boitsfort](https://www.macar.be/zones/watermael-boitsfort)
+- [Saint-Josse-ten-Noode](https://www.macar.be/zones/saint-josse-ten-noode)
 
 ## Contact
 

@@ -22,6 +22,9 @@ export const communes: Commune[] = [
   { slug: "ganshoren", name: "Ganshoren", postal: "1083" },
   { slug: "koekelberg", name: "Koekelberg", postal: "1081" },
   { slug: "berchem-sainte-agathe", name: "Berchem-Sainte-Agathe", postal: "1082" },
+  { slug: "auderghem", name: "Auderghem", postal: "1160" },
+  { slug: "watermael-boitsfort", name: "Watermael-Boitsfort", postal: "1170" },
+  { slug: "saint-josse-ten-noode", name: "Saint-Josse-ten-Noode", postal: "1210" },
 ];
 
 export function getCommune(slug: string): Commune | undefined {
