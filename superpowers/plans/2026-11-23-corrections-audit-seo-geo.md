@@ -333,8 +333,8 @@ Le renommage du slug `prix-renovation-toiture` n'est **pas** dans cette branche 
 ## Fin de branche
 
 - [x] Mettre à jour `CLAUDE.md` (section Architecture) : page hub `/zones`, aide `pageOpenGraph`, `serviceId`, `Screen animate`.
-- [ ] `npm run lint`, `npx tsc --noEmit`, `npm run build`, `npm run test:e2e` : tout passe.
-- [ ] Vérification visuelle Playwright MCP à 375 et 1440 px sur `/`, `/zones`, `/zones/ixelles`, `/services/toiture`, `/blog/isolation-facade`, `/about` (captures dans un dossier temporaire).
+- [x] `npm run lint`, `npx tsc --noEmit`, `npm run build`, `npm run test:e2e` : tout passe.
+- [x] Vérification visuelle Playwright MCP à 375 et 1440 px sur `/`, `/zones`, `/zones/ixelles`, `/services/toiture`, `/blog/isolation-facade`, `/about` (captures dans un dossier temporaire).
 - [ ] PR vers `dev` : résumé par phase, liste des textes ajoutés ou retirés (phase 2) pour relecture par Macar.
 
 ## Hors de cette branche
