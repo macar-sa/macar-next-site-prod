@@ -11,6 +11,7 @@ import ConversionTracking from "./_components/ConversionTracking";
 import MetaPixel from "./_components/MetaPixel";
 import { Analytics } from "@vercel/analytics/react"
 import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 
 const open_sans = Open_Sans({ subsets: ['latin'], variable: '--font-open-sans' })
 const raptor = localFont({
@@ -30,29 +31,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.macar.be/"),
   title: defaultTitle,
   description: defaultDescription,
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: defaultTitle,
-    description: defaultDescription,
-    url: "https://www.macar.be/",
-    siteName: "Macar",
-    images: [
-      {
-        url: "/opengraph/OpengraphSmall.png",
-        width: 800,
-        height: 600,
-      },
-      {
-        url: "/opengraph/OpengraphLarge.png",
-        width: 1800,
-        height: 1600,
-      },
-    ],
-    locale: "fr_BE",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: defaultTitle, description: defaultDescription, path: "/" }),
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,

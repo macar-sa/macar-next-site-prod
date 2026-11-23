@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Card } from "@heroui/react/card";
@@ -16,12 +17,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/blog" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://www.macar.be/blog",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: TITLE, description: DESCRIPTION, path: "/blog" }),
 };
 
 export default function BlogIndexPage() {

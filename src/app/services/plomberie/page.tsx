@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import ServiceDetailBody from "@/app/_components/ServiceDetailBody";
 import { plomberieService } from "@/lib/services";
 
@@ -7,13 +8,7 @@ export const metadata: Metadata = {
   description:
     "Macar, plombier à Bruxelles depuis 2002 : chauffage central, chaudière à condensation, sanitaires, détection de fuites. Devis gratuit, intervention rapide.",
   alternates: { canonical: "/services/plomberie" },
-  openGraph: {
-    title: "Plombier à Bruxelles | Macar",
-    description:
-      "Plomberie sanitaire, chauffage, chaudière, détection de fuites à Bruxelles. Devis gratuit.",
-    url: "https://www.macar.be/services/plomberie",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: "Plombier à Bruxelles | Macar", description: "Plomberie sanitaire, chauffage, chaudière, détection de fuites à Bruxelles. Devis gratuit.", path: "/services/plomberie" }),
 };
 
 export default function PlomberiePage() {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import ServiceDetailBody from "@/app/_components/ServiceDetailBody";
 import { electriciteService } from "@/lib/services";
 
@@ -8,13 +9,7 @@ export const metadata: Metadata = {
   description:
     "Macar, électricien à Bruxelles depuis 2002 : tableau électrique, mise en conformité RGIE, saignées et câblage, prises, éclairage. Devis gratuit.",
   alternates: { canonical: "/services/electricite" },
-  openGraph: {
-    title: "Électricien à Bruxelles | Macar",
-    description:
-      "Tableau électrique, mise en conformité RGIE, câblage, prises et éclairage à Bruxelles. Devis gratuit.",
-    url: "https://www.macar.be/services/electricite",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: "Électricien à Bruxelles | Macar", description: "Tableau électrique, mise en conformité RGIE, câblage, prises et éclairage à Bruxelles. Devis gratuit.", path: "/services/electricite" }),
 };
 
 export default function ElectricitePage() {

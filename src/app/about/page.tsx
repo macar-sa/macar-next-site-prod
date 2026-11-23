@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import Screen from '../_components/screen'
 import { MainHeading, P, SecondHeading } from '../_components/textStyles'
 import { Card } from '@heroui/react/card';
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     title: 'À propos de Macar : notre histoire à Bruxelles',
     description: 'Macar, entreprise de rénovation et construction à Bruxelles depuis 2002. Notre histoire, notre équipe et nos valeurs : confiance, professionnalisme, transparence et adaptabilité.',
     alternates: { canonical: '/about' },
+    openGraph: pageOpenGraph({ title: 'À propos de Macar : notre histoire à Bruxelles', description: 'Macar, entreprise de rénovation et construction à Bruxelles depuis 2002. Notre histoire, notre équipe et nos valeurs : confiance, professionnalisme, transparence et adaptabilité.', path: '/about' }),
 }
 
 const values = [

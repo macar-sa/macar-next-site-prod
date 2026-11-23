@@ -1,4 +1,5 @@
 import Screen from '../_components/screen'
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import { Jobs } from '@/components/jobs';
 import { Breadcrumbs } from '../_components/jsonld';
 import type { Metadata } from 'next'
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     title: 'Carrières & recrutement : Macar recrute à Bruxelles',
     description: 'Macar recrute. Découvrez nos offres en rénovation, plomberie, électricité et toiture à Bruxelles.',
     alternates: { canonical: '/job' },
+    openGraph: pageOpenGraph({ title: 'Carrières & recrutement : Macar recrute à Bruxelles', description: 'Macar recrute. Découvrez nos offres en rénovation, plomberie, électricité et toiture à Bruxelles.', path: '/job' }),
 }
 
 export default function job() {

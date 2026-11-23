@@ -10,6 +10,7 @@ import { communes, getCommune } from "@/lib/seo/communes";
 import { services } from "@/lib/services";
 import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
 import { intros } from "./intros";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 
 const baseUrl = "https://www.macar.be";
 
@@ -29,12 +30,11 @@ export async function generateMetadata({
     title: `Rénovation, plomberie, électricité et toiture à ${commune.name} | Macar`,
     description: `Macar intervient à ${commune.name} (${commune.postal}) pour la rénovation, la plomberie, l'électricité et la toiture. Devis gratuit, équipe basée à Bruxelles depuis 2002.`,
     alternates: { canonical: `/zones/${commune.slug}` },
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: `Rénovation à ${commune.name} | Macar`,
       description: `Rénovation, plomberie, électricité et toiture à ${commune.name}. Devis gratuit.`,
-      url: `${baseUrl}/zones/${commune.slug}`,
-      type: "website",
-    },
+      path: `/zones/${commune.slug}`,
+    }),
   };
 }
 

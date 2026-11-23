@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import { Separator } from "@heroui/react/separator";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
@@ -9,13 +10,7 @@ export const metadata: Metadata = {
     description:
         "Mentions légales de Macar : éditeur, hébergeur, propriété intellectuelle, conditions d'utilisation du site macar.be.",
     alternates: { canonical: "/mentions-legales" },
-    openGraph: {
-        title: "Mentions légales | Macar",
-        description:
-            "Mentions légales de Macar, entreprise de rénovation à Bruxelles.",
-        url: "https://www.macar.be/mentions-legales",
-        type: "website",
-    },
+    openGraph: pageOpenGraph({ title: "Mentions légales | Macar", description: "Mentions légales de Macar, entreprise de rénovation à Bruxelles.", path: "/mentions-legales" }),
 };
 
 const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";

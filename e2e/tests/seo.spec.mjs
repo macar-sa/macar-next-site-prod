@@ -1,7 +1,7 @@
 // Search-engine and AI-crawler facing details: structured data, OpenGraph, sitemap, headers,
 // llms.txt (plan 2026-11-23-corrections-audit-seo-geo).
 import { test, expect } from "@playwright/test";
-import { prepare, open, jsonLd } from "../helpers.mjs";
+import { prepare, open, jsonLd, PAGES } from "../helpers.mjs";
 
 const BUSINESS_ID = "https://www.macar.be/#localbusiness";
 
@@ -40,3 +40,20 @@ test("areaServed : Belgique, Région bruxelloise et communes", async ({ page, co
   expect(areas.filter((a) => a.name === "Bruxelles")).toEqual([]);
   expect(areas.filter((a) => a.name === "Bruxelles-Ville")).toHaveLength(1);
 });
+
+// Audit 2026-11-23: 24 pages had no og:image (a page's openGraph replaced the layout's instead of
+// extending it) and /about and /job shared the home page's og:url.
+const SITE = "https://www.macar.be";
+const strip = (url) => url.replace(/\/$/, "");
+for (const p of PAGES.filter((p) => p.slug !== "not-found")) {
+  test(`${p.path} : OpenGraph et canonique`, async ({ page, context, baseURL }) => {
+    await prepare(context, baseURL);
+    await open(page, p.path);
+    const expected = SITE + p.path;
+    await expect(page.locator('meta[property="og:image"]').first()).toHaveAttribute("content", /^https:\/\/www\.macar\.be\//);
+    const ogUrl = await page.locator('meta[property="og:url"]').getAttribute("content");
+    expect(strip(ogUrl)).toBe(strip(expected));
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+    expect(strip(canonical)).toBe(strip(expected));
+  });
+}

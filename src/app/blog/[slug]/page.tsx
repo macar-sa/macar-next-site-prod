@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import Image from "next/image";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
@@ -35,20 +36,17 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
 
-  const url = `${SITE_URL}/blog/${post.slug}`;
 
   return {
     title: `${post.title} | Macar`,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title: post.title,
-      description: post.description,
-      url,
+      ...pageOpenGraph({ title: post.title, description: post.description, path: `/blog/${post.slug}` }),
       type: "article",
       publishedTime: post.datePublished,
       modifiedTime: post.dateModified,
-      images: post.cover ? [{ url: post.cover }] : undefined,
+      ...(post.cover ? { images: [{ url: post.cover }] } : {}),
     },
     twitter: {
       card: "summary_large_image",

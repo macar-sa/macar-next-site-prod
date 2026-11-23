@@ -1,4 +1,5 @@
 import { Separator } from "@heroui/react/separator";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import Screen from "../_components/screen";
 import { MainHeading } from "../_components/textStyles";
 import { ButtonLink } from "../_components/links";
@@ -13,13 +14,7 @@ export const metadata: Metadata = {
   description:
     "Macar à Bruxelles : rénovation intérieure et extérieure, plomberie, installations électriques et toiture. Devis gratuit sur mesure.",
   alternates: { canonical: "/services" },
-  openGraph: {
-    title: "Nos services | Macar",
-    description:
-      "Rénovation, plomberie, électricité et toiture à Bruxelles. Quatre domaines, une seule équipe locale.",
-    url: "https://www.macar.be/services",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: "Nos services | Macar", description: "Rénovation, plomberie, électricité et toiture à Bruxelles. Quatre domaines, une seule équipe locale.", path: "/services" }),
 };
 
 const baseUrl = "https://www.macar.be";
