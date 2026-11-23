@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import { ScrollShadow } from "@heroui/react/scroll-shadow";
 import { Separator } from "@heroui/react/separator";
 import { Table } from "@heroui/react/table";
@@ -14,13 +15,7 @@ export const metadata: Metadata = {
     description:
         "Politique cookies du site macar.be : cookies utilisés, finalités, durée et gestion de votre consentement.",
     alternates: { canonical: "/politique-cookies" },
-    openGraph: {
-        title: "Politique cookies | Macar",
-        description:
-            "Cookies utilisés par macar.be et comment gérer votre consentement.",
-        url: "https://www.macar.be/politique-cookies",
-        type: "website",
-    },
+    openGraph: pageOpenGraph({ title: "Politique cookies | Macar", description: "Cookies utilisés par macar.be et comment gérer votre consentement.", path: "/politique-cookies" }),
 };
 
 const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";
@@ -49,7 +44,7 @@ export default function PolitiqueCookiesPage() {
                     { name: "Politique cookies", url: "https://www.macar.be/politique-cookies" },
                 ]}
             />
-            <Screen name="politique-cookies">
+            <Screen name="politique-cookies" animate={false}>
                 <SecondHeading>
                     <h1 className="leading-tight">Politique cookies</h1>
                 </SecondHeading>

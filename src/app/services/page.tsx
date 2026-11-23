@@ -1,4 +1,5 @@
 import { Separator } from "@heroui/react/separator";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import Screen from "../_components/screen";
 import { MainHeading } from "../_components/textStyles";
 import { ButtonLink } from "../_components/links";
@@ -13,13 +14,7 @@ export const metadata: Metadata = {
   description:
     "Macar à Bruxelles : rénovation intérieure et extérieure, plomberie, installations électriques et toiture. Devis gratuit sur mesure.",
   alternates: { canonical: "/services" },
-  openGraph: {
-    title: "Nos services | Macar",
-    description:
-      "Rénovation, plomberie, électricité et toiture à Bruxelles. Quatre domaines, une seule équipe locale.",
-    url: "https://www.macar.be/services",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: "Nos services | Macar", description: "Rénovation, plomberie, électricité et toiture à Bruxelles. Quatre domaines, une seule équipe locale.", path: "/services" }),
 };
 
 const baseUrl = "https://www.macar.be";
@@ -75,7 +70,7 @@ export default function ServicesIndexPage() {
       />
       <script dangerouslySetInnerHTML={{ __html: hashRedirectScript }} />
       <main className="flex min-h-screen flex-col">
-        <Screen name="services" customClassesInner="text-left">
+        <Screen name="services" customClassesInner="text-left" animate={false}>
           <div className="lg:mt-16 max-w-3xl xl:max-w-4xl">
             <MainHeading>
               <h1 className="leading-tight">
@@ -109,7 +104,7 @@ export default function ServicesIndexPage() {
                   image={s.image}
                   title={s.title}
                   description={s.summary}
-                  footer="Voir le détail →"
+                  footer="Voir le détail"
                 />
               ))}
             </nav>

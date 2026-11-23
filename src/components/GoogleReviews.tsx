@@ -7,8 +7,8 @@ import { useRef, useState, useEffect, useCallback, type FocusEvent } from "react
 import { useReducedMotion } from "framer-motion";
 import { reviews, type GoogleReview } from "@/data/reviews";
 
-const CAROUSEL_SCROLL_STEP = 1;
-const CAROUSEL_INTERVAL_MS = 30;
+// Auto-scroll speed: 1 px every 30 ms, as before, now driven by requestAnimationFrame.
+const CAROUSEL_SPEED_PX_PER_MS = 1 / 30;
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -40,7 +40,21 @@ function getInitials(name: string) {
 // HeroUI v3 Card and Avatar with their own styles; the classes only size and place the card
 // in the scrolling row.
 function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expanded: boolean; onToggle: () => void }) {
-  const needsExpand = review.text.length > 180;
+  // "Voir plus" when the 3-line clamp actually cuts the text, measured on the rendered card (a
+  // character count missed short reviews in narrow cards). The length guess only serves the
+  // first render, before measuring.
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [isClamped, setIsClamped] = useState(review.text.length > 180);
+  useEffect(() => {
+    const el = textRef.current;
+    if (!el) return;
+    const measure = () => setIsClamped(el.scrollHeight > el.clientHeight + 1);
+    measure();
+    const resize = new ResizeObserver(measure);
+    resize.observe(el);
+    return () => resize.disconnect();
+  }, [expanded]);
+  const needsExpand = expanded || isClamped;
   return (
     <Card className="shrink-0 w-[calc((100%-2rem)/3)] min-w-[260px] max-w-[400px] snap-start">
       <Card.Header>
@@ -62,7 +76,7 @@ function ReviewCard({ review, expanded, onToggle }: { review: GoogleReview; expa
               {review.text}
             </div>
           ) : (
-            <p className="text-muted text-sm leading-relaxed whitespace-pre-line line-clamp-3">
+            <p ref={textRef} className="text-muted text-sm leading-relaxed whitespace-pre-line line-clamp-3">
               {review.text}
             </p>
           )}
@@ -106,18 +120,36 @@ export default function GoogleReviews() {
     // and smooth scrolling are off while the carousel runs and restored on pause and unmount.
     el.style.scrollSnapType = "none";
     el.style.scrollBehavior = "auto";
-    const id = setInterval(() => {
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (maxScroll <= 0) return;
-      // At the end of the list, loop back to the start.
-      if (el.scrollLeft >= maxScroll - 1) {
-        el.scrollLeft = 0;
-        return;
+    // The scroll range is measured once and on resize, not on every frame; the position is kept
+    // as a float so sub-pixel steps add up even where the browser rounds scrollLeft.
+    let maxScroll = el.scrollWidth - el.clientWidth;
+    const resize = new ResizeObserver(() => { maxScroll = el.scrollWidth - el.clientWidth; });
+    resize.observe(el);
+    let position = el.scrollLeft;
+    // A scroll made while the carousel runs (find in page, end of a swipe) moves the position:
+    // carry on from there instead of pulling the row back. Our own sub-pixel writes stay within 2 px.
+    const onScroll = () => {
+      if (Math.abs(el.scrollLeft - position) > 2) position = el.scrollLeft;
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    let last: number | null = null;
+    let frame = 0;
+    const step = (now: number) => {
+      if (last !== null && maxScroll > 0) {
+        // Frames stop in a background tab: cap the step so coming back is not one big jump.
+        const elapsed = Math.min(now - last, 50);
+        // At the end of the list, loop back to the start.
+        position = position >= maxScroll - 1 ? 0 : position + elapsed * CAROUSEL_SPEED_PX_PER_MS;
+        el.scrollLeft = position;
       }
-      el.scrollLeft += CAROUSEL_SCROLL_STEP;
-    }, CAROUSEL_INTERVAL_MS);
+      last = now;
+      frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
     return () => {
-      clearInterval(id);
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      el.removeEventListener("scroll", onScroll);
       el.style.scrollSnapType = "";
       el.style.scrollBehavior = "smooth";
     };

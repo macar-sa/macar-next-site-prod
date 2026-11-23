@@ -9,9 +9,21 @@ export type ServiceItem = {
   detailIntro?: string;
   detailCategories?: DetailCategory[];
   chips: string[];
+  /** Article linked under the list of services. */
+  readMore?: { href: string; label: string };
 };
 
 const renovationDetailCategories: DetailCategory[] = [
+  {
+    title: "Châssis et fenêtres",
+    items: [
+      "Remplacement de châssis en PVC : oscillo-battants, fixes et levant-coulissants",
+      "Double ou triple vitrage",
+      "Démontage et évacuation des anciens châssis",
+      "Finitions intérieures autour du nouveau châssis",
+      "À Bruxelles, en façade à rue, remplacer des châssis en changeant de matériau demande en principe un permis d'urbanisme : nous travaillons sur la base des autorisations obtenues",
+    ],
+  },
   {
     title: "Peinture",
     items: [
@@ -160,9 +172,10 @@ const plomberieDetailCategories: DetailCategory[] = [
     ],
   },
   {
-    title: "Détection de fuites et étanchéité",
+    title: "Réparation de fuites et étanchéité",
     items: [
-      "Cimentage des chambres de visite suite rapport de détection de fuites (NDDetect, Polygon, etc.)",
+      "Recherche de la fuite par nos soins ou, selon le cas, par une société de détection spécialisée, puis réparation",
+      "Travaux suite à un rapport de détection de fuites établi par une société spécialisée : cimentage des chambres de visite, remplacement des tuyaux, remise en état",
       "Étanchéité mur extérieur : enlèvement terre, bande derbigum à chaud, gravier, solin en forme de Z, remise en place terre",
       "Réparation descente d'eau à l'intersection véranda : mise à nu tuyauteries, remplacement tuyaux et coudes encastrés dans béton, remise en place terre",
     ],
@@ -262,6 +275,13 @@ const electriciteDetailCategories: DetailCategory[] = [
 ];
 
 const toitureDetailCategories: DetailCategory[] = [
+  {
+    title: "Sinistres et dégâts des eaux",
+    items: [
+      "Travaux suite à un rapport d'expert d'assurance ou de détection de fuite : visite pour vérifier les postes du rapport, devis ligne par ligne aligné sur ces postes",
+      "Remise en état après infiltration : couverture, étanchéité, corniches et gouttières, plafonds et peinture intérieure",
+    ],
+  },
   {
     title: "Chantier et échafaudage",
     items: [
@@ -374,12 +394,13 @@ export const renovationService: ServiceItem = {
   title: "Rénovation intérieure et extérieure",
   image: "/services/renovation.png",
   summary:
-    "Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, abattage de murs porteurs.",
+    "Carrelage de salle de bain, isolation intérieure et extérieure, isolation de façade avec crépi, pose de parquet flottant, remplacement de châssis PVC, abattage de murs porteurs.",
   detail: "",
   detailIntro:
-    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de rénovation intérieure et extérieure. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
+    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de rénovation intérieure et extérieure, pour les particuliers, les syndics et les copropriétés. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
   detailCategories: renovationDetailCategories,
   chips: [
+    "Châssis et fenêtres PVC",
     "Peinture intérieure et extérieure",
     "Plafonds en gyproc",
     "Carrelage et joints",
@@ -395,7 +416,7 @@ export const plomberieService: ServiceItem = {
   title: "Plomberie",
   image: "/services/plomberie.png",
   summary:
-    "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, détection de fuites et étanchéité.",
+    "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, réparation de fuites et étanchéité.",
   detail: "",
   detailIntro:
     "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de plomberie. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
@@ -406,7 +427,7 @@ export const plomberieService: ServiceItem = {
     "Boiler et eau chaude sanitaire",
     "Toilettes, lavabos et douche",
     "Cuisine et décharge évier",
-    "Détection de fuites et étanchéité",
+    "Réparation de fuites et étanchéité",
   ],
 };
 
@@ -438,8 +459,12 @@ export const toitureService: ServiceItem = {
     "Couverture tuiles et ardoises, toit plat et étanchéité Derbigum/EPDM, corniches et gouttières zinc, velux et lucarnes, noues et arêtiers, cheminée et solins, descentes d'eau pluviale, coupoles.",
   detail: "",
   detailIntro:
-    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de toiture. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
+    "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de toiture, pour les particuliers, les propriétaires bailleurs, les syndics et les copropriétés. Nous intervenons aussi après un sinistre, sur la base du rapport d'expert. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
   detailCategories: toitureDetailCategories,
+  readMore: {
+    href: "/blog/degats-eaux-toiture-sinistre-assurance",
+    label: "Dégâts des eaux et sinistre toiture : que faire et comment gérer son dossier d'assurance",
+  },
   chips: [
     "Couverture tuiles et ardoises",
     "Toit plat et étanchéité",
@@ -448,6 +473,7 @@ export const toitureService: ServiceItem = {
     "Noues et arêtiers",
     "Cheminée et solins",
     "Descentes d'eau pluviale",
+    "Sinistres et dégâts des eaux",
   ],
 };
 

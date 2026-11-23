@@ -1,11 +1,17 @@
 import { communes } from "./communes";
 
 export const LOCAL_BUSINESS_ID = "https://www.macar.be/#localbusiness";
+export const WEBSITE_ID = "https://www.macar.be/#website";
+
+// One @id per service, shared by the OfferCatalog below and the Service block of its page.
+export function serviceId(id: string): string {
+  return `https://www.macar.be/services/${id}#service`;
+}
 
 // Single source of truth for the aggregate rating shown in the JSON-LD,
 // the Review schema in page.tsx, and the rating badge in the hero.
 // Update these two numbers when refreshing with real Google Business Profile totals.
-export const RATING = { value: "5.0", count: 12 } as const;
+export const RATING = { value: "5.0", count: 20 } as const;
 
 export const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -34,6 +40,22 @@ export const localBusinessJsonLd = {
     "https://www.macar.be/landpage_pics/construction-tool.webp",
   ],
   telephone: "+32478235008",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+32478235008",
+      contactType: "customer service",
+      areaServed: "BE",
+      availableLanguage: "fr",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+3224665304",
+      contactType: "customer service",
+      areaServed: "BE",
+      availableLanguage: "fr",
+    },
+  ],
   email: "info@macar.be",
   vatID: "BE0477451024",
   taxID: "0477.451.024",
@@ -65,10 +87,11 @@ export const localBusinessJsonLd = {
       closes: "17:00",
     },
   ],
+  // Macar works all over Belgium, Brussels first (confirmed by Macar on 2026-11-23).
   areaServed: [
-    { "@type": "City", name: "Bruxelles" },
-    ...communes.map((c) => ({ "@type": "City" as const, name: c.name })),
+    { "@type": "Country", name: "Belgique" },
     { "@type": "AdministrativeArea", name: "Région de Bruxelles-Capitale" },
+    ...communes.map((c) => ({ "@type": "City" as const, name: c.name })),
   ],
   knowsAbout: [
     "Rénovation intérieure",
@@ -80,7 +103,7 @@ export const localBusinessJsonLd = {
     "Plomberie sanitaire",
     "Chauffage central",
     "Chaudière à condensation",
-    "Détection de fuites",
+    "Réparation de fuites",
     "Installation électrique résidentielle",
     "Mise en conformité RGIE",
     "Tableau électrique",
@@ -112,6 +135,7 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("renovation"),
           name: "Rénovation intérieure et extérieure",
           url: "https://www.macar.be/services/renovation",
         },
@@ -120,6 +144,7 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("plomberie"),
           name: "Plomberie",
           url: "https://www.macar.be/services/plomberie",
         },
@@ -128,6 +153,7 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("electricite"),
           name: "Installation électrique",
           url: "https://www.macar.be/services/electricite",
         },
@@ -136,10 +162,21 @@ export const localBusinessJsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
+          "@id": serviceId("toiture"),
           name: "Toiture",
           url: "https://www.macar.be/services/toiture",
         },
       },
     ],
   },
+};
+
+export const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  url: "https://www.macar.be",
+  name: "Macar",
+  inLanguage: "fr-BE",
+  publisher: { "@id": LOCAL_BUSINESS_ID },
 };

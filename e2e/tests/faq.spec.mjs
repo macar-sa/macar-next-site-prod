@@ -49,3 +49,11 @@ test("style natif : séparateurs et indicateur de l'Accordion v3, ni <hr> ni fl�
   await expect(page.locator('#faq path[d="M15.5 19l-7-7 7-7"]')).toHaveCount(0);
   await expect(page.locator('#faq [data-slot="accordion-indicator"]')).toHaveCount(7);
 });
+
+// Audit 2026-11-23: the service area is described the same way everywhere (Macar, 23/11/2026).
+test("zone d'intervention : Belgique, avant tout Bruxelles", async ({ page }) => {
+  await open(page, "/");
+  await expect(page.locator("#faq")).toContainText(
+    "Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002.",
+  );
+});

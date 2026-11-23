@@ -12,7 +12,7 @@ import { TextLink } from "@/app/_components/links"
 export function Jobs() {
   return (
     <main className="flex min-h-screen flex-col">
-      <Screen name="landing page">
+      <Screen name="landing page" animate={false}>
         <div className="grid lg:grid-cols-5 gap-8 text-left">
           <div className="col-span-3">
             <MainHeading>
@@ -122,7 +122,7 @@ interface jobDesc {
   selection: string[]
 }
 
-const jobDesc: jobDesc = {
+export const jobDesc: jobDesc = {
   title: "Ouvrier polyvalent (Indépendant)",
   presentation: "Fondée en 2002, Macar est une entreprise dans le secteur du bâtiment. Nous sommes spécialisés dans les travaux de rénovation de A à Z, la plomberie, les installations électriques et la toiture. Avec près de deux décennies d'expérience, nous avons établi une empreinte en fournissant des services de qualité à nos clients, qu'ils soient privés ou professionnels. Notre philosophie repose sur le professionnalisme, l'engagement envers l'excellence et la satisfaction du client.",
   localisation: [

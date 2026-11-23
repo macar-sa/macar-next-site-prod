@@ -125,8 +125,9 @@ test("cookie d'une autre version : bandeau affiché", async ({ page, context, ba
 test("cookie illisible : bandeau affiché, pas d'erreur console", async ({ page, context, baseURL }) => {
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  // Vercel Analytics script does not exist outside Vercel: unrelated 404.
-  page.on("console", (m) => m.type() === "error" && !m.location().url.includes("/_vercel/") && errors.push(m.text()));
+  // Vercel Analytics script does not exist outside Vercel: unrelated 404, which X-Content-Type-Options:
+  // nosniff also reports as a refused script (the message names the /_vercel/ URL).
+  page.on("console", (m) => m.type() === "error" && !m.location().url.includes("/_vercel/") && !m.text().includes("/_vercel/") && errors.push(m.text()));
   await context.addCookies([{ name: "macar_consent", value: "pas-du-json", url: baseURL }]);
   await open(page, "/");
   await expect(banner(page)).toBeVisible();
