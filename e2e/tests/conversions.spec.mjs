@@ -20,7 +20,7 @@ test.describe("clic téléphone", () => {
     await keepTelClicks(page);
     await open(page, "/");
     await page.locator("main").getByRole("link", { name: "+32 478 23 50 08" }).click();
-    await page.locator("footer").getByRole("link", { name: "+32 246 653 04" }).click();
+    await page.locator("footer").getByRole("link", { name: "+32 2 466 53 04" }).click();
     expect(await events(page)).toEqual([
       ["phone_click", { phone_number: "+32478235008", link_location: "page" }],
       ["phone_click", { phone_number: "+3224665304", link_location: "pied_de_page" }],
