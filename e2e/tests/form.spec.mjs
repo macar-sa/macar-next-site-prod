@@ -122,3 +122,12 @@ test("champs corrigés : le récapitulatif reste en place jusqu'au prochain envo
   }
   await expect(summary).toBeVisible();
 });
+
+// Audit 2026-11-23: typed fields let browsers and agents fill the form correctly.
+test("champs typés pour le remplissage automatique", async ({ page }) => {
+  await expect(field(page, "Nom et Prénom")).toHaveAttribute("autocomplete", "name");
+  await expect(field(page, "Email")).toHaveAttribute("type", "email");
+  await expect(field(page, "Email")).toHaveAttribute("autocomplete", "email");
+  await expect(field(page, "Téléphone")).toHaveAttribute("type", "tel");
+  await expect(field(page, "Téléphone")).toHaveAttribute("autocomplete", "tel");
+});

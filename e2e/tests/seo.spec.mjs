@@ -13,3 +13,19 @@ test("JSON-LD : deux contactPoint, mobile et fixe", async ({ page, context, base
   const phones = (business.contactPoint || []).map((c) => c.telephone);
   expect(phones).toEqual(expect.arrayContaining(["+32478235008", "+3224665304"]));
 });
+
+const ZONE_SENTENCE = "Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002.";
+
+test("llms.txt en Markdown", async ({ request }) => {
+  const response = await request.get("/llms.txt");
+  expect(response.status()).toBe(200);
+  const text = await response.text();
+  const lines = text.split("\n").filter((l) => l.trim() !== "");
+  expect(lines[0]).toMatch(/^# /);
+  expect(lines[1]).toMatch(/^> /);
+  const linkLines = lines.filter((l) => l.startsWith("- ") && l.includes("https://www.macar.be"));
+  expect(linkLines.length).toBeGreaterThan(20);
+  for (const line of linkLines) expect(line).toMatch(/^- \[[^\]]+\]\(https:\/\/www\.macar\.be[^)]*\)/);
+  expect(text).not.toContain("19 communes");
+  expect(text).toContain(ZONE_SENTENCE);
+});

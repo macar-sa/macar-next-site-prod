@@ -1,35 +1,37 @@
-# Macar : rénovation, plomberie, électricité, toiture à Bruxelles
+# Macar
 
-Macar est une entreprise belge basée à Bruxelles (Avenue Prudent Bols 43, B-1020), active depuis 2002. L'équipe actuelle a repris l'entreprise en 2010 et a depuis réalisé plus de 6 000 projets de rénovation. Macar intervient pour les particuliers et les professionnels dans toute la Région de Bruxelles-Capitale.
+> Macar est une entreprise belge de rénovation, plomberie, installations électriques et toiture (Avenue Prudent Bols 43, B-1020 Bruxelles). Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002.
+
+L'équipe actuelle a repris l'entreprise en 2010 et a depuis réalisé plus de 6 000 projets de rénovation, pour des particuliers et des professionnels.
 
 ## Services
 
-- Rénovation intérieure et extérieure : https://www.macar.be/services/renovation
-- Plomberie (chauffage, sanitaire, détection de fuites) : https://www.macar.be/services/plomberie
-- Installation électrique (RGIE, tableaux, câblage) : https://www.macar.be/services/electricite
-- Toiture (tuiles, ardoises, toit plat Derbigum/EPDM, velux, corniches, gouttières zinc) : https://www.macar.be/services/toiture
-- Vue d'ensemble des services : https://www.macar.be/services
+- [Rénovation intérieure et extérieure](https://www.macar.be/services/renovation) : peinture, plafonds, carrelage, parquet, isolation de façade et crépi, cloisons et murs
+- [Plomberie](https://www.macar.be/services/plomberie) : chauffage, sanitaire, détection de fuites
+- [Installation électrique](https://www.macar.be/services/electricite) : mise en conformité RGIE, tableaux, câblage
+- [Toiture](https://www.macar.be/services/toiture) : tuiles, ardoises, toit plat Derbigum et EPDM, velux, corniches, gouttières en zinc
+- [Vue d'ensemble des services](https://www.macar.be/services)
 
 ## Zone d'intervention
 
-Toute la Région de Bruxelles-Capitale (19 communes). Quand le projet le justifie, Macar intervient aussi en périphérie (Brabant flamand et wallon limitrophes : Chastre, Overijse, Wezembeek-Oppem, etc.). Pages dédiées par commune :
+Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002. Pages dédiées par commune bruxelloise :
 
-- Bruxelles-Ville (incl. 1020 Laeken, siège social) : https://www.macar.be/zones/bruxelles-ville
-- Jette : https://www.macar.be/zones/jette
-- Woluwe-Saint-Pierre : https://www.macar.be/zones/woluwe-saint-pierre
-- Schaerbeek : https://www.macar.be/zones/schaerbeek
-- Woluwe-Saint-Lambert : https://www.macar.be/zones/woluwe-saint-lambert
-- Evere : https://www.macar.be/zones/evere
-- Etterbeek : https://www.macar.be/zones/etterbeek
-- Ixelles : https://www.macar.be/zones/ixelles
-- Saint-Gilles : https://www.macar.be/zones/saint-gilles
-- Forest : https://www.macar.be/zones/forest
-- Anderlecht : https://www.macar.be/zones/anderlecht
-- Uccle : https://www.macar.be/zones/uccle
-- Molenbeek-Saint-Jean : https://www.macar.be/zones/molenbeek-saint-jean
-- Ganshoren : https://www.macar.be/zones/ganshoren
-- Koekelberg : https://www.macar.be/zones/koekelberg
-- Berchem-Sainte-Agathe : https://www.macar.be/zones/berchem-sainte-agathe
+- [Bruxelles-Ville](https://www.macar.be/zones/bruxelles-ville) : 1000, et 1020 Laeken où se trouve le siège
+- [Uccle](https://www.macar.be/zones/uccle)
+- [Schaerbeek](https://www.macar.be/zones/schaerbeek)
+- [Ixelles](https://www.macar.be/zones/ixelles)
+- [Etterbeek](https://www.macar.be/zones/etterbeek)
+- [Saint-Gilles](https://www.macar.be/zones/saint-gilles)
+- [Forest](https://www.macar.be/zones/forest)
+- [Woluwe-Saint-Lambert](https://www.macar.be/zones/woluwe-saint-lambert)
+- [Woluwe-Saint-Pierre](https://www.macar.be/zones/woluwe-saint-pierre)
+- [Anderlecht](https://www.macar.be/zones/anderlecht)
+- [Jette](https://www.macar.be/zones/jette)
+- [Evere](https://www.macar.be/zones/evere)
+- [Molenbeek-Saint-Jean](https://www.macar.be/zones/molenbeek-saint-jean)
+- [Ganshoren](https://www.macar.be/zones/ganshoren)
+- [Koekelberg](https://www.macar.be/zones/koekelberg)
+- [Berchem-Sainte-Agathe](https://www.macar.be/zones/berchem-sainte-agathe)
 
 ## Contact
 
@@ -43,22 +45,22 @@ Toute la Région de Bruxelles-Capitale (19 communes). Quand le projet le justifi
 
 ## À propos
 
-- Histoire et équipe : https://www.macar.be/about
-- Recrutement (postes ouverts) : https://www.macar.be/job
+- [Histoire et équipe](https://www.macar.be/about)
+- [Recrutement](https://www.macar.be/job) : postes ouverts
 
-## Articles récents
+## Articles
 
-- Rénovation de toiture, ce qui détermine le devis : typologie du bâti, accès, état de la charpente, matériaux, isolation, TVA 6 % : https://www.macar.be/blog/prix-renovation-toiture
-- Isolation de façade, techniques ITE et ITI, ce qui fait varier le devis, TVA 6 % et état des primes Renolution à Bruxelles : https://www.macar.be/blog/isolation-facade
-- Dégâts des eaux et sinistre toiture, premiers réflexes, rôle de l'expert, devis suite à rapport et facturation directe à l'assureur : https://www.macar.be/blog/degats-eaux-toiture-sinistre-assurance
-- Index du blog : https://www.macar.be/blog
+- [Rénovation de toiture : ce qui détermine le devis](https://www.macar.be/blog/prix-renovation-toiture) : typologie du bâti, accès, état de la charpente, matériaux, isolation, TVA 6 %
+- [Isolation de façade](https://www.macar.be/blog/isolation-facade) : techniques ITE et ITI, ce qui fait varier le devis, TVA 6 %, état des primes Renolution à Bruxelles
+- [Dégâts des eaux et sinistre toiture](https://www.macar.be/blog/degats-eaux-toiture-sinistre-assurance) : premiers réflexes, rôle de l'expert, devis suite au rapport, facturation directe à l'assureur
+- [Index du blog](https://www.macar.be/blog)
 
 ## Informations légales
 
-- Mentions légales : https://www.macar.be/mentions-legales
-- Politique de confidentialité : https://www.macar.be/politique-confidentialite
-- Politique cookies : https://www.macar.be/politique-cookies
+- [Mentions légales](https://www.macar.be/mentions-legales)
+- [Politique de confidentialité](https://www.macar.be/politique-confidentialite)
+- [Politique cookies](https://www.macar.be/politique-cookies)
 
 ## Plan du site
 
-- https://www.macar.be/sitemap.xml
+- [Sitemap XML](https://www.macar.be/sitemap.xml)

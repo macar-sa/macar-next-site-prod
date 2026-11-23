@@ -117,17 +117,17 @@ export function ContactForm() {
               </Alert>
             )}
             <div className="flex flex-col gap-4">
-              <TextField {...fieldProps("name")}>
+              <TextField {...fieldProps("name")} autoComplete="name">
                 <Label>Nom et Prénom</Label>
                 <Input placeholder="Entrez votre nom et prénom" />
                 <FieldError />
               </TextField>
-              <TextField {...fieldProps("email")}>
+              <TextField {...fieldProps("email")} type="email" autoComplete="email">
                 <Label>Email</Label>
                 <Input placeholder="Entrez votre email" />
                 <FieldError />
               </TextField>
-              <TextField {...fieldProps("telephone")}>
+              <TextField {...fieldProps("telephone")} type="tel" autoComplete="tel">
                 <Label>Téléphone</Label>
                 <Input placeholder="04XXXXXXXX" />
                 <FieldError />
