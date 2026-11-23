@@ -172,9 +172,10 @@ const plomberieDetailCategories: DetailCategory[] = [
     ],
   },
   {
-    title: "Détection de fuites et étanchéité",
+    title: "Réparation de fuites et étanchéité",
     items: [
-      "Cimentage des chambres de visite suite rapport de détection de fuites (NDDetect, Polygon, etc.)",
+      "Recherche de la fuite par nos soins ou, selon le cas, par une société de détection spécialisée, puis réparation",
+      "Travaux suite à un rapport de détection de fuites établi par une société spécialisée : cimentage des chambres de visite, remplacement des tuyaux, remise en état",
       "Étanchéité mur extérieur : enlèvement terre, bande derbigum à chaud, gravier, solin en forme de Z, remise en place terre",
       "Réparation descente d'eau à l'intersection véranda : mise à nu tuyauteries, remplacement tuyaux et coudes encastrés dans béton, remise en place terre",
     ],
@@ -415,7 +416,7 @@ export const plomberieService: ServiceItem = {
   title: "Plomberie",
   image: "/services/plomberie.png",
   summary:
-    "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, détection de fuites et étanchéité.",
+    "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, réparation de fuites et étanchéité.",
   detail: "",
   detailIntro:
     "Macar réalise à Bruxelles et en Belgique l'ensemble des prestations listées ci-dessous, issues de nos chantiers de plomberie. Chaque prestation peut faire l'objet d'un devis gratuit sur mesure.",
@@ -426,7 +427,7 @@ export const plomberieService: ServiceItem = {
     "Boiler et eau chaude sanitaire",
     "Toilettes, lavabos et douche",
     "Cuisine et décharge évier",
-    "Détection de fuites et étanchéité",
+    "Réparation de fuites et étanchéité",
   ],
 };
 

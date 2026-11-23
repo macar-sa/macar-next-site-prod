@@ -103,7 +103,7 @@ export const localBusinessJsonLd = {
     "Plomberie sanitaire",
     "Chauffage central",
     "Chaudière à condensation",
-    "Détection de fuites",
+    "Réparation de fuites",
     "Installation électrique résidentielle",
     "Mise en conformité RGIE",
     "Tableau électrique",

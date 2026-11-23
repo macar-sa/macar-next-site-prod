@@ -60,7 +60,7 @@ const services = [
     slug: "plomberie",
     name: "Plomberie",
     description:
-      "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, détection de fuites et étanchéité.",
+      "Canalisations et chambres de visite, chaudière et chauffage central, boiler et eau chaude sanitaire, toilettes et lavabos, douche et cuisine, réparation de fuites et étanchéité.",
   },
   {
     slug: "electricite",

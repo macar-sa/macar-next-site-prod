@@ -132,3 +132,19 @@ test("rénovation : le permis pour les châssis à rue est signalé", async ({ p
   const frames = page.locator("main h3", { hasText: /^Châssis et fenêtres$/ }).locator("xpath=..");
   await expect(frames).toContainText(/permis d'urbanisme/);
 });
+
+// Macar, 23/11/2026: leaks are found by a specialist detection company or by Macar depending on
+// the case; Macar repairs them. "Détection de fuites" is not sold as a Macar service, and no
+// detection company is named.
+test("plomberie : réparation de fuites, pas de détection vendue comme service", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/services/plomberie");
+  const main = page.locator("main");
+  await expect(main).not.toContainText(/détection de fuites(?! établi)/i);
+  await expect(main).not.toContainText(/NDDetect|Polygon/i);
+  await expect(main.locator("h3", { hasText: /^Réparation de fuites et étanchéité$/ })).toHaveCount(1);
+  const description = await page.locator('meta[name="description"]').getAttribute("content");
+  expect(description).not.toMatch(/détection/i);
+  const llms = await (await page.request.get("/llms.txt")).text();
+  expect(llms).not.toMatch(/détection de fuites/i);
+});
