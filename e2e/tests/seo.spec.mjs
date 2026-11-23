@@ -69,3 +69,18 @@ test("sitemap : lastmod seulement sur les articles", async ({ request }) => {
   expect(xml).not.toContain("<priority>");
   expect(xml).not.toContain("<changefreq>");
 });
+
+// Audit 2026-11-23: only HSTS was sent. No Content-Security-Policy yet (Google, Meta, Formspree
+// and Vercel Analytics would need an allow-list first).
+test("en-têtes de sécurité", async ({ request }) => {
+  const headers = (await request.get("/")).headers();
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  expect(headers["x-frame-options"]).toBe("SAMEORIGIN");
+  expect(headers["permissions-policy"]).toBe("camera=(), microphone=(), geolocation=()");
+});
+
+test("icônes du manifeste", async ({ request }) => {
+  const manifest = await (await request.get("/favicon/site.webmanifest")).json();
+  for (const icon of manifest.icons) expect((await request.get(icon.src)).status(), icon.src).toBe(200);
+});
