@@ -14,7 +14,11 @@ L'équipe actuelle a repris l'entreprise en 2010 et a depuis réalisé plus de 6
 
 ## Zone d'intervention
 
-Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002. Pages dédiées par commune bruxelloise :
+Macar intervient partout en Belgique, et avant tout à Bruxelles, où l'entreprise est basée depuis 2002.
+
+- [Toutes les zones desservies](https://www.macar.be/zones)
+
+Pages dédiées par commune bruxelloise :
 
 - [Bruxelles-Ville](https://www.macar.be/zones/bruxelles-ville) : 1000, et 1020 Laeken où se trouve le siège
 - [Uccle](https://www.macar.be/zones/uccle)

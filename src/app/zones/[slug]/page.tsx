@@ -67,7 +67,7 @@ export default async function ZonePage({
       <Breadcrumbs
         items={[
           { name: "Accueil", url: `${baseUrl}/` },
-          { name: "Zones", url: `${baseUrl}/zones/${commune.slug}` },
+          { name: "Zones", url: `${baseUrl}/zones` },
           { name: commune.name, url: pageUrl },
         ]}
       />

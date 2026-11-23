@@ -16,6 +16,7 @@ export const PAGES = [
   { slug: "mentions-legales", path: "/mentions-legales" },
   { slug: "politique-confidentialite", path: "/politique-confidentialite" },
   { slug: "politique-cookies", path: "/politique-cookies" },
+  { slug: "zones", path: "/zones" },
   { slug: "zones-uccle", path: "/zones/uccle" },
   { slug: "zones-bruxelles-ville", path: "/zones/bruxelles-ville" },
   { slug: "not-found", path: "/page-introuvable-harness" },

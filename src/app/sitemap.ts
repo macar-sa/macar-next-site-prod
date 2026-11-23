@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services/electricite`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/services/toiture`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/job`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/zones`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     ...communes.map((c) => ({
       url: `${baseUrl}/zones/${c.slug}`,
       lastModified: now,
