@@ -120,7 +120,11 @@ test("À propos : aucune erreur dans la console", async ({ page, context, baseUR
   const errors = [];
   // Rendering errors only: the tests block external requests and the local server has no
   // /_vercel/insights script, so "Failed to load resource" messages are expected here.
-  page.on("console", (m) => { if (m.type() === "error" && !m.text().startsWith("Failed to load resource")) errors.push(m.text()); });
+  // With nosniff, Chromium also reports the local /_vercel/ 404 as a refused script (see cookies.spec).
+  page.on("console", (m) => {
+    const text = m.text();
+    if (m.type() === "error" && !text.startsWith("Failed to load resource") && !text.includes("/_vercel/")) errors.push(text);
+  });
   page.on("pageerror", (e) => errors.push(e.message));
   await open(page, "/about");
   await page.waitForTimeout(500);
