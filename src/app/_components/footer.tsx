@@ -60,7 +60,7 @@ export const Footer = () => {
                                     email: <TextLink href="mailto:info@macar.be" navigation>info@macar.be</TextLink>
                                 </li>
                                 <li>
-                                    fixe: <TextLink href="tel:+3224665304" navigation>+32 246 653 04</TextLink>
+                                    fixe: <TextLink href="tel:+3224665304" navigation>+32 2 466 53 04</TextLink>
                                 </li>
                                 <li>
                                     Avenue Prudent Bols, 43<br />

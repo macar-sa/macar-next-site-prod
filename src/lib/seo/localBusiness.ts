@@ -34,6 +34,22 @@ export const localBusinessJsonLd = {
     "https://www.macar.be/landpage_pics/construction-tool.webp",
   ],
   telephone: "+32478235008",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+32478235008",
+      contactType: "customer service",
+      areaServed: "BE",
+      availableLanguage: "fr",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+3224665304",
+      contactType: "customer service",
+      areaServed: "BE",
+      availableLanguage: "fr",
+    },
+  ],
   email: "info@macar.be",
   vatID: "BE0477451024",
   taxID: "0477.451.024",

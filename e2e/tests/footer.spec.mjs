@@ -51,3 +51,17 @@ for (const width of [1440, 375]) {
     await expect(footer).not.toContainText("BE0477.45.10.24");
   });
 }
+
+// Audit 2026-11-23: the landline was shown as "+32 246 653 04" (wrong grouping, quoted wrongly by
+// Google's AI answer). It reads +32 2 466 53 04, the Brussels area code first.
+for (const width of [1440, 375]) {
+  test(`${width} px : fixe au bon format dans le pied de page`, async ({ page, context, baseURL }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await prepare(context, baseURL);
+    await open(page, "/");
+    const footer = page.locator("footer");
+    await expect(footer).toContainText("+32 2 466 53 04");
+    await expect(footer).not.toContainText("+32 246 653 04");
+    await expect(footer.locator('a[href="tel:+3224665304"]')).toHaveCount(1);
+  });
+}
