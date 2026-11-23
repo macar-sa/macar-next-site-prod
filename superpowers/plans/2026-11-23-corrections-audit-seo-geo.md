@@ -328,11 +328,11 @@ Le renommage du slug `prix-renovation-toiture` n'est **pas** dans cette branche 
 
 ### Relecture de fin de phase 3
 
-- [ ] Relecture indépendante du diff de la phase (agent neuf, modèle le plus capable) ; mêmes règles de correction qu'aux phases 1 et 2.
+- [x] Relecture indépendante du diff de la phase (agent neuf, modèle le plus capable) ; mêmes règles de correction qu'aux phases 1 et 2.
 
 ## Fin de branche
 
-- [ ] Mettre à jour `CLAUDE.md` (section Architecture) : page hub `/zones`, aide `pageOpenGraph`, `serviceId`, `Screen animate`.
+- [x] Mettre à jour `CLAUDE.md` (section Architecture) : page hub `/zones`, aide `pageOpenGraph`, `serviceId`, `Screen animate`.
 - [ ] `npm run lint`, `npx tsc --noEmit`, `npm run build`, `npm run test:e2e` : tout passe.
 - [ ] Vérification visuelle Playwright MCP à 375 et 1440 px sur `/`, `/zones`, `/zones/ixelles`, `/services/toiture`, `/blog/isolation-facade`, `/about` (captures dans un dossier temporaire).
 - [ ] PR vers `dev` : résumé par phase, liste des textes ajoutés ou retirés (phase 2) pour relecture par Macar.
