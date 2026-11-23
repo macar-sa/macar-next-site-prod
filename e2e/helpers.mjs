@@ -16,8 +16,10 @@ export const PAGES = [
   { slug: "mentions-legales", path: "/mentions-legales" },
   { slug: "politique-confidentialite", path: "/politique-confidentialite" },
   { slug: "politique-cookies", path: "/politique-cookies" },
+  { slug: "zones", path: "/zones" },
   { slug: "zones-uccle", path: "/zones/uccle" },
   { slug: "zones-bruxelles-ville", path: "/zones/bruxelles-ville" },
+  { slug: "zones-auderghem", path: "/zones/auderghem" },
   { slug: "not-found", path: "/page-introuvable-harness" },
 ];
 
@@ -145,4 +147,19 @@ export async function keyboardFocus(page, locator) {
   await page.keyboard.press("Tab");
   const ok = await locator.evaluate((el) => el === document.activeElement);
   if (!ok) throw new Error("keyboardFocus: focus did not land on the target element");
+}
+
+// Every JSON-LD object of the page, with @graph containers and top-level arrays flattened.
+export async function jsonLd(page) {
+  const blocks = await page.$$eval('script[type="application/ld+json"]', (els) => els.map((el) => el.textContent));
+  const out = [];
+  const add = (node) => {
+    if (Array.isArray(node)) return node.forEach(add);
+    if (node && typeof node === "object") {
+      out.push(node);
+      if (Array.isArray(node["@graph"])) node["@graph"].forEach(add);
+    }
+  };
+  blocks.forEach((text) => add(JSON.parse(text)));
+  return out;
 }

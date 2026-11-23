@@ -4,12 +4,14 @@ import { notFound } from "next/navigation";
 import Screen from "@/app/_components/screen";
 import { MainHeading } from "@/app/_components/textStyles";
 import { ButtonLink } from "@/app/_components/links";
+import { CallButton } from "@/app/_components/CallButton";
 import { ServiceCard } from "@/app/_components/ServiceCard";
 import { Breadcrumbs } from "@/app/_components/jsonld";
 import { communes, getCommune } from "@/lib/seo/communes";
 import { services } from "@/lib/services";
 import { LOCAL_BUSINESS_ID } from "@/lib/seo/localBusiness";
 import { intros } from "./intros";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 
 const baseUrl = "https://www.macar.be";
 
@@ -29,12 +31,11 @@ export async function generateMetadata({
     title: `Rénovation, plomberie, électricité et toiture à ${commune.name} | Macar`,
     description: `Macar intervient à ${commune.name} (${commune.postal}) pour la rénovation, la plomberie, l'électricité et la toiture. Devis gratuit, équipe basée à Bruxelles depuis 2002.`,
     alternates: { canonical: `/zones/${commune.slug}` },
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: `Rénovation à ${commune.name} | Macar`,
       description: `Rénovation, plomberie, électricité et toiture à ${commune.name}. Devis gratuit.`,
-      url: `${baseUrl}/zones/${commune.slug}`,
-      type: "website",
-    },
+      path: `/zones/${commune.slug}`,
+    }),
   };
 }
 
@@ -48,9 +49,9 @@ export default async function ZonePage({
   if (!commune) notFound();
 
   const pageUrl = `${baseUrl}/zones/${commune.slug}`;
-  const intro = intros[commune.slug];
-  const placeholder = `Macar intervient à ${commune.name} (${commune.postal}) pour la rénovation intérieure et extérieure, la plomberie, les installations électriques et la toiture. Notre équipe est basée à Bruxelles depuis 2002 et couvre l'ensemble de la Région de Bruxelles-Capitale. Chaque projet à ${commune.name} fait l'objet d'un devis gratuit sur mesure.`;
-  const body = intro ?? placeholder;
+  // No generic fallback: a commune without its own text fails the static build.
+  const body = intros[commune.slug];
+  if (!body) throw new Error(`Texte manquant pour la commune ${commune.slug} (zones/[slug]/intros.ts)`);
 
   const localServiceJsonLd = {
     "@context": "https://schema.org",
@@ -67,7 +68,7 @@ export default async function ZonePage({
       <Breadcrumbs
         items={[
           { name: "Accueil", url: `${baseUrl}/` },
-          { name: "Zones", url: `${baseUrl}/zones/${commune.slug}` },
+          { name: "Zones", url: `${baseUrl}/zones` },
           { name: commune.name, url: pageUrl },
         ]}
       />
@@ -76,19 +77,21 @@ export default async function ZonePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localServiceJsonLd) }}
       />
       <main className="flex min-h-screen flex-col">
-        <Screen name="zone-hero" customClassesInner="text-left">
+        <Screen name="zone-hero" customClassesInner="text-left" animate={false}>
           <div className="lg:mt-16 max-w-3xl xl:max-w-4xl">
             <MainHeading>
               <h1 className="leading-tight">
                 Rénovation, plomberie, électricité et toiture à {commune.name}
               </h1>
             </MainHeading>
-            <p className="mt-6 text-base lg:text-lg text-muted leading-relaxed lg:leading-7">
+            {/* Buttons before the long introduction, so a phone shows them in the first screen. */}
+            <div className="mt-6 flex flex-wrap gap-4">
+              <CallButton />
+              <ButtonLink href="/#contact" variant="tertiary">Demander un devis gratuit</ButtonLink>
+            </div>
+            <p className="mt-8 text-base lg:text-lg text-muted leading-relaxed lg:leading-7">
               {body}
             </p>
-            <div className="mt-8">
-              <ButtonLink href="/#contact">Demander un devis gratuit</ButtonLink>
-            </div>
           </div>
         </Screen>
 
@@ -107,7 +110,7 @@ export default async function ZonePage({
                   image={s.image}
                   title={s.title}
                   description={s.summary}
-                  footer="Voir le détail →"
+                  footer="Voir le détail"
                 />
               ))}
             </nav>

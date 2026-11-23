@@ -59,13 +59,13 @@ export const NavBar = () => {
                         </Drawer.Content>
                     </Drawer.Backdrop>
                 </Drawer>
-                <Link href="/" className="md:hidden">
+                <Link href="/" className="md:hidden" aria-label="Macar, accueil">
                     <Logo width={120} />
                 </Link>
 
                 <ul className="hidden md:flex items-center gap-6 text-sm">
                     <li>
-                        <Link href="/">
+                        <Link href="/" aria-label="Macar, accueil">
                             <Logo customClasses="hidden lg:inline" />
                             <Logo width={120} customClasses="inline lg:hidden" />
                         </Link>

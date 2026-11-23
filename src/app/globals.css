@@ -40,14 +40,4 @@
     font-size: 1rem;
     line-height: 1.625rem;
   }
-
-  /*
-   * react-responsive-carousel (logo strip) names its track "slider", like the HeroUI v3 Slider.
-   * Only the .slider declarations that the carousel stylesheet does not set itself are reset.
-   */
-  .carousel .slider {
-    gap: normal;
-    grid-template-areas: none;
-    grid-template-columns: none;
-  }
 }

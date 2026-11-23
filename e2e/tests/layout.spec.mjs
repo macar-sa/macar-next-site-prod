@@ -46,3 +46,13 @@ test.describe("1440 px", () => {
     expect(await page.evaluate(() => window.__macarAlive === true)).toBe(true);
   });
 });
+
+// Audit 2026-11-23: the logo links had no accessible name (axe link-name), the only failure of the
+// accessibility tree for AI agents.
+for (const width of [1440, 375]) {
+  test(`${width} px : lien du logo, nom accessible`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await open(page, "/about");
+    await expect(page.getByRole("link", { name: "Macar, accueil" }).filter({ visible: true })).toHaveCount(1);
+  });
+}

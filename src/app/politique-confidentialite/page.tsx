@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import { Separator } from "@heroui/react/separator";
 import Screen from "../_components/screen";
 import { SecondHeading, ThirdHeading, P } from "../_components/textStyles";
@@ -11,13 +12,7 @@ export const metadata: Metadata = {
     description:
         "Politique de confidentialité de Macar : données collectées, finalités, durée de conservation, vos droits (RGPD).",
     alternates: { canonical: "/politique-confidentialite" },
-    openGraph: {
-        title: "Politique de confidentialité | Macar",
-        description:
-            "Comment Macar traite vos données personnelles, conformément au RGPD.",
-        url: "https://www.macar.be/politique-confidentialite",
-        type: "website",
-    },
+    openGraph: pageOpenGraph({ title: "Politique de confidentialité | Macar", description: "Comment Macar traite vos données personnelles, conformément au RGPD.", path: "/politique-confidentialite" }),
 };
 
 const sectionGrid = "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 py-10";
@@ -33,7 +28,7 @@ export default function PolitiqueConfidentialitePage() {
                     { name: "Politique de confidentialité", url: "https://www.macar.be/politique-confidentialite" },
                 ]}
             />
-            <Screen name="politique-confidentialite">
+            <Screen name="politique-confidentialite" animate={false}>
                 <SecondHeading>
                     <h1 className="leading-tight">Politique de confidentialité</h1>
                 </SecondHeading>

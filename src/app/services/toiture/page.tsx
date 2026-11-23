@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import ServiceDetailBody from "@/app/_components/ServiceDetailBody";
 import { toitureService } from "@/lib/services";
 
@@ -7,13 +8,7 @@ export const metadata: Metadata = {
   description:
     "Macar, couvreur à Bruxelles depuis 2002 : couverture en tuiles, toit plat Derbigum/EPDM, velux et lucarnes, corniches et gouttières zinc. Devis gratuit.",
   alternates: { canonical: "/services/toiture" },
-  openGraph: {
-    title: "Couvreur à Bruxelles | Macar",
-    description:
-      "Toiture en tuiles, toit plat Derbigum/EPDM, velux, corniches et gouttières zinc à Bruxelles. Devis gratuit.",
-    url: "https://www.macar.be/services/toiture",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: "Couvreur à Bruxelles | Macar", description: "Toiture en tuiles, toit plat Derbigum/EPDM, velux, corniches et gouttières zinc à Bruxelles. Devis gratuit.", path: "/services/toiture" }),
 };
 
 // Roofing ad landing page: Bruxelles-Ville (headquarters) first, then the communes whose page

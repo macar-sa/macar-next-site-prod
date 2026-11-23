@@ -1,6 +1,7 @@
 import Image from "next/image";
 import NextLink from "next/link";
 import { Card } from "@heroui/react/card";
+import { ArrowRight } from "lucide-react";
 
 // A HeroUI v3 Card, with its own styles, that links to a page as a whole. The <a> only wraps the
 // card and stretches it to the height of its grid row. Server-safe (deep import of the Card).
@@ -29,7 +30,10 @@ export function ServiceCard({
         </Card.Header>
         {footer && (
           <Card.Footer className="mt-auto">
-            <span className="text-sm font-medium text-accent">{footer}</span>
+            <span className="inline-flex items-center gap-1 text-sm font-medium text-accent">
+              {footer}
+              <ArrowRight aria-hidden size={16} />
+            </span>
           </Card.Footer>
         )}
       </Card>

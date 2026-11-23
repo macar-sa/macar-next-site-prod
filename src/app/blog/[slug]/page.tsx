@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import Image from "next/image";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
@@ -35,20 +36,17 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
 
-  const url = `${SITE_URL}/blog/${post.slug}`;
 
   return {
     title: `${post.title} | Macar`,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title: post.title,
-      description: post.description,
-      url,
+      ...pageOpenGraph({ title: post.title, description: post.description, path: `/blog/${post.slug}` }),
       type: "article",
       publishedTime: post.datePublished,
       modifiedTime: post.dateModified,
-      images: post.cover ? [{ url: post.cover }] : undefined,
+      ...(post.cover ? { images: [{ url: post.cover }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
@@ -75,17 +73,17 @@ export default async function BlogPostPage({
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     image: coverAbs,
-    datePublished: post.datePublished,
-    dateModified: post.dateModified,
-    author: {
-      "@type": "Organization",
-      name: "Macar",
-      url: SITE_URL,
-    },
+    datePublished: new Date(post.datePublished).toISOString(),
+    dateModified: new Date(post.dateModified).toISOString(),
+    // Articles are signed by Macar's manager (confirmed by Macar on 2026-11-23).
+    author:
+      post.author === "Macar"
+        ? { "@type": "Organization", "@id": LOCAL_BUSINESS_ID, name: "Macar" }
+        : { "@type": "Person", name: post.author, jobTitle: "Gérant", worksFor: { "@id": LOCAL_BUSINESS_ID } },
     publisher: { "@id": LOCAL_BUSINESS_ID },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -114,7 +112,7 @@ export default async function BlogPostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      <Screen name="post-hero">
+      <Screen name="post-hero" animate={false}>
         <article className="mx-auto max-w-3xl">
           {/* Visible trail, same items as the JSON-LD above. flex-wrap and shrink on the last item
               let a long title wrap on a phone instead of overflowing (layout classes only). */}
@@ -133,6 +131,12 @@ export default async function BlogPostPage({
             <span>{formatPostDateFR(post.datePublished)}</span>
             <span aria-hidden="true">·</span>
             <span>{post.readingMinutes} min de lecture</span>
+            {post.author !== "Macar" && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>Par {post.author}, gérant</span>
+              </>
+            )}
           </div>
 
           <h1 className="text-3xl lg:text-5xl text-foreground font-heading leading-tight lg:leading-none mb-6">
@@ -176,7 +180,7 @@ export default async function BlogPostPage({
                 Un projet en tête ?
               </h2>
               <Card.Description className="max-w-prose">
-                Macar accompagne particuliers et professionnels à Bruxelles et alentours depuis 2002. Demandez un devis gratuit et sans engagement.
+                Macar accompagne particuliers et professionnels partout en Belgique depuis 2002. Demandez un devis gratuit et sans engagement.
               </Card.Description>
             </Card.Header>
             <Card.Footer className="flex-wrap gap-3">

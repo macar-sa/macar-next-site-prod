@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 import ServiceDetailBody from "@/app/_components/ServiceDetailBody";
 import { renovationService } from "@/lib/services";
 
@@ -8,13 +9,7 @@ export const metadata: Metadata = {
   description:
     "Macar, entreprise de rénovation à Bruxelles depuis 2002 : peinture, plafonds, carrelage, parquet, isolation de façade et crépi. Devis gratuit sur mesure.",
   alternates: { canonical: "/services/renovation" },
-  openGraph: {
-    title: "Rénovation intérieure et extérieure à Bruxelles | Macar",
-    description:
-      "Peinture, plafonds, carrelage, isolation de façade : rénovation intérieure et extérieure à Bruxelles. Devis gratuit.",
-    url: "https://www.macar.be/services/renovation",
-    type: "website",
-  },
+  openGraph: pageOpenGraph({ title: "Rénovation intérieure et extérieure à Bruxelles | Macar", description: "Peinture, plafonds, carrelage, isolation de façade : rénovation intérieure et extérieure à Bruxelles. Devis gratuit.", path: "/services/renovation" }),
 };
 
 export default function RenovationPage() {

@@ -10,13 +10,14 @@ import GoogleTag from "./_components/GoogleTag";
 import ConversionTracking from "./_components/ConversionTracking";
 import MetaPixel from "./_components/MetaPixel";
 import { Analytics } from "@vercel/analytics/react"
-import { localBusinessJsonLd } from "@/lib/seo/localBusiness";
+import { localBusinessJsonLd, websiteJsonLd } from "@/lib/seo/localBusiness";
+import { pageOpenGraph } from "@/lib/seo/openGraph";
 
 const open_sans = Open_Sans({ subsets: ['latin'], variable: '--font-open-sans' })
 const raptor = localFont({
   src: [
     {
-      path: "../../public/fonts/raptor/Semibold.otf",
+      path: "../../public/fonts/raptor/Semibold.woff2",
       weight: "600"
     }
   ],
@@ -30,35 +31,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.macar.be/"),
   title: defaultTitle,
   description: defaultDescription,
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: defaultTitle,
-    description: defaultDescription,
-    url: "https://www.macar.be/",
-    siteName: "Macar",
-    images: [
-      {
-        url: "/opengraph/OpengraphSmall.png",
-        width: 800,
-        height: 600,
-      },
-      {
-        url: "/opengraph/OpengraphLarge.png",
-        width: 1800,
-        height: 1600,
-      },
-    ],
-    locale: "fr_BE",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: defaultTitle,
-    description: defaultDescription,
-    images: ["/opengraph/OpengraphLarge.png"],
-  },
+  openGraph: pageOpenGraph({ title: defaultTitle, description: defaultDescription, path: "/" }),
+  // Card type only: Next fills twitter:title, description and image from each page's openGraph.
+  twitter: { card: "summary_large_image" },
   // TODO: set NEXT_PUBLIC_GSC_TOKEN and NEXT_PUBLIC_BING_TOKEN in Vercel env, then submit /sitemap.xml in GSC + Bing Webmaster.
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_TOKEN,
@@ -103,6 +78,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className="bg-background text-muted antialiased">
