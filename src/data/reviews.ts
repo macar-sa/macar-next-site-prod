@@ -8,7 +8,29 @@ export type GoogleReview = {
   ownerResponse?: string;
 };
 
+// Newest first. Latest three read on Google Maps on 2026-11-23.
 export const reviews: GoogleReview[] = [
+  {
+    authorName: "Andre Vangrunderbeek",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a/ACg8ocI7eLhx3fObMIZxUjdrbc0vcFOyJuCHawsyYfNDpoTpGUTo0Q=w72-h72-p-rp-mo-br100",
+    rating: 5,
+    text: "Très bonne entreprise : bon dialogue avec nous avant, pendant et après le chantier, prix corrects, exécution soignée, date de début de chantier respectée de même que les délais.",
+  },
+  {
+    authorName: "Quentin Gontier",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a/ACg8ocIKDjsXfR7aEnqqWxNXlix-R1L-UgBXGt-ayK5Ge6PzQt-sGQ=w72-h72-p-rp-mo-br100",
+    rating: 5,
+    text: "Cela fait presque 2 ans que je travaille avec Macar sur plusieurs gros chantiers, et je n’ai jamais vu de devis aussi détaillé. C’est pourtant exactement ce que j’attends d’un entrepreneur soucieux du travail bien fait.\n\nShkelzen, ses frères et toute leur équipe sont toujours à l’écoute. Ils proposent des alternatives pertinentes et expliquent très clairement les travaux à réaliser ainsi que les techniques utilisées. J’ai également bénéficié à de nombreuses reprises de leurs précieux conseils pour des travaux que je réalise moi-même.\n\nJe ne demande tout simplement plus d’autres devis, car je sais que le travail sera toujours bien fait, à un prix très honnête, avec une réactivité exceptionnelle et des solutions adaptées. Lorsque c’est possible, ils proposent également des alternatives, toujours avec des explications claires. Le suivi après travaux est toujours garanti.\n\nC’est une entreprise sérieuse, honnête et réactive, sur laquelle on peut vraiment compter !",
+  },
+  {
+    authorName: "Jean-Marc blois",
+    authorPhotoUrl:
+      "https://lh3.googleusercontent.com/a-/ALV-UjXeUD78mTMAdlSt3lU8zXh1AyFw2C_WNLE7xRqpVL1RqdE1CcOk=w72-h72-p-rp-mo-ba12-br100",
+    rating: 5,
+    text: "Je suis très content des travaux effectués chez moi. Cette société est très professionnelle dans ses réalisations et respectueuse des délais. Les dates ont été respectées. Je conseille vivement cette entreprise. Encore un grand merci à cette société pour le travail et pour son prix que je trouve très raisonnable.\nLongue vie à vous.",
+  },
   {
     authorName: "Carole Jenner",
     authorPhotoUrl:

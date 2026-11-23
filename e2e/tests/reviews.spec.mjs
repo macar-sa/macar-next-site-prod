@@ -108,6 +108,15 @@ test.describe("avis à jour", () => {
     await expect(page.getByText("· 20 avis Google")).toBeVisible();
   });
 
+  // Latest reviews on Google Maps, read on 2026-11-23, shown first.
+  test("les trois derniers avis Google ouvrent le carrousel", async ({ page }) => {
+    const cards = page.locator('#reviews [data-slot="card"]');
+    await expect(cards.nth(0)).toContainText("Andre Vangrunderbeek");
+    await expect(cards.nth(1)).toContainText("Quentin Gontier");
+    await expect(cards.nth(2)).toContainText("Jean-Marc blois");
+    await expect(cards).toHaveCount(15);
+  });
+
   test("pas de date relative figée sur les cartes", async ({ page }) => {
     await expect(page.locator('#reviews [data-slot="card"]').filter({ hasText: /Il y a/ })).toHaveCount(0);
   });
@@ -168,3 +177,22 @@ test("retour sur l'onglet : pas de saut du carrousel", async ({ page, context, b
   await page.waitForTimeout(150);
   expect((await left(page)) - before).toBeLessThan(30);
 });
+
+// A review cut by the 3-line clamp always offers "Voir plus", whatever its length in characters
+// (Andre Vangrunderbeek's 177 characters were cut without the button).
+for (const width of [1440, 375]) {
+  test(`${width} px : chaque avis tronqué a son bouton Voir plus`, async ({ page, context, baseURL }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await prepare(context, baseURL);
+    await open(page, "/");
+    const cards = page.locator('#reviews [data-slot="card"]');
+    await expect(cards.first()).toBeVisible();
+    const missing = await cards.evaluateAll((els) => els
+      .filter((el) => {
+        const p = el.querySelector("p.line-clamp-3");
+        return p && p.scrollHeight > p.clientHeight + 1 && !el.textContent.includes("Voir plus");
+      })
+      .map((el) => el.querySelector("p")?.textContent));
+    expect(missing).toEqual([]);
+  });
+}
