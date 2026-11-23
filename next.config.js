@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: __dirname,
+  images: {
+    // AVIF first (smaller), WebP for browsers without AVIF; optimised images kept a month.
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2678400,
+  },
   // No Content-Security-Policy yet: Google, Meta, Formspree and Vercel Analytics need an
   // allow-list first (start with Content-Security-Policy-Report-Only).
   async headers() {

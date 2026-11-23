@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Chip } from "@heroui/react/chip";
 import { SecondHeading } from "./textStyles";
+import { ArrowRight } from "lucide-react";
 import { TextLink } from "./links";
 import type { ServiceItem } from "@/lib/services";
 
@@ -43,7 +44,10 @@ export default function ServiceSection({
             ))}
           </div>
           <p className="text-sm">
-            <TextLink href="#contact">Demander un devis pour ce service →</TextLink>
+            <TextLink href="#contact" className="gap-1">
+              Demander un devis pour ce service
+              <ArrowRight aria-hidden size={16} />
+            </TextLink>
           </p>
         </div>
         <div className="mt-6 lg:mt-0">

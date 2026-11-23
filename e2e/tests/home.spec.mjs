@@ -70,3 +70,59 @@ test.describe("premier écran mobile : appeler et demander un devis", () => {
     });
   }
 });
+
+// Task 15 (audit 23/11/2026): page weight.
+test.describe("poids de la page", () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
+  test.beforeEach(async ({ context, baseURL }) => prepare(context, baseURL));
+
+  test("police des titres en woff2", async ({ page }) => {
+    const fonts = [];
+    page.on("request", (r) => { if (r.resourceType() === "font") fonts.push(r.url()); });
+    await open(page, "/");
+    await page.evaluate(() => document.fonts.ready);
+    expect(fonts.filter((u) => /\.otf(\?|$)/.test(u))).toEqual([]);
+    expect(fonts.some((u) => /\.woff2(\?|$)/.test(u))).toBe(true);
+  });
+
+  test("logos partenaires : un nom accessible chacun, une taille adaptée, aucun doublon", async ({ page }) => {
+    await open(page, "/");
+    const logos = page.locator('main img[src*="companies"]');
+    await expect(logos).toHaveCount(5);
+    for (const img of await logos.all()) {
+      await expect(img).toHaveAttribute("alt", /^Logo /);
+      expect(await img.getAttribute("sizes")).not.toBe("100vw");
+    }
+  });
+
+  test("images optimisées en AVIF, gardées un mois en cache", async ({ request }) => {
+    const res = await request.get("/_next/image?url=%2Flandpage_pics%2Fconstruction-tool.webp&w=640&q=75", {
+      headers: { Accept: "image/avif,image/webp,*/*" },
+    });
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toBe("image/avif");
+    expect(res.headers()["cache-control"]).toContain("max-age=2678400");
+  });
+});
+
+test("flèches « Voir le détail » : icône décorative, pas de caractère →", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  for (const path of ["/services", "/zones/ixelles", "/services/toiture"]) {
+    await open(page, path);
+    await expect(page.locator("main"), path).not.toContainText("→");
+    await expect(page.locator('main svg.lucide-arrow-right:not([aria-hidden="true"])'), path).toHaveCount(0);
+    expect(await page.locator("main svg.lucide-arrow-right").count(), path).toBeGreaterThan(0);
+  }
+});
+
+test("À propos : aucune erreur dans la console", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  const errors = [];
+  // Rendering errors only: the tests block external requests and the local server has no
+  // /_vercel/insights script, so "Failed to load resource" messages are expected here.
+  page.on("console", (m) => { if (m.type() === "error" && !m.text().startsWith("Failed to load resource")) errors.push(m.text()); });
+  page.on("pageerror", (e) => errors.push(e.message));
+  await open(page, "/about");
+  await page.waitForTimeout(500);
+  expect(errors).toEqual([]);
+});

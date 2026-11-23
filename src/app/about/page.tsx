@@ -92,7 +92,7 @@ export default function about() {
                         <Logo_specific
                             logoType="Logo_border_white"
                             complexity="svg_complete"
-                            width="auto"
+                            width="300"
                             customClasses="hidden lg:inline"
                         />
                     </div>

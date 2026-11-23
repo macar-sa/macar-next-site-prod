@@ -17,7 +17,7 @@ const open_sans = Open_Sans({ subsets: ['latin'], variable: '--font-open-sans' }
 const raptor = localFont({
   src: [
     {
-      path: "../../public/fonts/raptor/Semibold.otf",
+      path: "../../public/fonts/raptor/Semibold.woff2",
       weight: "600"
     }
   ],

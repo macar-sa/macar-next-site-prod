@@ -7,8 +7,8 @@ import { useRef, useState, useEffect, useCallback, type FocusEvent } from "react
 import { useReducedMotion } from "framer-motion";
 import { reviews, type GoogleReview } from "@/data/reviews";
 
-const CAROUSEL_SCROLL_STEP = 1;
-const CAROUSEL_INTERVAL_MS = 30;
+// Auto-scroll speed: 1 px every 30 ms, as before, now driven by requestAnimationFrame.
+const CAROUSEL_SPEED_PX_PER_MS = 1 / 30;
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -106,18 +106,27 @@ export default function GoogleReviews() {
     // and smooth scrolling are off while the carousel runs and restored on pause and unmount.
     el.style.scrollSnapType = "none";
     el.style.scrollBehavior = "auto";
-    const id = setInterval(() => {
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (maxScroll <= 0) return;
-      // At the end of the list, loop back to the start.
-      if (el.scrollLeft >= maxScroll - 1) {
-        el.scrollLeft = 0;
-        return;
+    // The scroll range is measured once and on resize, not on every frame; the position is kept
+    // as a float so sub-pixel steps add up even where the browser rounds scrollLeft.
+    let maxScroll = el.scrollWidth - el.clientWidth;
+    const resize = new ResizeObserver(() => { maxScroll = el.scrollWidth - el.clientWidth; });
+    resize.observe(el);
+    let position = el.scrollLeft;
+    let last: number | null = null;
+    let frame = 0;
+    const step = (now: number) => {
+      if (last !== null && maxScroll > 0) {
+        // At the end of the list, loop back to the start.
+        position = position >= maxScroll - 1 ? 0 : position + (now - last) * CAROUSEL_SPEED_PX_PER_MS;
+        el.scrollLeft = position;
       }
-      el.scrollLeft += CAROUSEL_SCROLL_STEP;
-    }, CAROUSEL_INTERVAL_MS);
+      last = now;
+      frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
     return () => {
-      clearInterval(id);
+      cancelAnimationFrame(frame);
+      resize.disconnect();
       el.style.scrollSnapType = "";
       el.style.scrollBehavior = "smooth";
     };

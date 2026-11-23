@@ -110,7 +110,7 @@ export default async function ZonePage({
                   image={s.image}
                   title={s.title}
                   description={s.summary}
-                  footer="Voir le détail →"
+                  footer="Voir le détail"
                 />
               ))}
             </nav>

@@ -104,7 +104,7 @@ export default function ServicesIndexPage() {
                   image={s.image}
                   title={s.title}
                   description={s.summary}
-                  footer="Voir le détail →"
+                  footer="Voir le détail"
                 />
               ))}
             </nav>
