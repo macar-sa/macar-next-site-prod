@@ -32,12 +32,8 @@ export const metadata: Metadata = {
   title: defaultTitle,
   description: defaultDescription,
   openGraph: pageOpenGraph({ title: defaultTitle, description: defaultDescription, path: "/" }),
-  twitter: {
-    card: "summary_large_image",
-    title: defaultTitle,
-    description: defaultDescription,
-    images: ["/opengraph/OpengraphLarge.png"],
-  },
+  // Card type only: Next fills twitter:title, description and image from each page's openGraph.
+  twitter: { card: "summary_large_image" },
   // TODO: set NEXT_PUBLIC_GSC_TOKEN and NEXT_PUBLIC_BING_TOKEN in Vercel env, then submit /sitemap.xml in GSC + Bing Webmaster.
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_TOKEN,

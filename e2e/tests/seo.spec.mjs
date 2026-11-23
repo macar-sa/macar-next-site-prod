@@ -55,6 +55,9 @@ for (const p of PAGES.filter((p) => p.slug !== "not-found")) {
     expect(strip(ogUrl)).toBe(strip(expected));
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
     expect(strip(canonical)).toBe(strip(expected));
+    // Final review: the layout's twitter title was inherited by every page.
+    const ogTitle = await page.locator('meta[property="og:title"]').getAttribute("content");
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute("content", ogTitle);
   });
 }
 
@@ -108,6 +111,7 @@ test("JobPosting sur /job", async ({ page, context, baseURL }) => {
   expect(job.title).toBe("Ouvrier polyvalent (Indépendant)");
   expect(job.employmentType).toBe("CONTRACTOR");
   expect(job.hiringOrganization["@id"]).toBe(BUSINESS_ID);
+  expect(job.hiringOrganization["@type"]).toBe("Organization");
   expect(job.jobLocation.address.postalCode).toBe("1020");
   expect(job.datePosted).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   expect(job.validThrough).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -132,4 +136,10 @@ test("Service relié au catalogue de l'entreprise", async ({ page, context, base
   const business = nodes.find((n) => n["@id"] === BUSINESS_ID);
   const ids = business.hasOfferCatalog.itemListElement.map((o) => o.itemOffered["@id"]);
   expect(ids).toContain("https://www.macar.be/services/toiture#service");
+});
+
+test("article : l'auteur du JSON-LD est visible sur la page", async ({ page, context, baseURL }) => {
+  await prepare(context, baseURL);
+  await open(page, "/blog/isolation-facade");
+  await expect(page.locator("main")).toContainText("Par Shkelzen Shalaj, gérant");
 });

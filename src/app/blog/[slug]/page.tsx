@@ -131,6 +131,12 @@ export default async function BlogPostPage({
             <span>{formatPostDateFR(post.datePublished)}</span>
             <span aria-hidden="true">·</span>
             <span>{post.readingMinutes} min de lecture</span>
+            {post.author !== "Macar" && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>Par {post.author}, gérant</span>
+              </>
+            )}
           </div>
 
           <h1 className="text-3xl lg:text-5xl text-foreground font-heading leading-tight lg:leading-none mb-6">

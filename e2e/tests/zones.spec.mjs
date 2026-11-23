@@ -37,3 +37,9 @@ test("sitemap : /zones présent", async ({ request }) => {
   const xml = await (await request.get("/sitemap.xml")).text();
   expect(xml).toContain("<loc>https://www.macar.be/zones</loc>");
 });
+
+// Final review: 16 of the 19 Brussels communes have a page, the hub must not claim all of them.
+test("/zones : pas d'affirmation sur toutes les communes", async ({ page }) => {
+  await open(page, "/zones");
+  await expect(page.locator("main")).not.toContainText("Chaque commune bruxelloise a sa page");
+});

@@ -24,7 +24,7 @@ const jobPostingJsonLd = {
     datePosted: JOB_DATE_POSTED,
     validThrough: JOB_VALID_THROUGH,
     employmentType: "CONTRACTOR",
-    hiringOrganization: { "@id": LOCAL_BUSINESS_ID, name: "Macar" },
+    hiringOrganization: { "@type": "Organization", "@id": LOCAL_BUSINESS_ID, name: "Macar" },
     jobLocation: {
         "@type": "Place",
         address: {
