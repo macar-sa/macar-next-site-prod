@@ -270,7 +270,7 @@ Le renommage du slug `prix-renovation-toiture` n'est **pas** dans cette branche 
 
 ### Relecture de fin de phase 2
 
-- [ ] Relecture indépendante du diff de la phase (agent neuf, modèle le plus capable), en plus de la relecture du texte par Macar : affirmations vérifiables, règles éditoriales de `CLAUDE.md`, faits confirmés ci-dessus. Points critiques et importants corrigés avec un test vu en échec puis au vert ; mineurs listés.
+- [x] Relecture indépendante du diff de la phase (agent neuf, modèle le plus capable), en plus de la relecture du texte par Macar : affirmations vérifiables, règles éditoriales de `CLAUDE.md`, faits confirmés ci-dessus. Points critiques et importants corrigés avec un test vu en échec puis au vert ; mineurs listés.
 
 ## Phase 3 : mobile et performance
 
