@@ -189,6 +189,10 @@
 - [ ] **Step 4 : lancer**, attendu PASS.
 - [ ] **Step 5 : commit** `feat: add WebSite, JobPosting and BlogPosting data, link services and update the review count`
 
+### Relecture de fin de phase 1
+
+- [x] Relecture indépendante de toute la phase (agent neuf, modèle le plus capable) sur le diff `dab66f8..9e6f7ed` : 4 points importants corrigés dans `43466db` (chacun avec un test vu en échec puis au vert, suite 231/231), 6 points mineurs reportés et listés dans le registre.
+
 ## Phase 2 : contenu (relecture par Macar avant fusion)
 
 Chaque tâche de cette phase liste dans la description de la PR les phrases ajoutées ou retirées, pour relecture.
@@ -264,6 +268,10 @@ Le renommage du slug `prix-renovation-toiture` n'est **pas** dans cette branche 
 - [ ] **Step 4 : lancer**, attendu PASS.
 - [ ] **Step 5 : commit** `content: tell who runs Macar and how it works on the about page`
 
+### Relecture de fin de phase 2
+
+- [ ] Relecture indépendante du diff de la phase (agent neuf, modèle le plus capable), en plus de la relecture du texte par Macar : affirmations vérifiables, règles éditoriales de `CLAUDE.md`, faits confirmés ci-dessus. Points critiques et importants corrigés avec un test vu en échec puis au vert ; mineurs listés.
+
 ## Phase 3 : mobile et performance
 
 ### Task 13 : contenu visible sans attendre le JavaScript
@@ -317,6 +325,10 @@ Le renommage du slug `prix-renovation-toiture` n'est **pas** dans cette branche 
   - Formulaire : `fetch` au lieu d'`axios`, même charge utile et mêmes champs ajoutés (`origine`, `page`, `gclid`), puis `npm uninstall axios`.
 - [ ] **Step 4 : lancer** `npm run build` puis toute la suite e2e, attendu PASS.
 - [ ] **Step 5 : commit** `perf: lighter font, reviews, icons, logos and form request`
+
+### Relecture de fin de phase 3
+
+- [ ] Relecture indépendante du diff de la phase (agent neuf, modèle le plus capable) ; mêmes règles de correction qu'aux phases 1 et 2.
 
 ## Fin de branche
 
